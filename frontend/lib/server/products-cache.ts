@@ -121,6 +121,35 @@ async function downloadAndCache(): Promise<ProductsResponse | null> {
  * Ottiene i prodotti con sistema di cache locale
  */
 export async function getCachedProducts(): Promise<ProductsResponse> {
+  // Se siamo su Vercel (processo.env.VERCEL), scarica direttamente senza cache filesystem
+  const isVercel = process.env.VERCEL === '1';
+
+  if (isVercel) {
+    console.log('[Cache] Running on Vercel, downloading directly without filesystem cache...');
+    try {
+      const response = await fetch(PRODUCTS_URL, {
+        next: { revalidate: 900 }, // Cache Next.js per 15 minuti
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data: ProductsResponse = await response.json();
+      console.log(`[Cache] Downloaded ${data.total || data.prodotti?.length || 0} products from remote`);
+      return data;
+    } catch (error) {
+      console.error('[Cache] Error downloading products on Vercel:', error);
+      // Ritorna dati vuoti se il download fallisce
+      return {
+        prodotti: [],
+        generated_at: new Date().toISOString(),
+        total: 0
+      };
+    }
+  }
+
+  // Logica normale per ambiente locale con filesystem
   // Verifica se la cache è valida
   if (isCacheValid()) {
     console.log('[Cache] Using cached products');
