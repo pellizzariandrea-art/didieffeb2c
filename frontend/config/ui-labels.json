@@ -1,0 +1,1162 @@
+{
+  "product": {
+    "code": {
+      "it": "Cod.",
+      "en": "Code",
+      "de": "Code",
+      "fr": "Code",
+      "es": "Cód.",
+      "pt": "Cód."
+    },
+    "file": {
+      "it": "file",
+      "en": "file",
+      "de": "Datei",
+      "fr": "fichier",
+      "es": "archivo",
+      "pt": "arquivo"
+    },
+    "files": {
+      "it": "file",
+      "en": "files",
+      "de": "Dateien",
+      "fr": "fichiers",
+      "es": "archivos",
+      "pt": "arquivos"
+    },
+    "price_suffix": {
+      "it": "IVA esclusa",
+      "en": "VAT excluded",
+      "de": "MwSt. ausgeschlossen",
+      "fr": "TVA exclue",
+      "es": "IVA excluido",
+      "pt": "IVA excluído"
+    },
+    "availability": {
+      "available": {
+        "it": "Disponibile",
+        "en": "Available",
+        "de": "Verfügbar",
+        "fr": "Disponible",
+        "es": "Disponible",
+        "pt": "Disponível"
+      },
+      "not_available": {
+        "it": "Non disponibile",
+        "en": "Not available",
+        "de": "Nicht verfügbar",
+        "fr": "Non disponible",
+        "es": "No disponible",
+        "pt": "Não disponível"
+      },
+      "pieces": {
+        "it": "pz",
+        "en": "pcs",
+        "de": "Stk",
+        "fr": "pcs",
+        "es": "uds",
+        "pt": "pcs"
+      }
+    },
+    "specifications_title": {
+      "it": "Specifiche tecniche",
+      "en": "Technical specifications",
+      "de": "Technische Spezifikationen",
+      "fr": "Spécifications techniques",
+      "es": "Especificaciones técnicas",
+      "pt": "Especificações técnicas"
+    },
+    "resources_title": {
+      "it": "Documenti disponibili",
+      "en": "Available documents",
+      "de": "Verfügbare Dokumente",
+      "fr": "Documents disponibles",
+      "es": "Documentos disponibles",
+      "pt": "Documentos disponíveis"
+    },
+    "back_to_catalog": {
+      "it": "Torna al catalogo",
+      "en": "Back to catalog",
+      "de": "Zurück zum Katalog",
+      "fr": "Retour au catalogue",
+      "es": "Volver al catálogo",
+      "pt": "Voltar ao catálogo"
+    },
+    "no_image": {
+      "it": "Nessuna immagine disponibile",
+      "en": "No image available",
+      "de": "Kein Bild verfügbar",
+      "fr": "Aucune image disponible",
+      "es": "No hay imagen disponible",
+      "pt": "Nenhuma imagem disponível"
+    },
+    "add_to_cart": {
+      "it": "Aggiungi al carrello",
+      "en": "Add to cart",
+      "de": "In den Warenkorb",
+      "fr": "Ajouter au panier",
+      "es": "Añadir al carrito",
+      "pt": "Adicionar ao carrinho"
+    },
+    "click_to_zoom": {
+      "it": "Clicca per ingrandire",
+      "en": "Click to zoom",
+      "de": "Klicken zum Vergrößern",
+      "fr": "Cliquer pour agrandir",
+      "es": "Clic para ampliar",
+      "pt": "Clique para ampliar"
+    },
+    "add": {
+      "it": "Aggiungi",
+      "en": "Add",
+      "de": "Hinzufügen",
+      "fr": "Ajouter",
+      "es": "Añadir",
+      "pt": "Adicionar"
+    },
+    "quick_view": {
+      "it": "Anteprima rapida",
+      "en": "Quick view",
+      "de": "Schnellansicht",
+      "fr": "Aperçu rapide",
+      "es": "Vista rápida",
+      "pt": "Visualização rápida"
+    },
+    "view_details": {
+      "it": "Vedi dettagli completi",
+      "en": "View full details",
+      "de": "Vollständige Details anzeigen",
+      "fr": "Voir les détails complets",
+      "es": "Ver detalles completos",
+      "pt": "Ver detalhes completos"
+    },
+    "select_variant": {
+      "it": "Seleziona variante",
+      "en": "Select variant",
+      "de": "Variante auswählen",
+      "fr": "Sélectionner la variante",
+      "es": "Seleccionar variante",
+      "pt": "Selecionar variante"
+    },
+    "add_to_wishlist": {
+      "it": "Aggiungi ai preferiti",
+      "en": "Add to wishlist",
+      "de": "Zur Wunschliste hinzufügen",
+      "fr": "Ajouter aux favoris",
+      "es": "Añadir a favoritos",
+      "pt": "Adicionar aos favoritos"
+    },
+    "add_to_wishlist_short": {
+      "it": "Preferiti",
+      "en": "Wishlist",
+      "de": "Wunschliste",
+      "fr": "Favoris",
+      "es": "Favoritos",
+      "pt": "Favoritos"
+    },
+    "in_wishlist": {
+      "it": "Nei preferiti",
+      "en": "In wishlist",
+      "de": "In Wunschliste",
+      "fr": "Dans les favoris",
+      "es": "En favoritos",
+      "pt": "Nos favoritos"
+    },
+    "remove_from_wishlist": {
+      "it": "Rimuovi dai preferiti",
+      "en": "Remove from wishlist",
+      "de": "Von Wunschliste entfernen",
+      "fr": "Retirer des favoris",
+      "es": "Quitar de favoritos",
+      "pt": "Remover dos favoritos"
+    }
+  },
+  "common": {
+    "yes": {
+      "it": "Sì",
+      "en": "Yes",
+      "de": "Ja",
+      "fr": "Oui",
+      "es": "Sí",
+      "pt": "Sim"
+    },
+    "no": {
+      "it": "No",
+      "en": "No",
+      "de": "Nein",
+      "fr": "Non",
+      "es": "No",
+      "pt": "Não"
+    },
+    "cancel": {
+      "it": "Annulla",
+      "en": "Cancel",
+      "de": "Abbrechen",
+      "fr": "Annuler",
+      "es": "Cancelar",
+      "pt": "Cancelar"
+    },
+    "loading": {
+      "it": "Caricamento...",
+      "en": "Loading...",
+      "de": "Wird geladen...",
+      "fr": "Chargement...",
+      "es": "Cargando...",
+      "pt": "Carregando..."
+    }
+  },
+  "variants": {
+    "title": {
+      "it": "Varianti disponibili",
+      "en": "Available variants",
+      "de": "Verfügbare Varianten",
+      "fr": "Variantes disponibles",
+      "es": "Variantes disponibles",
+      "pt": "Variantes disponíveis"
+    },
+    "badge_short": {
+      "it": "Var.",
+      "en": "Var.",
+      "de": "Var.",
+      "fr": "Var.",
+      "es": "Var.",
+      "pt": "Var."
+    },
+    "badge_long": {
+      "it": "Variante",
+      "en": "Variant",
+      "de": "Variante",
+      "fr": "Variante",
+      "es": "Variante",
+      "pt": "Variante"
+    },
+    "badge_of": {
+      "it": "di",
+      "en": "of",
+      "de": "von",
+      "fr": "de",
+      "es": "de",
+      "pt": "de"
+    },
+    "select": {
+      "it": "Seleziona variante",
+      "en": "Select variant",
+      "de": "Variante auswählen",
+      "fr": "Sélectionner une variante",
+      "es": "Seleccionar variante",
+      "pt": "Selecionar variante"
+    },
+    "selected_config": {
+      "it": "Configurazione selezionata",
+      "en": "Selected configuration",
+      "de": "Ausgewählte Konfiguration",
+      "fr": "Configuration sélectionnée",
+      "es": "Configuración seleccionada",
+      "pt": "Configuração selecionada"
+    },
+    "view_full_table": {
+      "it": "Vista tabella completa",
+      "en": "View full table",
+      "de": "Vollständige Tabelle anzeigen",
+      "fr": "Voir le tableau complet",
+      "es": "Ver tabla completa",
+      "pt": "Ver tabela completa"
+    },
+    "click_to_select": {
+      "it": "Clicca su una cella per selezionare la variante desiderata",
+      "en": "Click on a cell to select the desired variant",
+      "de": "Klicken Sie auf eine Zelle, um die gewünschte Variante auszuwählen",
+      "fr": "Cliquez sur une cellule pour sélectionner la variante souhaitée",
+      "es": "Haga clic en una celda para seleccionar la variante deseada",
+      "pt": "Clique em uma célula para selecionar a variante desejada"
+    },
+    "selected": {
+      "it": "Selezionata",
+      "en": "Selected",
+      "de": "Ausgewählt",
+      "fr": "Sélectionnée",
+      "es": "Seleccionada",
+      "pt": "Selecionada"
+    },
+    "not_available": {
+      "it": "Combinazione non disponibile",
+      "en": "Combination not available",
+      "de": "Kombination nicht verfügbar",
+      "fr": "Combinaison non disponible",
+      "es": "Combinación no disponible",
+      "pt": "Combinação não disponível"
+    }
+  },
+  "gallery": {
+    "image_of": {
+      "it": "Immagine",
+      "en": "Image",
+      "de": "Bild",
+      "fr": "Image",
+      "es": "Imagen",
+      "pt": "Imagem"
+    },
+    "thumbnail": {
+      "it": "Miniatura",
+      "en": "Thumbnail",
+      "de": "Miniaturansicht",
+      "fr": "Miniature",
+      "es": "Miniatura",
+      "pt": "Miniatura"
+    }
+  },
+  "home": {
+    "title": {
+      "it": "Shop Didieffeb2b",
+      "en": "Didieffeb2b Shop",
+      "de": "Didieffeb2b Shop",
+      "fr": "Boutique Didieffeb2b",
+      "es": "Tienda Didieffeb2b",
+      "pt": "Loja Didieffeb2b"
+    },
+    "products_count": {
+      "it": "Catalogo prodotti - {count} articoli disponibili",
+      "en": "Product catalog - {count} items available",
+      "de": "Produktkatalog - {count} Artikel verfügbar",
+      "fr": "Catalogue de produits - {count} articles disponibles",
+      "es": "Catálogo de productos - {count} artículos disponibles",
+      "pt": "Catálogo de produtos - {count} itens disponíveis"
+    },
+    "product": {
+      "it": "prodotto",
+      "en": "product",
+      "de": "Produkt",
+      "fr": "produit",
+      "es": "producto",
+      "pt": "produto"
+    },
+    "products": {
+      "it": "prodotti",
+      "en": "products",
+      "de": "Produkte",
+      "fr": "produits",
+      "es": "productos",
+      "pt": "produtos"
+    },
+    "view_details": {
+      "it": "Vedi dettagli",
+      "en": "View details",
+      "de": "Details anzeigen",
+      "fr": "Voir les détails",
+      "es": "Ver detalles",
+      "pt": "Ver detalhes"
+    },
+    "price_label": {
+      "it": "Prezzo",
+      "en": "Price",
+      "de": "Preis",
+      "fr": "Prix",
+      "es": "Precio",
+      "pt": "Preço"
+    },
+    "no_products": {
+      "it": "Nessun prodotto trovato",
+      "en": "No products found",
+      "de": "Keine Produkte gefunden",
+      "fr": "Aucun produit trouvé",
+      "es": "No se encontraron productos",
+      "pt": "Nenhum produto encontrado"
+    },
+    "no_products_message": {
+      "it": "Prova a modificare i filtri o la ricerca per trovare quello che cerchi",
+      "en": "Try adjusting filters or search to find what you're looking for",
+      "de": "Versuchen Sie, Filter oder Suche anzupassen, um zu finden, was Sie suchen",
+      "fr": "Essayez d'ajuster les filtres ou la recherche pour trouver ce que vous cherchez",
+      "es": "Intenta ajustar los filtros o la búsqueda para encontrar lo que buscas",
+      "pt": "Tente ajustar os filtros ou a pesquisa para encontrar o que procura"
+    },
+    "no_exact_results": {
+      "it": "Nessun risultato esatto trovato",
+      "en": "No exact results found",
+      "de": "Keine exakten Ergebnisse gefunden",
+      "fr": "Aucun résultat exact trouvé",
+      "es": "No se encontraron resultados exactos",
+      "pt": "Nenhum resultado exato encontrado"
+    },
+    "check_suggestions": {
+      "it": "Ma guarda i suggerimenti qui sotto",
+      "en": "But check the suggestions below",
+      "de": "Aber sehen Sie sich die Vorschläge unten an",
+      "fr": "Mais consultez les suggestions ci-dessous",
+      "es": "Pero mira las sugerencias a continuación",
+      "pt": "Mas confira as sugestões abaixo"
+    },
+    "suggested_products": {
+      "it": "Potrebbero interessarti",
+      "en": "You might be interested in",
+      "de": "Das könnte Sie interessieren",
+      "fr": "Cela pourrait vous intéresser",
+      "es": "Te podría interesar",
+      "pt": "Pode interessar você"
+    },
+    "footer": {
+      "it": "© 2025 Didieffeb2b - E-Commerce AI Powered",
+      "en": "© 2025 Didieffeb2b - AI Powered E-Commerce",
+      "de": "© 2025 Didieffeb2b - KI-gestützter E-Commerce",
+      "fr": "© 2025 Didieffeb2b - E-Commerce alimenté par IA",
+      "es": "© 2025 Didieffeb2b - Comercio electrónico con IA",
+      "pt": "© 2025 Didieffeb2b - E-Commerce com IA"
+    },
+    "show": {
+      "it": "Mostra",
+      "en": "Show",
+      "de": "Anzeigen",
+      "fr": "Afficher",
+      "es": "Mostrar",
+      "pt": "Mostrar"
+    },
+    "active_filters": {
+      "it": "Filtri attivi:",
+      "en": "Active filters:",
+      "de": "Aktive Filter:",
+      "fr": "Filtres actifs:",
+      "es": "Filtros activos:",
+      "pt": "Filtros ativos:"
+    },
+    "previous": {
+      "it": "Precedente",
+      "en": "Previous",
+      "de": "Vorherige",
+      "fr": "Précédent",
+      "es": "Anterior",
+      "pt": "Anterior"
+    },
+    "next": {
+      "it": "Successivo",
+      "en": "Next",
+      "de": "Nächste",
+      "fr": "Suivant",
+      "es": "Siguiente",
+      "pt": "Próximo"
+    },
+    "search": {
+      "it": "Cerca prodotti...",
+      "en": "Search products...",
+      "de": "Produkte suchen...",
+      "fr": "Rechercher des produits...",
+      "es": "Buscar productos...",
+      "pt": "Pesquisar produtos..."
+    },
+    "sort_by": {
+      "it": "Ordina per",
+      "en": "Sort by",
+      "de": "Sortieren nach",
+      "fr": "Trier par",
+      "es": "Ordenar por",
+      "pt": "Ordenar por"
+    },
+    "sort": {
+      "price_asc": {
+        "it": "Prezzo: basso → alto",
+        "en": "Price: low → high",
+        "de": "Preis: niedrig → hoch",
+        "fr": "Prix: bas → élevé",
+        "es": "Precio: bajo → alto",
+        "pt": "Preço: baixo → alto"
+      },
+      "price_desc": {
+        "it": "Prezzo: alto → basso",
+        "en": "Price: high → low",
+        "de": "Preis: hoch → niedrig",
+        "fr": "Prix: élevé → bas",
+        "es": "Precio: alto → bajo",
+        "pt": "Preço: alto → baixo"
+      },
+      "name_asc": {
+        "it": "Nome: A → Z",
+        "en": "Name: A → Z",
+        "de": "Name: A → Z",
+        "fr": "Nom: A → Z",
+        "es": "Nombre: A → Z",
+        "pt": "Nome: A → Z"
+      },
+      "name_desc": {
+        "it": "Nome: Z → A",
+        "en": "Name: Z → A",
+        "de": "Name: Z → A",
+        "fr": "Nom: Z → A",
+        "es": "Nombre: Z → A",
+        "pt": "Nome: Z → A"
+      },
+      "code_asc": {
+        "it": "Codice: A → Z",
+        "en": "Code: A → Z",
+        "de": "Code: A → Z",
+        "fr": "Code: A → Z",
+        "es": "Código: A → Z",
+        "pt": "Código: A → Z"
+      },
+      "code_desc": {
+        "it": "Codice: Z → A",
+        "en": "Code: Z → A",
+        "de": "Code: Z → A",
+        "fr": "Code: Z → A",
+        "es": "Código: Z → A",
+        "pt": "Código: Z → A"
+      }
+    }
+  },
+  "search": {
+    "suggestions": {
+      "it": "suggerimenti",
+      "en": "suggestions",
+      "de": "Vorschläge",
+      "fr": "suggestions",
+      "es": "sugerencias",
+      "pt": "sugestões"
+    },
+    "keyboard_hint": {
+      "it": "Usa ↑↓ per navigare, Invio per selezionare, Esc per chiudere",
+      "en": "Use ↑↓ to navigate, Enter to select, Esc to close",
+      "de": "↑↓ zum Navigieren, Enter zum Auswählen, Esc zum Schließen",
+      "fr": "Utilisez ↑↓ pour naviguer, Entrée pour sélectionner, Échap pour fermer",
+      "es": "Usa ↑↓ para navegar, Enter para seleccionar, Esc para cerrar",
+      "pt": "Use ↑↓ para navegar, Enter para selecionar, Esc para fechar"
+    },
+    "recent_searches": {
+      "it": "Ricerche recenti",
+      "en": "Recent searches",
+      "de": "Letzte Suchen",
+      "fr": "Recherches récentes",
+      "es": "Búsquedas recientes",
+      "pt": "Pesquisas recentes"
+    },
+    "clear_all": {
+      "it": "Cancella tutto",
+      "en": "Clear all",
+      "de": "Alle löschen",
+      "fr": "Tout effacer",
+      "es": "Borrar todo",
+      "pt": "Limpar tudo"
+    },
+    "categories": {
+      "it": "Categorie",
+      "en": "Categories",
+      "de": "Kategorien",
+      "fr": "Catégories",
+      "es": "Categorías",
+      "pt": "Categorias"
+    },
+    "products": {
+      "it": "prodotti",
+      "en": "products",
+      "de": "Produkte",
+      "fr": "produits",
+      "es": "productos",
+      "pt": "produtos"
+    },
+    "no_results": {
+      "it": "Nessun risultato trovato",
+      "en": "No results found",
+      "de": "Keine Ergebnisse gefunden",
+      "fr": "Aucun résultat trouvé",
+      "es": "No se encontraron resultados",
+      "pt": "Nenhum resultado encontrado"
+    },
+    "try_different": {
+      "it": "Prova con termini di ricerca diversi",
+      "en": "Try different search terms",
+      "de": "Versuchen Sie andere Suchbegriffe",
+      "fr": "Essayez d'autres termes de recherche",
+      "es": "Prueba con otros términos de búsqueda",
+      "pt": "Tente termos de pesquisa diferentes"
+    }
+  },
+  "breadcrumb": {
+    "home": {
+      "it": "Home",
+      "en": "Home",
+      "de": "Startseite",
+      "fr": "Accueil",
+      "es": "Inicio",
+      "pt": "Início"
+    },
+    "products": {
+      "it": "Prodotti",
+      "en": "Products",
+      "de": "Produkte",
+      "fr": "Produits",
+      "es": "Productos",
+      "pt": "Produtos"
+    }
+  },
+  "not_found": {
+    "title": {
+      "it": "Prodotto non trovato",
+      "en": "Product not found",
+      "de": "Produkt nicht gefunden",
+      "fr": "Produit non trouvé",
+      "es": "Producto no encontrado",
+      "pt": "Produto não encontrado"
+    },
+    "message": {
+      "it": "Il prodotto che stai cercando non esiste o non è disponibile.",
+      "en": "The product you are looking for does not exist or is not available.",
+      "de": "Das gesuchte Produkt existiert nicht oder ist nicht verfügbar.",
+      "fr": "Le produit que vous recherchez n'existe pas ou n'est pas disponible.",
+      "es": "El producto que buscas no existe o no está disponible.",
+      "pt": "O produto que você está procurando não existe ou não está disponível."
+    }
+  },
+  "categories": {
+    "all": {
+      "it": "Tutte",
+      "en": "All",
+      "de": "Alle",
+      "fr": "Toutes",
+      "es": "Todas",
+      "pt": "Todas"
+    }
+  },
+  "recently_viewed": {
+    "title": {
+      "it": "Visti di recente",
+      "en": "Recently viewed",
+      "de": "Kürzlich angesehen",
+      "fr": "Vus récemment",
+      "es": "Vistos recientemente",
+      "pt": "Vistos recentemente"
+    },
+    "subtitle": {
+      "it": "Continua da dove hai lasciato",
+      "en": "Continue where you left off",
+      "de": "Machen Sie dort weiter, wo Sie aufgehört haben",
+      "fr": "Continuez là où vous vous êtes arrêté",
+      "es": "Continúa donde lo dejaste",
+      "pt": "Continue de onde parou"
+    }
+  },
+  "cart": {
+    "title": {
+      "it": "Il tuo carrello",
+      "en": "Your cart",
+      "de": "Ihr Warenkorb",
+      "fr": "Votre panier",
+      "es": "Tu carrito",
+      "pt": "Seu carrinho"
+    },
+    "item": {
+      "it": "prodotto",
+      "en": "item",
+      "de": "Artikel",
+      "fr": "article",
+      "es": "producto",
+      "pt": "produto"
+    },
+    "items": {
+      "it": "prodotti",
+      "en": "items",
+      "de": "Artikel",
+      "fr": "articles",
+      "es": "productos",
+      "pt": "produtos"
+    },
+    "empty_title": {
+      "it": "Il carrello è vuoto",
+      "en": "Your cart is empty",
+      "de": "Ihr Warenkorb ist leer",
+      "fr": "Votre panier est vide",
+      "es": "Tu carrito está vacío",
+      "pt": "Seu carrinho está vazio"
+    },
+    "empty_message": {
+      "it": "Aggiungi alcuni prodotti per iniziare",
+      "en": "Add some products to get started",
+      "de": "Fügen Sie Produkte hinzu, um zu beginnen",
+      "fr": "Ajoutez des produits pour commencer",
+      "es": "Añade algunos productos para empezar",
+      "pt": "Adicione alguns produtos para começar"
+    },
+    "continue_shopping": {
+      "it": "Continua ad acquistare",
+      "en": "Continue shopping",
+      "de": "Weiter einkaufen",
+      "fr": "Continuer vos achats",
+      "es": "Seguir comprando",
+      "pt": "Continuar comprando"
+    },
+    "total": {
+      "it": "Totale",
+      "en": "Total",
+      "de": "Gesamt",
+      "fr": "Total",
+      "es": "Total",
+      "pt": "Total"
+    },
+    "checkout": {
+      "it": "Procedi all'ordine",
+      "en": "Proceed to checkout",
+      "de": "Zur Kasse gehen",
+      "fr": "Passer à la caisse",
+      "es": "Proceder al pago",
+      "pt": "Finalizar compra"
+    },
+    "added_to_cart": {
+      "it": "Aggiunto al carrello!",
+      "en": "Added to cart!",
+      "de": "Zum Warenkorb hinzugefügt!",
+      "fr": "Ajouté au panier!",
+      "es": "¡Añadido al carrito!",
+      "pt": "Adicionado ao carrinho!"
+    },
+    "view_cart": {
+      "it": "Vedi carrello",
+      "en": "View cart",
+      "de": "Warenkorb ansehen",
+      "fr": "Voir le panier",
+      "es": "Ver carrito",
+      "pt": "Ver carrinho"
+    },
+    "removed_from_cart": {
+      "it": "Rimosso dal carrello",
+      "en": "Removed from cart",
+      "de": "Aus Warenkorb entfernt",
+      "fr": "Retiré du panier",
+      "es": "Eliminado del carrito",
+      "pt": "Removido do carrinho"
+    },
+    "save_for_later": {
+      "it": "Salva per dopo",
+      "en": "Save for later",
+      "de": "Für später speichern",
+      "fr": "Enregistrer pour plus tard",
+      "es": "Guardar para después",
+      "pt": "Salvar para depois"
+    },
+    "saved_for_later": {
+      "it": "Salvato per dopo",
+      "en": "Saved for later",
+      "de": "Für später gespeichert",
+      "fr": "Enregistré pour plus tard",
+      "es": "Guardado para después",
+      "pt": "Salvo para depois"
+    },
+    "in_cart": {
+      "it": "In carrello",
+      "en": "In cart",
+      "de": "Im Warenkorb",
+      "fr": "Dans le panier",
+      "es": "En el carrito",
+      "pt": "No carrinho"
+    }
+  },
+  "wishlist": {
+    "title": {
+      "it": "I miei preferiti",
+      "en": "My wishlist",
+      "de": "Meine Wunschliste",
+      "fr": "Mes favoris",
+      "es": "Mis favoritos",
+      "pt": "Meus favoritos"
+    },
+    "empty_title": {
+      "it": "La tua lista desideri è vuota",
+      "en": "Your wishlist is empty",
+      "de": "Ihre Wunschliste ist leer",
+      "fr": "Votre liste de souhaits est vide",
+      "es": "Tu lista de deseos está vacía",
+      "pt": "Sua lista de desejos está vazia"
+    },
+    "empty_message": {
+      "it": "Aggiungi prodotti cliccando sul cuore",
+      "en": "Add products by clicking the heart",
+      "de": "Fügen Sie Produkte hinzu, indem Sie auf das Herz klicken",
+      "fr": "Ajoutez des produits en cliquant sur le cœur",
+      "es": "Añade productos haciendo clic en el corazón",
+      "pt": "Adicione produtos clicando no coração"
+    },
+    "items_count": {
+      "it": "{{count}} prodotti",
+      "en": "{{count}} products",
+      "de": "{{count}} Produkte",
+      "fr": "{{count}} produits",
+      "es": "{{count}} productos",
+      "pt": "{{count}} produtos"
+    },
+    "clear_all": {
+      "it": "Svuota lista",
+      "en": "Clear all",
+      "de": "Alle löschen",
+      "fr": "Tout effacer",
+      "es": "Borrar todo",
+      "pt": "Limpar tudo"
+    },
+    "cleared": {
+      "it": "Lista svuotata",
+      "en": "List cleared",
+      "de": "Liste geleert",
+      "fr": "Liste vidée",
+      "es": "Lista vaciada",
+      "pt": "Lista esvaziada"
+    }
+  },
+  "filters": {
+    "title": {
+      "it": "Filtri",
+      "en": "Filters",
+      "de": "Filter",
+      "fr": "Filtres",
+      "es": "Filtros",
+      "pt": "Filtros"
+    },
+    "clear": {
+      "it": "Cancella filtri",
+      "en": "Clear filters",
+      "de": "Filter löschen",
+      "fr": "Effacer les filtres",
+      "es": "Borrar filtros",
+      "pt": "Limpar filtros"
+    },
+    "apply": {
+      "it": "Applica",
+      "en": "Apply",
+      "de": "Anwenden",
+      "fr": "Appliquer",
+      "es": "Aplicar",
+      "pt": "Aplicar"
+    },
+    "boolean": {
+      "yes": {
+        "it": "Sì",
+        "en": "Yes",
+        "de": "Ja",
+        "fr": "Oui",
+        "es": "Sí",
+        "pt": "Sim"
+      },
+      "no": {
+        "it": "No",
+        "en": "No",
+        "de": "Nein",
+        "fr": "Non",
+        "es": "No",
+        "pt": "Não"
+      }
+    },
+    "results": {
+      "it": "{count} prodotti trovati",
+      "en": "{count} products found",
+      "de": "{count} Produkte gefunden",
+      "fr": "{count} produits trouvés",
+      "es": "{count} productos encontrados",
+      "pt": "{count} produtos encontrados"
+    },
+    "features": {
+      "it": "Caratteristiche",
+      "en": "Features",
+      "de": "Eigenschaften",
+      "fr": "Caractéristiques",
+      "es": "Características",
+      "pt": "Características"
+    },
+    "show_more": {
+      "it": "Mostra altri {count}",
+      "en": "Show {count} more",
+      "de": "{count} mehr anzeigen",
+      "fr": "Afficher {count} de plus",
+      "es": "Mostrar {count} más",
+      "pt": "Mostrar mais {count}"
+    },
+    "show_less": {
+      "it": "Mostra meno",
+      "en": "Show less",
+      "de": "Weniger anzeigen",
+      "fr": "Afficher moins",
+      "es": "Mostrar menos",
+      "pt": "Mostrar menos"
+    },
+    "range": {
+      "min": {
+        "it": "Min",
+        "en": "Min",
+        "de": "Min",
+        "fr": "Min",
+        "es": "Mín",
+        "pt": "Mín"
+      },
+      "max": {
+        "it": "Max",
+        "en": "Max",
+        "de": "Max",
+        "fr": "Max",
+        "es": "Máx",
+        "pt": "Máx"
+      },
+      "price_min": {
+        "it": "Prezzo minimo",
+        "en": "Minimum price",
+        "de": "Mindestpreis",
+        "fr": "Prix minimum",
+        "es": "Precio mínimo",
+        "pt": "Preço mínimo"
+      },
+      "price_max": {
+        "it": "Prezzo massimo",
+        "en": "Maximum price",
+        "de": "Höchstpreis",
+        "fr": "Prix maximum",
+        "es": "Precio máximo",
+        "pt": "Preço máximo"
+      },
+      "reset": {
+        "it": "Reset",
+        "en": "Reset",
+        "de": "Zurücksetzen",
+        "fr": "Réinitialiser",
+        "es": "Restablecer",
+        "pt": "Redefinir"
+      }
+    }
+  },
+  "navigation": {
+    "collapse_gallery": {
+      "it": "Riduci Galleria",
+      "en": "Collapse Gallery",
+      "de": "Galerie reduzieren",
+      "fr": "Réduire la galerie",
+      "es": "Reducir galería",
+      "pt": "Reduzir galeria"
+    },
+    "expand_gallery": {
+      "it": "Mostra Galleria ({count} prodotti)",
+      "en": "Show Gallery ({count} products)",
+      "de": "Galerie anzeigen ({count} Produkte)",
+      "fr": "Afficher la galerie ({count} produits)",
+      "es": "Mostrar galería ({count} productos)",
+      "pt": "Mostrar galeria ({count} produtos)"
+    },
+    "previous": {
+      "it": "Precedente",
+      "en": "Previous",
+      "de": "Vorherige",
+      "fr": "Précédent",
+      "es": "Anterior",
+      "pt": "Anterior"
+    },
+    "next": {
+      "it": "Successivo",
+      "en": "Next",
+      "de": "Nächste",
+      "fr": "Suivant",
+      "es": "Siguiente",
+      "pt": "Próximo"
+    },
+    "product_of": {
+      "it": "Prodotto {current} di {total}",
+      "en": "Product {current} of {total}",
+      "de": "Produkt {current} von {total}",
+      "fr": "Produit {current} de {total}",
+      "es": "Producto {current} de {total}",
+      "pt": "Produto {current} de {total}"
+    }
+  },
+  "compare": {
+    "add": {
+      "it": "Aggiungi al confronto",
+      "en": "Add to compare",
+      "de": "Zum Vergleich hinzufügen",
+      "fr": "Ajouter à la comparaison",
+      "es": "Agregar a comparar",
+      "pt": "Adicionar à comparação"
+    },
+    "add_short": {
+      "it": "Confronta",
+      "en": "Compare",
+      "de": "Vergleichen",
+      "fr": "Comparer",
+      "es": "Comparar",
+      "pt": "Comparar"
+    },
+    "remove": {
+      "it": "Rimuovi dal confronto",
+      "en": "Remove from compare",
+      "de": "Aus Vergleich entfernen",
+      "fr": "Retirer de la comparaison",
+      "es": "Quitar de comparar",
+      "pt": "Remover da comparação"
+    },
+    "remove_short": {
+      "it": "Rimuovi",
+      "en": "Remove",
+      "de": "Entfernen",
+      "fr": "Retirer",
+      "es": "Quitar",
+      "pt": "Remover"
+    },
+    "added": {
+      "it": "In confronto",
+      "en": "In compare",
+      "de": "Im Vergleich",
+      "fr": "En comparaison",
+      "es": "En comparación",
+      "pt": "Em comparação"
+    },
+    "product": {
+      "it": "prodotto",
+      "en": "product",
+      "de": "Produkt",
+      "fr": "produit",
+      "es": "producto",
+      "pt": "produto"
+    },
+    "products": {
+      "it": "prodotti",
+      "en": "products",
+      "de": "Produkte",
+      "fr": "produits",
+      "es": "productos",
+      "pt": "produtos"
+    },
+    "selected_for_comparison": {
+      "it": "selezionati per il confronto",
+      "en": "selected for comparison",
+      "de": "zum Vergleich ausgewählt",
+      "fr": "sélectionnés pour la comparaison",
+      "es": "seleccionados para comparar",
+      "pt": "selecionados para comparação"
+    },
+    "clear_all": {
+      "it": "Svuota",
+      "en": "Clear all",
+      "de": "Alle löschen",
+      "fr": "Tout effacer",
+      "es": "Borrar todo",
+      "pt": "Limpar tudo"
+    },
+    "compare_now": {
+      "it": "Confronta ora",
+      "en": "Compare now",
+      "de": "Jetzt vergleichen",
+      "fr": "Comparer maintenant",
+      "es": "Comparar ahora",
+      "pt": "Comparar agora"
+    },
+    "add_more_products": {
+      "it": "Aggiungi almeno 2 prodotti",
+      "en": "Add at least 2 products",
+      "de": "Mindestens 2 Produkte hinzufügen",
+      "fr": "Ajouter au moins 2 produits",
+      "es": "Agregar al menos 2 productos",
+      "pt": "Adicione pelo menos 2 produtos"
+    },
+    "title": {
+      "it": "Confronto Prodotti",
+      "en": "Product Comparison",
+      "de": "Produktvergleich",
+      "fr": "Comparaison de produits",
+      "es": "Comparación de productos",
+      "pt": "Comparação de produtos"
+    },
+    "differences_only": {
+      "it": "Mostra solo differenze",
+      "en": "Show differences only",
+      "de": "Nur Unterschiede anzeigen",
+      "fr": "Afficher uniquement les différences",
+      "es": "Mostrar solo diferencias",
+      "pt": "Mostrar apenas diferenças"
+    },
+    "back_to_catalog": {
+      "it": "Torna al catalogo",
+      "en": "Back to catalog",
+      "de": "Zurück zum Katalog",
+      "fr": "Retour au catalogue",
+      "es": "Volver al catálogo",
+      "pt": "Voltar ao catálogo"
+    },
+    "max_products_alert": {
+      "title": {
+        "it": "Limite raggiunto",
+        "en": "Limit reached",
+        "de": "Limit erreicht",
+        "fr": "Limite atteinte",
+        "es": "Límite alcanzado",
+        "pt": "Limite atingido"
+      },
+      "message": {
+        "it": "Puoi confrontare massimo {max} prodotti alla volta.",
+        "en": "You can compare up to {max} products at a time.",
+        "de": "Sie können maximal {max} Produkte gleichzeitig vergleichen.",
+        "fr": "Vous pouvez comparer jusqu'à {max} produits à la fois.",
+        "es": "Puedes comparar hasta {max} productos a la vez.",
+        "pt": "Você pode comparar até {max} produtos de cada vez."
+      },
+      "ok": {
+        "it": "Ok",
+        "en": "Ok",
+        "de": "Ok",
+        "fr": "Ok",
+        "es": "Ok",
+        "pt": "Ok"
+      }
+    },
+    "show_compare_bar": {
+      "it": "Mostra barra confronto",
+      "en": "Show compare bar",
+      "de": "Vergleichsleiste anzeigen",
+      "fr": "Afficher la barre de comparaison",
+      "es": "Mostrar barra de comparación",
+      "pt": "Mostrar barra de comparação"
+    },
+    "hide_compare_bar": {
+      "it": "Nascondi barra confronto",
+      "en": "Hide compare bar",
+      "de": "Vergleichsleiste ausblenden",
+      "fr": "Masquer la barre de comparaison",
+      "es": "Ocultar barra de comparación",
+      "pt": "Ocultar barra de comparação"
+    },
+    "clear_all_short": {
+      "it": "Svuota",
+      "en": "Clear",
+      "de": "Löschen",
+      "fr": "Effacer",
+      "es": "Borrar",
+      "pt": "Limpar"
+    },
+    "compare_now_short": {
+      "it": "Confronta",
+      "en": "Compare",
+      "de": "Vergleichen",
+      "fr": "Comparer",
+      "es": "Comparar",
+      "pt": "Comparar"
+    },
+    "add_more_short": {
+      "it": "Min. 2 prodotti",
+      "en": "Min. 2 products",
+      "de": "Min. 2 Produkte",
+      "fr": "Min. 2 produits",
+      "es": "Mín. 2 productos",
+      "pt": "Mín. 2 produtos"
+    },
+    "differences_only_short": {
+      "it": "Solo differenze",
+      "en": "Differences only",
+      "de": "Nur Unterschiede",
+      "fr": "Différences uniquement",
+      "es": "Solo diferencias",
+      "pt": "Apenas diferenças"
+    },
+    "back_to_catalog_short": {
+      "it": "Catalogo",
+      "en": "Catalog",
+      "de": "Katalog",
+      "fr": "Catalogue",
+      "es": "Catálogo",
+      "pt": "Catálogo"
+    },
+    "characteristic": {
+      "it": "Caratteristica",
+      "en": "Characteristic",
+      "de": "Merkmal",
+      "fr": "Caractéristique",
+      "es": "Característica",
+      "pt": "Característica"
+    }
+  }
+}

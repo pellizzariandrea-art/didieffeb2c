@@ -1,0 +1,100 @@
+/* Stili per le descrizioni AI generate */
+.ai-description-container {
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+.ai-description-container .product-description {
+  margin-bottom: 2rem;
+}
+
+.ai-description-container .product-thumb {
+  max-width: 130px;
+  float: right;
+  margin: 0 0 1.2em 1.5em;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(40, 167, 69, 0.1);
+}
+
+.ai-description-container p {
+  margin-bottom: 1rem;
+  line-height: 1.7;
+}
+
+.ai-description-container ul {
+  list-style: none;
+  padding-left: 0;
+  margin: 1.5rem 0;
+}
+
+.ai-description-container ul li {
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.ai-description-container ul li:last-child {
+  border-bottom: none;
+}
+
+.ai-description-container strong {
+  color: #28a745;
+  font-weight: 600;
+}
+
+.ai-description-container .suggerimenti-box {
+  margin-top: 3rem;
+  padding: 2rem;
+  background: linear-gradient(135deg, #f8fff9, #e8f5e9);
+  border-radius: 12px;
+  border: 1px solid #c8e6c9;
+}
+
+.ai-description-container .suggerimenti-title {
+  display: block;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #1b5e20;
+  margin-bottom: 1.5rem;
+}
+
+.ai-description-container .suggerimenti-list {
+  list-style: none;
+  padding: 0;
+}
+
+.ai-description-container .suggerimenti-list li {
+  margin-bottom: 1.5rem;
+  border-bottom: none;
+}
+
+.ai-description-container .suggerimenti-list a {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  background: white;
+  border-radius: 8px;
+  text-decoration: none;
+  color: #333;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.ai-description-container .suggerimenti-list a:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(40, 167, 69, 0.15);
+}
+
+.ai-description-container .suggerimenti-list img {
+  width: 160px;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 8px;
+  box-shadow: 0 1px 4px rgba(40, 167, 69, 0.11);
+  flex-shrink: 0;
+}
+
+.ai-description-container .suggerimenti-list a span {
+  flex: 1;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}

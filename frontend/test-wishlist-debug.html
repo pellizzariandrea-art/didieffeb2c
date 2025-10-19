@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Wishlist Debug Tool</title>
+  <style>
+    body { font-family: monospace; padding: 20px; background: #1a1a1a; color: #0f0; }
+    button { margin: 5px; padding: 10px; background: #333; color: #0f0; border: 1px solid #0f0; cursor: pointer; }
+    button:hover { background: #0f0; color: #000; }
+    pre { background: #000; padding: 15px; border: 1px solid #0f0; overflow: auto; max-height: 400px; }
+    .error { color: #f00; }
+    .success { color: #0f0; }
+    .warning { color: #ff0; }
+  </style>
+</head>
+<body>
+  <h1>🔍 Wishlist Debug Tool</h1>
+
+  <h2>Actions:</h2>
+  <button onclick="showWishlist()">📋 Show Wishlist</button>
+  <button onclick="testProducts()">🧪 Test Products Match</button>
+  <button onclick="clearStorage()">🗑️ Clear Wishlist</button>
+  <button onclick="addTestItem()">➕ Add Test Item</button>
+
+  <h2>Wishlist Data:</h2>
+  <pre id="wishlistData"></pre>
+
+  <h2>Diagnostic Log:</h2>
+  <pre id="log"></pre>
+
+  <script>
+    const KEY = 'wishlist-products';
+
+    function log(msg, type = 'info') {
+      const logEl = document.getElementById('log');
+      const className = type === 'error' ? 'error' : type === 'success' ? 'success' : type === 'warning' ? 'warning' : '';
+      logEl.innerHTML += `<span class="${className}">${new Date().toLocaleTimeString()} - ${msg}</span>\n`;
+      console.log(msg);
+    }
+
+    function getWishlistData() {
+      const data = localStorage.getItem(KEY);
+      if (!data) {
+        log('❌ No wishlist data found', 'error');
+        return null;
+      }
+
+      try {
+        const parsed = JSON.parse(data);
+        log('✅ Wishlist data parsed successfully', 'success');
+        return parsed;
+      } catch (e) {
+        log('❌ Error parsing wishlist: ' + e.message, 'error');
+        return null;
+      }
+    }
+
+    function showWishlist() {
+      const data = getWishlistData();
+      const el = document.getElementById('wishlistData');
+
+      if (!data) {
+        el.textContent = '❌ No wishlist data';
+        return;
+      }
+
+      el.textContent = JSON.stringify(data, null, 2);
+
+      // Analyze format
+      if (data.state && data.state.items) {
+        log(`📊 Zustand format detected - ${data.state.items.length} items`, 'success');
+        data.state.items.forEach((item, idx) => {
+          log(`  Item ${idx + 1}: ${item.codice} (timestamp: ${item.timestamp})`, 'info');
+        });
+      } else if (Array.isArray(data)) {
+        log(`📊 Old array format detected - ${data.length} items`, 'warning');
+        data.forEach((item, idx) => {
+          log(`  Item ${idx + 1}: ${item.codice} (timestamp: ${item.timestamp})`, 'info');
+        });
+      } else {
+        log('⚠️ Unknown format detected', 'warning');
+      }
+    }
+
+    async function testProducts() {
+      const wishlistData = getWishlistData();
+      if (!wishlistData) {
+        log('❌ Cannot test - no wishlist data', 'error');
+        return;
+      }
+
+      let wishlistCodes = [];
+      if (wishlistData.state && wishlistData.state.items) {
+        wishlistCodes = wishlistData.state.items.map(item => item.codice);
+      } else if (Array.isArray(wishlistData)) {
+        wishlistCodes = wishlistData.map(item => item.codice);
+      }
+
+      log(`🔍 Testing ${wishlistCodes.length} wishlist codes...`, 'info');
+      log(`Codes to test: ${wishlistCodes.join(', ')}`, 'info');
+
+      // Fetch products from API
+      try {
+        log('📡 Fetching products from API...', 'info');
+
+        // Try local API first, then fallback to remote
+        let response;
+        try {
+          response = await fetch('/api/products');
+        } catch (e) {
+          log('⚠️ Local API failed, trying remote...', 'warning');
+          response = await fetch('https://shop.didieffeb2b.com/admin/api/products.php', {
+            mode: 'cors'
+          });
+        }
+
+        const productsData = await response.json();
+        const allProducts = productsData.prodotti || [];
+
+        log(`✅ Fetched ${allProducts.length} products`, 'success');
+
+        // Check which wishlist items have matching products
+        wishlistCodes.forEach(code => {
+          const found = allProducts.find(p => p.codice === code);
+          if (found) {
+            log(`  ✅ ${code} → FOUND: ${found.nome?.it || found.nome}`, 'success');
+          } else {
+            log(`  ❌ ${code} → NOT FOUND in products list`, 'error');
+          }
+        });
+
+        // Check for variants
+        log('\n🔍 Checking variants...', 'info');
+        wishlistCodes.forEach(code => {
+          allProducts.forEach(product => {
+            if (product.variants && product.variants.length > 0) {
+              const variantMatch = product.variants.find(v => v.codice === code);
+              if (variantMatch) {
+                log(`  ✅ ${code} → FOUND AS VARIANT of ${product.codice}`, 'success');
+              }
+            }
+          });
+        });
+
+      } catch (error) {
+        log(`❌ Error fetching products: ${error.message}`, 'error');
+      }
+    }
+
+    function clearStorage() {
+      localStorage.removeItem(KEY);
+      log('🗑️ Wishlist cleared', 'success');
+      showWishlist();
+    }
+
+    function addTestItem() {
+      const testCode = 'TEST_' + Date.now();
+      const data = getWishlistData() || { state: { items: [] }, version: 0 };
+
+      if (data.state && data.state.items) {
+        data.state.items.push({ codice: testCode, timestamp: Date.now() });
+      } else {
+        data = { state: { items: [{ codice: testCode, timestamp: Date.now() }] }, version: 0 };
+      }
+
+      localStorage.setItem(KEY, JSON.stringify(data));
+      log(`✅ Added test item: ${testCode}`, 'success');
+      showWishlist();
+    }
+
+    // Auto-show on load
+    showWishlist();
+  </script>
+</body>
+</html>

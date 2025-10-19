@@ -1,0 +1,5 @@
+# Ignora tutti i file JSON delle descrizioni AI
+*.json
+
+# Ma traccia questo .gitignore
+!.gitignore

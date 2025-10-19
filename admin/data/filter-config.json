@@ -1,0 +1,8 @@
+[
+    {
+        "column": "Pubblica in web",
+        "operator": "equals",
+        "value": "S",
+        "logic": "AND"
+    }
+]

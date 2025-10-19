@@ -1,0 +1,11 @@
+{
+    "mainTable": "V_B2B_EXPORT_CATALOGO_NEW",
+    "joins": [
+        {
+            "table": "cod_con_img",
+            "alias": "cod_con_img",
+            "type": "LEFT",
+            "on": "V_B2B_EXPORT_CATALOGO_NEW.codice=cod_con_img.codice_ok"
+        }
+    ]
+}

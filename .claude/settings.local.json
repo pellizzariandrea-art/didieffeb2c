@@ -1,0 +1,37 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mkdir:*)",
+      "WebFetch(domain:shop.didieffeb2b.com)",
+      "Bash(npm run dev:*)",
+      "Bash(cat:*)",
+      "Bash(python:*)",
+      "Bash(find:*)",
+      "Bash(php:*)",
+      "Bash(curl:*)",
+      "Bash(powershell -Command \"(Get-Item products.json).LastWriteTime\")",
+      "Bash(powershell -Command \"(Get-Item ''C:\\Users\\pelli\\claude\\ecommerce\\products.json'').LastWriteTime\")",
+      "Bash(node -e:*)",
+      "Bash(move generate-ai-description.php generate-ai-description-old.php)",
+      "Bash(ren:*)",
+      "Bash(dir C:Userspelliclaudeecommerce /b)",
+      "Bash(move \"C:\\Users\\pelli\\claude\\ecommerce\\frontend\\lib\\products-cache.ts\" \"C:\\Users\\pelli\\claude\\ecommerce\\frontend\\lib\\server\\products-cache.ts\")",
+      "Bash(del \"C:\\Users\\pelli\\claude\\ecommerce\\frontend\\lib\\products-cache.ts\")",
+      "Bash(npm install server-only)",
+      "Bash(npm install zustand framer-motion sonner lucide-react)",
+      "Bash(npm install yet-another-react-lightbox)",
+      "Bash(powershell -Command \"Get-Content ''C:\\Users\\pelli\\claude\\ecommerce\\products.json'' -First 150 | Select-String -Pattern ''Applicazione'' -Context 3,3\")",
+      "Bash(powershell -Command \"(Get-Content ''C:\\Users\\pelli\\claude\\ecommerce\\products.json'' | Select-String ''Applicazione su'' -Context 5).Line\")",
+      "Bash(npx tsc --noEmit)",
+      "Bash(powershell -Command \"Remove-Item ''C:\\Users\\pelli\\claude\\ecommerce\\admin\\pages\\export-test-partial.php'' -Force\")",
+      "Bash(npm run build)",
+      "Bash(git init)",
+      "Bash(git add .)",
+      "Bash(git commit -m \"Initial commit: E-commerce with export v2 and fixes\")",
+      "Bash(del nul)",
+      "Bash(powershell -Command \"if (Test-Path nul) { Remove-Item nul }\")"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

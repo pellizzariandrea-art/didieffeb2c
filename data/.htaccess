@@ -1,0 +1,15 @@
+# CORS Headers per permettere l'accesso al JSON da qualsiasi dominio
+Header set Access-Control-Allow-Origin "*"
+Header set Access-Control-Allow-Methods "GET, OPTIONS"
+Header set Access-Control-Allow-Headers "Content-Type"
+Header set Content-Type "application/json"
+
+# Permetti accesso al file products.json
+<Files "products.json">
+    Require all granted
+</Files>
+
+# Cache control (opzionale)
+<FilesMatch "\.json$">
+    Header set Cache-Control "max-age=300, public"
+</FilesMatch>

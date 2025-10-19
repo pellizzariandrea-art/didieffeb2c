@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Test Wishlist Storage</title>
+  <style>
+    body { font-family: monospace; padding: 20px; background: #1a1a1a; color: #0f0; }
+    button { margin: 5px; padding: 10px; background: #333; color: #0f0; border: 1px solid #0f0; cursor: pointer; }
+    button:hover { background: #0f0; color: #000; }
+    pre { background: #000; padding: 15px; border: 1px solid #0f0; overflow: auto; }
+  </style>
+</head>
+<body>
+  <h1>🧪 Wishlist Storage Tester</h1>
+
+  <h2>Current Storage:</h2>
+  <pre id="current"></pre>
+
+  <h2>Actions:</h2>
+  <button onclick="showCurrent()">🔍 Show Current</button>
+  <button onclick="addTest()">➕ Add Test Item</button>
+  <button onclick="clearStorage()">🗑️ Clear Storage</button>
+  <button onclick="migrateOldFormat()">🔄 Migrate Old Format</button>
+
+  <h2>Console Output:</h2>
+  <pre id="console"></pre>
+
+  <script>
+    const KEY = 'wishlist-products';
+
+    function log(msg) {
+      const consoleEl = document.getElementById('console');
+      consoleEl.textContent += msg + '\n';
+      console.log(msg);
+    }
+
+    function showCurrent() {
+      const data = localStorage.getItem(KEY);
+      const el = document.getElementById('current');
+
+      if (!data) {
+        el.textContent = '❌ No data found';
+        log('No data in localStorage');
+        return;
+      }
+
+      try {
+        const parsed = JSON.parse(data);
+        el.textContent = JSON.stringify(parsed, null, 2);
+
+        // Check format
+        if (Array.isArray(parsed)) {
+          log('📦 OLD FORMAT detected (plain array)');
+        } else if (parsed.state && parsed.state.items) {
+          log('✅ NEW FORMAT detected (Zustand persist)');
+          log(`   Items: ${parsed.state.items.length}`);
+        } else {
+          log('⚠️ UNKNOWN FORMAT');
+        }
+      } catch (e) {
+        el.textContent = '❌ Error parsing: ' + e.message;
+        log('Error parsing JSON: ' + e.message);
+      }
+    }
+
+    function addTest() {
+      const code = 'TEST' + Date.now();
+
+      // Get current data
+      let items = [];
+      const data = localStorage.getItem(KEY);
+
+      if (data) {
+        const parsed = JSON.parse(data);
+        if (Array.isArray(parsed)) {
+          items = parsed;
+        } else if (parsed.state && parsed.state.items) {
+          items = parsed.state.items;
+        }
+      }
+
+      // Add new item
+      items.push({
+        codice: code,
+        timestamp: Date.now()
+      });
+
+      // Save in NEW format (Zustand persist)
+      const newData = {
+        state: {
+          items: items
+        },
+        version: 0
+      };
+
+      localStorage.setItem(KEY, JSON.stringify(newData));
+      log(`✅ Added test item: ${code}`);
+      showCurrent();
+    }
+
+    function clearStorage() {
+      localStorage.removeItem(KEY);
+      log('🗑️ Storage cleared');
+      showCurrent();
+    }
+
+    function migrateOldFormat() {
+      const data = localStorage.getItem(KEY);
+
+      if (!data) {
+        log('❌ No data to migrate');
+        return;
+      }
+
+      try {
+        const parsed = JSON.parse(data);
+
+        if (Array.isArray(parsed)) {
+          // Old format - migrate to new
+          const newData = {
+            state: {
+              items: parsed
+            },
+            version: 0
+          };
+
+          localStorage.setItem(KEY, JSON.stringify(newData));
+          log('🔄 Migrated from old format to new format');
+          log(`   ${parsed.length} items migrated`);
+        } else {
+          log('ℹ️ Already in new format, no migration needed');
+        }
+
+        showCurrent();
+      } catch (e) {
+        log('❌ Migration error: ' + e.message);
+      }
+    }
+
+    // Auto-show on load
+    showCurrent();
+  </script>
+</body>
+</html>

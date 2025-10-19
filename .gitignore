@@ -1,0 +1,55 @@
+# Dependencies
+node_modules/
+vendor/
+
+# Build outputs
+frontend/.next/
+frontend/out/
+frontend/build/
+frontend/.turbo/
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+logs/
+admin/data/*.log
+admin/data/export-debug.log
+admin/data/export-error.log
+admin/data/export-v2-debug.log
+admin/data/export-v2-error.log
+
+# Cache
+.cache/
+*.cache
+
+# Temporary files
+*.tmp
+*.temp
+nul
+
+# Admin data (sensibili)
+admin/data/db-config.json
+admin/data/translation-settings.json
+admin/data/*.json.bak
+translation-settings.json
+db-config.json
+
+# Build artifacts
+dist/
+.next/
+out/

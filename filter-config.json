@@ -1,0 +1,20 @@
+[
+    {
+        "column": "Pos. Assoluto",
+        "operator": "not_equals",
+        "value": "999999",
+        "logic": "AND"
+    },
+    {
+        "column": "Pubblica in web",
+        "operator": "equals",
+        "value": "S",
+        "logic": "AND"
+    },
+    {
+        "column": "cod_con_img.default_image",
+        "operator": "is_not_empty",
+        "value": "",
+        "logic": "AND"
+    }
+]

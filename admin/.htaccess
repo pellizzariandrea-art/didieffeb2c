@@ -1,0 +1,29 @@
+# Protezione Admin Dashboard
+# Opzione 1: Protezione con Password (raccomandato per produzione)
+# AuthType Basic
+# AuthName "Admin Area"
+# AuthUserFile /home/tuousername/.htpasswd
+# Require valid-user
+
+# Opzione 2: Protezione per IP (decommentare e inserire il tuo IP)
+# <RequireAny>
+#     Require ip TUO_IP_CASA
+#     Require ip TUO_IP_UFFICIO
+# </RequireAny>
+
+# PHP settings
+php_value upload_max_filesize 10M
+php_value post_max_size 10M
+php_value max_execution_time 300
+php_flag display_errors On
+php_value error_reporting E_ALL
+
+# Protezione file sensibili
+<FilesMatch "\.(json|log)$">
+    Require all denied
+</FilesMatch>
+
+# Redirect HTTP a HTTPS (opzionale, solo se hai SSL)
+# RewriteEngine On
+# RewriteCond %{HTTPS} off
+# RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]

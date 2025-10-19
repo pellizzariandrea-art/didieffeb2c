@@ -1,0 +1,175 @@
+[
+    {
+        "dbColumn": "codice",
+        "targetField": "codice",
+        "isAttribute": false,
+        "transform": "toUpperCase"
+    },
+    {
+        "dbColumn": "Descrizione Breve IT",
+        "targetField": "nome",
+        "isAttribute": false,
+        "transform": "trim"
+    },
+    {
+        "dbColumn": "Specifiche Tecniche  sintetiche IT",
+        "targetField": "descrizione",
+        "isAttribute": false,
+        "transform": "trim",
+        "generateFromAttributes": true
+    },
+    {
+        "dbColumn": "euro",
+        "targetField": "prezzo",
+        "isAttribute": false,
+        "transform": "parseFloat"
+    },
+    {
+        "dbColumn": "cod_con_img.default_image",
+        "targetField": "immagine",
+        "isAttribute": false,
+        "transform": "trim"
+    },
+    {
+        "dbColumn": "Serie",
+        "targetField": "attributi",
+        "isAttribute": true,
+        "attributeName": "Serie",
+        "isBoolean": false,
+        "transform": "trim",
+        "useInDescription": true
+    },
+    {
+        "dbColumn": "Colore IT",
+        "targetField": "attributi",
+        "isAttribute": true,
+        "attributeName": "Colore",
+        "isBoolean": false,
+        "transform": "",
+        "useInDescription": true
+    },
+    {
+        "dbColumn": "Materiale IT",
+        "targetField": "attributi",
+        "isAttribute": true,
+        "attributeName": "Materiale",
+        "isBoolean": false,
+        "transform": "trim",
+        "useInDescription": true
+    },
+    {
+        "dbColumn": "Specifiche Tecniche  sintetiche IT",
+        "targetField": "attributi",
+        "isAttribute": true,
+        "attributeName": "Specifiche tecniche",
+        "isBoolean": false,
+        "transform": "",
+        "useInDescription": true
+    },
+    {
+        "dbColumn": "Tipologia IT",
+        "targetField": "attributi",
+        "isAttribute": true,
+        "attributeName": "Tipologia",
+        "isBoolean": false,
+        "transform": "",
+        "useInDescription": true
+    },
+    {
+        "dbColumn": "Pack",
+        "targetField": "attributi",
+        "isAttribute": true,
+        "attributeName": "Confezione da Pezzi",
+        "isBoolean": false,
+        "transform": "",
+        "useInDescription": true
+    },
+    {
+        "dbColumn": "ean_13_ok",
+        "targetField": "attributi",
+        "isAttribute": true,
+        "attributeName": "Ean",
+        "isBoolean": false,
+        "transform": ""
+    },
+    {
+        "dbColumn": "Settore Applicazione Legno",
+        "targetField": "attributi",
+        "isAttribute": true,
+        "attributeName": "Applicazione su Legno",
+        "isBoolean": true,
+        "transform": "",
+        "booleanMap": {
+            "N": "false",
+            "S": "true"
+        },
+        "useInDescription": true
+    },
+    {
+        "dbColumn": "Settore Applicazione Alluminio",
+        "targetField": "attributi",
+        "isAttribute": true,
+        "attributeName": "Applicazione su Allumino",
+        "isBoolean": true,
+        "transform": "",
+        "booleanMap": {
+            "": "false",
+            "N": "false",
+            "S": "true"
+        },
+        "useInDescription": true
+    },
+    {
+        "dbColumn": "Settore Applicazione Pvc",
+        "targetField": "attributi",
+        "isAttribute": true,
+        "attributeName": "Applicazione su Pvc",
+        "isBoolean": true,
+        "transform": "",
+        "booleanMap": {
+            "": "false",
+            "N": "false",
+            "S": "true"
+        },
+        "useInDescription": true
+    },
+    {
+        "dbColumn": "Macro Raggr SCURI ALLA VENETA",
+        "targetField": "attributi",
+        "isAttribute": true,
+        "attributeName": "Scuri alla Veneta",
+        "isBoolean": true,
+        "transform": "",
+        "booleanMap": {
+            "": "false",
+            "N": "false",
+            "S": "true"
+        }
+    },
+    {
+        "dbColumn": "Macro Raggr PERSIANE A MURO",
+        "targetField": "attributi",
+        "isAttribute": true,
+        "attributeName": "Persiane a Muro",
+        "isBoolean": true,
+        "transform": "",
+        "booleanMap": {
+            "": "false",
+            "N": "false",
+            "S": "true"
+        }
+    },
+    {
+        "dbColumn": "Macro Raggr PERSIANE CON TELAIO",
+        "targetField": "attributi",
+        "isAttribute": true,
+        "attributeName": "Persiane con Telaio",
+        "isBoolean": true,
+        "transform": "",
+        "booleanMap": {
+            "": "false",
+            "N": "false",
+            "S": "true"
+        }
+    }
+]

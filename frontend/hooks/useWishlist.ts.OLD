@@ -1,0 +1,130 @@
+import { useEffect, useState } from 'react';
+
+const STORAGE_KEY = 'wishlist-products';
+
+export interface WishlistItem {
+  codice: string;
+  timestamp: number;
+}
+
+export function useWishlist() {
+  const [wishlist, setWishlist] = useState<WishlistItem[]>([]);
+
+  // Load from localStorage on mount
+  useEffect(() => {
+    const stored = localStorage.getItem(STORAGE_KEY);
+    console.log('📂 Loading wishlist from localStorage:', stored);
+    if (stored) {
+      try {
+        const parsed = JSON.parse(stored);
+        console.log('✅ Wishlist loaded:', parsed);
+        setWishlist(parsed);
+      } catch (e) {
+        console.error('❌ Error parsing wishlist:', e);
+      }
+    } else {
+      console.log('ℹ️ No wishlist found in localStorage');
+    }
+  }, []);
+
+  // Listen for storage events from other tabs/windows
+  useEffect(() => {
+    const handleStorageChange = (e: StorageEvent) => {
+      if (e.key === STORAGE_KEY) {
+        if (e.newValue) {
+          try {
+            const parsed = JSON.parse(e.newValue);
+            setWishlist(parsed);
+          } catch (error) {
+            console.error('Error parsing wishlist from storage event:', error);
+          }
+        } else {
+          setWishlist([]);
+        }
+      }
+    };
+
+    // Listen to storage events (fired when localStorage changes in other tabs)
+    window.addEventListener('storage', handleStorageChange);
+    return () => window.removeEventListener('storage', handleStorageChange);
+  }, []);
+
+  // Add product to wishlist
+  const addToWishlist = (codice: string) => {
+    const newItem: WishlistItem = {
+      codice,
+      timestamp: Date.now(),
+    };
+
+    setWishlist((prev) => {
+      // Check if already in wishlist
+      if (prev.some((item) => item.codice === codice)) {
+        return prev;
+      }
+      const updated = [...prev, newItem];
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
+      return updated;
+    });
+  };
+
+  // Remove product from wishlist
+  const removeFromWishlist = (codice: string) => {
+    setWishlist((prev) => {
+      const updated = prev.filter((item) => item.codice !== codice);
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
+      return updated;
+    });
+  };
+
+  // Toggle product in wishlist
+  const toggleWishlist = (codice: string) => {
+    setWishlist((prev) => {
+      const exists = prev.some((item) => item.codice === codice);
+
+      let updated: WishlistItem[];
+      if (exists) {
+        // Remove from wishlist
+        updated = prev.filter((item) => item.codice !== codice);
+        console.log('🗑️ Removed from wishlist:', codice, 'New count:', updated.length);
+      } else {
+        // Add to wishlist
+        const newItem: WishlistItem = {
+          codice,
+          timestamp: Date.now(),
+        };
+        updated = [...prev, newItem];
+        console.log('❤️ Added to wishlist:', codice, 'New count:', updated.length);
+      }
+
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
+      console.log('💾 Saved to localStorage:', updated);
+      return updated;
+    });
+  };
+
+  // Check if product is in wishlist
+  const isInWishlist = (codice: string): boolean => {
+    return wishlist.some((item) => item.codice === codice);
+  };
+
+  // Clear all wishlist
+  const clearWishlist = () => {
+    setWishlist([]);
+    localStorage.removeItem(STORAGE_KEY);
+  };
+
+  // Get total count
+  const getWishlistCount = (): number => {
+    return wishlist.length;
+  };
+
+  return {
+    wishlist,
+    addToWishlist,
+    removeFromWishlist,
+    toggleWishlist,
+    isInWishlist,
+    clearWishlist,
+    getWishlistCount,
+  };
+}
