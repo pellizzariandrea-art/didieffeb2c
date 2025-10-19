@@ -899,29 +899,49 @@ export default function ProductCatalog({
 
                   {/* Filtri attributi */}
                   {Object.entries(selectedFilters).map(([key, values]) =>
-                    values.map((value) => (
-                      <span
-                        key={`${key}-${value}`}
-                        className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-emerald-50 text-emerald-800 text-xs font-semibold rounded-lg border border-emerald-200"
-                      >
-                        {translateBooleanValue(value, currentLang)}
-                        <button
-                          onClick={() => {
-                            const newValues = selectedFilters[key].filter(v => v !== value);
-                            setSelectedFilters({
-                              ...selectedFilters,
-                              [key]: newValues,
-                            });
-                            resetPage();
-                          }}
-                          className="hover:text-emerald-900"
+                    values.map((value) => {
+                      // Trova il filtro corrispondente
+                      const filter = dynamicFilters.find(f => f.key === key);
+
+                      // Ottieni label tradotta del filtro
+                      let filterLabel = key;
+                      if (filter) {
+                        // Se è il filtro prezzo, usa label tradotta
+                        if (key === 'prezzo' || key.toLowerCase() === 'price') {
+                          filterLabel = getLabel('home.price_label', currentLang);
+                        } else if ((filter as any).options && (filter as any).options.length > 0 && (filter as any).options[0].label) {
+                          // Se ha options con label tradotta, usala
+                          const labelObj = (filter as any).options[0].label;
+                          filterLabel = typeof labelObj === 'object' ? (labelObj[currentLang] || labelObj['it'] || Object.values(labelObj)[0]) : key;
+                        }
+                      }
+
+                      const translatedValue = translateBooleanValue(value, currentLang);
+
+                      return (
+                        <span
+                          key={`${key}-${value}`}
+                          className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-emerald-50 text-emerald-800 text-xs font-semibold rounded-lg border border-emerald-200"
                         >
-                          <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                          </svg>
-                        </button>
-                      </span>
-                    ))
+                          {filterLabel}: {translatedValue}
+                          <button
+                            onClick={() => {
+                              const newValues = selectedFilters[key].filter(v => v !== value);
+                              setSelectedFilters({
+                                ...selectedFilters,
+                                [key]: newValues,
+                              });
+                              resetPage();
+                            }}
+                            className="hover:text-emerald-900"
+                          >
+                            <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                          </button>
+                        </span>
+                      );
+                    })
                   )}
                 </div>
               )}
