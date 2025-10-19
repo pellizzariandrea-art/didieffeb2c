@@ -190,14 +190,14 @@ export default function ProductCard({ product, lang = 'it', viewMode = 'grid', p
       <div className="relative">
         <Link
           href={`/products/${product.codice}`}
-          className={`group flex flex-col sm:flex-row rounded-xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden ${
+          className={`group flex flex-col sm:flex-row rounded-xl shadow-md hover:shadow-2xl transition-all duration-300 overflow-hidden hover:-translate-y-1 ${
             cartItem && cartItem.quantity > 0
               ? 'bg-gradient-to-r from-emerald-50 via-white to-white border-2 border-emerald-500 shadow-emerald-200'
-              : 'bg-white border border-gray-100 hover:border-emerald-200'
+              : 'bg-white border border-gray-200 hover:border-emerald-300'
           }`}
         >
           {/* Immagine Prodotto - responsive */}
-          <div className="relative w-full sm:w-40 md:w-48 h-48 sm:h-auto sm:aspect-square flex-shrink-0 bg-gradient-to-br from-gray-50 to-gray-100">
+          <div className="relative w-full sm:w-40 md:w-48 h-48 sm:h-auto sm:aspect-square flex-shrink-0 bg-white">
             <Image
               src={imageUrl}
               alt={nome}
@@ -351,14 +351,14 @@ export default function ProductCard({ product, lang = 'it', viewMode = 'grid', p
     <div className="relative">
       <Link
         href={`/products/${product.codice}`}
-        className={`group block rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden ${
+        className={`group block rounded-2xl shadow-md hover:shadow-2xl transition-all duration-300 overflow-hidden hover:-translate-y-1 ${
           cartItem && cartItem.quantity > 0
             ? 'bg-gradient-to-b from-emerald-50 via-emerald-50/50 to-white border-2 border-emerald-500 shadow-emerald-200'
-            : 'bg-white border border-gray-100 hover:border-emerald-200'
+            : 'bg-white border border-gray-200 hover:border-emerald-300'
         }`}
       >
         {/* Immagine Prodotto */}
-        <div className="relative aspect-square bg-gradient-to-br from-gray-50 to-gray-100">
+        <div className="relative aspect-square bg-white">
           <Image
             src={imageUrl}
             alt={nome}
