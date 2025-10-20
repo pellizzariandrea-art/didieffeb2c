@@ -60,7 +60,7 @@ export default function CategoryBar({
                           <img
                             src={category.image}
                             alt={translatedName}
-                            className={`w-8 h-8 lg:w-14 lg:h-14 rounded-full object-cover shadow-md transition-all duration-300 ${
+                            className={`w-12 h-12 lg:w-14 lg:h-14 rounded-full object-cover shadow-md transition-all duration-300 ${
                               isSelected
                                 ? 'ring-2 lg:ring-3 ring-emerald-500 group-hover:scale-110'
                                 : 'ring-1 lg:ring-2 ring-gray-200 group-hover:ring-emerald-300 group-hover:scale-110 group-hover:shadow-lg'
