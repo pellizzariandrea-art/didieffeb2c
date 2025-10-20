@@ -386,7 +386,7 @@ export default function FilterSidebar({
                               placeholder={`Cerca ${getFilterLabel(filter).toLowerCase()}...`}
                               value={searchTerms[filter.key] || ''}
                               onChange={(e) => setSearchTerms({ ...searchTerms, [filter.key]: e.target.value })}
-                              className="w-full px-3 py-2 pl-9 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
+                              className="w-full px-3 py-2 pl-9 text-sm text-gray-900 placeholder-gray-400 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
                             />
                             <svg className="absolute left-3 top-2.5 w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
@@ -476,7 +476,7 @@ export default function FilterSidebar({
                           }
                         }}
                         value={selectedValues[0] || ''}
-                        className="w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 bg-white text-sm font-medium text-gray-700 transition-all"
+                        className="w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 bg-white text-sm font-medium text-gray-900 transition-all"
                       >
                         <option value="">Tutti</option>
                         {getAllFilterValues(filter).map((value) => {

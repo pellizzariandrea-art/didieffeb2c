@@ -638,7 +638,7 @@ export default function ProductCatalog({
                 }}
                 onFocus={() => setShowAutocomplete(true)}
                 placeholder={getLabel('home.search', currentLang)}
-                className="w-full px-4 sm:px-5 py-2.5 sm:py-3 pl-10 sm:pl-12 pr-10 text-sm border border-gray-300 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all shadow-sm"
+                className="w-full px-4 sm:px-5 py-2.5 sm:py-3 pl-10 sm:pl-12 pr-10 text-sm text-gray-900 placeholder-gray-400 border border-gray-300 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all shadow-sm"
               />
               <svg
                 className="absolute left-3 sm:left-4 top-1/2 transform -translate-y-1/2 w-4 sm:w-5 h-4 sm:h-5 text-gray-400"
@@ -832,7 +832,7 @@ export default function ProductCatalog({
                         setItemsPerPage(Number(e.target.value));
                         setCurrentPage(1);
                       }}
-                      className="text-sm border border-gray-300 rounded-lg px-2 sm:px-3 py-1.5 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
+                      className="text-sm text-gray-900 border border-gray-300 rounded-lg px-2 sm:px-3 py-1.5 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
                     >
                       <option value={12}>12</option>
                       <option value={24}>24</option>
@@ -850,7 +850,7 @@ export default function ProductCatalog({
                     <select
                       value={sortBy}
                       onChange={(e) => setSortBy(e.target.value)}
-                      className="text-sm border border-gray-300 rounded-lg px-2 sm:px-3 py-1.5 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
+                      className="text-sm text-gray-900 border border-gray-300 rounded-lg px-2 sm:px-3 py-1.5 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
                     >
                       <option value="price-asc">{getLabel('home.sort.price_asc', currentLang)}</option>
                       <option value="price-desc">{getLabel('home.sort.price_desc', currentLang)}</option>
