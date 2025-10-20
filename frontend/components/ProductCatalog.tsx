@@ -1,7 +1,7 @@
 'use client';
 
 // components/ProductCatalog.tsx
-import { useState, useMemo, useEffect } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Product } from '@/types/product';
 import ProductCard from './ProductCard';
@@ -132,6 +132,7 @@ export default function ProductCatalog({
   const [isMobileFiltersOpen, setIsMobileFiltersOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [showAutocomplete, setShowAutocomplete] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
 
   // Al mount, prova a ripristinare lo stato salvato dal localStorage (solo una volta)
   useEffect(() => {
@@ -423,40 +424,46 @@ export default function ProductCatalog({
   const resetPage = () => setCurrentPage(1);
 
   // Applica ordinamento ai prodotti filtrati
+  // UNISCE risultati esatti + suggerimenti (mostrando SEMPRE prima gli esatti)
   const sortedProducts = useMemo(() => {
-    const sorted = [...filteredProducts];
-
-    switch (sortBy) {
-      case 'price-asc':
-        return sorted.sort((a, b) => a.prezzo - b.prezzo);
-
-      case 'price-desc':
-        return sorted.sort((a, b) => b.prezzo - a.prezzo);
-
-      case 'name-asc':
-        return sorted.sort((a, b) => {
+    // Ordina separatamente i risultati esatti e i suggerimenti
+    const sortFunction = (a: Product, b: Product) => {
+      switch (sortBy) {
+        case 'price-asc':
+          return a.prezzo - b.prezzo;
+        case 'price-desc':
+          return b.prezzo - a.prezzo;
+        case 'name-asc': {
           const nameA = getTranslatedValue(a.nome, currentLang).toLowerCase();
           const nameB = getTranslatedValue(b.nome, currentLang).toLowerCase();
           return nameA.localeCompare(nameB);
-        });
-
-      case 'name-desc':
-        return sorted.sort((a, b) => {
+        }
+        case 'name-desc': {
           const nameA = getTranslatedValue(a.nome, currentLang).toLowerCase();
           const nameB = getTranslatedValue(b.nome, currentLang).toLowerCase();
           return nameB.localeCompare(nameA);
-        });
+        }
+        case 'code-asc':
+          return a.codice.localeCompare(b.codice);
+        case 'code-desc':
+          return b.codice.localeCompare(a.codice);
+        default:
+          return 0;
+      }
+    };
 
-      case 'code-asc':
-        return sorted.sort((a, b) => a.codice.localeCompare(b.codice));
+    // Ordina i due gruppi separatamente
+    const sortedExact = [...filteredProducts].sort(sortFunction);
+    const sortedSuggested = [...suggestedProducts].sort(sortFunction);
 
-      case 'code-desc':
-        return sorted.sort((a, b) => b.codice.localeCompare(a.codice));
+    // SEMPRE esatti prima, poi suggerimenti
+    return [...sortedExact, ...sortedSuggested];
+  }, [filteredProducts, suggestedProducts, sortBy, currentLang]);
 
-      default:
-        return sorted;
-    }
-  }, [filteredProducts, sortBy, currentLang]);
+  // Flag per sapere se stiamo mostrando suggerimenti invece di risultati esatti
+  const showingSuggestionsAsResults = useMemo(() => {
+    return searchQuery && filteredProducts.length === 0 && suggestedProducts.length > 0;
+  }, [searchQuery, filteredProducts.length, suggestedProducts.length]);
 
   // Update navigation context with sorted products when they change
   useEffect(() => {
@@ -497,10 +504,15 @@ export default function ProductCatalog({
   }, [searchQuery, selectedFilters, saveCatalogState]);
 
   // Calcola paginazione
-  const totalPages = Math.ceil(sortedProducts.length / itemsPerPage);
+  // Se c'è un prodotto selezionato, escludilo dai risultati paginati (verrà mostrato separatamente in cima)
+  const productsForPagination = selectedProduct
+    ? sortedProducts.filter(p => p.codice !== selectedProduct.codice)
+    : sortedProducts;
+
+  const totalPages = Math.ceil(productsForPagination.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
-  const paginatedProducts = sortedProducts.slice(startIndex, endIndex);
+  const paginatedProducts = productsForPagination.slice(startIndex, endIndex);
 
   // Calcola filtri disponibili dinamicamente (solo opzioni che hanno almeno 1 prodotto)
   const dynamicFilters = useMemo(() => {
@@ -663,15 +675,22 @@ export default function ProductCatalog({
                 categories={categories}
                 currentLang={currentLang}
                 onSelect={(productCode) => {
-                  // Non fare nulla qui, la navigazione è gestita dal componente
-                  // Resetta la query dopo un delay per permettere la navigazione
-                  setTimeout(() => {
-                    setSearchQuery('');
-                  }, 150);
+                  // Trova il prodotto selezionato e mostralo in cima ai risultati
+                  const product = expandedProducts.find(p => p.codice === productCode);
+                  if (product) {
+                    setSelectedProduct(product);
+                    setShowAutocomplete(false);
+                    // MANTIENI la searchQuery attiva per mostrare i risultati correlati
+                    // La query è già impostata, non fare nulla
+                    // Scroll in alto per mostrare il prodotto selezionato
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                  }
                 }}
                 onSearchSubmit={(query) => {
                   setSearchQuery(query);
                   setShowAutocomplete(false);
+                  // Reset prodotto selezionato quando si fa una nuova ricerca
+                  setSelectedProduct(null);
                 }}
                 isVisible={showAutocomplete}
                 onClose={() => setShowAutocomplete(false)}
@@ -792,10 +811,10 @@ export default function ProductCatalog({
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
                     </svg>
                     <span className="text-sm font-bold text-gray-900">
-                      {filteredProducts.length}
+                      {sortedProducts.length}
                     </span>
                     <span className="text-sm text-gray-600">
-                      {filteredProducts.length === 1
+                      {sortedProducts.length === 1
                         ? getLabel('home.product', currentLang)
                         : getLabel('home.products', currentLang)}
                     </span>
@@ -947,10 +966,62 @@ export default function ProductCatalog({
               )}
             </div>
 
+            {/* Banner di avviso: stiamo mostrando anche prodotti correlati oltre ai risultati esatti */}
+            {searchQuery && suggestedProducts.length > 0 && (
+              <div className="mb-6 bg-gradient-to-r from-blue-50 to-cyan-50 border border-blue-200 rounded-xl p-4 flex items-start gap-3 shadow-sm">
+                <svg className="w-6 h-6 text-blue-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <div className="flex-1">
+                  {filteredProducts.length > 0 ? (
+                    /* Ci sono risultati esatti + suggerimenti */
+                    <>
+                      <p className="text-sm font-semibold text-blue-900 mb-1">
+                        {currentLang === 'it' && `Trovati ${filteredProducts.length} risultati esatti per "${searchQuery}"`}
+                        {currentLang === 'en' && `Found ${filteredProducts.length} exact results for "${searchQuery}"`}
+                        {currentLang === 'de' && `${filteredProducts.length} exakte Ergebnisse für "${searchQuery}" gefunden`}
+                        {currentLang === 'fr' && `${filteredProducts.length} résultats exacts trouvés pour "${searchQuery}"`}
+                        {currentLang === 'es' && `${filteredProducts.length} resultados exactos encontrados para "${searchQuery}"`}
+                        {currentLang === 'pt' && `${filteredProducts.length} resultados exatos encontrados para "${searchQuery}"`}
+                      </p>
+                      <p className="text-xs text-blue-700">
+                        {currentLang === 'it' && `Mostriamo anche ${suggestedProducts.length} prodotti correlati`}
+                        {currentLang === 'en' && `Also showing ${suggestedProducts.length} related products`}
+                        {currentLang === 'de' && `Zeige auch ${suggestedProducts.length} verwandte Produkte`}
+                        {currentLang === 'fr' && `Affiche également ${suggestedProducts.length} produits associés`}
+                        {currentLang === 'es' && `También mostrando ${suggestedProducts.length} productos relacionados`}
+                        {currentLang === 'pt' && `Também mostrando ${suggestedProducts.length} produtos relacionados`}
+                      </p>
+                    </>
+                  ) : (
+                    /* Solo suggerimenti, nessun risultato esatto */
+                    <>
+                      <p className="text-sm font-semibold text-blue-900 mb-1">
+                        {currentLang === 'it' && `Nessun risultato esatto per "${searchQuery}"`}
+                        {currentLang === 'en' && `No exact results for "${searchQuery}"`}
+                        {currentLang === 'de' && `Keine exakten Ergebnisse für "${searchQuery}"`}
+                        {currentLang === 'fr' && `Aucun résultat exact pour "${searchQuery}"`}
+                        {currentLang === 'es' && `No hay resultados exactos para "${searchQuery}"`}
+                        {currentLang === 'pt' && `Nenhum resultado exato para "${searchQuery}"`}
+                      </p>
+                      <p className="text-xs text-blue-700">
+                        {currentLang === 'it' && `Mostriamo ${suggestedProducts.length} prodotti correlati che potrebbero interessarti`}
+                        {currentLang === 'en' && `Showing ${suggestedProducts.length} related products that might interest you`}
+                        {currentLang === 'de' && `Zeige ${suggestedProducts.length} verwandte Produkte, die Sie interessieren könnten`}
+                        {currentLang === 'fr' && `Affichage de ${suggestedProducts.length} produits associés qui pourraient vous intéresser`}
+                        {currentLang === 'es' && `Mostrando ${suggestedProducts.length} productos relacionados que podrían interesarte`}
+                        {currentLang === 'pt' && `Mostrando ${suggestedProducts.length} produtos relacionados que podem interessar`}
+                      </p>
+                    </>
+                  )}
+                </div>
+              </div>
+            )}
+
             {/* Sezione risultati principali */}
-            {filteredProducts.length === 0 ? (
+            {sortedProducts.length === 0 ? (
               /* Empty State Moderno - Solo se NON ci sono nemmeno suggerimenti */
-              !searchQuery || suggestedProducts.length === 0 ? (
+              (!searchQuery || suggestedProducts.length === 0) && (
                 <div className="text-center py-20 px-4">
                   <div className="bg-gradient-to-br from-emerald-50 to-green-50 rounded-3xl p-12 inline-block mb-6">
                     <svg className="w-20 h-20 text-emerald-700 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -964,22 +1035,12 @@ export default function ProductCatalog({
                     {getLabel('home.no_products_message', currentLang)}
                   </p>
                 </div>
-              ) : (
-                /* Se ci sono suggerimenti, mostra un messaggio leggero */
-                <div className="text-center py-10 px-4">
-                  <h3 className="text-lg font-semibold text-gray-700 mb-2">
-                    {getLabel('home.no_exact_results', currentLang)}
-                  </h3>
-                  <p className="text-gray-500">
-                    {getLabel('home.check_suggestions', currentLang)}
-                  </p>
-                </div>
               )
             ) : isLoading ? (
               <>
                 {/* Loading Skeletons */}
                 {viewMode === 'grid' ? (
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-6">
+                  <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                     {Array.from({ length: itemsPerPage }).map((_, idx) => (
                       <ProductCardSkeleton key={idx} viewMode="grid" />
                     ))}
@@ -994,18 +1055,111 @@ export default function ProductCatalog({
               </>
             ) : (
               <>
-                {/* Products Grid/List */}
+                {/* Sezione Prodotto Selezionato */}
+                {selectedProduct && (
+                  <div className="mb-12 bg-gradient-to-r from-emerald-50 to-green-50 border-2 border-emerald-200 rounded-2xl p-6">
+                    <div className="flex items-center justify-between mb-4">
+                      <h2 className="text-lg font-bold text-emerald-900 flex items-center gap-2">
+                        <svg className="w-6 h-6 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                        </svg>
+                        {currentLang === 'it' && 'Prodotto selezionato'}
+                        {currentLang === 'en' && 'Selected product'}
+                        {currentLang === 'de' && 'Ausgewähltes Produkt'}
+                        {currentLang === 'fr' && 'Produit sélectionné'}
+                        {currentLang === 'es' && 'Producto seleccionado'}
+                        {currentLang === 'pt' && 'Produto selecionado'}
+                      </h2>
+                      <button
+                        onClick={() => setSelectedProduct(null)}
+                        className="text-sm text-emerald-700 hover:text-emerald-900 font-semibold flex items-center gap-1 transition-colors"
+                      >
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                        {currentLang === 'it' && 'Rimuovi'}
+                        {currentLang === 'en' && 'Remove'}
+                        {currentLang === 'de' && 'Entfernen'}
+                        {currentLang === 'fr' && 'Supprimer'}
+                        {currentLang === 'es' && 'Eliminar'}
+                        {currentLang === 'pt' && 'Remover'}
+                      </button>
+                    </div>
+                    <div className={viewMode === 'grid' ? 'max-w-sm' : 'w-full'}>
+                      <ProductCard
+                        product={selectedProduct}
+                        lang={currentLang}
+                        viewMode={viewMode}
+                        priority={true}
+                      />
+                    </div>
+                  </div>
+                )}
+
+                {/* Products Grid/List con divisore tra esatti e correlati */}
                 {viewMode === 'grid' ? (
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-6">
-                    {paginatedProducts.map((product, index) => (
-                      <ProductCard key={`${product.codice}-${index}`} product={product} lang={currentLang} priority={index === 0} />
-                    ))}
+                  <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                    {paginatedProducts.map((product, index) => {
+                      // Calcola se questo è il primo prodotto correlato (dopo gli esatti)
+                      const isFirstSuggested = searchQuery &&
+                        filteredProducts.length > 0 &&
+                        suggestedProducts.length > 0 &&
+                        index === filteredProducts.length;
+
+                      return (
+                        <React.Fragment key={`${product.codice}-${index}`}>
+                          {/* Divisore prima del primo prodotto correlato */}
+                          {isFirstSuggested && (
+                            <div className="col-span-full my-8 border-t-2 border-gray-200 pt-6">
+                              <h2 className="text-lg font-bold text-gray-700 mb-6 flex items-center gap-2">
+                                <svg className="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                                </svg>
+                                {currentLang === 'it' && `Prodotti correlati`}
+                                {currentLang === 'en' && `Related products`}
+                                {currentLang === 'de' && `Verwandte Produkte`}
+                                {currentLang === 'fr' && `Produits associés`}
+                                {currentLang === 'es' && `Productos relacionados`}
+                                {currentLang === 'pt' && `Produtos relacionados`}
+                              </h2>
+                            </div>
+                          )}
+                          <ProductCard product={product} lang={currentLang} priority={index === 0} />
+                        </React.Fragment>
+                      );
+                    })}
                   </div>
                 ) : (
                   <div className="space-y-4">
-                    {paginatedProducts.map((product, index) => (
-                      <ProductCard key={`${product.codice}-${index}`} product={product} lang={currentLang} viewMode="list" priority={index === 0} />
-                    ))}
+                    {paginatedProducts.map((product, index) => {
+                      // Calcola se questo è il primo prodotto correlato (dopo gli esatti)
+                      const isFirstSuggested = searchQuery &&
+                        filteredProducts.length > 0 &&
+                        suggestedProducts.length > 0 &&
+                        index === filteredProducts.length;
+
+                      return (
+                        <React.Fragment key={`${product.codice}-${index}`}>
+                          {/* Divisore prima del primo prodotto correlato */}
+                          {isFirstSuggested && (
+                            <div className="my-8 border-t-2 border-gray-200 pt-6">
+                              <h2 className="text-lg font-bold text-gray-700 mb-6 flex items-center gap-2">
+                                <svg className="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                                </svg>
+                                {currentLang === 'it' && `Prodotti correlati`}
+                                {currentLang === 'en' && `Related products`}
+                                {currentLang === 'de' && `Verwandte Produkte`}
+                                {currentLang === 'fr' && `Produits associés`}
+                                {currentLang === 'es' && `Productos relacionados`}
+                                {currentLang === 'pt' && `Produtos relacionados`}
+                              </h2>
+                            </div>
+                          )}
+                          <ProductCard product={product} lang={currentLang} viewMode="list" priority={index === 0} />
+                        </React.Fragment>
+                      );
+                    })}
                   </div>
                 )}
 
@@ -1075,35 +1229,7 @@ export default function ProductCatalog({
               </>
             )}
 
-            {/* Sezione suggerimenti - SEMPRE FUORI dal conditional principale */}
-            {/* Mostra se ci sono suggerimenti, indipendentemente dai risultati principali */}
-            {searchQuery && suggestedProducts.length > 0 && (
-              <div className="mt-16 border-t border-gray-200 pt-12">
-                <h3 className="text-xl font-bold text-gray-800 mb-6 flex items-center gap-2">
-                  <svg className="w-6 h-6 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                  </svg>
-                  {getLabel('home.suggested_products', currentLang)}
-                  <span className="text-sm font-normal text-gray-500">
-                    ({suggestedProducts.length} {suggestedProducts.length === 1 ? getLabel('home.product', currentLang) : getLabel('home.products', currentLang)})
-                  </span>
-                </h3>
-
-                {viewMode === 'grid' ? (
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-6">
-                    {suggestedProducts.slice(0, 12).map((product, index) => (
-                      <ProductCard key={`suggested-${product.codice}-${index}`} product={product} lang={currentLang} />
-                    ))}
-                  </div>
-                ) : (
-                  <div className="space-y-4">
-                    {suggestedProducts.slice(0, 12).map((product, index) => (
-                      <ProductCard key={`suggested-${product.codice}-${index}`} product={product} lang={currentLang} viewMode="list" />
-                    ))}
-                  </div>
-                )}
-              </div>
-            )}
+            {/* Sezione suggerimenti rimossa - ora i suggerimenti vengono mostrati come risultati principali con paginazione completa */}
           </div>
         </div>
       </main>

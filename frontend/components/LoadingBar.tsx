@@ -17,6 +17,18 @@ export default function LoadingBar() {
     // Intercetta i click sui link
     const handleClick = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
+
+      // Ignora click su button, input, textarea, o elementi con data-no-loading
+      if (
+        target.tagName === 'BUTTON' ||
+        target.closest('button') ||
+        target.tagName === 'INPUT' ||
+        target.tagName === 'TEXTAREA' ||
+        target.closest('[data-no-loading]')
+      ) {
+        return;
+      }
+
       const link = target.closest('a[href]');
 
       if (link && link instanceof HTMLAnchorElement) {

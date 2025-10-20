@@ -19,10 +19,18 @@
   }
 }
 
+html {
+  width: 100%;
+  height: 100%;
+}
+
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+  width: 100%;
+  min-height: 100vh;
+  margin: 0 auto;
 }
 
 /* Prevent horizontal overflow on all devices */

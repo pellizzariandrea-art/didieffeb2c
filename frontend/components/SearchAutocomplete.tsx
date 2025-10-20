@@ -56,15 +56,42 @@ export default function SearchAutocomplete({
       .trim();
   };
 
-  // Calcola suggerimenti prodotti (top 6 per score)
-  const productSuggestions = useMemo(() => {
-    if (!searchQuery || searchQuery.length < 2) return [];
+  // Calcola suggerimenti prodotti (top 6 per score) + contatore totale
+  // ALLINEATO con la logica di ProductCatalog: separa risultati esatti da suggerimenti
+  const { productSuggestions, totalResults, exactResultsCount } = useMemo(() => {
+    if (!searchQuery || searchQuery.length < 2) return { productSuggestions: [], totalResults: 0, exactResultsCount: 0 };
 
     const searchTerms = normalizeText(searchQuery)
       .split(/[\s,]+/)
       .filter(t => t.length > 0);
 
-    if (searchTerms.length === 0) return [];
+    if (searchTerms.length === 0) return { productSuggestions: [], totalResults: 0, exactResultsCount: 0 };
+
+    // Helper: calcola % di termini che matchano (stesso algoritmo di ProductCatalog)
+    const getMatchPercentage = (product: Product): number => {
+      const codice = normalizeText(product.codice);
+      const nome = normalizeText(getTranslatedValue(product.nome, currentLang));
+      const descrizione = product.descrizione
+        ? normalizeText(getTranslatedValue(product.descrizione, currentLang))
+        : '';
+
+      // Campi ricercabili (inclusi attributi)
+      const searchableFields = [
+        codice,
+        nome,
+        descrizione,
+        ...Object.values(product.attributi || {})
+          .filter(v => v != null)
+          .map(v => normalizeText(String(v)))
+      ];
+
+      // Conta quanti termini matchano
+      const matchingTerms = searchTerms.filter(term => {
+        return searchableFields.some(field => field.includes(term));
+      });
+
+      return matchingTerms.length / searchTerms.length;
+    };
 
     // Calcola score per ogni prodotto
     const scoredProducts = products.map(product => {
@@ -100,12 +127,39 @@ export default function SearchAutocomplete({
       return { product, score };
     });
 
-    // Ordina per score e prendi top 6
-    return scoredProducts
-      .filter(({ score }) => score > 0)
+    // Separa risultati esatti (100% match) da suggerimenti (≥50% match)
+    const exactMatches: typeof scoredProducts = [];
+    const suggestedMatches: typeof scoredProducts = [];
+
+    scoredProducts.forEach(item => {
+      if (item.score === 0) return;
+
+      const matchPercentage = getMatchPercentage(item.product);
+
+      if (matchPercentage === 1.0) {
+        exactMatches.push(item); // 100% match
+      } else if (matchPercentage >= 0.5) {
+        suggestedMatches.push(item); // ≥50% match
+      }
+    });
+
+    // Combina tutti i match (esatti + suggerimenti) e DE-DUPLICA per codice
+    const allMatches = [...exactMatches, ...suggestedMatches];
+    const uniqueMatches = allMatches.filter((item, index, self) =>
+      index === self.findIndex(t => t.product.codice === item.product.codice)
+    );
+
+    // Ordina per score e prendi top 6 per i suggerimenti visualizzati
+    const topProducts = uniqueMatches
       .sort((a, b) => b.score - a.score)
       .slice(0, 6)
       .map(({ product }) => product);
+
+    return {
+      productSuggestions: topProducts,
+      totalResults: uniqueMatches.length, // Totale UNICO (esatti + suggerimenti de-duplicati)
+      exactResultsCount: exactMatches.length // Solo risultati esatti (100% match)
+    };
   }, [searchQuery, products, currentLang]);
 
   // Calcola suggerimenti categorie (max 3)
@@ -189,18 +243,14 @@ export default function SearchAutocomplete({
     return <>{parts}</>;
   };
 
-  // Naviga al prodotto selezionato
+  // Seleziona il prodotto (senza navigare, delega al parent)
   const handleSelectProduct = (product: Product) => {
     // Salva la ricerca come recente se c'è una query
     if (searchQuery && searchQuery.trim().length >= 2) {
       addRecentSearch(searchQuery.trim());
     }
-    // Prima chiudi il dropdown e resetta la ricerca
-    onClose();
-    // Poi naviga al prodotto
-    setTimeout(() => {
-      router.push(`/products/${product.codice}`);
-    }, 100);
+    // Chiama onSelect che gestirà la selezione (mostra prodotto pinnato)
+    onSelect(product.codice);
   };
 
   // Gestisce click su ricerca recente
@@ -216,6 +266,16 @@ export default function SearchAutocomplete({
     onClose();
     // Naviga alla home con filtro categoria
     router.push(`/?category=${categoryField}`);
+  };
+
+  // Naviga ai risultati completi della ricerca
+  const handleViewAllResults = () => {
+    if (searchQuery && searchQuery.trim().length >= 2) {
+      addRecentSearch(searchQuery.trim());
+    }
+    onClose();
+    // Naviga alla pagina prodotti con query
+    router.push(`/products?q=${encodeURIComponent(searchQuery)}`);
   };
 
   // Gestione tastiera
@@ -239,7 +299,11 @@ export default function SearchAutocomplete({
         case 'Enter':
           e.preventDefault();
           if (selectedIndex >= 0 && selectedIndex < productSuggestions.length) {
+            // Se c'è un prodotto selezionato, vai al dettaglio
             handleSelectProduct(productSuggestions[selectedIndex]);
+          } else if (searchQuery && searchQuery.trim().length >= 2) {
+            // Altrimenti vai ai risultati completi
+            handleViewAllResults();
           }
           break;
         case 'Escape':
@@ -283,7 +347,7 @@ export default function SearchAutocomplete({
   return (
     <div
       ref={dropdownRef}
-      className="absolute top-full left-0 right-0 mt-2 bg-white border border-gray-200 rounded-xl shadow-2xl z-50 max-h-[500px] overflow-y-auto"
+      className="absolute top-full left-0 right-0 mt-2 bg-white border border-gray-200 rounded-xl shadow-2xl z-50 max-h-[600px] overflow-y-auto"
     >
       {/* Ricerche recenti */}
       {showRecentSearches && (
@@ -448,11 +512,49 @@ export default function SearchAutocomplete({
         </div>
       )}
 
+      {/* Bottone "Mostra tutti i risultati" - testo dinamico basato su tipo di match */}
+      {totalResults > 0 && searchQuery && searchQuery.length >= 2 && (
+        <div className="border-t border-gray-100 p-4">
+          <button
+            onClick={handleViewAllResults}
+            className="w-full px-6 py-3.5 bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white font-semibold rounded-xl transition-all hover:scale-[1.02] shadow-lg hover:shadow-xl flex items-center justify-center gap-2 group"
+          >
+            <span>
+              {exactResultsCount > 0 ? (
+                // Ci sono risultati esatti (100% match) → "Mostra tutti i N risultati"
+                <>
+                  {currentLang === 'it' && `Mostra tutti i ${totalResults} risultati`}
+                  {currentLang === 'en' && `Show all ${totalResults} results`}
+                  {currentLang === 'de' && `Alle ${totalResults} Ergebnisse anzeigen`}
+                  {currentLang === 'fr' && `Afficher les ${totalResults} résultats`}
+                  {currentLang === 'es' && `Mostrar los ${totalResults} resultados`}
+                  {currentLang === 'pt' && `Mostrar todos os ${totalResults} resultados`}
+                </>
+              ) : (
+                // Solo suggerimenti (≥50% match) → "Vedi N prodotti correlati"
+                <>
+                  {currentLang === 'it' && `Vedi ${totalResults} prodotti correlati`}
+                  {currentLang === 'en' && `View ${totalResults} related products`}
+                  {currentLang === 'de' && `${totalResults} verwandte Produkte anzeigen`}
+                  {currentLang === 'fr' && `Voir ${totalResults} produits associés`}
+                  {currentLang === 'es' && `Ver ${totalResults} productos relacionados`}
+                  {currentLang === 'pt' && `Ver ${totalResults} produtos relacionados`}
+                </>
+              )}
+            </span>
+            <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            </svg>
+          </button>
+        </div>
+      )}
+
       {/* Footer suggerimenti */}
       {productSuggestions.length > 0 && (
         <div className="px-4 py-2 border-t border-gray-100 bg-gray-50 rounded-b-xl">
           <p className="text-xs text-gray-500 text-center">
-            {getLabel('search.keyboard_hint', currentLang)}
+            {getLabel('search.keyboard_hint', currentLang)} ·
+            <span className="font-semibold"> Enter</span> {currentLang === 'it' ? 'per vedere tutti' : 'to view all'}
           </p>
         </div>
       )}

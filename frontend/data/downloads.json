@@ -1,0 +1,82 @@
+{
+  "cataloghi": [
+    {
+      "id": "catalogo-generale-2024",
+      "name": "Catalogo Generale 2024",
+      "filename": "catalogo-generale-2024.pdf",
+      "size": "15 MB",
+      "format": "PDF",
+      "path": "/downloads/cataloghi/catalogo-generale-2024.pdf"
+    },
+    {
+      "id": "listino-prezzi-2024",
+      "name": "Listino Prezzi 2024",
+      "filename": "listino-prezzi-2024.pdf",
+      "size": "2 MB",
+      "format": "PDF",
+      "path": "/downloads/cataloghi/listino-prezzi-2024.pdf"
+    }
+  ],
+  "schede-tecniche": [
+    {
+      "id": "schede-maniglie",
+      "name": "Schede Tecniche Maniglie",
+      "filename": "schede-tecniche-maniglie.pdf",
+      "size": "8 MB",
+      "format": "PDF",
+      "path": "/downloads/schede-tecniche/schede-tecniche-maniglie.pdf"
+    },
+    {
+      "id": "schede-ferramenta",
+      "name": "Schede Tecniche Ferramenta",
+      "filename": "schede-tecniche-ferramenta.pdf",
+      "size": "12 MB",
+      "format": "PDF",
+      "path": "/downloads/schede-tecniche/schede-tecniche-ferramenta.pdf"
+    }
+  ],
+  "certificazioni": [
+    {
+      "id": "iso-9001",
+      "name": "ISO 9001:2015",
+      "filename": "iso-9001-2015.pdf",
+      "size": "1 MB",
+      "format": "PDF",
+      "path": "/downloads/certificazioni/iso-9001-2015.pdf"
+    },
+    {
+      "id": "iso-14001",
+      "name": "ISO 14001:2015",
+      "filename": "iso-14001-2015.pdf",
+      "size": "1 MB",
+      "format": "PDF",
+      "path": "/downloads/certificazioni/iso-14001-2015.pdf"
+    },
+    {
+      "id": "ce-marking",
+      "name": "CE Marking",
+      "filename": "ce-marking.pdf",
+      "size": "800 KB",
+      "format": "PDF",
+      "path": "/downloads/certificazioni/ce-marking.pdf"
+    }
+  ],
+  "documentazione": [
+    {
+      "id": "manuale-installazione",
+      "name": "Manuale Installazione",
+      "filename": "manuale-installazione.pdf",
+      "size": "5 MB",
+      "format": "PDF",
+      "path": "/downloads/documentazione/manuale-installazione.pdf"
+    },
+    {
+      "id": "guida-manutenzione",
+      "name": "Guida Manutenzione",
+      "filename": "guida-manutenzione.pdf",
+      "size": "3 MB",
+      "format": "PDF",
+      "path": "/downloads/documentazione/guida-manutenzione.pdf"
+    }
+  ]
+}

@@ -357,13 +357,13 @@ export default function ProductCard({ product, lang = 'it', viewMode = 'grid', p
             : 'bg-white border border-gray-200 hover:border-emerald-300'
         }`}
       >
-        {/* Immagine Prodotto */}
+        {/* Immagine Prodotto - padding ridotto su mobile */}
         <div className="relative aspect-square bg-white">
           <Image
             src={imageUrl}
             alt={nome}
             fill
-            className="object-contain p-6 group-hover:scale-110 transition-transform duration-500"
+            className="object-contain p-3 sm:p-6 group-hover:scale-110 transition-transform duration-500"
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             priority={priority}
           />
@@ -382,63 +382,78 @@ export default function ProductCard({ product, lang = 'it', viewMode = 'grid', p
           </div>
         </div>
 
-        {/* Info Prodotto */}
-        <div className="p-5">
+        {/* Info Prodotto - padding ridotto su mobile */}
+        <div className="p-3 sm:p-5">
           {/* Codice */}
-          <div className="flex items-center gap-2 mb-2">
-            <span className="inline-flex items-center px-2 py-1 bg-gray-100 text-gray-600 text-xs font-mono font-semibold rounded-md">
+          <div className="flex items-center gap-2 mb-1 sm:mb-2">
+            <span className="inline-flex items-center px-1.5 sm:px-2 py-0.5 sm:py-1 bg-gray-100 text-gray-600 text-[9px] sm:text-xs font-mono font-semibold rounded-md">
               {product.codice}
             </span>
           </div>
 
-          {/* Nome con qualificatori variante */}
-          <h3 className="text-base font-bold text-gray-900 mb-3 line-clamp-2 min-h-[3rem] group-hover:text-emerald-700 transition-colors">
+          {/* Nome con qualificatori variante - testo più piccolo su mobile */}
+          <h3 className="text-xs sm:text-base font-bold text-gray-900 mb-1.5 sm:mb-3 line-clamp-2 min-h-[2rem] sm:min-h-[3rem] group-hover:text-emerald-700 transition-colors">
             {enhancedTitle}
           </h3>
 
-          {/* Footer con Prezzo */}
-          <div className="flex items-center justify-between pt-3 border-t border-gray-100">
+          {/* Footer con Prezzo - più compatto su mobile */}
+          <div className="flex items-center justify-between pt-1.5 sm:pt-3 border-t border-gray-100">
             <div>
-              <p className="text-xs text-gray-500 font-medium mb-0.5">{getLabel('home.price_label', lang)}</p>
-              <p className="text-2xl font-bold bg-gradient-to-r from-emerald-600 to-green-600 bg-clip-text text-transparent">
+              <p className="text-[8px] sm:text-xs text-gray-500 font-medium mb-0.5">{getLabel('home.price_label', lang)}</p>
+              <p className="text-lg sm:text-2xl font-bold bg-gradient-to-r from-emerald-600 to-green-600 bg-clip-text text-transparent">
                 €{product.prezzo.toFixed(2).replace('.', ',')}
               </p>
             </div>
           </div>
+
+          {/* Action Buttons - centrati sotto al prezzo per tutti i dispositivi */}
+          <div className="flex items-center gap-2 mt-3 pt-3 border-t border-gray-100 justify-center">
+            {/* Wishlist Heart */}
+            <button
+              onClick={handleWishlistToggle}
+              className="bg-white hover:bg-gray-50 p-2 sm:p-2.5 rounded-lg sm:rounded-xl transition-all shadow-lg hover:shadow-xl hover:scale-105 border-2 border-emerald-500"
+              title={inWishlist ? getLabel('product.remove_from_wishlist', lang) : getLabel('product.add_to_wishlist', lang)}
+            >
+              <Heart
+                className={`w-4 h-4 transition-all ${inWishlist ? 'fill-red-500 text-red-500' : 'text-gray-400'}`}
+              />
+            </button>
+
+            {/* Quick View Button */}
+            <button
+              onClick={handleQuickView}
+              className="bg-gray-700 hover:bg-gray-800 text-white p-2 sm:p-2.5 rounded-lg sm:rounded-xl transition-all shadow-lg hover:shadow-xl hover:scale-105"
+              title={getLabel('product.quick_view', lang)}
+            >
+              <Eye className="w-4 h-4" />
+            </button>
+
+            {/* Compare Button */}
+            <button
+              onClick={handleCompareClick}
+              className={`p-2 sm:p-2.5 rounded-lg sm:rounded-xl transition-all shadow-lg hover:shadow-xl hover:scale-105 border-2 ${
+                inCompare
+                  ? 'bg-blue-600 text-white border-blue-400'
+                  : 'bg-white hover:bg-gray-50 text-gray-700 border-gray-400'
+              }`}
+              title={inCompare ? getLabel('compare.remove', lang) : getLabel('compare.add', lang)}
+            >
+              <svg className={`w-4 h-4 ${inCompare ? 'text-white' : 'text-gray-600'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+              </svg>
+            </button>
+
+            {/* Add to Cart Button */}
+            <button
+              onClick={handleAddToCart}
+              className="bg-emerald-600 hover:bg-emerald-700 text-white p-2 sm:p-2.5 rounded-lg sm:rounded-xl transition-all shadow-lg hover:shadow-xl hover:scale-105"
+              title={getLabel('product.add_to_cart', lang)}
+            >
+              <ShoppingCart className="w-4 h-4" />
+            </button>
+          </div>
         </div>
       </Link>
-
-      {/* Action Buttons - bottom right, outside Link */}
-      <div className="absolute bottom-5 right-5 flex items-center gap-2 z-20">
-        {/* Wishlist Heart */}
-        <button
-          onClick={handleWishlistToggle}
-          className="bg-white hover:bg-gray-50 p-2.5 rounded-xl transition-all shadow-lg hover:shadow-xl hover:scale-105 border-2 border-emerald-500"
-          title={inWishlist ? getLabel('product.remove_from_wishlist', lang) : getLabel('product.add_to_wishlist', lang)}
-        >
-          <Heart
-            className={`w-4 h-4 transition-all ${inWishlist ? 'fill-red-500 text-red-500' : 'text-gray-400'}`}
-          />
-        </button>
-
-        {/* Quick View Button */}
-        <button
-          onClick={handleQuickView}
-          className="bg-gray-700 hover:bg-gray-800 text-white p-2.5 rounded-xl transition-all shadow-lg hover:shadow-xl hover:scale-105"
-          title={getLabel('product.quick_view', lang)}
-        >
-          <Eye className="w-4 h-4" />
-        </button>
-
-        {/* Add to Cart Button */}
-        <button
-          onClick={handleAddToCart}
-          className="bg-emerald-600 hover:bg-emerald-700 text-white p-2.5 rounded-xl transition-all shadow-lg hover:shadow-xl hover:scale-105"
-          title={getLabel('product.add_to_cart', lang)}
-        >
-          <ShoppingCart className="w-4 h-4" />
-        </button>
-      </div>
 
       {/* Badges informativi - fuori dal Link per mostrare i tooltip */}
       <div className="absolute top-3 left-3 right-3 flex items-start gap-2 flex-wrap pointer-events-none z-10">
@@ -485,26 +500,6 @@ export default function ProductCard({ product, lang = 'it', viewMode = 'grid', p
           </div>
         )}
       </div>
-
-      {/* Badge Confronta - fuori dal Link per essere cliccabile */}
-      <button
-        onClick={handleCompareClick}
-        className={`absolute top-3 right-3 text-xs font-bold px-2.5 py-1.5 rounded-lg shadow-lg border-2 transition-all hover:scale-105 z-10 ${
-          inCompare
-            ? 'bg-blue-600/95 backdrop-blur-sm text-white border-blue-400'
-            : 'bg-white/95 backdrop-blur-sm text-gray-700 border-gray-400 hover:bg-gray-100/95'
-        }`}
-        title={inCompare ? getLabel('compare.remove', lang) : getLabel('compare.add', lang)}
-      >
-        <span className="flex items-center gap-1.5">
-          <svg className={`w-3.5 h-3.5 ${inCompare ? 'text-white' : 'text-gray-600'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
-          </svg>
-          <span className={inCompare ? 'text-white' : 'text-gray-900'}>
-            {inCompare ? '✓' : '+'}
-          </span>
-        </span>
-      </button>
 
       {/* Quick View Modal */}
       <QuickViewModal

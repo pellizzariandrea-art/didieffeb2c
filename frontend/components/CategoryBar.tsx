@@ -37,23 +37,6 @@ export default function CategoryBar({
 
           {/* Scroll container */}
           <div className="flex items-center gap-3 overflow-x-auto py-4 pl-4 scrollbar-hide">
-            {/* Tutte le categorie */}
-            <button
-              onClick={() => onCategorySelect(null)}
-              className={`group relative px-4 lg:px-6 py-2.5 lg:py-3.5 rounded-xl font-semibold text-sm whitespace-nowrap transition-all duration-300 ${
-                selectedCategory === null
-                  ? 'bg-white text-emerald-700 border-3 border-emerald-600 shadow-lg scale-105'
-                  : 'bg-white text-gray-700 hover:bg-gray-50 hover:shadow-lg border border-gray-200 hover:border-emerald-300'
-              }`}
-            >
-              <span className="flex items-center gap-2 lg:gap-2.5">
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 10h16M4 14h16M4 18h16" />
-                </svg>
-                {getLabel('categories.all', lang)}
-              </span>
-            </button>
-
             {/* Categorie dinamiche */}
             {categories.map((category) => {
               const isSelected = selectedCategory === category.field;

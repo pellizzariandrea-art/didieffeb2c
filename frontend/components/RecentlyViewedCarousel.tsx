@@ -97,6 +97,13 @@ export default function RecentlyViewedCarousel() {
 
               {/* Info */}
               <div className="p-3 sm:p-4">
+                {/* Codice */}
+                <div className="mb-2">
+                  <span className="inline-flex items-center px-2 py-1 bg-gray-100 text-gray-600 text-xs font-mono font-semibold rounded-md">
+                    {product.codice}
+                  </span>
+                </div>
+
                 <h3 className="text-sm font-semibold text-gray-900 line-clamp-2 mb-2 group-hover:text-blue-600 transition-colors min-h-[2.5rem]">
                   {getTranslatedValue(product.nome, currentLang)}
                 </h3>

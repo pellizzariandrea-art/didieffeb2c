@@ -24,6 +24,7 @@ export default function CompareClient({ allProducts }: CompareClientProps) {
   const { currentLang } = useLanguage();
   const router = useRouter();
   const [showOnlyDifferences, setShowOnlyDifferences] = useState(false);
+  const [showClearConfirm, setShowClearConfirm] = useState(false);
 
   // Filtra i prodotti/varianti da confrontare
   const products = useMemo(() => {
@@ -170,7 +171,7 @@ export default function CompareClient({ allProducts }: CompareClientProps) {
 
               {/* Svuota confronto */}
               <button
-                onClick={clearCompare}
+                onClick={() => setShowClearConfirm(true)}
                 className="px-3 sm:px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors text-xs sm:text-sm font-medium"
               >
                 <span className="hidden xs:inline">{getLabel('compare.clear_all', currentLang)}</span>
@@ -427,6 +428,66 @@ export default function CompareClient({ allProducts }: CompareClientProps) {
           </div>
         )}
       </main>
+
+      {/* Modal conferma svuota confronto */}
+      {showClearConfirm && (
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-[9999] flex items-center justify-center p-4">
+          <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-6 transform transition-all">
+            <div className="flex items-start gap-4 mb-4">
+              <div className="w-12 h-12 rounded-full bg-red-100 flex items-center justify-center flex-shrink-0">
+                <svg className="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                </svg>
+              </div>
+              <div className="flex-1">
+                <h3 className="text-lg font-bold text-gray-900 mb-2">
+                  {currentLang === 'it' && 'Svuotare il confronto?'}
+                  {currentLang === 'en' && 'Clear comparison?'}
+                  {currentLang === 'de' && 'Vergleich löschen?'}
+                  {currentLang === 'fr' && 'Effacer la comparaison?'}
+                  {currentLang === 'es' && '¿Borrar comparación?'}
+                  {currentLang === 'pt' && 'Limpar comparação?'}
+                </h3>
+                <p className="text-sm text-gray-600">
+                  {currentLang === 'it' && 'Tutti i prodotti verranno rimossi dal confronto. Questa azione non può essere annullata.'}
+                  {currentLang === 'en' && 'All products will be removed from comparison. This action cannot be undone.'}
+                  {currentLang === 'de' && 'Alle Produkte werden aus dem Vergleich entfernt. Diese Aktion kann nicht rückgängig gemacht werden.'}
+                  {currentLang === 'fr' && 'Tous les produits seront supprimés de la comparaison. Cette action ne peut pas être annulée.'}
+                  {currentLang === 'es' && 'Todos los productos serán eliminados de la comparación. Esta acción no se puede deshacer.'}
+                  {currentLang === 'pt' && 'Todos os produtos serão removidos da comparação. Esta ação não pode ser desfeita.'}
+                </p>
+              </div>
+            </div>
+            <div className="flex gap-3 justify-end">
+              <button
+                onClick={() => setShowClearConfirm(false)}
+                className="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium rounded-lg transition-colors"
+              >
+                {currentLang === 'it' && 'Annulla'}
+                {currentLang === 'en' && 'Cancel'}
+                {currentLang === 'de' && 'Abbrechen'}
+                {currentLang === 'fr' && 'Annuler'}
+                {currentLang === 'es' && 'Cancelar'}
+                {currentLang === 'pt' && 'Cancelar'}
+              </button>
+              <button
+                onClick={() => {
+                  clearCompare();
+                  setShowClearConfirm(false);
+                }}
+                className="px-4 py-2 bg-red-600 hover:bg-red-700 text-white font-medium rounded-lg transition-colors"
+              >
+                {currentLang === 'it' && 'Svuota'}
+                {currentLang === 'en' && 'Clear'}
+                {currentLang === 'de' && 'Löschen'}
+                {currentLang === 'fr' && 'Effacer'}
+                {currentLang === 'es' && 'Borrar'}
+                {currentLang === 'pt' && 'Limpar'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
