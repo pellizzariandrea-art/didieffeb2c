@@ -450,6 +450,14 @@
       "es": "Ordenar por",
       "pt": "Ordenar por"
     },
+    "sort_button": {
+      "it": "Ordina",
+      "en": "Sort",
+      "de": "Sortieren",
+      "fr": "Trier",
+      "es": "Ordenar",
+      "pt": "Ordenar"
+    },
     "showing": {
       "it": "Mostrando",
       "en": "Showing",
