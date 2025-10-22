@@ -512,9 +512,9 @@ export default function SearchAutocomplete({
         </div>
       )}
 
-      {/* Bottone "Mostra tutti i risultati" - testo dinamico basato su tipo di match */}
+      {/* Bottone "Mostra tutti i risultati" - SOLO DESKTOP (nascosto su mobile per evitare overlap con tastiera) */}
       {totalResults > 0 && searchQuery && searchQuery.length >= 2 && (
-        <div className="border-t border-gray-100 p-4">
+        <div className="hidden md:block border-t border-gray-100 p-4">
           <button
             onClick={handleViewAllResults}
             className="w-full px-6 py-3.5 bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white font-semibold rounded-xl transition-all hover:scale-[1.02] shadow-lg hover:shadow-xl flex items-center justify-center gap-2 group"
@@ -549,10 +549,20 @@ export default function SearchAutocomplete({
         </div>
       )}
 
-      {/* Footer suggerimenti */}
+      {/* Footer suggerimenti - Hint diverso per mobile e desktop */}
       {productSuggestions.length > 0 && (
         <div className="px-4 py-2 border-t border-gray-100 bg-gray-50 rounded-b-xl">
-          <p className="text-xs text-gray-500 text-center">
+          {/* Mobile: solo hint su Enter */}
+          <p className="md:hidden text-xs text-gray-500 text-center">
+            {currentLang === 'it' && 'Premi Enter per vedere tutti i risultati'}
+            {currentLang === 'en' && 'Press Enter to see all results'}
+            {currentLang === 'de' && 'Enter drücken, um alle Ergebnisse zu sehen'}
+            {currentLang === 'fr' && 'Appuyez sur Entrée pour voir tous les résultats'}
+            {currentLang === 'es' && 'Presiona Enter para ver todos los resultados'}
+            {currentLang === 'pt' && 'Pressione Enter para ver todos os resultados'}
+          </p>
+          {/* Desktop: hint completo */}
+          <p className="hidden md:block text-xs text-gray-500 text-center">
             {getLabel('search.keyboard_hint', currentLang)} ·
             <span className="font-semibold"> Enter</span> {currentLang === 'it' ? 'per vedere tutti' : 'to view all'}
           </p>
