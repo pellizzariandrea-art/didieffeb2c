@@ -549,20 +549,10 @@ export default function SearchAutocomplete({
         </div>
       )}
 
-      {/* Footer suggerimenti - Hint diverso per mobile e desktop */}
+      {/* Footer suggerimenti - Solo desktop (mobile ha bottone "Cerca" nell'header) */}
       {productSuggestions.length > 0 && (
-        <div className="px-4 py-2 border-t border-gray-100 bg-gray-50 rounded-b-xl">
-          {/* Mobile: solo hint su Enter */}
-          <p className="md:hidden text-xs text-gray-500 text-center">
-            {currentLang === 'it' && 'Premi Enter per vedere tutti i risultati'}
-            {currentLang === 'en' && 'Press Enter to see all results'}
-            {currentLang === 'de' && 'Enter drücken, um alle Ergebnisse zu sehen'}
-            {currentLang === 'fr' && 'Appuyez sur Entrée pour voir tous les résultats'}
-            {currentLang === 'es' && 'Presiona Enter para ver todos los resultados'}
-            {currentLang === 'pt' && 'Pressione Enter para ver todos os resultados'}
-          </p>
-          {/* Desktop: hint completo */}
-          <p className="hidden md:block text-xs text-gray-500 text-center">
+        <div className="hidden md:block px-4 py-2 border-t border-gray-100 bg-gray-50 rounded-b-xl">
+          <p className="text-xs text-gray-500 text-center">
             {getLabel('search.keyboard_hint', currentLang)} ·
             <span className="font-semibold"> Enter</span> {currentLang === 'it' ? 'per vedere tutti' : 'to view all'}
           </p>

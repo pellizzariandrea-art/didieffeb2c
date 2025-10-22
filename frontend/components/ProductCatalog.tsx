@@ -689,8 +689,14 @@ export default function ProductCatalog({
                   setShowAutocomplete(true);
                 }}
                 onFocus={() => setShowAutocomplete(true)}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' && searchQuery.trim()) {
+                    setShowAutocomplete(false);
+                    setSelectedProduct(null);
+                  }
+                }}
                 placeholder={getLabel('home.search', currentLang)}
-                className="w-full px-3 py-2 pl-9 pr-9 text-sm text-gray-900 placeholder-gray-400 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all shadow-sm"
+                className="w-full px-3 py-2 pl-9 pr-20 text-sm text-gray-900 placeholder-gray-400 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all shadow-sm"
               />
               <svg
                 className="absolute left-2.5 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400"
@@ -706,17 +712,36 @@ export default function ProductCatalog({
                 />
               </svg>
               {searchQuery && (
-                <button
-                  onClick={() => {
-                    setSearchQuery('');
-                    setShowAutocomplete(false);
-                  }}
-                  className="absolute right-2.5 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors p-1"
-                >
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                  </svg>
-                </button>
+                <>
+                  {/* Bottone X per cancellare */}
+                  <button
+                    onClick={() => {
+                      setSearchQuery('');
+                      setShowAutocomplete(false);
+                    }}
+                    className="absolute right-14 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors p-1"
+                  >
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                  </button>
+
+                  {/* Bottone Cerca - sempre visibile quando c'è testo */}
+                  <button
+                    onClick={() => {
+                      setShowAutocomplete(false);
+                      setSelectedProduct(null);
+                    }}
+                    className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-emerald-600 hover:bg-emerald-700 text-white px-2.5 py-1 rounded-md transition-colors text-xs font-semibold"
+                  >
+                    {currentLang === 'it' && 'Cerca'}
+                    {currentLang === 'en' && 'Search'}
+                    {currentLang === 'de' && 'Suchen'}
+                    {currentLang === 'fr' && 'Chercher'}
+                    {currentLang === 'es' && 'Buscar'}
+                    {currentLang === 'pt' && 'Buscar'}
+                  </button>
+                </>
               )}
 
               {/* Dropdown Autocomplete */}
