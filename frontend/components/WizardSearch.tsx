@@ -78,13 +78,14 @@ export default function WizardSearch({
 
   // Find characteristic filters (exclude application filters)
   const characteristicFilters = useMemo(() => {
-    return filters.filter(f =>
-      !f.key.toLowerCase().includes('applicazione') &&
-      f.key !== 'prezzo' &&
-      f.options &&
-      f.options.length > 0 &&
-      f.options.length <= 10 // Only filters with reasonable number of options
-    ).slice(0, 5); // Max 5 characteristic filters
+    return filters.filter(f => {
+      const isNotApplication = !f.key.toLowerCase().includes('applicazione');
+      const isNotPrice = f.key !== 'prezzo';
+      const hasAvailableValues = f.availableValues && f.availableValues.length > 0;
+      const reasonableSize = f.availableValues && f.availableValues.length <= 10;
+
+      return isNotApplication && isNotPrice && hasAvailableValues && reasonableSize;
+    }).slice(0, 5); // Max 5 characteristic filters
   }, [filters]);
 
   // Calculate filtered products based on current wizard state
@@ -421,24 +422,20 @@ export default function WizardSearch({
                     {characteristicFilters.map((filter) => (
                       <div key={filter.key}>
                         <h4 className="text-sm font-semibold text-gray-700 mb-3">
-                          {filter.options?.[0]?.label
-                            ? (typeof filter.options[0].label === 'string'
-                                ? filter.key
-                                : filter.options[0].label[currentLang] || filter.key)
-                            : filter.key}
+                          {filter.key}
                         </h4>
                         <div className="flex flex-wrap gap-2">
-                          {filter.options?.map((option) => (
+                          {filter.availableValues?.map((value) => (
                             <button
-                              key={option.value}
-                              onClick={() => handleToggleCharacteristic(filter.key, option.value)}
+                              key={value}
+                              onClick={() => handleToggleCharacteristic(filter.key, value)}
                               className={`px-4 py-2 rounded-lg border-2 text-sm font-medium transition-all ${
-                                wizardState.selectedCharacteristics[filter.key]?.includes(option.value)
+                                wizardState.selectedCharacteristics[filter.key]?.includes(value)
                                   ? 'border-emerald-600 bg-emerald-50 text-emerald-700'
                                   : 'border-gray-200 bg-white text-gray-700 hover:border-emerald-300'
                               }`}
                             >
-                              {typeof option.label === 'string' ? option.label : option.label[currentLang] || option.value}
+                              {value}
                             </button>
                           ))}
                         </div>

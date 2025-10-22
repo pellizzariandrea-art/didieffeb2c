@@ -282,6 +282,7 @@
                 <a href="/admin/pages/resources.php" <?php if(basename($_SERVER['PHP_SELF']) == 'resources.php') echo 'class="active"'; ?>>📦 Risorse</a>
                 <a href="/admin/pages/variants.php" <?php if(basename($_SERVER['PHP_SELF']) == 'variants.php') echo 'class="active"'; ?>>🔀 Varianti</a>
                 <a href="/admin/pages/ecommerce-config.php" <?php if(basename($_SERVER['PHP_SELF']) == 'ecommerce-config.php') echo 'class="active"'; ?>>🛒 E-Commerce</a>
+                <a href="/admin/pages/wizard-builder.php" <?php if(basename($_SERVER['PHP_SELF']) == 'wizard-builder.php') echo 'class="active"'; ?>>✨ Wizard Builder</a>
                 <a href="/admin/pages/test-ecommerce.php" <?php if(basename($_SERVER['PHP_SELF']) == 'test-ecommerce.php') echo 'class="active"'; ?>>🛍️ Test E-Commerce</a>
                 <a href="/admin/pages/test-product.php" <?php if(basename($_SERVER['PHP_SELF']) == 'test-product.php') echo 'class="active"'; ?>>🧪 Test Prodotto</a>
                 <a href="/admin/pages/debug-product.php" <?php if(basename($_SERVER['PHP_SELF']) == 'debug-product.php') echo 'class="active"'; ?>>🔍 Debug Ricerca</a>
