@@ -30,7 +30,13 @@ $pageTitle = "Wizard Builder";
                                 <i class="fas fa-magic mr-2 text-purple-600"></i>
                                 Wizard Builder
                             </h1>
-                            <p class="text-sm text-gray-600 mt-1">Configura il wizard di ricerca guidata</p>
+                            <div class="flex items-center gap-3 mt-1">
+                                <p class="text-sm text-gray-600">Configura il wizard di ricerca guidata</p>
+                                <span id="translation-badge" class="hidden px-2 py-0.5 text-xs font-semibold rounded-full">
+                                    <i class="fas fa-language mr-1"></i>
+                                    <span id="translation-status"></span>
+                                </span>
+                            </div>
                         </div>
                     </div>
                     <div class="flex items-center gap-3">
@@ -147,6 +153,7 @@ $pageTitle = "Wizard Builder";
         document.addEventListener('DOMContentLoaded', async () => {
             await loadConfiguration();
             await loadAvailableFilters();
+            await loadTranslationStatus();
             initializeDragAndDrop();
 
             // AI enabled toggle
@@ -194,6 +201,36 @@ $pageTitle = "Wizard Builder";
                 }
             } catch (error) {
                 console.error('Error loading filters:', error);
+            }
+        }
+
+        // Load and display translation status
+        async function loadTranslationStatus() {
+            try {
+                const response = await fetch('../api/get-translation-settings.php');
+                const data = await response.json();
+
+                const badge = document.getElementById('translation-badge');
+                const status = document.getElementById('translation-status');
+
+                if (data.success && data.settings) {
+                    const settings = data.settings;
+                    badge.classList.remove('hidden');
+
+                    if (settings.enabled) {
+                        const langs = settings.languages || ['it'];
+                        const langCount = langs.filter(l => l !== 'it').length;
+                        badge.classList.add('bg-emerald-100', 'text-emerald-700');
+                        badge.classList.remove('bg-gray-100', 'text-gray-600');
+                        status.textContent = `Auto-traduzione attiva (${langCount} lingue)`;
+                    } else {
+                        badge.classList.add('bg-gray-100', 'text-gray-600');
+                        badge.classList.remove('bg-emerald-100', 'text-emerald-700');
+                        status.textContent = 'Traduzioni disabilitate';
+                    }
+                }
+            } catch (error) {
+                console.error('Error loading translation status:', error);
             }
         }
 
@@ -451,7 +488,13 @@ $pageTitle = "Wizard Builder";
 
                 const result = await response.json();
                 if (result.success) {
-                    alert('✅ Configurazione salvata con successo!');
+                    let message = '✅ Configurazione salvata con successo!';
+                    if (result.translation_enabled && result.translated > 0) {
+                        message += `\n🌐 ${result.translated} step tradotti automaticamente`;
+                    } else if (result.translation_enabled === false) {
+                        message += '\nℹ️ Traduzioni disabilitate - Abilita nelle impostazioni';
+                    }
+                    alert(message);
                 } else {
                     alert('❌ Errore nel salvataggio: ' + result.error);
                 }
