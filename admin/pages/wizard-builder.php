@@ -190,16 +190,18 @@ $pageTitle = "Wizard Builder";
             }
         }
 
-        // Load available filters from filter-config.json
+        // Load available filters from products
         async function loadAvailableFilters() {
             try {
-                const response = await fetch('../api/get-distinct-values.php');
+                const response = await fetch('../api/get-available-filters.php');
                 const data = await response.json();
                 if (data.success && data.filters) {
                     availableFilters = data.filters.map(f => ({
                         key: f.key,
-                        type: f.type || 'select',
-                        valueCount: f.values ? f.values.length : 0
+                        type: 'select',
+                        valueCount: f.valueCount || 0,
+                        productCount: f.productCount || 0,
+                        sampleValues: f.sampleValues || []
                     }));
                     renderAvailableFilters();
                 }
@@ -241,18 +243,27 @@ $pageTitle = "Wizard Builder";
         // Render available filters
         function renderAvailableFilters() {
             const container = document.getElementById('available-filters');
-            container.innerHTML = availableFilters.map(filter => `
-                <div class="filter-item p-3 bg-gray-50 border border-gray-200 rounded-lg cursor-move hover:bg-emerald-50 hover:border-emerald-300 transition-colors"
-                     data-filter-key="${filter.key}">
-                    <div class="flex items-center justify-between">
-                        <div class="flex items-center gap-2">
-                            <i class="fas fa-grip-vertical text-gray-400"></i>
-                            <span class="text-sm font-medium text-gray-900">${filter.key}</span>
+            container.innerHTML = availableFilters.map(filter => {
+                const sampleText = filter.sampleValues ? filter.sampleValues.slice(0, 2).join(', ') : '';
+                const tooltip = filter.sampleValues ? `Esempi: ${filter.sampleValues.join(', ')}` : '';
+
+                return `
+                    <div class="filter-item p-3 bg-gray-50 border border-gray-200 rounded-lg cursor-move hover:bg-emerald-50 hover:border-emerald-300 transition-colors"
+                         data-filter-key="${filter.key}"
+                         title="${tooltip}">
+                        <div class="flex flex-col gap-1">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-2">
+                                    <i class="fas fa-grip-vertical text-gray-400"></i>
+                                    <span class="text-sm font-medium text-gray-900">${filter.key}</span>
+                                </div>
+                                <span class="text-xs bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded-full">${filter.productCount}</span>
+                            </div>
+                            ${sampleText ? `<div class="text-xs text-gray-500 ml-6 truncate">${sampleText}...</div>` : ''}
                         </div>
-                        <span class="text-xs text-gray-500">${filter.valueCount} opzioni</span>
                     </div>
-                </div>
-            `).join('');
+                `;
+            }).join('');
         }
 
         // Render wizard steps
