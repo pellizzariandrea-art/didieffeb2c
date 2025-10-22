@@ -153,6 +153,7 @@ $pageTitle = "Wizard Builder";
         let wizardConfig = null;
         let availableFilters = [];
         let currentEditingStep = null;
+        let disabledBooleanFilters = new Set(); // Filtri booleani disabilitati
 
         // Load configuration on page load
         document.addEventListener('DOMContentLoaded', async () => {
@@ -196,14 +197,32 @@ $pageTitle = "Wizard Builder";
             try {
                 const response = await fetch('../api/get-available-filters.php');
                 const data = await response.json();
+
+                console.log('=== FILTERS API RESPONSE ===');
+                console.log('Success:', data.success);
+                console.log('Total filters from API:', data.totalFilters);
+                console.log('Raw filters:', data.filters);
+
                 if (data.success && data.filters) {
                     availableFilters = data.filters.map(f => ({
                         key: f.key,
-                        type: 'select',
+                        type: f.type || 'select',
                         valueCount: f.valueCount || 0,
                         productCount: f.productCount || 0,
-                        sampleValues: f.sampleValues || []
+                        sampleValues: f.sampleValues || [],
+                        trueCount: f.trueCount || 0,
+                        falseCount: f.falseCount || 0
                     }));
+
+                    const booleanCount = availableFilters.filter(f => f.type === 'boolean').length;
+                    const selectCount = availableFilters.filter(f => f.type === 'select').length;
+
+                    console.log('=== PROCESSED FILTERS ===');
+                    console.log('Total filters:', availableFilters.length);
+                    console.log('Boolean filters:', booleanCount);
+                    console.log('Select filters:', selectCount);
+                    console.log('Boolean filters list:', availableFilters.filter(f => f.type === 'boolean'));
+
                     renderAvailableFilters();
                 }
             } catch (error) {
@@ -244,18 +263,28 @@ $pageTitle = "Wizard Builder";
         // Render available filters
         function renderAvailableFilters() {
             const container = document.getElementById('available-filters');
-            container.innerHTML = availableFilters.map(filter => {
+
+            // Separa filtri booleani da filtri regolari (come nella product page)
+            const booleanFilters = availableFilters.filter(f => f.type === 'boolean');
+            const regularFilters = availableFilters.filter(f => f.type !== 'boolean');
+
+            let html = '';
+
+            // Filtri regolari
+            regularFilters.forEach(filter => {
                 const sampleText = filter.sampleValues ? filter.sampleValues.slice(0, 2).join(', ') : '';
                 const tooltip = filter.sampleValues ? `Esempi: ${filter.sampleValues.join(', ')}` : '';
 
-                return `
+                html += `
                     <div class="filter-item p-3 bg-gray-50 border border-gray-200 rounded-lg cursor-move hover:bg-emerald-50 hover:border-emerald-300 transition-colors"
                          data-filter-key="${filter.key}"
+                         data-filter-type="select"
                          title="${tooltip}">
                         <div class="flex flex-col gap-1">
                             <div class="flex items-center justify-between">
                                 <div class="flex items-center gap-2">
                                     <i class="fas fa-grip-vertical text-gray-400"></i>
+                                    <i class="fas fa-list text-blue-500 text-xs"></i>
                                     <span class="text-sm font-medium text-gray-900">${filter.key}</span>
                                 </div>
                                 <span class="text-xs bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded-full">${filter.productCount}</span>
@@ -264,48 +293,137 @@ $pageTitle = "Wizard Builder";
                         </div>
                     </div>
                 `;
-            }).join('');
+            });
+
+            // Gruppo Caratteristiche (filtri booleani raggruppati)
+            if (booleanFilters.length > 0) {
+                const enabledBooleanFilters = booleanFilters.filter(f => !disabledBooleanFilters.has(f.key));
+                const enabledCount = enabledBooleanFilters.length;
+
+                html += `
+                    <div class="mt-3 pt-3 border-t border-gray-200">
+                        <div class="flex items-center gap-2 mb-2 px-1">
+                            <i class="fas fa-check-square text-purple-600"></i>
+                            <span class="text-xs font-bold text-gray-700 uppercase tracking-wide">Caratteristiche</span>
+                            <span class="text-xs bg-purple-100 text-purple-700 px-1.5 py-0.5 rounded-full">${enabledCount}/${booleanFilters.length}</span>
+                        </div>
+
+                        ${enabledCount > 0 ? `
+                            <!-- Item trascinabile per gruppo caratteristiche -->
+                            <div class="filter-item p-3 bg-gradient-to-br from-purple-50 to-purple-100 border-2 border-purple-300 rounded-lg cursor-move hover:from-purple-100 hover:to-purple-200 transition-all mb-3"
+                                 data-filter-key="_characteristics_group"
+                                 data-filter-type="characteristics"
+                                 title="Trascina per aggiungere un step con tutte le caratteristiche abilitate">
+                                <div class="flex flex-col gap-2">
+                                    <div class="flex items-center justify-between">
+                                        <div class="flex items-center gap-2">
+                                            <i class="fas fa-grip-vertical text-purple-600"></i>
+                                            <i class="fas fa-layer-group text-purple-600"></i>
+                                            <span class="text-sm font-bold text-purple-900">Gruppo Caratteristiche</span>
+                                        </div>
+                                        <span class="text-xs bg-purple-600 text-white px-2 py-1 rounded-full font-bold">${enabledCount} filtri</span>
+                                    </div>
+                                    <div class="text-xs text-purple-700 ml-8">
+                                        ${enabledBooleanFilters.map(f => f.key).slice(0, 3).join(', ')}${enabledCount > 3 ? '...' : ''}
+                                    </div>
+                                </div>
+                            </div>
+                        ` : ''}
+
+                        <!-- Lista per abilitare/disabilitare caratteristiche -->
+                        <div class="space-y-1.5">
+                `;
+
+                booleanFilters.forEach(filter => {
+                    const trueCount = filter.trueCount || 0;
+                    const isEnabled = !disabledBooleanFilters.has(filter.key);
+                    const tooltip = isEnabled
+                        ? `Filtro abilitato: ${trueCount} prodotti. Sarà incluso nel gruppo Caratteristiche.`
+                        : `Filtro disabilitato. Non apparirà nel wizard.`;
+
+                    html += `
+                        <div class="flex items-center gap-2 p-2 rounded-lg ${isEnabled ? 'bg-white border border-purple-200' : 'bg-gray-100 border border-gray-200 opacity-50'}"
+                             title="${tooltip}">
+                            <input type="checkbox"
+                                   ${isEnabled ? 'checked' : ''}
+                                   onchange="toggleBooleanFilter('${filter.key}')"
+                                   class="w-3.5 h-3.5 rounded border-gray-300 text-purple-600 focus:ring-purple-500 cursor-pointer">
+                            <div class="flex-1 flex items-center justify-between px-2 py-1">
+                                <div class="flex items-center gap-2">
+                                    <i class="fas ${isEnabled ? 'fa-check-circle text-purple-600' : 'fa-ban text-gray-400'} text-xs"></i>
+                                    <span class="text-xs font-medium ${isEnabled ? 'text-gray-900' : 'text-gray-500 line-through'}">${filter.key}</span>
+                                </div>
+                                <span class="text-xs ${isEnabled ? 'bg-purple-200 text-purple-800' : 'bg-gray-300 text-gray-600'} px-1.5 py-0.5 rounded-full font-semibold">${trueCount}</span>
+                            </div>
+                        </div>
+                    `;
+                });
+
+                html += `
+                        </div>
+                    </div>
+                `;
+            }
+
+            container.innerHTML = html;
         }
 
         // Render wizard steps
         function renderWizardSteps() {
             const container = document.getElementById('wizard-steps');
-            container.innerHTML = wizardConfig.steps.map((step, index) => `
-                <div class="step-card border-2 border-gray-200 rounded-xl p-4 bg-white hover:border-emerald-300 transition-colors"
-                     data-step-id="${step.id}">
-                    <div class="flex items-start gap-3">
-                        <div class="flex items-center gap-2 flex-shrink-0">
-                            <i class="fas fa-grip-vertical text-gray-400 cursor-move"></i>
-                            <div class="w-8 h-8 rounded-full bg-purple-100 text-purple-600 flex items-center justify-center font-bold text-sm">
-                                ${index + 1}
-                            </div>
-                        </div>
-                        <div class="flex-1 min-w-0">
-                            <div class="flex items-center justify-between mb-2">
-                                <h3 class="font-bold text-gray-900">${step.title.it}</h3>
-                                <div class="flex items-center gap-2">
-                                    ${step.type === 'category' ? '<span class="px-2 py-1 bg-blue-100 text-blue-700 text-xs font-semibold rounded">Fisso</span>' : ''}
-                                    ${step.required ? '<span class="px-2 py-1 bg-red-100 text-red-700 text-xs font-semibold rounded">Required</span>' : ''}
-                                    ${step.multiSelect ? '<span class="px-2 py-1 bg-green-100 text-green-700 text-xs font-semibold rounded">Multi</span>' : ''}
+            container.innerHTML = wizardConfig.steps.map((step, index) => {
+                const isCharacteristics = step.type === 'characteristics' || step.filterKey === '_characteristics_group';
+                const enabledBooleanFilters = isCharacteristics
+                    ? availableFilters.filter(f => f.type === 'boolean' && !disabledBooleanFilters.has(f.key))
+                    : [];
+
+                return `
+                    <div class="step-card border-2 ${isCharacteristics ? 'border-purple-300 bg-purple-50' : 'border-gray-200 bg-white'} rounded-xl p-4 hover:border-emerald-300 transition-colors"
+                         data-step-id="${step.id}">
+                        <div class="flex items-start gap-3">
+                            <div class="flex items-center gap-2 flex-shrink-0">
+                                <i class="fas fa-grip-vertical text-gray-400 cursor-move"></i>
+                                <div class="w-8 h-8 rounded-full ${isCharacteristics ? 'bg-purple-600 text-white' : 'bg-purple-100 text-purple-600'} flex items-center justify-center font-bold text-sm">
+                                    ${index + 1}
                                 </div>
                             </div>
-                            <p class="text-sm text-gray-600 mb-2">${step.subtitle.it}</p>
-                            ${step.filterKey ? `<div class="text-xs text-gray-500"><i class="fas fa-filter mr-1"></i> Filtro: <span class="font-semibold">${step.filterKey}</span></div>` : ''}
-                            ${step.allowTextInput ? '<div class="text-xs text-purple-600 mt-1"><i class="fas fa-keyboard mr-1"></i> Input testuale abilitato</div>' : ''}
-                        </div>
-                        <div class="flex items-center gap-2">
-                            <button onclick="editStep('${step.id}')" class="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors" title="Modifica">
-                                <i class="fas fa-edit"></i>
-                            </button>
-                            ${step.type !== 'category' ? `
-                                <button onclick="deleteStep('${step.id}')" class="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors" title="Elimina">
-                                    <i class="fas fa-trash"></i>
+                            <div class="flex-1 min-w-0">
+                                <div class="flex items-center justify-between mb-2">
+                                    <h3 class="font-bold ${isCharacteristics ? 'text-purple-900' : 'text-gray-900'}">
+                                        ${isCharacteristics ? '<i class="fas fa-layer-group mr-2"></i>' : ''}${step.title.it}
+                                    </h3>
+                                    <div class="flex items-center gap-2">
+                                        ${step.type === 'category' ? '<span class="px-2 py-1 bg-blue-100 text-blue-700 text-xs font-semibold rounded">Fisso</span>' : ''}
+                                        ${isCharacteristics ? `<span class="px-2 py-1 bg-purple-600 text-white text-xs font-semibold rounded">${enabledBooleanFilters.length} caratteristiche</span>` : ''}
+                                        ${step.required ? '<span class="px-2 py-1 bg-red-100 text-red-700 text-xs font-semibold rounded">Required</span>' : ''}
+                                        ${step.multiSelect ? '<span class="px-2 py-1 bg-green-100 text-green-700 text-xs font-semibold rounded">Multi</span>' : ''}
+                                    </div>
+                                </div>
+                                <p class="text-sm ${isCharacteristics ? 'text-purple-700' : 'text-gray-600'} mb-2">${step.subtitle.it}</p>
+                                ${isCharacteristics ? `
+                                    <div class="text-xs text-purple-600 bg-white rounded p-2 mt-2">
+                                        <i class="fas fa-check-square mr-1"></i>
+                                        ${enabledBooleanFilters.map(f => f.key).join(', ')}
+                                    </div>
+                                ` : step.filterKey && step.filterKey !== '_characteristics_group' ? `
+                                    <div class="text-xs text-gray-500"><i class="fas fa-filter mr-1"></i> Filtro: <span class="font-semibold">${step.filterKey}</span></div>
+                                ` : ''}
+                                ${step.allowTextInput ? '<div class="text-xs text-purple-600 mt-1"><i class="fas fa-keyboard mr-1"></i> Input testuale abilitato</div>' : ''}
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <button onclick="editStep('${step.id}')" class="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors" title="Modifica">
+                                    <i class="fas fa-edit"></i>
                                 </button>
-                            ` : ''}
+                                ${step.type !== 'category' ? `
+                                    <button onclick="deleteStep('${step.id}')" class="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors" title="Elimina">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                ` : ''}
+                            </div>
                         </div>
                     </div>
-                </div>
-            `).join('');
+                `;
+            }).join('');
         }
 
         // Initialize drag and drop
@@ -339,45 +457,73 @@ $pageTitle = "Wizard Builder";
 
             const languages = ['it', 'en', 'de', 'fr', 'es', 'pt'];
             const langNames = {it: 'Italiano', en: 'English', de: 'Deutsch', fr: 'Français', es: 'Español', pt: 'Português'};
+            const isCharacteristics = currentEditingStep.type === 'characteristics' || currentEditingStep.filterKey === '_characteristics_group';
+            const enabledBooleanFilters = availableFilters.filter(f => f.type === 'boolean' && !disabledBooleanFilters.has(f.key));
 
             content.innerHTML = `
-                ${currentEditingStep.type !== 'category' ? `
+                ${isCharacteristics ? `
+                    <div class="bg-purple-50 border border-purple-200 rounded-lg p-4 mb-4">
+                        <div class="flex items-center gap-2 mb-2">
+                            <i class="fas fa-layer-group text-purple-600"></i>
+                            <span class="font-bold text-purple-900">Gruppo Caratteristiche</span>
+                            <span class="text-xs bg-purple-600 text-white px-2 py-1 rounded-full">${enabledBooleanFilters.length} filtri</span>
+                        </div>
+                        <div class="text-xs text-purple-700">
+                            ${enabledBooleanFilters.length > 0
+                                ? enabledBooleanFilters.map(f => `<span class="inline-block bg-white px-2 py-1 rounded mr-1 mb-1">${f.key}</span>`).join('')
+                                : '<span class="text-purple-500">Nessuna caratteristica abilitata</span>'}
+                        </div>
+                        <p class="text-xs text-purple-600 mt-2">
+                            <i class="fas fa-info-circle mr-1"></i>
+                            Le caratteristiche incluse vengono gestite tramite le checkbox nella sezione "Caratteristiche" della sidebar
+                        </p>
+                    </div>
+                ` : currentEditingStep.type !== 'category' ? `
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-2">Filtro Associato</label>
-                        <select id="edit-filter-key" class="w-full px-3 py-2 border border-gray-300 rounded-lg">
-                            ${availableFilters.map(f => `
+                        <select id="edit-filter-key" class="w-full px-3 py-2 border border-gray-300 rounded-lg" onchange="onFilterChange(this.value)">
+                            ${availableFilters.filter(f => f.type !== 'boolean').map(f => `
                                 <option value="${f.key}" ${f.key === currentEditingStep.filterKey ? 'selected' : ''}>
                                     ${f.key} (${f.valueCount} opzioni)
                                 </option>
                             `).join('')}
+                            ${enabledBooleanFilters.length > 0 ? `
+                                <option value="_characteristics_group" ${currentEditingStep.filterKey === '_characteristics_group' ? 'selected' : ''}>
+                                    🟣 Gruppo Caratteristiche (${enabledBooleanFilters.length} filtri)
+                                </option>
+                            ` : ''}
                         </select>
+                        <p class="text-xs text-gray-500 mt-1">
+                            <i class="fas fa-info-circle text-blue-600"></i>
+                            Il titolo verrà impostato automaticamente in base al filtro selezionato
+                        </p>
                     </div>
                 ` : ''}
 
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Titolo (multilingua)</label>
-                    ${languages.map(lang => `
-                        <div class="mb-2">
-                            <label class="block text-xs text-gray-500 mb-1">${langNames[lang]}</label>
-                            <input type="text"
-                                   id="edit-title-${lang}"
-                                   value="${currentEditingStep.title[lang] || ''}"
-                                   class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm">
-                        </div>
-                    `).join('')}
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Titolo</label>
+                    <input type="text"
+                           id="edit-title-it"
+                           value="${currentEditingStep.title.it || ''}"
+                           class="w-full px-3 py-2 border border-gray-300 rounded-lg"
+                           placeholder="Es: Scegli il materiale">
+                    <p class="text-xs text-gray-500 mt-1">
+                        <i class="fas fa-language text-emerald-600 mr-1"></i>
+                        Scrivi in italiano. Le altre lingue saranno tradotte automaticamente quando salvi.
+                    </p>
                 </div>
 
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Sottotitolo (multilingua)</label>
-                    ${languages.map(lang => `
-                        <div class="mb-2">
-                            <label class="block text-xs text-gray-500 mb-1">${langNames[lang]}</label>
-                            <input type="text"
-                                   id="edit-subtitle-${lang}"
-                                   value="${currentEditingStep.subtitle[lang] || ''}"
-                                   class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm">
-                        </div>
-                    `).join('')}
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Sottotitolo</label>
+                    <input type="text"
+                           id="edit-subtitle-it"
+                           value="${currentEditingStep.subtitle.it || ''}"
+                           class="w-full px-3 py-2 border border-gray-300 rounded-lg"
+                           placeholder="Es: Seleziona il materiale del prodotto">
+                    <p class="text-xs text-gray-500 mt-1">
+                        <i class="fas fa-language text-emerald-600 mr-1"></i>
+                        Scrivi in italiano. Le altre lingue saranno tradotte automaticamente quando salvi.
+                    </p>
                 </div>
 
                 <div>
@@ -415,6 +561,23 @@ $pageTitle = "Wizard Builder";
             modal.classList.remove('hidden');
         }
 
+        // On filter change - set Italian text only
+        function onFilterChange(filterKey) {
+            if (!filterKey) return;
+
+            // Se è il gruppo caratteristiche, usa testi predefiniti
+            if (filterKey === '_characteristics_group') {
+                document.getElementById('edit-title-it').value = 'Caratteristiche';
+                document.getElementById('edit-subtitle-it').value = 'Scegli le caratteristiche del prodotto';
+                return;
+            }
+
+            // Per altri filtri, usa il nome del filtro
+            const italianTitle = filterKey;
+            document.getElementById('edit-title-it').value = italianTitle;
+            document.getElementById('edit-subtitle-it').value = `Scegli ${italianTitle.toLowerCase()}`;
+        }
+
         // Close edit modal
         function closeEditModal() {
             document.getElementById('edit-modal').classList.add('hidden');
@@ -425,18 +588,23 @@ $pageTitle = "Wizard Builder";
         function saveStepEdit() {
             if (!currentEditingStep) return;
 
-            const languages = ['it', 'en', 'de', 'fr', 'es', 'pt'];
+            const isCharacteristics = currentEditingStep.type === 'characteristics' || currentEditingStep.filterKey === '_characteristics_group';
 
-            // Update filter key (if not category)
-            if (currentEditingStep.type !== 'category') {
-                currentEditingStep.filterKey = document.getElementById('edit-filter-key').value;
+            // Update filter key (if not category or characteristics)
+            if (currentEditingStep.type !== 'category' && !isCharacteristics) {
+                const newFilterKey = document.getElementById('edit-filter-key').value;
+                currentEditingStep.filterKey = newFilterKey;
+
+                // Se il nuovo filtro è il gruppo caratteristiche, cambia il type
+                if (newFilterKey === '_characteristics_group') {
+                    currentEditingStep.type = 'characteristics';
+                }
             }
 
-            // Update titles and subtitles
-            languages.forEach(lang => {
-                currentEditingStep.title[lang] = document.getElementById(`edit-title-${lang}`).value;
-                currentEditingStep.subtitle[lang] = document.getElementById(`edit-subtitle-${lang}`).value;
-            });
+            // Update only Italian title and subtitle
+            // Other languages will be auto-translated on save
+            currentEditingStep.title.it = document.getElementById('edit-title-it').value;
+            currentEditingStep.subtitle.it = document.getElementById('edit-subtitle-it').value;
 
             // Update AI prompt
             currentEditingStep.aiPrompt = document.getElementById('edit-ai-prompt').value;
@@ -461,6 +629,16 @@ $pageTitle = "Wizard Builder";
                 step.order = index + 1;
             });
             renderWizardSteps();
+        }
+
+        // Toggle boolean filter enabled/disabled
+        function toggleBooleanFilter(filterKey) {
+            if (disabledBooleanFilters.has(filterKey)) {
+                disabledBooleanFilters.delete(filterKey);
+            } else {
+                disabledBooleanFilters.add(filterKey);
+            }
+            renderAvailableFilters();
         }
 
         // Add new step
@@ -554,7 +732,9 @@ $pageTitle = "Wizard Builder";
 
         // Preview wizard
         function previewWizard() {
-            window.open('<?= BASE_URL ?>', '_blank');
+            // Open frontend (remove /admin from current URL)
+            const frontendUrl = window.location.origin + '/';
+            window.open(frontendUrl, '_blank');
         }
     </script>
 </body>

@@ -46,7 +46,7 @@ interface WizardSearchProps {
 interface WizardConfigStep {
   id: string;
   order: number;
-  type: 'category' | 'filter' | 'multi_filter';
+  type: 'category' | 'filter' | 'multi_filter' | 'characteristics';
   filterKey?: string;
   required?: boolean;
   multiSelect?: boolean;
@@ -128,10 +128,23 @@ export default function WizardSearch({
 
   // Get filter for current step
   const currentFilter = useMemo(() => {
-    if (!currentStep || currentStep.type === 'category' || currentStep.type === 'multi_filter') {
+    if (!currentStep || currentStep.type === 'category' || currentStep.type === 'multi_filter' || currentStep.type === 'characteristics') {
       return null;
     }
     return filters.find(f => f.key === currentStep.filterKey);
+  }, [currentStep, filters]);
+
+  // Get boolean filters for characteristics step
+  const characteristicsFilters = useMemo(() => {
+    if (!currentStep || currentStep.type !== 'characteristics') {
+      return [];
+    }
+    // Get all boolean filters (filters with only '1' as available value)
+    return filters.filter(f => {
+      const hasOnlyTrue = f.availableValues && f.availableValues.length === 1 && f.availableValues[0] === '1';
+      const hasOptions = f.options && f.options.length > 0;
+      return hasOnlyTrue || hasOptions;
+    });
   }, [currentStep, filters]);
 
   // Get available filters for multi-filter step
@@ -497,6 +510,55 @@ export default function WizardSearch({
                           </div>
                         </div>
                       ))}
+                    </div>
+                  </motion.div>
+                )}
+
+                {/* Characteristics Step (boolean filters as checkboxes) */}
+                {currentStep && currentStep.type === 'characteristics' && (
+                  <motion.div
+                    key="characteristics"
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -20 }}
+                  >
+                    <h3 className="text-xl font-bold text-gray-900 mb-2">
+                      {currentStep.title[currentLang] || currentStep.title['it']}
+                    </h3>
+                    <p className="text-sm text-gray-600 mb-6">
+                      {currentStep.subtitle[currentLang] || currentStep.subtitle['it']}
+                    </p>
+
+                    <div className="space-y-3">
+                      {characteristicsFilters.map((filter) => {
+                        const isSelected = wizardState.selectedFilters[filter.key]?.includes('1');
+                        const label = filter.options && filter.options.length > 0
+                          ? (typeof filter.options[0].label === 'string'
+                              ? filter.options[0].label
+                              : filter.options[0].label[currentLang] || filter.options[0].label['it'] || filter.key)
+                          : filter.key;
+
+                        return (
+                          <button
+                            key={filter.key}
+                            onClick={() => handleToggleFilter(filter.key, '1', true)}
+                            className={`w-full p-4 rounded-xl border-2 transition-all flex items-center gap-3 ${
+                              isSelected
+                                ? 'border-purple-600 bg-purple-50'
+                                : 'border-gray-200 bg-white hover:border-purple-300'
+                            }`}
+                          >
+                            <div className={`w-6 h-6 rounded-lg border-2 flex items-center justify-center flex-shrink-0 ${
+                              isSelected ? 'border-purple-600 bg-purple-600' : 'border-gray-300'
+                            }`}>
+                              {isSelected && <Check className="w-4 h-4 text-white" />}
+                            </div>
+                            <span className="text-sm font-semibold text-gray-900 flex-1 text-left">
+                              {label}
+                            </span>
+                          </button>
+                        );
+                      })}
                     </div>
                   </motion.div>
                 )}

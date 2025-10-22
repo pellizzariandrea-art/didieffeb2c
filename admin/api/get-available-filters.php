@@ -46,32 +46,52 @@ try {
                 $attributeKeys[$attrKey] = true;
                 $attributeStats[$attrKey] = [
                     'count' => 0,
-                    'sampleValues' => []
+                    'sampleValues' => [],
+                    'type' => 'select',
+                    'booleanTrueCount' => 0,
+                    'booleanFalseCount' => 0
                 ];
             }
 
             // Count products with this attribute
             $attributeStats[$attrKey]['count']++;
 
-            // Collect sample values (max 5)
-            if (count($attributeStats[$attrKey]['sampleValues']) < 5) {
-                $value = null;
+            $isBoolean = false;
+            $value = null;
 
-                if (is_array($attrValue)) {
-                    // Handle new structure with label/value
-                    if (isset($attrValue['value'])) {
-                        $valueData = $attrValue['value'];
-                        if (is_array($valueData) && isset($valueData['it'])) {
-                            $value = $valueData['it'];
-                        } else if (!is_bool($valueData)) {
-                            $value = (string)$valueData;
+            if (is_array($attrValue)) {
+                // Handle new structure with label/value
+                if (isset($attrValue['value'])) {
+                    $valueData = $attrValue['value'];
+                    if (is_bool($valueData)) {
+                        $isBoolean = true;
+                        $attributeStats[$attrKey]['type'] = 'boolean';
+                        if ($valueData === true) {
+                            $attributeStats[$attrKey]['booleanTrueCount']++;
+                        } else {
+                            $attributeStats[$attrKey]['booleanFalseCount']++;
                         }
+                    } else if (is_array($valueData) && isset($valueData['it'])) {
+                        $value = $valueData['it'];
+                    } else if ($valueData !== null) {
+                        $value = (string)$valueData;
                     }
-                } else if (!is_bool($attrValue) && $attrValue !== null && $attrValue !== '') {
-                    $value = (string)$attrValue;
                 }
+            } else if (is_bool($attrValue)) {
+                $isBoolean = true;
+                $attributeStats[$attrKey]['type'] = 'boolean';
+                if ($attrValue === true) {
+                    $attributeStats[$attrKey]['booleanTrueCount']++;
+                } else {
+                    $attributeStats[$attrKey]['booleanFalseCount']++;
+                }
+            } else if ($attrValue !== null && $attrValue !== '') {
+                $value = (string)$attrValue;
+            }
 
-                if ($value && !in_array($value, $attributeStats[$attrKey]['sampleValues'])) {
+            // Collect sample values (max 5) for non-boolean filters
+            if (!$isBoolean && $value && count($attributeStats[$attrKey]['sampleValues']) < 5) {
+                if (!in_array($value, $attributeStats[$attrKey]['sampleValues'])) {
                     $attributeStats[$attrKey]['sampleValues'][] = $value;
                 }
             }
@@ -83,17 +103,29 @@ try {
     foreach ($attributeKeys as $key => $v) {
         $stats = $attributeStats[$key];
 
-        // Skip filters with no real values
-        if (empty($stats['sampleValues'])) {
+        // For boolean filters, include even if no sample values
+        // For select filters, skip if no real values
+        if ($stats['type'] === 'select' && empty($stats['sampleValues'])) {
             continue;
         }
 
-        $filters[] = [
+        $filterData = [
             'key' => $key,
-            'productCount' => $stats['count'],
-            'sampleValues' => $stats['sampleValues'],
-            'valueCount' => count($stats['sampleValues'])
+            'type' => $stats['type'],
+            'productCount' => $stats['count']
         ];
+
+        if ($stats['type'] === 'boolean') {
+            $filterData['trueCount'] = $stats['booleanTrueCount'];
+            $filterData['falseCount'] = $stats['booleanFalseCount'];
+            $filterData['sampleValues'] = ['Sì', 'No'];
+            $filterData['valueCount'] = 2;
+        } else {
+            $filterData['sampleValues'] = $stats['sampleValues'];
+            $filterData['valueCount'] = count($stats['sampleValues']);
+        }
+
+        $filters[] = $filterData;
     }
 
     // Sort by product count (most used first)
