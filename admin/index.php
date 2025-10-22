@@ -82,6 +82,43 @@ $mappingConfig = loadMappingConfig();
     <?php endif; ?>
 </div>
 
+<!-- Wizard Builder Card -->
+<div class="card" style="background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%); border: 2px solid rgba(102, 126, 234, 0.3);">
+    <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 15px;">
+        <div style="width: 60px; height: 60px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 15px; display: flex; align-items: center; justify-content: center; font-size: 30px;">
+            ✨
+        </div>
+        <div>
+            <h2 style="margin: 0; color: #667eea;">Wizard di Ricerca Guidata</h2>
+            <p style="margin: 5px 0 0 0; color: #666; font-size: 14px;">Configura il wizard interattivo per aiutare i clienti a trovare prodotti</p>
+        </div>
+    </div>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 20px;">
+        <div style="background: white; padding: 15px; border-radius: 10px; border-left: 4px solid #667eea;">
+            <div style="font-size: 24px; font-weight: bold; color: #667eea;">5</div>
+            <div style="font-size: 12px; color: #666; margin-top: 5px;">Step Configurabili</div>
+        </div>
+        <div style="background: white; padding: 15px; border-radius: 10px; border-left: 4px solid #764ba2;">
+            <div style="font-size: 24px; font-weight: bold; color: #764ba2;">🌍</div>
+            <div style="font-size: 12px; color: #666; margin-top: 5px;">6 Lingue Tradotte</div>
+        </div>
+        <div style="background: white; padding: 15px; border-radius: 10px; border-left: 4px solid #10b981;">
+            <div style="font-size: 24px; font-weight: bold; color: #10b981;">🎯</div>
+            <div style="font-size: 12px; color: #666; margin-top: 5px;">Drag & Drop</div>
+        </div>
+    </div>
+
+    <a href="/admin/pages/wizard-builder.php" class="btn" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: inline-flex; align-items: center; gap: 10px;">
+        <span style="font-size: 20px;">🚀</span>
+        <span>Configura Wizard Builder</span>
+    </a>
+    <a href="<?= BASE_URL ?>" target="_blank" class="btn btn-secondary" style="margin-left: 10px; display: inline-flex; align-items: center; gap: 10px;">
+        <span style="font-size: 18px;">👁️</span>
+        <span>Anteprima Frontend</span>
+    </a>
+</div>
+
 <?php if (file_exists(PUBLIC_JSON_PATH)): ?>
 <div class="card">
     <h2>JSON Pubblico</h2>
