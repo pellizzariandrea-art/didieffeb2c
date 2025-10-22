@@ -458,6 +458,14 @@
       "es": "Ordenar",
       "pt": "Ordenar"
     },
+    "show_results": {
+      "it": "Mostra {count} prodotti",
+      "en": "Show {count} products",
+      "de": "{count} Produkte anzeigen",
+      "fr": "Afficher {count} produits",
+      "es": "Mostrar {count} productos",
+      "pt": "Mostrar {count} produtos"
+    },
     "showing": {
       "it": "Mostrando",
       "en": "Showing",

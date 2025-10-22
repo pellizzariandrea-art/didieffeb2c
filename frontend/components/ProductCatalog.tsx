@@ -960,7 +960,7 @@ export default function ProductCatalog({
                     </div>
 
                     {/* Sidebar Content */}
-                    <div className="p-6">
+                    <div className="p-6 pb-32">
                       <FilterSidebar
                         filters={dynamicFilters.map(f => ({
                           key: f.key,
@@ -977,6 +977,35 @@ export default function ProductCatalog({
                         onFiltersChange={setSelectedFilters}
                         lang={currentLang}
                       />
+                    </div>
+
+                    {/* Sticky Footer - Mobile Only */}
+                    <div className="sticky bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-4 shadow-lg space-y-2">
+                      <motion.button
+                        onClick={() => setIsMobileFiltersOpen(false)}
+                        whileTap={{ scale: 0.98 }}
+                        className="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-4 px-6 rounded-xl shadow-lg transition-colors flex items-center justify-center gap-2"
+                      >
+                        <span>
+                          {getLabel('home.show_results', currentLang, { count: sortedProducts.length })}
+                        </span>
+                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                        </svg>
+                      </motion.button>
+
+                      {/* Clear Filters Button - Only if filters are active */}
+                      {activeFiltersCount > 0 && (
+                        <button
+                          onClick={() => {
+                            setSelectedFilters({});
+                            setSelectedCategory(null);
+                          }}
+                          className="w-full text-gray-600 hover:text-gray-900 font-medium py-2 text-sm transition-colors"
+                        >
+                          {getLabel('filters.clear', currentLang)}
+                        </button>
+                      )}
                     </div>
                   </aside>
                 </div>
