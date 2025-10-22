@@ -769,6 +769,15 @@ export default function ProductCatalog({
                 onClose={() => setShowAutocomplete(false)}
               />
             </div>
+
+            {/* Wizard Helper Button - Below Search */}
+            <button
+              onClick={() => setIsWizardOpen(true)}
+              className="mt-2 w-full bg-gradient-to-r from-purple-600 to-indigo-600 text-white py-2.5 px-4 rounded-lg shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2 font-semibold text-sm"
+            >
+              <Sparkles className="w-4 h-4" />
+              <span>{getLabel('wizard.button', currentLang)}</span>
+            </button>
           </div>
 
           {/* Desktop: Two Row Layout */}
@@ -983,6 +992,20 @@ export default function ProductCatalog({
                         <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                         </svg>
+                      </button>
+                    </div>
+
+                    {/* Wizard Helper Button - Top of Filters */}
+                    <div className="px-6 pt-4 pb-2 border-b border-gray-100">
+                      <button
+                        onClick={() => {
+                          setIsWizardOpen(true);
+                          setIsMobileFiltersOpen(false);
+                        }}
+                        className="w-full bg-gradient-to-r from-purple-600 to-indigo-600 text-white py-3 px-4 rounded-lg shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2 font-semibold text-sm"
+                      >
+                        <Sparkles className="w-4 h-4" />
+                        <span>{getLabel('wizard.button', currentLang)}</span>
                       </button>
                     </div>
 
@@ -1534,20 +1557,15 @@ export default function ProductCatalog({
       {/* Recently Viewed Section */}
       <RecentlyViewedCarousel />
 
-      {/* Wizard Search Button - Floating (All screens) */}
+      {/* Wizard Search Button - Desktop Only (Always Visible) */}
       <motion.button
         onClick={() => setIsWizardOpen(true)}
         whileTap={{ scale: 0.95 }}
         whileHover={{ scale: 1.05 }}
-        className="fixed bottom-32 md:bottom-8 left-4 md:left-8 z-40 bg-gradient-to-r from-purple-600 to-indigo-600 text-white px-4 md:px-6 py-3 md:py-3.5 rounded-full shadow-2xl hover:shadow-purple-500/50 transition-all flex items-center gap-2 font-bold text-sm group"
+        className="hidden md:flex fixed bottom-8 right-8 z-40 bg-gradient-to-r from-purple-600 to-indigo-600 text-white px-6 py-3.5 rounded-full shadow-2xl hover:shadow-purple-500/50 transition-all items-center gap-2 font-bold text-sm group"
       >
         <Sparkles className="w-5 h-5 group-hover:rotate-12 transition-transform" />
-        <span className="hidden sm:inline">
-          {getLabel('wizard.button', currentLang)}
-        </span>
-        <span className="sm:hidden">
-          {getLabel('wizard.button_short', currentLang)}
-        </span>
+        <span>{getLabel('wizard.button', currentLang)}</span>
       </motion.button>
 
       {/* Floating Action Buttons - Mobile Only */}

@@ -55,6 +55,7 @@ interface WizardConfigStep {
   aiPrompt?: string;
   allowTextInput?: boolean;
   maxFilters?: number;
+  includeFilters?: string[];
   excludeFilters?: string[];
 }
 
@@ -98,10 +99,24 @@ export default function WizardSearch({
   useEffect(() => {
     const loadConfig = async () => {
       try {
-        const response = await fetch('/admin/api/get-wizard-config.php');
+        // Use Next.js API route proxy for both development and production
+        const apiUrl = '/admin/api/get-wizard-config';
+
+        const response = await fetch(apiUrl);
         const data = await response.json();
+        console.log('[DEBUG] Loaded wizard config from:', apiUrl);
+        console.log('[DEBUG] Loaded wizard config:', data);
         if (data.success && data.config) {
-          setWizardConfig(data.config);
+          console.log('[DEBUG] Step 2 before filter:', data.config.steps[1]);
+          console.log('[DEBUG] Step 2 includeFilters:', data.config.steps[1]?.includeFilters);
+          // Filter out deprecated "category" type steps
+          const filteredConfig = {
+            ...data.config,
+            steps: data.config.steps.filter((step: WizardConfigStep) => step.type !== 'category')
+          };
+          console.log('[DEBUG] Step 1 after filter (was step 2):', filteredConfig.steps[0]);
+          console.log('[DEBUG] Step 1 includeFilters:', filteredConfig.steps[0]?.includeFilters);
+          setWizardConfig(filteredConfig);
         }
       } catch (error) {
         console.error('Error loading wizard config:', error);
@@ -126,43 +141,13 @@ export default function WizardSearch({
     return wizardConfig.steps[wizardState.stepIndex - 1];
   }, [wizardConfig, wizardState.stepIndex]);
 
-  // Get filter for current step
-  const currentFilter = useMemo(() => {
-    if (!currentStep || currentStep.type === 'category' || currentStep.type === 'multi_filter' || currentStep.type === 'characteristics') {
-      return null;
-    }
-    return filters.find(f => f.key === currentStep.filterKey);
-  }, [currentStep, filters]);
-
-  // Get boolean filters for characteristics step
-  const characteristicsFilters = useMemo(() => {
-    if (!currentStep || currentStep.type !== 'characteristics') {
-      return [];
-    }
-    // Get all boolean filters (filters with only '1' as available value)
-    return filters.filter(f => {
-      const hasOnlyTrue = f.availableValues && f.availableValues.length === 1 && f.availableValues[0] === '1';
-      const hasOptions = f.options && f.options.length > 0;
-      return hasOnlyTrue || hasOptions;
-    });
-  }, [currentStep, filters]);
-
-  // Get available filters for multi-filter step
-  const availableMultiFilters = useMemo(() => {
-    if (!currentStep || currentStep.type !== 'multi_filter') {
-      return [];
-    }
-    const excludeKeys = currentStep.excludeFilters || [];
-    return filters.filter(f => {
-      const isNotExcluded = !excludeKeys.includes(f.key);
-      const isNotPrice = f.key !== 'prezzo';
-      const hasValues = f.availableValues && f.availableValues.length > 0;
-      return isNotExcluded && isNotPrice && hasValues;
-    }).slice(0, currentStep.maxFilters || 10);
-  }, [currentStep, filters]);
-
   // Calculate filtered products based on current wizard state
   const filteredProducts = useMemo(() => {
+    console.log('[WIZARD STATE]', {
+      selectedCategory: wizardState.selectedCategory,
+      selectedFilters: wizardState.selectedFilters,
+      totalProducts: products.length
+    });
     return products.filter(product => {
       // Filter by category
       if (wizardState.selectedCategory) {
@@ -180,8 +165,13 @@ export default function WizardSearch({
       for (const [filterKey, filterValues] of Object.entries(wizardState.selectedFilters)) {
         if (filterValues.length === 0) continue;
 
-        const productValue = product.attributi?.[filterKey];
+        let productValue = product.attributi?.[filterKey];
         if (!productValue) return false;
+
+        // Extract value from object structure if needed
+        if (typeof productValue === 'object' && 'value' in productValue) {
+          productValue = productValue.value;
+        }
 
         // Handle boolean attributes (for application filters)
         if (typeof productValue === 'boolean' || productValue === 'true' || productValue === 'false' ||
@@ -191,14 +181,191 @@ export default function WizardSearch({
           continue;
         }
 
+        // Handle multilingual values
+        if (typeof productValue === 'object' && 'it' in productValue) {
+          productValue = productValue.it;
+        }
+
         // Handle string/value attributes
+        const strValue = (typeof productValue === 'string' ? productValue : String(productValue)).trim();
+        // Case-insensitive matching
+        const matched = filterValues.some(fv => fv.trim().toLowerCase() === strValue.toLowerCase());
+        if (!matched) {
+          return false;
+        }
+      }
+
+      return true;
+    });
+  }, [products, wizardState]);
+
+
+  // Get filter for current step
+  const currentFilter = useMemo(() => {
+    if (!currentStep || currentStep.type === 'category' || currentStep.type === 'multi_filter' || currentStep.type === 'characteristics') {
+      return null;
+    }
+    return filters.find(f => f.key === currentStep.filterKey);
+  }, [currentStep, filters]);
+  // Calculate available values for current filter based on filtered products
+  const filteredAvailableValues = useMemo(() => {
+    if (!currentFilter || !currentStep || currentStep.type !== 'filter') {
+      return null;
+    }
+
+    // For multi-select filters, we need to calculate available values EXCLUDING the current filter
+    // to allow selecting multiple options
+    const productsToCheck = products.filter(product => {
+      // Filter by category
+      if (wizardState.selectedCategory) {
+        const categoryAttr = product.attributi?.[wizardState.selectedCategory];
+        if (!categoryAttr) return false;
+        const categoryValue = typeof categoryAttr === 'object' && 'value' in categoryAttr
+          ? categoryAttr.value
+          : categoryAttr;
+        if (categoryValue !== true && categoryValue !== 'true' && categoryValue !== 1 && categoryValue !== '1') {
+          return false;
+        }
+      }
+
+      // Filter by selected filters EXCEPT the current one
+      for (const [filterKey, filterValues] of Object.entries(wizardState.selectedFilters)) {
+        if (filterKey === currentFilter.key) continue; // Skip current filter
+        if (filterValues.length === 0) continue;
+
+        let productValue = product.attributi?.[filterKey];
+        if (!productValue) return false;
+
+        if (typeof productValue === 'object' && 'value' in productValue) {
+          productValue = productValue.value;
+        }
+
+        if (typeof productValue === 'boolean' || productValue === 'true' || productValue === 'false' ||
+            productValue === '1' || productValue === '0' || productValue === 1 || productValue === 0) {
+          const boolValue = productValue === true || productValue === 'true' || productValue === 1 || productValue === '1';
+          if (filterValues.includes('1') && !boolValue) return false;
+          continue;
+        }
+
+        if (typeof productValue === 'object' && 'it' in productValue) {
+          productValue = productValue.it;
+        }
+
         const strValue = typeof productValue === 'string' ? productValue : String(productValue);
         if (!filterValues.includes(strValue)) return false;
       }
 
       return true;
     });
-  }, [products, wizardState]);
+
+    // Collect unique values from these products for this filter
+    const availableSet = new Set<string>();
+    productsToCheck.forEach(product => {
+      const value = product.attributi?.[currentFilter.key];
+      if (!value) return;
+
+      // Extract string value
+      let strValue: string;
+      if (typeof value === 'object' && 'value' in value) {
+        strValue = typeof value.value === 'object' && 'it' in value.value
+          ? value.value.it
+          : String(value.value);
+      } else if (typeof value === 'object' && 'it' in value) {
+        strValue = value.it;
+      } else {
+        strValue = String(value);
+      }
+
+      availableSet.add(strValue.trim());
+    });
+
+    const result = Array.from(availableSet);
+    console.log('[DEBUG] filteredAvailableValues for', currentFilter.key, ':', result, 'from', filteredProducts.length, 'products');
+    return result;
+  }, [currentFilter, currentStep, filteredProducts]);
+
+
+  // Get boolean filters for characteristics step
+  const characteristicsFilters = useMemo(() => {
+    if (!currentStep || currentStep.type !== 'characteristics') {
+      return [];
+    }
+
+    const includeKeys = currentStep.includeFilters || [];
+    const excludeKeys = currentStep.excludeFilters || [];
+
+    // Get all boolean filters (filters with only '0' and '1' as available values)
+    const result = filters.filter(f => {
+      if (!f.availableValues || f.availableValues.length === 0) return false;
+
+      // Check if all values are either '0' or '1'
+      const onlyBooleanValues = f.availableValues.every(v => v === '0' || v === '1');
+      if (!onlyBooleanValues) return false;
+
+      // If includeFilters is specified, only include those
+      if (includeKeys.length > 0) {
+        return includeKeys.includes(f.key);
+      }
+
+      // Otherwise exclude specified filters
+      if (excludeKeys.length > 0) {
+        return !excludeKeys.includes(f.key);
+      }
+
+      // Fallback: if no includeFilters specified, show only "Applicazione su..." filters
+      if (includeKeys.length === 0) {
+        return f.key.startsWith('Applicazione su');
+      }
+
+      return true;
+    });
+
+    console.log('[DEBUG] characteristicsFilters result:', result.length, 'filters:', result.map(f => f.key));
+    return result;
+  }, [currentStep, filters]);
+
+  // Get available filters for multi-filter step
+  const availableMultiFilters = useMemo(() => {
+    if (!currentStep || currentStep.type !== 'multi_filter') {
+      return [];
+    }
+    const excludeKeys = currentStep.excludeFilters || [];
+
+    // For each filter, calculate available values from filtered products
+    return filters.filter(f => {
+      const isNotExcluded = !excludeKeys.includes(f.key);
+      const isNotPrice = f.key !== 'prezzo';
+      return isNotExcluded && isNotPrice;
+    }).map(f => {
+      // Calculate available values from filtered products
+      const availableSet = new Set<string>();
+      filteredProducts.forEach(product => {
+        const value = product.attributi?.[f.key];
+        if (!value) return;
+
+        // Extract string value
+        let strValue: string;
+        if (typeof value === 'object' && 'value' in value) {
+          strValue = typeof value.value === 'object' && 'it' in value.value
+            ? value.value.it
+            : String(value.value);
+        } else if (typeof value === 'object' && 'it' in value) {
+          strValue = value.it;
+        } else {
+          strValue = String(value);
+        }
+
+        availableSet.add(strValue.trim());
+      });
+
+      return {
+        ...f,
+        availableValues: Array.from(availableSet)
+      };
+    }).filter(f => f.availableValues.length > 0).slice(0, currentStep.maxFilters || 10);
+  }, [currentStep, filters, filteredProducts]);
+
+
 
   const handleSelectCategory = (categoryField: string) => {
     setWizardState(prev => ({
@@ -233,6 +400,12 @@ export default function WizardSearch({
   const handleNext = () => {
     if (!wizardConfig) return;
     const maxStepIndex = wizardConfig.steps.length + 1; // +1 for results step
+
+    // Se siamo all'ultimo step e non ci sono prodotti, non andare avanti
+    if (wizardState.stepIndex === wizardConfig.steps.length && filteredProducts.length === 0) {
+      return;
+    }
+
     if (wizardState.stepIndex < maxStepIndex) {
       setWizardState(prev => ({ ...prev, stepIndex: prev.stepIndex + 1 }));
     }
@@ -240,7 +413,22 @@ export default function WizardSearch({
 
   const handleBack = () => {
     if (wizardState.stepIndex > 0) {
-      setWizardState(prev => ({ ...prev, stepIndex: prev.stepIndex - 1 }));
+      setWizardState(prev => {
+        // Rimuovi il filtro dello step corrente quando torni indietro
+        const newFilters = { ...prev.selectedFilters };
+        if (currentStep && currentStep.filterKey) {
+          delete newFilters[currentStep.filterKey];
+        }
+        // Se lo step corrente è characteristics, rimuovi tutti i filtri inclusi
+        if (currentStep && currentStep.type === 'characteristics' && currentStep.includeFilters) {
+          currentStep.includeFilters.forEach(key => delete newFilters[key]);
+        }
+        return {
+          ...prev,
+          stepIndex: prev.stepIndex - 1,
+          selectedFilters: newFilters
+        };
+      });
     }
   };
 
@@ -290,34 +478,34 @@ export default function WizardSearch({
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: '100%', opacity: 0 }}
           transition={{ type: 'spring', damping: 30, stiffness: 300 }}
-          className="relative bg-white rounded-t-3xl md:rounded-3xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-hidden flex flex-col"
+          className="relative bg-white rounded-t-2xl md:rounded-3xl shadow-2xl w-full max-w-2xl max-h-[95vh] md:max-h-[90vh] overflow-hidden flex flex-col"
           onClick={(e) => e.stopPropagation()}
         >
           {/* Header */}
-          <div className="flex items-center justify-between px-6 py-4 border-b border-gray-200">
+          <div className="flex items-center justify-between px-4 md:px-6 py-3 md:py-4 border-b border-gray-200">
             <div className="flex items-center gap-2">
-              <Sparkles className="w-5 h-5 text-emerald-600" />
-              <h2 className="text-lg font-bold text-gray-900">
+              <Sparkles className="w-4 h-4 md:w-5 md:h-5 text-emerald-600" />
+              <h2 className="text-base md:text-lg font-bold text-gray-900">
                 {getLabel('wizard.title', currentLang)}
               </h2>
             </div>
             <button
               onClick={onClose}
-              className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+              className="p-2 hover:bg-gray-100 rounded-lg transition-colors touch-manipulation"
             >
               <X className="w-5 h-5 text-gray-500" />
             </button>
           </div>
 
           {/* Progress Bar */}
-          <div className="px-6 py-3 bg-gray-50 border-b border-gray-200">
-            <div className="flex items-center justify-between text-xs text-gray-600 mb-2">
-              <span>
+          <div className="px-4 md:px-6 py-2 md:py-3 bg-gray-50 border-b border-gray-200">
+            <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-1 md:gap-0 text-xs text-gray-600 mb-2">
+              <span className="truncate text-xs md:text-sm">
                 {wizardState.stepIndex === 0 && getLabel('wizard.steps.welcome', currentLang)}
                 {currentStep && (currentStep.title[currentLang] || currentStep.title['it'])}
                 {wizardConfig && wizardState.stepIndex === wizardConfig.steps.length + 1 && getLabel('wizard.steps.results', currentLang)}
               </span>
-              <span className="font-semibold">{getLabel('wizard.products_count', currentLang, { count: filteredProducts.length })}</span>
+              <span className="font-semibold text-xs md:text-sm whitespace-nowrap">{getLabel('wizard.products_count', currentLang, { count: filteredProducts.length })}</span>
             </div>
             <div className="h-1.5 bg-gray-200 rounded-full overflow-hidden">
               <motion.div
@@ -332,11 +520,11 @@ export default function WizardSearch({
           </div>
 
           {/* Content */}
-          <div className="flex-1 overflow-y-auto p-6">
+          <div className="flex-1 overflow-y-auto p-4 md:p-6">
             {isLoadingConfig ? (
               <div className="text-center py-8">
                 <div className="w-12 h-12 border-4 border-emerald-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-                <p className="text-gray-600">Caricamento configurazione...</p>
+                <p className="text-sm md:text-base text-gray-600">Caricamento configurazione...</p>
               </div>
             ) : (
               <AnimatePresence mode="wait">
@@ -347,15 +535,15 @@ export default function WizardSearch({
                     initial={{ opacity: 0, x: 20 }}
                     animate={{ opacity: 1, x: 0 }}
                     exit={{ opacity: 0, x: -20 }}
-                    className="text-center py-8"
+                    className="text-center py-4 md:py-8"
                   >
-                    <div className="w-20 h-20 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                      <Sparkles className="w-10 h-10 text-emerald-600" />
+                    <div className="w-16 h-16 md:w-20 md:h-20 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-4 md:mb-6">
+                      <Sparkles className="w-8 h-8 md:w-10 md:h-10 text-emerald-600" />
                     </div>
-                    <h3 className="text-2xl font-bold text-gray-900 mb-3">
+                    <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-2 md:mb-3 px-2">
                       {getLabel('wizard.welcome.greeting', currentLang)}
                     </h3>
-                    <p className="text-gray-600 max-w-md mx-auto">
+                    <p className="text-sm md:text-base text-gray-600 max-w-md mx-auto px-4">
                       {getLabel('wizard.welcome.message', currentLang)}
                     </p>
                   </motion.div>
@@ -369,10 +557,10 @@ export default function WizardSearch({
                     animate={{ opacity: 1, x: 0 }}
                     exit={{ opacity: 0, x: -20 }}
                   >
-                    <h3 className="text-xl font-bold text-gray-900 mb-2">
+                    <h3 className="text-lg md:text-xl font-bold text-gray-900 mb-1 md:mb-2">
                       {currentStep.title[currentLang] || currentStep.title['it']}
                     </h3>
-                    <p className="text-sm text-gray-600 mb-6">
+                    <p className="text-xs md:text-sm text-gray-600 mb-4 md:mb-6">
                       {currentStep.subtitle[currentLang] || currentStep.subtitle['it']}
                     </p>
 
@@ -415,56 +603,82 @@ export default function WizardSearch({
                     animate={{ opacity: 1, x: 0 }}
                     exit={{ opacity: 0, x: -20 }}
                   >
-                    <h3 className="text-xl font-bold text-gray-900 mb-2">
+                    <h3 className="text-lg md:text-xl font-bold text-gray-900 mb-1 md:mb-2">
                       {currentStep.title[currentLang] || currentStep.title['it']}
                     </h3>
-                    <p className="text-sm text-gray-600 mb-6">
+                    <p className="text-xs md:text-sm text-gray-600 mb-4 md:mb-6">
                       {currentStep.subtitle[currentLang] || currentStep.subtitle['it']}
                     </p>
 
-                    <div className="space-y-3">
-                      {currentFilter.options && currentFilter.options.length > 0 ? (
-                        currentFilter.options.map((option) => {
-                          const isSelected = wizardState.selectedFilters[currentFilter.key]?.includes('1');
+                    <div className="space-y-2 md:space-y-3">
+                      {(filteredAvailableValues && filteredAvailableValues.length > 0) ? (
+                        <div className="flex flex-wrap gap-2">
+                          {filteredAvailableValues.map((value) => {
+                            // Helper to get translated value from object or string
+                            const getTranslatedValue = (val: any, lang: string): string => {
+                              if (typeof val === 'string') return val;
+                              if (typeof val === 'object' && val !== null) {
+                                return val[lang] || val['it'] || Object.values(val)[0] || '';
+                              }
+                              return String(val);
+                            };
+
+                            // Find the option by comparing Italian values
+                            const option = currentFilter.options?.find(opt => {
+                              const itValue = getTranslatedValue(opt.value, 'it').trim();
+                              return itValue === value.trim();
+                            });
+
+                            // Get the translated label
+                            const displayLabel = option
+                              ? getTranslatedValue(option.value, currentLang).trim()
+                              : value;
+
+                            return (
+                              <button
+                                key={value}
+                                onClick={() => handleToggleFilter(currentFilter.key, value, currentStep.multiSelect || false)}
+                                className={`px-3 py-2.5 md:px-4 md:py-2 rounded-lg border-2 text-xs md:text-sm font-medium transition-all flex items-center gap-2 touch-manipulation ${
+                                  wizardState.selectedFilters[currentFilter.key]?.includes(value)
+                                    ? 'border-emerald-600 bg-emerald-50 text-emerald-700'
+                                    : 'border-gray-200 bg-white text-gray-700 hover:border-emerald-300'
+                                }`}
+                              >
+                                {currentStep.multiSelect && wizardState.selectedFilters[currentFilter.key]?.includes(value) && (
+                                  <Check className="w-3 h-3 md:w-4 md:h-4" />
+                                )}
+                                {displayLabel}
+                              </button>
+                            );
+                          })}
+                        </div>
+                      ) : (filteredAvailableValues === null && currentFilter.options && currentFilter.options.length > 0) ? (
+                        currentFilter.options.map((option, index) => {
+                          const optionValue = typeof option.value === 'string' ? option.value : String(option.value);
+                          const isSelected = wizardState.selectedFilters[currentFilter.key]?.includes(optionValue);
                           return (
                             <button
-                              key={option.value}
-                              onClick={() => handleToggleFilter(currentFilter.key, '1', currentStep.multiSelect || false)}
-                              className={`w-full p-4 rounded-xl border-2 transition-all flex items-center gap-3 ${
+                              key={`${currentFilter.key}-${optionValue}-${index}`}
+                              onClick={() => handleToggleFilter(currentFilter.key, optionValue, currentStep.multiSelect || false)}
+                              className={`w-full p-3 md:p-4 rounded-xl border-2 transition-all flex items-center gap-3 touch-manipulation ${
                                 isSelected
                                   ? 'border-emerald-600 bg-emerald-50'
                                   : 'border-gray-200 bg-white hover:border-emerald-300'
                               }`}
                             >
                               {currentStep.multiSelect && (
-                                <div className={`w-6 h-6 rounded-lg border-2 flex items-center justify-center flex-shrink-0 ${
+                                <div className={`w-5 h-5 md:w-6 md:h-6 rounded-lg border-2 flex items-center justify-center flex-shrink-0 ${
                                   isSelected ? 'border-emerald-600 bg-emerald-600' : 'border-gray-300'
                                 }`}>
-                                  {isSelected && <Check className="w-4 h-4 text-white" />}
+                                  {isSelected && <Check className="w-3 h-3 md:w-4 md:h-4 text-white" />}
                                 </div>
                               )}
-                              <span className="text-sm font-semibold text-gray-900 flex-1 text-left">
+                              <span className="text-xs md:text-sm font-semibold text-gray-900 flex-1 text-left">
                                 {typeof option.label === 'string' ? option.label : option.label[currentLang] || option.value}
                               </span>
                             </button>
                           );
                         })
-                      ) : currentFilter.availableValues && currentFilter.availableValues.length > 0 ? (
-                        <div className="flex flex-wrap gap-2">
-                          {currentFilter.availableValues.map((value) => (
-                            <button
-                              key={value}
-                              onClick={() => handleToggleFilter(currentFilter.key, value, currentStep.multiSelect || false)}
-                              className={`px-4 py-2 rounded-lg border-2 text-sm font-medium transition-all ${
-                                wizardState.selectedFilters[currentFilter.key]?.includes(value)
-                                  ? 'border-emerald-600 bg-emerald-50 text-emerald-700'
-                                  : 'border-gray-200 bg-white text-gray-700 hover:border-emerald-300'
-                              }`}
-                            >
-                              {value}
-                            </button>
-                          ))}
-                        </div>
                       ) : (
                         <p className="text-sm text-gray-500 text-center py-4">Nessuna opzione disponibile</p>
                       )}
@@ -480,10 +694,10 @@ export default function WizardSearch({
                     animate={{ opacity: 1, x: 0 }}
                     exit={{ opacity: 0, x: -20 }}
                   >
-                    <h3 className="text-xl font-bold text-gray-900 mb-2">
+                    <h3 className="text-lg md:text-xl font-bold text-gray-900 mb-1 md:mb-2">
                       {currentStep.title[currentLang] || currentStep.title['it']}
                     </h3>
-                    <p className="text-sm text-gray-600 mb-6">
+                    <p className="text-xs md:text-sm text-gray-600 mb-4 md:mb-6">
                       {currentStep.subtitle[currentLang] || currentStep.subtitle['it']}
                     </p>
 
@@ -522,14 +736,14 @@ export default function WizardSearch({
                     animate={{ opacity: 1, x: 0 }}
                     exit={{ opacity: 0, x: -20 }}
                   >
-                    <h3 className="text-xl font-bold text-gray-900 mb-2">
+                    <h3 className="text-lg md:text-xl font-bold text-gray-900 mb-1 md:mb-2">
                       {currentStep.title[currentLang] || currentStep.title['it']}
                     </h3>
-                    <p className="text-sm text-gray-600 mb-6">
+                    <p className="text-xs md:text-sm text-gray-600 mb-4 md:mb-6">
                       {currentStep.subtitle[currentLang] || currentStep.subtitle['it']}
                     </p>
 
-                    <div className="space-y-3">
+                    <div className="space-y-2 md:space-y-3">
                       {characteristicsFilters.map((filter) => {
                         const isSelected = wizardState.selectedFilters[filter.key]?.includes('1');
                         const label = filter.options && filter.options.length > 0
@@ -542,18 +756,18 @@ export default function WizardSearch({
                           <button
                             key={filter.key}
                             onClick={() => handleToggleFilter(filter.key, '1', true)}
-                            className={`w-full p-4 rounded-xl border-2 transition-all flex items-center gap-3 ${
+                            className={`w-full p-3 md:p-4 rounded-xl border-2 transition-all flex items-center gap-3 touch-manipulation ${
                               isSelected
                                 ? 'border-purple-600 bg-purple-50'
                                 : 'border-gray-200 bg-white hover:border-purple-300'
                             }`}
                           >
-                            <div className={`w-6 h-6 rounded-lg border-2 flex items-center justify-center flex-shrink-0 ${
+                            <div className={`w-5 h-5 md:w-6 md:h-6 rounded-lg border-2 flex items-center justify-center flex-shrink-0 ${
                               isSelected ? 'border-purple-600 bg-purple-600' : 'border-gray-300'
                             }`}>
-                              {isSelected && <Check className="w-4 h-4 text-white" />}
+                              {isSelected && <Check className="w-3 h-3 md:w-4 md:h-4 text-white" />}
                             </div>
-                            <span className="text-sm font-semibold text-gray-900 flex-1 text-left">
+                            <span className="text-xs md:text-sm font-semibold text-gray-900 flex-1 text-left">
                               {label}
                             </span>
                           </button>
@@ -622,16 +836,29 @@ export default function WizardSearch({
           </div>
 
           {/* Footer */}
-          <div className="px-6 py-4 border-t border-gray-200 bg-gray-50">
+          <div className="px-4 md:px-6 py-3 md:py-4 border-t border-gray-200 bg-gray-50">
             {!isLoadingConfig && (
-              <div className="flex items-center gap-3">
+              <>
+                {/* Warning quando 0 prodotti (solo dopo lo step di benvenuto) */}
+                {wizardState.stepIndex > 0 && filteredProducts.length === 0 && wizardConfig && wizardState.stepIndex !== wizardConfig.steps.length + 1 && (
+                  <div className="mb-3 p-2.5 md:p-3 bg-red-50 border border-red-200 rounded-lg flex items-center gap-2">
+                    <svg className="w-4 h-4 md:w-5 md:h-5 text-red-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                    </svg>
+                    <div className="flex-1">
+                      <p className="text-xs md:text-sm font-semibold text-red-900">Nessun prodotto trovato</p>
+                      <p className="text-xs text-red-700 hidden md:block">La selezione attuale non corrisponde ad alcun prodotto. Modifica i filtri o torna indietro.</p>
+                    </div>
+                  </div>
+                )}
+              <div className="flex items-center gap-2 md:gap-3">
                 {wizardState.stepIndex > 0 && (
                   <button
                     onClick={handleBack}
-                    className="px-4 py-2.5 text-gray-700 hover:bg-gray-200 rounded-lg transition-colors font-medium flex items-center gap-2"
+                    className="px-3 py-2.5 md:px-4 md:py-2.5 text-gray-700 hover:bg-gray-200 rounded-lg transition-colors font-medium flex items-center gap-1.5 md:gap-2 text-sm md:text-base touch-manipulation"
                   >
                     <ChevronLeft className="w-4 h-4" />
-                    {getLabel('wizard.back', currentLang)}
+                    <span className="hidden sm:inline">{getLabel('wizard.back', currentLang)}</span>
                   </button>
                 )}
 
@@ -641,13 +868,13 @@ export default function WizardSearch({
                   <>
                     <button
                       onClick={handleReset}
-                      className="px-4 py-2.5 text-gray-700 hover:bg-gray-200 rounded-lg transition-colors font-medium"
+                      className="px-3 py-2.5 md:px-4 md:py-2.5 text-gray-700 hover:bg-gray-200 rounded-lg transition-colors font-medium text-sm md:text-base touch-manipulation"
                     >
                       {getLabel('wizard.reset', currentLang)}
                     </button>
                     <button
                       onClick={handleApply}
-                      className="px-6 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg transition-colors font-bold flex items-center gap-2"
+                      className="px-4 py-2.5 md:px-6 md:py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg transition-colors font-bold flex items-center gap-1.5 md:gap-2 text-sm md:text-base touch-manipulation"
                     >
                       {getLabel('wizard.view_all', currentLang)}
                       <ChevronRight className="w-4 h-4" />
@@ -656,8 +883,11 @@ export default function WizardSearch({
                 ) : (
                   <button
                     onClick={handleNext}
-                    disabled={currentStep?.type === 'category' && !wizardState.selectedCategory}
-                    className="px-6 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg transition-colors font-bold flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                    disabled={
+                        (currentStep?.type === 'category' && !wizardState.selectedCategory) ||
+                        (wizardState.stepIndex > 0 && filteredProducts.length === 0 && currentStep?.type !== 'multi_filter')
+                      }
+                    className="px-4 py-2.5 md:px-6 md:py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg transition-colors font-bold flex items-center gap-1.5 md:gap-2 disabled:opacity-50 disabled:cursor-not-allowed text-sm md:text-base touch-manipulation"
                   >
                     {wizardState.stepIndex === 0
                       ? getLabel('wizard.welcome.start', currentLang)
@@ -666,6 +896,7 @@ export default function WizardSearch({
                   </button>
                 )}
               </div>
+              </>
             )}
           </div>
         </motion.div>
