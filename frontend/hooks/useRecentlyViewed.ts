@@ -1,6 +1,8 @@
 // hooks/useRecentlyViewed.ts
 import { useEffect, useState } from 'react';
 import { Product } from '@/types/product';
+import { useAnalyticsStore } from '@/stores/analyticsStore';
+import { getTranslatedValue } from '@/lib/product-utils';
 
 const MAX_RECENT_ITEMS = 12;
 const STORAGE_KEY = 'recently-viewed-products';
@@ -15,6 +17,7 @@ interface RecentProduct {
 
 export function useRecentlyViewed() {
   const [recentProducts, setRecentProducts] = useState<RecentProduct[]>([]);
+  const { trackProductView } = useAnalyticsStore();
 
   // Load from localStorage on mount
   useEffect(() => {
@@ -37,6 +40,12 @@ export function useRecentlyViewed() {
       immagine: product.immagine,
       timestamp: Date.now(),
     };
+
+    // Track product view in analytics
+    const productName = typeof product.nome === 'string'
+      ? product.nome
+      : getTranslatedValue(product.nome, 'it');
+    trackProductView(product.codice, productName);
 
     setRecentProducts((prev) => {
       // Remove if already exists

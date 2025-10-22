@@ -17,6 +17,9 @@ import { getLabel } from '@/lib/ui-labels';
 import { formatAttributeValue } from '@/lib/product-utils';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useProductNavigation } from '@/contexts/ProductNavigationContext';
+import { useAnalyticsStore } from '@/stores/analyticsStore';
+import { motion, AnimatePresence } from 'framer-motion';
+import { RefreshCw, ArrowUp, ChevronDown } from 'lucide-react';
 
 // Helper per tradurre valori booleani
 const translateBooleanValue = (value: string, lang: string): string => {
@@ -56,6 +59,22 @@ export default function ProductCatalog({
   const searchParams = useSearchParams();
   const { currentLang } = useLanguage();
   const { setNavigationProducts, saveCatalogState, getCatalogState, clearCatalogState } = useProductNavigation();
+  const { trackSearch, trackFilter } = useAnalyticsStore();
+
+  // Load More function with analytics
+  const loadMore = () => {
+    setVisibleCount(prev => prev + 24);
+    // Track Load More click in analytics (custom event)
+    if (typeof window !== 'undefined' && (window as any).gtag) {
+      (window as any).gtag('event', 'load_more_click', {
+        current_count: visibleCount,
+        remaining: remainingCount
+      });
+    }
+  };
+
+  // Reset visible count when filters/search change
+  const resetVisibleCount = () => setVisibleCount(24);
 
   // Funzione per "esplodere" le varianti: trasforma prodotti raggruppati in varianti separate
   const explodeVariants = (products: Product[]): Product[] => {
@@ -123,8 +142,7 @@ export default function ProductCatalog({
   // Inizializza lo stato dai parametri URL (o valori di default)
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [selectedFilters, setSelectedFilters] = useState<Record<string, string[]>>({});
-  const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage, setItemsPerPage] = useState(12);
+  const [visibleCount, setVisibleCount] = useState(24); // Load More: mostra 24 prodotti inizialmente
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   const [sortBy, setSortBy] = useState<string>('price-asc');
   const [searchQuery, setSearchQuery] = useState('');
@@ -133,6 +151,12 @@ export default function ProductCatalog({
   const [isLoading, setIsLoading] = useState(true);
   const [showAutocomplete, setShowAutocomplete] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+  const [showBackToTop, setShowBackToTop] = useState(false); // Floating button
+  const [showSortModal, setShowSortModal] = useState(false); // Mobile sort modal
+
+  // Count active filters for mobile badge
+  const activeFiltersCount = Object.values(selectedFilters).flat().length +
+    (selectedCategory ? 1 : 0);
 
   // Al mount, prova a ripristinare lo stato salvato dal localStorage (solo una volta)
   useEffect(() => {
@@ -156,8 +180,6 @@ export default function ProductCatalog({
       console.log('🔄 Reading from URL (no saved state)');
       setSelectedCategory(searchParams.get('category') || null);
       setSelectedFilters(getFiltersFromURL());
-      setCurrentPage(parseInt(searchParams.get('page') || '1', 10));
-      setItemsPerPage(parseInt(searchParams.get('perPage') || '12', 10));
       setViewMode((searchParams.get('view') as 'grid' | 'list') || 'grid');
       setSortBy(searchParams.get('sort') || 'price-asc');
       setSearchQuery(searchParams.get('q') || '');
@@ -189,8 +211,6 @@ export default function ProductCatalog({
     });
 
     // Aggiungi altri parametri solo se diversi dai default
-    if (currentPage !== 1) params.set('page', String(currentPage));
-    if (itemsPerPage !== 12) params.set('perPage', String(itemsPerPage));
     if (viewMode !== 'grid') params.set('view', viewMode);
     if (sortBy !== 'price-asc') params.set('sort', sortBy);
     if (searchQuery) params.set('q', searchQuery);
@@ -204,7 +224,7 @@ export default function ProductCatalog({
   // Sincronizza URL quando lo stato cambia (solo dopo l'inizializzazione)
   useEffect(() => {
     syncURLWithState();
-  }, [selectedCategory, selectedFilters, currentPage, itemsPerPage, viewMode, sortBy, searchQuery, isInitialized]);
+  }, [selectedCategory, selectedFilters, viewMode, sortBy, searchQuery, isInitialized]);
 
   // Helper per ottenere valore tradotto
   const getTranslatedValue = (value: any, lang: string): string => {
@@ -420,8 +440,47 @@ export default function ProductCatalog({
     };
   }, [expandedProducts, selectedCategory, selectedFilters, currentLang, searchQuery]);
 
-  // Reset pagina quando cambiano filtri o categoria
-  const resetPage = () => setCurrentPage(1);
+  // Track search queries in analytics (debounced to avoid tracking every keystroke)
+  useEffect(() => {
+    if (!isInitialized) return; // Don't track initial state restore
+
+    if (searchQuery && searchQuery.trim().length > 0) {
+      const timeoutId = setTimeout(() => {
+        trackSearch(searchQuery.trim(), filteredProducts.length + suggestedProducts.length);
+      }, 1000); // Track after 1 second of no typing
+
+      return () => clearTimeout(timeoutId);
+    }
+  }, [searchQuery, filteredProducts.length, suggestedProducts.length, isInitialized]);
+
+  // Track filter usage in analytics
+  useEffect(() => {
+    if (!isInitialized) return; // Don't track initial state restore
+
+    // Track each active filter
+    Object.entries(selectedFilters).forEach(([filterKey, filterValues]) => {
+      filterValues.forEach((filterValue) => {
+        trackFilter(filterKey, filterValue);
+      });
+    });
+  }, [selectedFilters, isInitialized]);
+
+  // Reset visible count when filters, category, or search change
+  useEffect(() => {
+    if (isInitialized) {
+      resetVisibleCount();
+    }
+  }, [selectedCategory, selectedFilters, searchQuery, sortBy]);
+
+  // Track scroll position for Back to Top button
+  useEffect(() => {
+    const handleScroll = () => {
+      setShowBackToTop(window.scrollY > 800);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   // Applica ordinamento ai prodotti filtrati
   // UNISCE risultati esatti + suggerimenti (mostrando SEMPRE prima gli esatti)
@@ -503,16 +562,15 @@ export default function ProductCatalog({
     };
   }, [searchQuery, selectedFilters, saveCatalogState]);
 
-  // Calcola paginazione
-  // Se c'è un prodotto selezionato, escludilo dai risultati paginati (verrà mostrato separatamente in cima)
-  const productsForPagination = selectedProduct
+  // Load More: mostra progressivamente i prodotti
+  // Se c'è un prodotto selezionato, escludilo dai risultati (verrà mostrato separatamente in cima)
+  const productsToShow = selectedProduct
     ? sortedProducts.filter(p => p.codice !== selectedProduct.codice)
     : sortedProducts;
 
-  const totalPages = Math.ceil(productsForPagination.length / itemsPerPage);
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const endIndex = startIndex + itemsPerPage;
-  const paginatedProducts = productsForPagination.slice(startIndex, endIndex);
+  const visibleProducts = productsToShow.slice(0, visibleCount);
+  const hasMore = visibleCount < productsToShow.length;
+  const remainingCount = productsToShow.length - visibleCount;
 
   // Calcola filtri disponibili dinamicamente (solo opzioni che hanno almeno 1 prodotto)
   const dynamicFilters = useMemo(() => {
@@ -603,45 +661,39 @@ export default function ProductCatalog({
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-50">
-      {/* Header Moderno */}
+      {/* Header - Compact on Mobile, Full on Desktop */}
       <header className="bg-white/80 backdrop-blur-md shadow-sm border-b border-gray-100 sticky top-0 z-50">
-        <div className="container mx-auto px-3 sm:px-4 lg:px-8 py-3 sm:py-4 lg:py-6">
-          {/* Prima riga: Titolo e Language Selector */}
-          <div className="flex items-center justify-between gap-3 sm:gap-6 mb-3 lg:mb-0">
-            <div className="flex-shrink-0">
-              <h1 className="text-xl sm:text-2xl lg:text-4xl font-bold bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 bg-clip-text text-transparent">
-                {getLabel('home.title', currentLang)}
-              </h1>
-              <p className="text-gray-500 mt-0.5 sm:mt-1 text-xs sm:text-sm font-medium">
-                {getLabel('home.products_count', currentLang, { count: products.length })}
-              </p>
+        <div className="container mx-auto px-3 sm:px-4 lg:px-8 py-2 sm:py-3 lg:py-6">
+          {/* Mobile: Single Row Layout */}
+          <div className="md:hidden">
+            <div className="flex items-center justify-between gap-2 mb-2">
+              <div className="flex-1 min-w-0">
+                <h1 className="text-base font-bold text-gray-900 truncate">
+                  {getLabel('home.title', currentLang)}
+                </h1>
+              </div>
+              <div className="flex items-center gap-1.5 flex-shrink-0">
+                <WishlistIcon />
+                <CartIcon />
+                <LanguageSelector />
+              </div>
             </div>
 
-            {/* Wishlist, Cart, and Language Selector */}
-            <div className="flex items-center gap-2 flex-shrink-0">
-              <WishlistIcon />
-              <CartIcon />
-              <LanguageSelector />
-            </div>
-          </div>
-
-          {/* Seconda riga: Search Bar (full width su mobile) */}
-          <div className="w-full lg:max-w-2xl lg:mx-auto">
+            {/* Search Bar - Mobile */}
             <div className="relative">
               <input
                 type="text"
                 value={searchQuery}
                 onChange={(e) => {
                   setSearchQuery(e.target.value);
-                  resetPage();
                   setShowAutocomplete(true);
                 }}
                 onFocus={() => setShowAutocomplete(true)}
                 placeholder={getLabel('home.search', currentLang)}
-                className="w-full px-4 sm:px-5 py-2.5 sm:py-3 pl-10 sm:pl-12 pr-10 text-sm text-gray-900 placeholder-gray-400 border border-gray-300 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all shadow-sm"
+                className="w-full px-3 py-2 pl-9 pr-9 text-sm text-gray-900 placeholder-gray-400 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all shadow-sm"
               />
               <svg
-                className="absolute left-3 sm:left-4 top-1/2 transform -translate-y-1/2 w-4 sm:w-5 h-4 sm:h-5 text-gray-400"
+                className="absolute left-2.5 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -657,12 +709,11 @@ export default function ProductCatalog({
                 <button
                   onClick={() => {
                     setSearchQuery('');
-                    resetPage();
                     setShowAutocomplete(false);
                   }}
-                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors p-1"
+                  className="absolute right-2.5 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors p-1"
                 >
-                  <svg className="w-4 sm:w-5 h-4 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                   </svg>
                 </button>
@@ -675,21 +726,16 @@ export default function ProductCatalog({
                 categories={categories}
                 currentLang={currentLang}
                 onSelect={(productCode) => {
-                  // Trova il prodotto selezionato e mostralo in cima ai risultati
                   const product = expandedProducts.find(p => p.codice === productCode);
                   if (product) {
                     setSelectedProduct(product);
                     setShowAutocomplete(false);
-                    // MANTIENI la searchQuery attiva per mostrare i risultati correlati
-                    // La query è già impostata, non fare nulla
-                    // Scroll in alto per mostrare il prodotto selezionato
                     window.scrollTo({ top: 0, behavior: 'smooth' });
                   }
                 }}
                 onSearchSubmit={(query) => {
                   setSearchQuery(query);
                   setShowAutocomplete(false);
-                  // Reset prodotto selezionato quando si fa una nuova ricerca
                   setSelectedProduct(null);
                 }}
                 isVisible={showAutocomplete}
@@ -697,21 +743,173 @@ export default function ProductCatalog({
               />
             </div>
           </div>
+
+          {/* Desktop: Two Row Layout */}
+          <div className="hidden md:block">
+            {/* Prima riga: Titolo e Language Selector */}
+            <div className="flex items-center justify-between gap-3 sm:gap-6 mb-3 lg:mb-0">
+              <div className="flex-shrink-0">
+                <h1 className="text-2xl lg:text-4xl font-bold bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 bg-clip-text text-transparent">
+                  {getLabel('home.title', currentLang)}
+                </h1>
+                <p className="text-gray-500 mt-1 text-sm font-medium">
+                  {getLabel('home.products_count', currentLang, { count: products.length })}
+                </p>
+              </div>
+
+              {/* Wishlist, Cart, and Language Selector */}
+              <div className="flex items-center gap-2 flex-shrink-0">
+                <WishlistIcon />
+                <CartIcon />
+                <LanguageSelector />
+              </div>
+            </div>
+
+            {/* Seconda riga: Search Bar (full width su tablet/desktop) */}
+            <div className="w-full lg:max-w-2xl lg:mx-auto">
+              <div className="relative">
+                <input
+                  type="text"
+                  value={searchQuery}
+                  onChange={(e) => {
+                    setSearchQuery(e.target.value);
+                    setShowAutocomplete(true);
+                  }}
+                  onFocus={() => setShowAutocomplete(true)}
+                  placeholder={getLabel('home.search', currentLang)}
+                  className="w-full px-5 py-3 pl-12 pr-10 text-sm text-gray-900 placeholder-gray-400 border border-gray-300 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all shadow-sm"
+                />
+                <svg
+                  className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                  />
+                </svg>
+                {searchQuery && (
+                  <button
+                    onClick={() => {
+                      setSearchQuery('');
+                      setShowAutocomplete(false);
+                    }}
+                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors p-1"
+                  >
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                  </button>
+                )}
+
+                {/* Dropdown Autocomplete */}
+                <SearchAutocomplete
+                  searchQuery={searchQuery}
+                  products={expandedProducts}
+                  categories={categories}
+                  currentLang={currentLang}
+                  onSelect={(productCode) => {
+                    const product = expandedProducts.find(p => p.codice === productCode);
+                    if (product) {
+                      setSelectedProduct(product);
+                      setShowAutocomplete(false);
+                      window.scrollTo({ top: 0, behavior: 'smooth' });
+                    }
+                  }}
+                  onSearchSubmit={(query) => {
+                    setSearchQuery(query);
+                    setShowAutocomplete(false);
+                    setSelectedProduct(null);
+                  }}
+                  isVisible={showAutocomplete}
+                  onClose={() => setShowAutocomplete(false)}
+                />
+              </div>
+            </div>
+          </div>
         </div>
       </header>
 
-      {/* Category Bar */}
+      {/* Category Bar - Desktop */}
       {categories.length > 0 && (
-        <CategoryBar
-          categories={categories}
-          selectedCategory={selectedCategory}
-          onCategorySelect={setSelectedCategory}
-          lang={currentLang}
-        />
+        <div className="hidden md:block">
+          <CategoryBar
+            categories={categories}
+            selectedCategory={selectedCategory}
+            onCategorySelect={setSelectedCategory}
+            lang={currentLang}
+          />
+        </div>
+      )}
+
+      {/* Category Bar - Mobile (Circular Scroll) */}
+      {categories.length > 0 && (
+        <div className="md:hidden bg-gray-50 border-b border-gray-200">
+          <div className="overflow-x-auto scrollbar-hide">
+            <div className="flex gap-4 px-4 py-4">
+              {/* Tutte le categorie */}
+              <button
+                onClick={() => setSelectedCategory(null)}
+                className="flex-shrink-0 text-center"
+              >
+                <div className={`w-16 h-16 rounded-full flex items-center justify-center mb-1.5 transition-all ${
+                  !selectedCategory
+                    ? 'bg-emerald-600 shadow-lg scale-110'
+                    : 'bg-gray-200'
+                }`}>
+                  <svg className={`w-7 h-7 ${!selectedCategory ? 'text-white' : 'text-gray-600'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
+                  </svg>
+                </div>
+                <span className={`text-xs font-medium ${
+                  !selectedCategory ? 'text-emerald-700' : 'text-gray-600'
+                }`}>
+                  Tutte
+                </span>
+              </button>
+
+              {/* Categorie con immagini */}
+              {categories.map((category) => (
+                <button
+                  key={category.field}
+                  onClick={() => setSelectedCategory(category.field)}
+                  className="flex-shrink-0 text-center"
+                >
+                  <div className={`w-16 h-16 rounded-full overflow-hidden mb-1.5 transition-all border-2 ${
+                    selectedCategory === category.field
+                      ? 'border-emerald-600 shadow-lg scale-110'
+                      : 'border-transparent'
+                  }`}>
+                    {category.image ? (
+                      <img
+                        src={category.image}
+                        alt={category.translations?.[currentLang] || category.label}
+                        className="w-full h-full object-cover"
+                      />
+                    ) : (
+                      <div className="w-full h-full bg-emerald-100 flex items-center justify-center">
+                        <span className="text-2xl">{category.icon || '📦'}</span>
+                      </div>
+                    )}
+                  </div>
+                  <span className={`text-xs font-medium line-clamp-2 leading-tight ${
+                    selectedCategory === category.field ? 'text-emerald-700' : 'text-gray-600'
+                  }`}>
+                    {category.translations?.[currentLang] || category.label}
+                  </span>
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
       )}
 
       {/* Main Content with Sidebar */}
-      <main className="container mx-auto px-4 lg:px-8 py-8">
+      <main className="container mx-auto px-4 lg:px-8 py-8 pb-32 md:pb-8">
         <div className="flex gap-6 lg:gap-8">
           {/* Sidebar Filtri - DESKTOP */}
           {filters.length > 0 && (
@@ -788,24 +986,86 @@ export default function ProductCatalog({
 
           {/* Products Grid */}
           <div className="flex-1">
-            {/* Toolbar - Contatore e controlli */}
-            <div className="space-y-4 mb-6">
+            {/* Mobile-Only Header: Product Count */}
+            <div className="md:hidden mb-4">
+              <div className="flex items-center justify-between px-2">
+                <div className="flex items-center gap-2">
+                  <svg className="w-5 h-5 text-emerald-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
+                  </svg>
+                  <span className="text-sm font-bold text-gray-900">
+                    {sortedProducts.length}
+                  </span>
+                  <span className="text-sm text-gray-600">
+                    {sortedProducts.length === 1
+                      ? getLabel('home.product', currentLang)
+                      : getLabel('home.products', currentLang)}
+                  </span>
+                </div>
+              </div>
+
+              {/* Active Filters Chips - Mobile */}
+              {(selectedCategory || Object.entries(selectedFilters).some(([_, values]) => values.length > 0)) && (
+                <div className="mt-3 flex items-center gap-2 flex-wrap px-2">
+                  {/* Categoria selezionata */}
+                  {selectedCategory && (
+                    <span className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-emerald-50 text-emerald-800 text-xs font-semibold rounded-lg border border-emerald-200">
+                      {categories.find(c => c.field === selectedCategory)?.translations[currentLang] || selectedCategory}
+                      <button
+                        onClick={() => setSelectedCategory(null)}
+                        className="hover:text-emerald-900"
+                      >
+                        <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                      </button>
+                    </span>
+                  )}
+
+                  {/* Filtri attributi */}
+                  {Object.entries(selectedFilters).map(([key, values]) =>
+                    values.slice(0, 2).map((value) => {
+                      const translatedValue = translateBooleanValue(value, currentLang);
+                      return (
+                        <span
+                          key={`${key}-${value}`}
+                          className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-emerald-50 text-emerald-800 text-xs font-semibold rounded-lg border border-emerald-200"
+                        >
+                          {translatedValue}
+                          <button
+                            onClick={() => {
+                              const newValues = selectedFilters[key].filter(v => v !== value);
+                              setSelectedFilters({
+                                ...selectedFilters,
+                                [key]: newValues,
+                              });
+                            }}
+                            className="hover:text-emerald-900"
+                          >
+                            <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                          </button>
+                        </span>
+                      );
+                    })
+                  )}
+
+                  {/* Show more indicator if there are many filters */}
+                  {activeFiltersCount > 3 && (
+                    <span className="text-xs text-gray-500 font-medium">
+                      +{activeFiltersCount - 3}
+                    </span>
+                  )}
+                </div>
+              )}
+            </div>
+
+            {/* Toolbar - Contatore e controlli (DESKTOP ONLY) */}
+            <div className="hidden md:block space-y-4 mb-6">
               {/* Prima riga: Contatore e controlli visualizzazione */}
               <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 bg-white rounded-xl px-4 sm:px-6 py-4 shadow-sm border border-gray-100">
                 <div className="flex flex-wrap items-center gap-3 sm:gap-4 w-full sm:w-auto">
-                  {/* Pulsante Filtri Mobile */}
-                  {filters.length > 0 && (
-                    <button
-                      onClick={() => setIsMobileFiltersOpen(true)}
-                      className="xl:hidden flex items-center gap-2 px-3 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg transition-colors shadow-sm"
-                    >
-                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
-                      </svg>
-                      <span className="text-sm font-semibold">{getLabel('filters.title', currentLang)}</span>
-                    </button>
-                  )}
-
                   <div className="flex items-center gap-2">
                     <svg className="w-5 h-5 text-emerald-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
@@ -820,29 +1080,6 @@ export default function ProductCatalog({
                     </span>
                   </div>
 
-                  {/* Separator - Hidden on mobile */}
-                  <div className="hidden sm:block h-6 w-px bg-gray-300"></div>
-
-                  {/* Items per page selector */}
-                  <div className="flex items-center gap-2">
-                    <span className="text-sm text-gray-600 hidden sm:inline">{getLabel('home.show', currentLang)}:</span>
-                    <select
-                      value={itemsPerPage}
-                      onChange={(e) => {
-                        setItemsPerPage(Number(e.target.value));
-                        setCurrentPage(1);
-                      }}
-                      className="text-sm text-gray-900 border border-gray-300 rounded-lg px-2 sm:px-3 py-1.5 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
-                    >
-                      <option value={12}>12</option>
-                      <option value={24}>24</option>
-                      <option value={48}>48</option>
-                      <option value={96}>96</option>
-                    </select>
-                  </div>
-
-                  {/* Separator - Hidden on mobile */}
-                  <div className="hidden sm:block h-6 w-px bg-gray-300"></div>
 
                   {/* Sort selector */}
                   <div className="flex items-center gap-2">
@@ -905,7 +1142,6 @@ export default function ProductCatalog({
                       <button
                         onClick={() => {
                           setSelectedCategory(null);
-                          resetPage();
                         }}
                         className="hover:text-emerald-900"
                       >
@@ -950,7 +1186,6 @@ export default function ProductCatalog({
                                 ...selectedFilters,
                                 [key]: newValues,
                               });
-                              resetPage();
                             }}
                             className="hover:text-emerald-900"
                           >
@@ -1041,13 +1276,13 @@ export default function ProductCatalog({
                 {/* Loading Skeletons */}
                 {viewMode === 'grid' ? (
                   <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                    {Array.from({ length: itemsPerPage }).map((_, idx) => (
+                    {Array.from({ length: 12 }).map((_, idx) => (
                       <ProductCardSkeleton key={idx} viewMode="grid" />
                     ))}
                   </div>
                 ) : (
                   <div className="space-y-4">
-                    {Array.from({ length: itemsPerPage }).map((_, idx) => (
+                    {Array.from({ length: 12 }).map((_, idx) => (
                       <ProductCardSkeleton key={idx} viewMode="list" />
                     ))}
                   </div>
@@ -1099,7 +1334,7 @@ export default function ProductCatalog({
                 {/* Products Grid/List con divisore tra esatti e correlati */}
                 {viewMode === 'grid' ? (
                   <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                    {paginatedProducts.map((product, index) => {
+                    {visibleProducts.map((product, index) => {
                       // Calcola se questo è il primo prodotto correlato (dopo gli esatti)
                       const isFirstSuggested = searchQuery &&
                         filteredProducts.length > 0 &&
@@ -1131,7 +1366,7 @@ export default function ProductCatalog({
                   </div>
                 ) : (
                   <div className="space-y-4">
-                    {paginatedProducts.map((product, index) => {
+                    {visibleProducts.map((product, index) => {
                       // Calcola se questo è il primo prodotto correlato (dopo gli esatti)
                       const isFirstSuggested = searchQuery &&
                         filteredProducts.length > 0 &&
@@ -1163,67 +1398,62 @@ export default function ProductCatalog({
                   </div>
                 )}
 
-                {/* Pagination */}
-                {totalPages > 1 && (
-                  <div className="mt-12 flex flex-wrap items-center justify-center gap-2">
-                    {/* Previous button */}
-                    <button
-                      onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
-                      disabled={currentPage === 1}
-                      className={`px-3 sm:px-4 py-2 rounded-lg font-semibold transition-all text-sm sm:text-base ${
-                        currentPage === 1
-                          ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
-                          : 'bg-white text-gray-700 hover:bg-emerald-50 hover:text-emerald-700 border border-gray-200'
-                      }`}
-                    >
-                      <span className="hidden sm:inline">← {getLabel('home.previous', currentLang)}</span>
-                      <span className="sm:hidden">←</span>
-                    </button>
+                {/* Load More Button - Premium Design */}
+                {hasMore && (
+                  <div className="mt-12 flex flex-col items-center gap-6">
+                    {/* Progress Indicator */}
+                    <div className="text-center">
+                      <p className="text-sm text-gray-600">
+                        {getLabel('home.showing', currentLang)}{' '}
+                        <span className="font-bold text-emerald-700">{visibleCount}</span>{' '}
+                        {getLabel('home.of', currentLang)}{' '}
+                        <span className="font-bold text-gray-900">{productsToShow.length}</span>{' '}
+                        {getLabel('home.products', currentLang)}
+                      </p>
 
-                    {/* Page numbers */}
-                    <div className="flex gap-1 sm:gap-2">
-                      {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => {
-                        // Su mobile mostra solo: 1, current-1, current, current+1, last
-                        // Su desktop mostra: 1, current-2, current-1, current, current+1, current+2, last
-                        const showOnMobile = page === 1 || page === totalPages || (page >= currentPage - 1 && page <= currentPage + 1);
-                        const showOnDesktop = page === 1 || page === totalPages || (page >= currentPage - 2 && page <= currentPage + 2);
-
-                        if (showOnDesktop) {
-                          return (
-                            <button
-                              key={page}
-                              onClick={() => setCurrentPage(page)}
-                              className={`px-3 sm:px-4 py-2 rounded-lg font-semibold transition-all text-sm sm:text-base ${
-                                currentPage === page
-                                  ? 'bg-emerald-700 text-white shadow-md'
-                                  : 'bg-white text-gray-700 hover:bg-emerald-50 hover:text-emerald-700 border border-gray-200'
-                              } ${!showOnMobile ? 'hidden sm:inline-block' : ''}`}
-                            >
-                              {page}
-                            </button>
-                          );
-                        } else if (
-                          (page === currentPage - 3 || page === currentPage + 3)
-                        ) {
-                          return <span key={page} className="px-1 sm:px-2 py-2 text-gray-400 hidden sm:inline">...</span>;
-                        }
-                        return null;
-                      })}
+                      {/* Progress Bar */}
+                      <div className="mt-3 w-full max-w-md mx-auto h-2 bg-gray-200 rounded-full overflow-hidden">
+                        <motion.div
+                          className="h-full bg-gradient-to-r from-emerald-500 to-green-500"
+                          initial={{ width: 0 }}
+                          animate={{ width: `${(visibleCount / productsToShow.length) * 100}%` }}
+                          transition={{ duration: 0.5, ease: 'easeOut' }}
+                        />
+                      </div>
                     </div>
 
-                    {/* Next button */}
-                    <button
-                      onClick={() => setCurrentPage(prev => Math.min(totalPages, prev + 1))}
-                      disabled={currentPage === totalPages}
-                      className={`px-3 sm:px-4 py-2 rounded-lg font-semibold transition-all text-sm sm:text-base ${
-                        currentPage === totalPages
-                          ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
-                          : 'bg-white text-gray-700 hover:bg-emerald-50 hover:text-emerald-700 border border-gray-200'
-                      }`}
+                    {/* Load More Button */}
+                    <motion.button
+                      onClick={loadMore}
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                      className="group relative w-full max-w-md px-8 py-4 bg-gradient-to-r from-emerald-600 to-green-600 text-white rounded-xl shadow-lg hover:shadow-2xl transition-all overflow-hidden"
                     >
-                      <span className="hidden sm:inline">{getLabel('home.next', currentLang)} →</span>
-                      <span className="sm:hidden">→</span>
-                    </button>
+                      {/* Animated background */}
+                      <div className="absolute inset-0 bg-gradient-to-r from-emerald-700 to-green-700 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+
+                      <div className="relative flex items-center justify-center gap-3">
+                        <ChevronDown className="w-5 h-5 group-hover:animate-bounce" />
+                        <span className="font-bold text-lg">
+                          {getLabel('home.load_more', currentLang)}
+                        </span>
+                        <ChevronDown className="w-5 h-5 group-hover:animate-bounce" />
+                      </div>
+
+                      <p className="relative text-xs text-emerald-100 mt-1.5">
+                        {remainingCount} {getLabel('home.remaining', currentLang)}
+                      </p>
+                    </motion.button>
+
+                    {/* Show All Option */}
+                    {remainingCount > 48 && (
+                      <button
+                        onClick={() => setVisibleCount(productsToShow.length)}
+                        className="text-sm text-gray-600 hover:text-emerald-700 font-medium underline transition-colors"
+                      >
+                        {getLabel('home.show_all', currentLang)}
+                      </button>
+                    )}
                   </div>
                 )}
               </>
@@ -1247,6 +1477,139 @@ export default function ProductCatalog({
 
       {/* Recently Viewed Section */}
       <RecentlyViewedCarousel />
+
+      {/* Floating Action Buttons - Mobile Only */}
+      <div className="md:hidden fixed bottom-6 left-4 right-4 z-40">
+        <div className="flex gap-3">
+          {/* Filtri Button */}
+          <motion.button
+            onClick={() => setIsMobileFiltersOpen(true)}
+            whileTap={{ scale: 0.95 }}
+            className="flex-1 bg-white border-2 border-emerald-600 text-emerald-700 py-4 px-6 rounded-xl shadow-2xl hover:bg-emerald-50 transition-colors font-bold text-sm flex items-center justify-center gap-2"
+          >
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
+            </svg>
+            <span>Filtri</span>
+            {activeFiltersCount > 0 && (
+              <span className="bg-emerald-600 text-white text-xs font-bold px-2 py-0.5 rounded-full">
+                {activeFiltersCount}
+              </span>
+            )}
+          </motion.button>
+
+          {/* Ordina Button */}
+          <motion.button
+            onClick={() => setShowSortModal(true)}
+            whileTap={{ scale: 0.95 }}
+            className="flex-1 bg-emerald-600 text-white py-4 px-6 rounded-xl shadow-2xl hover:bg-emerald-700 transition-colors font-bold text-sm flex items-center justify-center gap-2"
+          >
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 4h13M3 8h9m-9 4h6m4 0l4-4m0 0l4 4m-4-4v12" />
+            </svg>
+            <span>Ordina</span>
+          </motion.button>
+        </div>
+      </div>
+
+      {/* Bottom Sheet Sort Modal - Mobile Only */}
+      <AnimatePresence>
+        {showSortModal && (
+          <>
+            {/* Backdrop */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setShowSortModal(false)}
+              className="md:hidden fixed inset-0 bg-black/50 z-50"
+            />
+
+            {/* Bottom Sheet */}
+            <motion.div
+              initial={{ y: '100%' }}
+              animate={{ y: 0 }}
+              exit={{ y: '100%' }}
+              transition={{ type: 'spring', damping: 30, stiffness: 300 }}
+              className="md:hidden fixed bottom-0 left-0 right-0 bg-white rounded-t-3xl shadow-2xl z-50 max-h-[70vh] overflow-y-auto"
+            >
+              {/* Handle Bar */}
+              <div className="flex justify-center pt-3 pb-2">
+                <div className="w-12 h-1.5 bg-gray-300 rounded-full" />
+              </div>
+
+              {/* Header */}
+              <div className="px-6 py-4 border-b border-gray-200">
+                <div className="flex items-center justify-between">
+                  <h3 className="text-lg font-bold text-gray-900">{getLabel('home.sort_by', currentLang)}</h3>
+                  <button
+                    onClick={() => setShowSortModal(false)}
+                    className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+                  >
+                    <svg className="w-6 h-6 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+
+              {/* Sort Options */}
+              <div className="p-4">
+                {[
+                  { value: 'price-asc', label: getLabel('home.sort.price_asc', currentLang) },
+                  { value: 'price-desc', label: getLabel('home.sort.price_desc', currentLang) },
+                  { value: 'name-asc', label: getLabel('home.sort.name_asc', currentLang) },
+                  { value: 'name-desc', label: getLabel('home.sort.name_desc', currentLang) },
+                  { value: 'code-asc', label: getLabel('home.sort.code_asc', currentLang) },
+                  { value: 'code-desc', label: getLabel('home.sort.code_desc', currentLang) },
+                ].map((option) => (
+                  <button
+                    key={option.value}
+                    onClick={() => {
+                      setSortBy(option.value);
+                      setShowSortModal(false);
+                    }}
+                    className={`w-full text-left px-6 py-4 rounded-xl mb-2 transition-all ${
+                      sortBy === option.value
+                        ? 'bg-emerald-50 border-2 border-emerald-600 text-emerald-900 font-bold'
+                        : 'bg-white border-2 border-gray-200 text-gray-700 hover:bg-gray-50'
+                    }`}
+                  >
+                    <div className="flex items-center justify-between">
+                      <span>{option.label}</span>
+                      {sortBy === option.value && (
+                        <svg className="w-5 h-5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                        </svg>
+                      )}
+                    </div>
+                  </button>
+                ))}
+              </div>
+
+              {/* Bottom Padding for Safe Area */}
+              <div className="h-6" />
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
+
+      {/* Floating Back to Top Button */}
+      <AnimatePresence>
+        {showBackToTop && (
+          <motion.button
+            initial={{ opacity: 0, y: 100 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 100 }}
+            transition={{ type: 'spring', stiffness: 260, damping: 20 }}
+            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+            className="fixed bottom-24 md:bottom-8 right-8 z-50 p-4 bg-emerald-600 text-white rounded-full shadow-2xl hover:bg-emerald-700 hover:scale-110 transition-all group"
+            aria-label="Torna su"
+          >
+            <ArrowUp className="w-6 h-6 group-hover:animate-bounce" />
+          </motion.button>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

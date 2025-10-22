@@ -450,6 +450,46 @@
       "es": "Ordenar por",
       "pt": "Ordenar por"
     },
+    "showing": {
+      "it": "Mostrando",
+      "en": "Showing",
+      "de": "Zeige",
+      "fr": "Affichage",
+      "es": "Mostrando",
+      "pt": "Mostrando"
+    },
+    "of": {
+      "it": "di",
+      "en": "of",
+      "de": "von",
+      "fr": "de",
+      "es": "de",
+      "pt": "de"
+    },
+    "load_more": {
+      "it": "Carica altri prodotti",
+      "en": "Load more products",
+      "de": "Mehr Produkte laden",
+      "fr": "Charger plus de produits",
+      "es": "Cargar más productos",
+      "pt": "Carregar mais produtos"
+    },
+    "remaining": {
+      "it": "prodotti rimanenti",
+      "en": "products remaining",
+      "de": "Produkte verbleibend",
+      "fr": "produits restants",
+      "es": "productos restantes",
+      "pt": "produtos restantes"
+    },
+    "show_all": {
+      "it": "Mostra tutti i prodotti",
+      "en": "Show all products",
+      "de": "Alle Produkte anzeigen",
+      "fr": "Afficher tous les produits",
+      "es": "Mostrar todos los productos",
+      "pt": "Mostrar todos os produtos"
+    },
     "sort": {
       "price_asc": {
         "it": "Prezzo: basso → alto",

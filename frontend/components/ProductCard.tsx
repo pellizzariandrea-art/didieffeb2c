@@ -9,6 +9,7 @@ import { getLabel } from '@/lib/ui-labels';
 import { useCompare } from '@/contexts/CompareContext';
 import { useCartStore } from '@/stores/cartStore';
 import { useWishlistStore } from '@/stores/wishlistStore';
+import { useAnalyticsStore } from '@/stores/analyticsStore';
 import { toast } from 'sonner';
 import { ShoppingCart, Eye, Heart } from 'lucide-react';
 import { useState, useEffect } from 'react';
@@ -27,6 +28,7 @@ export default function ProductCard({ product, lang = 'it', viewMode = 'grid', p
   const { addToCompare, removeFromCompare, isInCompare } = useCompare();
   const { addItem, openCart, getItem } = useCartStore();
   const { toggleItem, isInWishlist } = useWishlistStore();
+  const { trackAddToCart } = useAnalyticsStore();
   const inCompare = isInCompare(product.codice);
   const [cartItem, setCartItem] = useState<ReturnType<typeof getItem> | null>(null);
   const [isClient, setIsClient] = useState(false);
@@ -73,6 +75,9 @@ export default function ProductCard({ product, lang = 'it', viewMode = 'grid', p
       price: product.prezzo,
       image: product.immagine,
     }, 1);
+
+    // Track analytics
+    trackAddToCart(product.codice, nome, product.prezzo, 1);
 
     toast.success(getLabel('cart.added_to_cart', lang), {
       description: nome,
@@ -204,6 +209,7 @@ export default function ProductCard({ product, lang = 'it', viewMode = 'grid', p
               fill
               className="object-contain p-4 group-hover:scale-110 transition-transform duration-500"
               sizes="(max-width: 640px) 100vw, 192px"
+              loading={priority ? 'eager' : 'lazy'}
               priority={priority}
             />
           </div>
@@ -365,6 +371,7 @@ export default function ProductCard({ product, lang = 'it', viewMode = 'grid', p
             fill
             className="object-contain p-3 sm:p-6 group-hover:scale-110 transition-transform duration-500"
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            loading={priority ? 'eager' : 'lazy'}
             priority={priority}
           />
 
