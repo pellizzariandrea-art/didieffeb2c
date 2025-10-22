@@ -13,13 +13,14 @@ import CartIcon from './CartIcon';
 import WishlistIcon from './WishlistIcon';
 import RecentlyViewedCarousel from './RecentlyViewedCarousel';
 import SearchAutocomplete from './SearchAutocomplete';
+import WizardSearch from './WizardSearch';
 import { getLabel } from '@/lib/ui-labels';
 import { formatAttributeValue } from '@/lib/product-utils';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useProductNavigation } from '@/contexts/ProductNavigationContext';
 import { useAnalyticsStore } from '@/stores/analyticsStore';
 import { motion, AnimatePresence } from 'framer-motion';
-import { RefreshCw, ArrowUp, ChevronDown } from 'lucide-react';
+import { RefreshCw, ArrowUp, ChevronDown, Sparkles } from 'lucide-react';
 
 // Helper per tradurre valori booleani
 const translateBooleanValue = (value: string, lang: string): string => {
@@ -153,6 +154,7 @@ export default function ProductCatalog({
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [showBackToTop, setShowBackToTop] = useState(false); // Floating button
   const [showSortModal, setShowSortModal] = useState(false); // Mobile sort modal
+  const [isWizardOpen, setIsWizardOpen] = useState(false); // Wizard search modal
 
   // Count active filters for mobile badge
   const activeFiltersCount = Object.values(selectedFilters).flat().length +
@@ -1532,6 +1534,22 @@ export default function ProductCatalog({
       {/* Recently Viewed Section */}
       <RecentlyViewedCarousel />
 
+      {/* Wizard Search Button - Floating (All screens) */}
+      <motion.button
+        onClick={() => setIsWizardOpen(true)}
+        whileTap={{ scale: 0.95 }}
+        whileHover={{ scale: 1.05 }}
+        className="fixed bottom-32 md:bottom-8 left-4 md:left-8 z-40 bg-gradient-to-r from-purple-600 to-indigo-600 text-white px-4 md:px-6 py-3 md:py-3.5 rounded-full shadow-2xl hover:shadow-purple-500/50 transition-all flex items-center gap-2 font-bold text-sm group"
+      >
+        <Sparkles className="w-5 h-5 group-hover:rotate-12 transition-transform" />
+        <span className="hidden sm:inline">
+          {getLabel('wizard.button', currentLang)}
+        </span>
+        <span className="sm:hidden">
+          {getLabel('wizard.button_short', currentLang)}
+        </span>
+      </motion.button>
+
       {/* Floating Action Buttons - Mobile Only */}
       <div className="md:hidden fixed bottom-6 left-4 right-4 z-40">
         <div className="flex gap-3">
@@ -1664,6 +1682,23 @@ export default function ProductCatalog({
           </motion.button>
         )}
       </AnimatePresence>
+
+      {/* Wizard Search Modal */}
+      <WizardSearch
+        isOpen={isWizardOpen}
+        onClose={() => setIsWizardOpen(false)}
+        categories={categories}
+        filters={dynamicFilters}
+        products={expandedProducts}
+        currentLang={currentLang}
+        onApplyFilters={({ category, selectedFilters: wizardFilters }) => {
+          if (category) {
+            setSelectedCategory(category);
+          }
+          setSelectedFilters(wizardFilters);
+          resetVisibleCount();
+        }}
+      />
     </div>
   );
 }

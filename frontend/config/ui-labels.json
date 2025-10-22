@@ -557,6 +557,204 @@
       }
     }
   },
+  "wizard": {
+    "title": {
+      "it": "Trova il prodotto giusto",
+      "en": "Find the right product",
+      "de": "Finden Sie das richtige Produkt",
+      "fr": "Trouvez le bon produit",
+      "es": "Encuentra el producto correcto",
+      "pt": "Encontre o produto certo"
+    },
+    "button": {
+      "it": "Aiutami a scegliere",
+      "en": "Help me choose",
+      "de": "Hilf mir zu wählen",
+      "fr": "Aide-moi à choisir",
+      "es": "Ayúdame a elegir",
+      "pt": "Ajuda-me a escolher"
+    },
+    "button_short": {
+      "it": "Guida",
+      "en": "Guide",
+      "de": "Führer",
+      "fr": "Guide",
+      "es": "Guía",
+      "pt": "Guia"
+    },
+    "welcome": {
+      "greeting": {
+        "it": "Ciao! 👋",
+        "en": "Hello! 👋",
+        "de": "Hallo! 👋",
+        "fr": "Bonjour! 👋",
+        "es": "¡Hola! 👋",
+        "pt": "Olá! 👋"
+      },
+      "message": {
+        "it": "Ti aiuto a trovare il prodotto perfetto per le tue esigenze. Rispondi ad alcune semplici domande e troveremo insieme la soluzione ideale.",
+        "en": "I'll help you find the perfect product for your needs. Answer a few simple questions and we'll find the ideal solution together.",
+        "de": "Ich helfe Ihnen, das perfekte Produkt für Ihre Bedürfnisse zu finden. Beantworten Sie ein paar einfache Fragen und wir finden gemeinsam die ideale Lösung.",
+        "fr": "Je vais vous aider à trouver le produit parfait pour vos besoins. Répondez à quelques questions simples et nous trouverons ensemble la solution idéale.",
+        "es": "Te ayudaré a encontrar el producto perfecto para tus necesidades. Responde algunas preguntas simples y encontraremos juntos la solución ideal.",
+        "pt": "Vou ajudá-lo a encontrar o produto perfeito para suas necessidades. Responda algumas perguntas simples e encontraremos juntos a solução ideal."
+      },
+      "start": {
+        "it": "Inizia",
+        "en": "Start",
+        "de": "Start",
+        "fr": "Commencer",
+        "es": "Comenzar",
+        "pt": "Começar"
+      }
+    },
+    "steps": {
+      "welcome": {
+        "it": "Benvenuto",
+        "en": "Welcome",
+        "de": "Willkommen",
+        "fr": "Bienvenue",
+        "es": "Bienvenido",
+        "pt": "Bem-vindo"
+      },
+      "category": {
+        "it": "Step 1: Tipologia",
+        "en": "Step 1: Category",
+        "de": "Schritt 1: Kategorie",
+        "fr": "Étape 1: Catégorie",
+        "es": "Paso 1: Categoría",
+        "pt": "Passo 1: Categoria"
+      },
+      "application": {
+        "it": "Step 2: Applicazione",
+        "en": "Step 2: Application",
+        "de": "Schritt 2: Anwendung",
+        "fr": "Étape 2: Application",
+        "es": "Paso 2: Aplicación",
+        "pt": "Passo 2: Aplicação"
+      },
+      "characteristics": {
+        "it": "Step 3: Caratteristiche",
+        "en": "Step 3: Characteristics",
+        "de": "Schritt 3: Eigenschaften",
+        "fr": "Étape 3: Caractéristiques",
+        "es": "Paso 3: Características",
+        "pt": "Passo 3: Características"
+      },
+      "results": {
+        "it": "Risultati",
+        "en": "Results",
+        "de": "Ergebnisse",
+        "fr": "Résultats",
+        "es": "Resultados",
+        "pt": "Resultados"
+      }
+    },
+    "category_question": {
+      "it": "Cosa stai cercando?",
+      "en": "What are you looking for?",
+      "de": "Was suchen Sie?",
+      "fr": "Que cherchez-vous?",
+      "es": "¿Qué estás buscando?",
+      "pt": "O que você está procurando?"
+    },
+    "category_subtitle": {
+      "it": "Seleziona la tipologia di prodotto",
+      "en": "Select the product type",
+      "de": "Wählen Sie den Produkttyp",
+      "fr": "Sélectionnez le type de produit",
+      "es": "Selecciona el tipo de producto",
+      "pt": "Selecione o tipo de produto"
+    },
+    "application_question": {
+      "it": "Dove lo userai?",
+      "en": "Where will you use it?",
+      "de": "Wo werden Sie es verwenden?",
+      "fr": "Où allez-vous l'utiliser?",
+      "es": "¿Dónde lo usarás?",
+      "pt": "Onde você vai usá-lo?"
+    },
+    "application_subtitle": {
+      "it": "Puoi selezionare più opzioni",
+      "en": "You can select multiple options",
+      "de": "Sie können mehrere Optionen auswählen",
+      "fr": "Vous pouvez sélectionner plusieurs options",
+      "es": "Puedes seleccionar múltiples opciones",
+      "pt": "Você pode selecionar várias opções"
+    },
+    "characteristics_question": {
+      "it": "Personalizza la ricerca",
+      "en": "Customize your search",
+      "de": "Passen Sie Ihre Suche an",
+      "fr": "Personnalisez votre recherche",
+      "es": "Personaliza tu búsqueda",
+      "pt": "Personalize sua pesquisa"
+    },
+    "characteristics_subtitle": {
+      "it": "Seleziona le caratteristiche desiderate (opzionale)",
+      "en": "Select desired characteristics (optional)",
+      "de": "Wählen Sie gewünschte Eigenschaften (optional)",
+      "fr": "Sélectionnez les caractéristiques souhaitées (optionnel)",
+      "es": "Selecciona las características deseadas (opcional)",
+      "pt": "Selecione as características desejadas (opcional)"
+    },
+    "results_message": {
+      "it": "Perfetto! Ecco cosa abbiamo trovato per te",
+      "en": "Perfect! Here's what we found for you",
+      "de": "Perfekt! Das haben wir für Sie gefunden",
+      "fr": "Parfait! Voici ce que nous avons trouvé pour vous",
+      "es": "¡Perfecto! Esto es lo que encontramos para ti",
+      "pt": "Perfeito! Aqui está o que encontramos para você"
+    },
+    "products_found": {
+      "it": "{count} prodotti trovati!",
+      "en": "{count} products found!",
+      "de": "{count} Produkte gefunden!",
+      "fr": "{count} produits trouvés!",
+      "es": "¡{count} productos encontrados!",
+      "pt": "{count} produtos encontrados!"
+    },
+    "products_count": {
+      "it": "{count} prodotti",
+      "en": "{count} products",
+      "de": "{count} Produkte",
+      "fr": "{count} produits",
+      "es": "{count} productos",
+      "pt": "{count} produtos"
+    },
+    "back": {
+      "it": "Indietro",
+      "en": "Back",
+      "de": "Zurück",
+      "fr": "Retour",
+      "es": "Atrás",
+      "pt": "Voltar"
+    },
+    "next": {
+      "it": "Avanti",
+      "en": "Next",
+      "de": "Weiter",
+      "fr": "Suivant",
+      "es": "Siguiente",
+      "pt": "Próximo"
+    },
+    "reset": {
+      "it": "Ricomincia",
+      "en": "Start over",
+      "de": "Neu starten",
+      "fr": "Recommencer",
+      "es": "Empezar de nuevo",
+      "pt": "Recomeçar"
+    },
+    "view_all": {
+      "it": "Vedi tutti i prodotti",
+      "en": "View all products",
+      "de": "Alle Produkte anzeigen",
+      "fr": "Voir tous les produits",
+      "es": "Ver todos los productos",
+      "pt": "Ver todos os produtos"
+    }
+  },
   "search": {
     "suggestions": {
       "it": "suggerimenti",
