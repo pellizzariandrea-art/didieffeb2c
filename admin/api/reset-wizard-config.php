@@ -1,0 +1,180 @@
+<?php
+// admin/api/reset-wizard-config.php - Reset Wizard Configuration to Default
+header('Content-Type: application/json');
+
+// Include config
+$configPath = __DIR__ . '/../config.php';
+if (file_exists($configPath)) {
+    require_once $configPath;
+}
+
+// Path to wizard config
+$wizardConfigPath = __DIR__ . '/../data/wizard-config.json';
+
+try {
+    // Create comprehensive default configuration
+    $defaultConfig = [
+        'version' => '1.0.0',
+        'lastUpdated' => date('Y-m-d'),
+        'steps' => [
+            [
+                'id' => 'category',
+                'order' => 1,
+                'type' => 'category',
+                'required' => true,
+                'title' => [
+                    'it' => 'Cosa stai cercando?',
+                    'en' => 'What are you looking for?',
+                    'de' => 'Was suchen Sie?',
+                    'fr' => 'Que cherchez-vous?',
+                    'es' => '¿Qué estás buscando?',
+                    'pt' => 'O que você está procurando?'
+                ],
+                'subtitle' => [
+                    'it' => 'Seleziona la tipologia di prodotto',
+                    'en' => 'Select the product type',
+                    'de' => 'Wählen Sie den Produkttyp',
+                    'fr' => 'Sélectionnez le type de produit',
+                    'es' => 'Selecciona el tipo de producto',
+                    'pt' => 'Selecione o tipo de produto'
+                ],
+                'aiPrompt' => 'L\'utente sta cercando un prodotto. Aiutalo a identificare la categoria tra: {categories}',
+                'allowTextInput' => false
+            ],
+            [
+                'id' => 'filter_1',
+                'order' => 2,
+                'type' => 'filter',
+                'filterKey' => 'Applicazione su Legno',
+                'required' => false,
+                'multiSelect' => true,
+                'title' => [
+                    'it' => 'Dove lo userai?',
+                    'en' => 'Where will you use it?',
+                    'de' => 'Wo werden Sie es verwenden?',
+                    'fr' => 'Où allez-vous l\'utiliser?',
+                    'es' => '¿Dónde lo usarás?',
+                    'pt' => 'Onde você vai usá-lo?'
+                ],
+                'subtitle' => [
+                    'it' => 'Seleziona una o più applicazioni',
+                    'en' => 'Select one or more applications',
+                    'de' => 'Wählen Sie eine oder mehrere Anwendungen',
+                    'fr' => 'Sélectionnez une ou plusieurs applications',
+                    'es' => 'Selecciona una o más aplicaciones',
+                    'pt' => 'Selecione uma ou mais aplicações'
+                ],
+                'aiPrompt' => 'L\'utente deve scegliere dove applicare il prodotto. Opzioni disponibili: {options}',
+                'allowTextInput' => true
+            ],
+            [
+                'id' => 'filter_2',
+                'order' => 3,
+                'type' => 'filter',
+                'filterKey' => 'Materiale',
+                'required' => false,
+                'multiSelect' => true,
+                'title' => [
+                    'it' => 'Quale materiale preferisci?',
+                    'en' => 'Which material do you prefer?',
+                    'de' => 'Welches Material bevorzugen Sie?',
+                    'fr' => 'Quel matériau préférez-vous?',
+                    'es' => '¿Qué material prefieres?',
+                    'pt' => 'Qual material você prefere?'
+                ],
+                'subtitle' => [
+                    'it' => 'Scegli il materiale più adatto',
+                    'en' => 'Choose the most suitable material',
+                    'de' => 'Wählen Sie das am besten geeignete Material',
+                    'fr' => 'Choisissez le matériau le plus approprié',
+                    'es' => 'Elige el material más adecuado',
+                    'pt' => 'Escolha o material mais adequado'
+                ],
+                'aiPrompt' => 'L\'utente deve scegliere il materiale. Opzioni: {options}',
+                'allowTextInput' => true
+            ],
+            [
+                'id' => 'filter_3',
+                'order' => 4,
+                'type' => 'filter',
+                'filterKey' => 'Colore',
+                'required' => false,
+                'multiSelect' => false,
+                'title' => [
+                    'it' => 'Che colore vuoi?',
+                    'en' => 'What color do you want?',
+                    'de' => 'Welche Farbe möchten Sie?',
+                    'fr' => 'Quelle couleur voulez-vous?',
+                    'es' => '¿Qué color quieres?',
+                    'pt' => 'Qual cor você quer?'
+                ],
+                'subtitle' => [
+                    'it' => 'Seleziona un colore',
+                    'en' => 'Select a color',
+                    'de' => 'Wählen Sie eine Farbe',
+                    'fr' => 'Sélectionnez une couleur',
+                    'es' => 'Selecciona un color',
+                    'pt' => 'Selecione uma cor'
+                ],
+                'aiPrompt' => 'L\'utente vuole scegliere il colore. Colori disponibili: {options}',
+                'allowTextInput' => true
+            ],
+            [
+                'id' => 'other_filters',
+                'order' => 5,
+                'type' => 'multi_filter',
+                'required' => false,
+                'title' => [
+                    'it' => 'Affina la ricerca',
+                    'en' => 'Refine your search',
+                    'de' => 'Verfeinern Sie Ihre Suche',
+                    'fr' => 'Affinez votre recherche',
+                    'es' => 'Refina tu búsqueda',
+                    'pt' => 'Refine sua pesquisa'
+                ],
+                'subtitle' => [
+                    'it' => 'Seleziona altre caratteristiche (opzionale)',
+                    'en' => 'Select other characteristics (optional)',
+                    'de' => 'Wählen Sie weitere Eigenschaften (optional)',
+                    'fr' => 'Sélectionnez d\'autres caractéristiques (optionnel)',
+                    'es' => 'Selecciona otras características (opcional)',
+                    'pt' => 'Selecione outras características (opcional)'
+                ],
+                'maxFilters' => 5,
+                'excludeFilters' => ['Applicazione su Legno', 'Materiale', 'Colore', 'prezzo'],
+                'aiPrompt' => 'L\'utente può aggiungere filtri aggiuntivi per affinare la ricerca. Filtri disponibili: {filters}',
+                'allowTextInput' => true
+            ]
+        ],
+        'ai' => [
+            'enabled' => false,
+            'provider' => 'claude',
+            'model' => 'claude-3-sonnet',
+            'systemPrompt' => 'Sei un assistente che aiuta gli utenti a trovare prodotti per serramenti. Interpreta le richieste dell\'utente e suggerisci i filtri appropriati.',
+            'temperature' => 0.7
+        ]
+    ];
+
+    // Save default configuration
+    $result = file_put_contents(
+        $wizardConfigPath,
+        json_encode($defaultConfig, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE)
+    );
+
+    if ($result === false) {
+        throw new Exception('Failed to write configuration file');
+    }
+
+    echo json_encode([
+        'success' => true,
+        'message' => 'Configuration reset to default',
+        'config' => $defaultConfig
+    ]);
+
+} catch (Exception $e) {
+    http_response_code(500);
+    echo json_encode([
+        'success' => false,
+        'error' => $e->getMessage()
+    ]);
+}

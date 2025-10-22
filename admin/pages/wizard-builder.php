@@ -40,6 +40,10 @@ $pageTitle = "Wizard Builder";
                         </div>
                     </div>
                     <div class="flex items-center gap-3">
+                        <button onclick="resetToDefault()" class="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors" title="Ripristina configurazione di default">
+                            <i class="fas fa-undo mr-2"></i>
+                            Reset
+                        </button>
                         <button onclick="previewWizard()" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
                             <i class="fas fa-eye mr-2"></i>
                             Anteprima
@@ -497,6 +501,39 @@ $pageTitle = "Wizard Builder";
                     alert(message);
                 } else {
                     alert('❌ Errore nel salvataggio: ' + result.error);
+                }
+            } catch (error) {
+                alert('❌ Errore di rete: ' + error.message);
+            }
+        }
+
+        // Reset to default configuration
+        async function resetToDefault() {
+            if (!confirm('⚠️ Sei sicuro di voler ripristinare la configurazione di default?\n\nQuesta azione sostituirà completamente la configurazione attuale con:\n- Step 1: Selezione categoria\n- Step 2: Applicazione (Legno/Alluminio/PVC)\n- Step 3: Materiale\n- Step 4: Colore\n- Step 5: Altri filtri\n\nTutte le personalizzazioni saranno perse!')) {
+                return;
+            }
+
+            try {
+                const response = await fetch('../api/reset-wizard-config.php', {
+                    method: 'POST'
+                });
+
+                const result = await response.json();
+                if (result.success) {
+                    wizardConfig = result.config;
+                    renderWizardSteps();
+
+                    // Update AI config
+                    if (wizardConfig.ai) {
+                        document.getElementById('ai-enabled').checked = wizardConfig.ai.enabled;
+                        document.getElementById('ai-provider').value = wizardConfig.ai.provider;
+                        document.getElementById('ai-model').value = wizardConfig.ai.model;
+                        document.getElementById('ai-config').classList.toggle('hidden', !wizardConfig.ai.enabled);
+                    }
+
+                    alert('✅ Configurazione ripristinata con successo!\n\n5 step configurati e pronti all\'uso.');
+                } else {
+                    alert('❌ Errore nel reset: ' + result.error);
                 }
             } catch (error) {
                 alert('❌ Errore di rete: ' + error.message);
