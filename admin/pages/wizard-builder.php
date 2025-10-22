@@ -1,6 +1,7 @@
 <?php
 // admin/pages/wizard-builder.php - Wizard Configuration Builder
-if (!defined('BASE_PATH')) exit('No direct script access allowed');
+require_once '../config.php';
+require_once '../includes/functions.php';
 
 $pageTitle = "Wizard Builder";
 ?>
