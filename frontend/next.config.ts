@@ -74,7 +74,7 @@ const nextConfig: NextConfig = {
               "style-src 'self' 'unsafe-inline'",
               `img-src 'self' data: https://didieffeb2b.com ${apiUrl}`,
               "font-src 'self' data:",
-              `connect-src 'self' ${apiUrl}`,
+              `connect-src 'self' ${apiUrl} https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://firestore.googleapis.com https://*.firebaseio.com`,
               "frame-ancestors 'self'",
               "base-uri 'self'",
               "form-action 'self'",
