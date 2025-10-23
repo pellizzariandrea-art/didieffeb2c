@@ -13,7 +13,7 @@
  *   "subject": "Email Subject",
  *   "htmlContent": "<html>...</html>",
  *   "textContent": "Plain text content (optional)",
- *   "sender": {"email": "noreply@didieffe.com", "name": "Di Dieffe B2B"},
+ *   "sender": {"email": "noreply@didieffe.com", "name": "Didieffe B2B"},
  *   "replyTo": {"email": "reply@didieffe.com", "name": "Support"}
  * }
  *
@@ -65,7 +65,7 @@ try {
     if (!$brevoApiKey) {
         // SECURITY: This file should have restricted permissions (644 or 600)
         // Only uncomment and set this if you can't use environment variables
-        // $brevoApiKey = 'xkeysib-your-api-key-here';
+        // $brevoApiKey = 'your-brevo-api-key-here';
     }
 
     // 3. Try protected config file (least secure, needs .htaccess protection)
@@ -85,7 +85,7 @@ try {
     $brevoPayload = [
         'sender' => $data['sender'] ?? [
             'email' => 'noreply@didieffe.com',
-            'name' => 'Di Dieffe B2B'
+            'name' => 'Didieffe B2B'
         ],
         'to' => [$data['to']],
         'subject' => $data['subject'],

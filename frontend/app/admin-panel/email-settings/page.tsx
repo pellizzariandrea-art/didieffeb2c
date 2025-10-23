@@ -40,11 +40,11 @@ export default function EmailSettingsPage() {
     },
     templates: {
       b2c_welcome: {
-        subject: 'Benvenuto su Di Dieffe B2B!',
+        subject: 'Benvenuto su Didieffe B2B!',
         enabled: true,
       },
       b2b_confirmation: {
-        subject: 'Richiesta Registrazione B2B Ricevuta - Di Dieffe',
+        subject: 'Richiesta Registrazione B2B Ricevuta - Didieffe',
         enabled: true,
       },
     },
@@ -246,7 +246,7 @@ export default function EmailSettingsPage() {
                 value={config.brevo.senderName}
                 onChange={(e) => setConfig({ ...config, brevo: { ...config.brevo, senderName: e.target.value } })}
                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm px-3 py-2 border"
-                placeholder="Di Dieffe B2B"
+                placeholder="Didieffe B2B"
               />
             </div>
 
@@ -272,7 +272,7 @@ export default function EmailSettingsPage() {
                 value={config.brevo.replyToName}
                 onChange={(e) => setConfig({ ...config, brevo: { ...config.brevo, replyToName: e.target.value } })}
                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm px-3 py-2 border"
-                placeholder="Di Dieffe Support"
+                placeholder="Didieffe Support"
               />
             </div>
           </div>

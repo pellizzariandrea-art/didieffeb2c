@@ -15,17 +15,17 @@ if (!file_exists($configFile)) {
     $defaultConfig = [
         'brevo' => [
             'senderEmail' => 'noreply@didieffe.com',
-            'senderName' => 'Di Dieffe B2B',
+            'senderName' => 'Didieffe B2B',
             'replyToEmail' => 'apellizzari@didieffe.com',
-            'replyToName' => 'Di Dieffe Support'
+            'replyToName' => 'Didieffe Support'
         ],
         'templates' => [
             'b2c_welcome' => [
-                'subject' => 'Benvenuto su Di Dieffe B2B!',
+                'subject' => 'Benvenuto su Didieffe B2B!',
                 'enabled' => true
             ],
             'b2b_confirmation' => [
-                'subject' => 'Richiesta Registrazione B2B Ricevuta - Di Dieffe',
+                'subject' => 'Richiesta Registrazione B2B Ricevuta - Didieffe',
                 'enabled' => true
             ]
         ]

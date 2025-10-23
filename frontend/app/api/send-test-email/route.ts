@@ -30,17 +30,17 @@ export async function POST(req: NextRequest) {
       config = {
         brevo: {
           senderEmail: process.env.BREVO_SENDER_EMAIL || 'noreply@didieffe.com',
-          senderName: process.env.BREVO_SENDER_NAME || 'Di Dieffe B2B',
+          senderName: process.env.BREVO_SENDER_NAME || 'Didieffe B2B',
           replyToEmail: process.env.BREVO_REPLY_TO_EMAIL || 'apellizzari@didieffe.com',
-          replyToName: process.env.BREVO_REPLY_TO_NAME || 'Di Dieffe Support',
+          replyToName: process.env.BREVO_REPLY_TO_NAME || 'Didieffe Support',
         },
         templates: {
           b2c_welcome: {
-            subject: 'Benvenuto su Di Dieffe B2B!',
+            subject: 'Benvenuto su Didieffe B2B!',
             enabled: true,
           },
           b2b_confirmation: {
-            subject: 'Richiesta Registrazione B2B Ricevuta - Di Dieffe',
+            subject: 'Richiesta Registrazione B2B Ricevuta - Didieffe',
             enabled: true,
           },
         },
@@ -105,7 +105,7 @@ export async function POST(req: NextRequest) {
       </head>
       <body>
         <div class="header">
-          ${config.logo?.base64 ? `<img src="${config.logo.base64}" alt="Di Dieffe" class="logo">` : '<h1 style="color: #2563eb;">Di Dieffe B2B</h1>'}
+          ${config.logo?.base64 ? `<img src="${config.logo.base64}" alt="Didieffe" class="logo">` : '<h1 style="color: #2563eb;">Didieffe B2B</h1>'}
         </div>
 
         <div class="content">
@@ -137,11 +137,11 @@ export async function POST(req: NextRequest) {
 
           <p>Tutto sembra a posto? Ottimo! Ora puoi procedere con l'invio delle email ai tuoi clienti.</p>
 
-          <p><strong>Il Team Di Dieffe</strong></p>
+          <p><strong>Il Team Didieffe</strong></p>
         </div>
 
         <div class="footer">
-          <p>Di Dieffe B2B - Sistema di Email Transazionali</p>
+          <p>Didieffe B2B - Sistema di Email Transazionali</p>
           <p>Questa è un'email di test inviata dal pannello di amministrazione</p>
         </div>
       </body>
@@ -171,10 +171,10 @@ COSA PUOI VERIFICARE:
 
 Tutto sembra a posto? Ottimo! Ora puoi procedere con l'invio delle email ai tuoi clienti.
 
-Il Team Di Dieffe
+Il Team Didieffe
 
 ---
-Di Dieffe B2B - Sistema di Email Transazionali
+Didieffe B2B - Sistema di Email Transazionali
 Questa è un'email di test inviata dal pannello di amministrazione
     `;
 

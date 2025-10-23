@@ -79,17 +79,17 @@ export async function getEmailConfig(): Promise<EmailConfig> {
     const defaultConfig: EmailConfig = {
       brevo: {
         senderEmail: process.env.BREVO_SENDER_EMAIL || 'noreply@didieffe.com',
-        senderName: process.env.BREVO_SENDER_NAME || 'Di Dieffe B2B',
+        senderName: process.env.BREVO_SENDER_NAME || 'Didieffe B2B',
         replyToEmail: process.env.BREVO_REPLY_TO_EMAIL || 'apellizzari@didieffe.com',
-        replyToName: process.env.BREVO_REPLY_TO_NAME || 'Di Dieffe Support',
+        replyToName: process.env.BREVO_REPLY_TO_NAME || 'Didieffe Support',
       },
       templates: {
         b2c_welcome: {
-          subject: 'Benvenuto su Di Dieffe B2B!',
+          subject: 'Benvenuto su Didieffe B2B!',
           enabled: true,
         },
         b2b_confirmation: {
-          subject: 'Richiesta Registrazione B2B Ricevuta - Di Dieffe',
+          subject: 'Richiesta Registrazione B2B Ricevuta - Didieffe',
           enabled: true,
         },
       },
@@ -218,13 +218,13 @@ export async function sendWelcomeEmailB2C(email: string, name: string) {
       </head>
       <body>
         <div class="header">
-          <img src="${getLogoBase64(config)}" alt="Di Dieffe" class="logo">
+          <img src="${getLogoBase64(config)}" alt="Didieffe" class="logo">
         </div>
 
         <div class="content">
           <h2 style="color: #2563eb;">Ciao ${name}!</h2>
 
-          <p>Grazie per esserti registrato su <strong>Di Dieffe B2B</strong>.</p>
+          <p>Grazie per esserti registrato su <strong>Didieffe B2B</strong>.</p>
 
           <p>Il tuo account è <strong>attivo</strong> e puoi iniziare subito a:</p>
 
@@ -244,11 +244,11 @@ export async function sendWelcomeEmailB2C(email: string, name: string) {
           <p>Se hai domande o hai bisogno di assistenza, non esitare a contattarci rispondendo a questa email.</p>
 
           <p>Buono shopping!</p>
-          <p><strong>Il Team Di Dieffe</strong></p>
+          <p><strong>Il Team Didieffe</strong></p>
         </div>
 
         <div class="footer">
-          <p>Di Dieffe B2B - Il tuo partner per persiane e scuri di qualità</p>
+          <p>Didieffe B2B - Il tuo partner per persiane e scuri di qualità</p>
           <p>Hai ricevuto questa email perché ti sei registrato su shop.didieffeb2b.com</p>
         </div>
       </body>
@@ -257,7 +257,7 @@ export async function sendWelcomeEmailB2C(email: string, name: string) {
     textContent: `
 Ciao ${name}!
 
-Grazie per esserti registrato su Di Dieffe B2B.
+Grazie per esserti registrato su Didieffe B2B.
 
 Il tuo account è attivo e puoi iniziare subito a:
 - Sfogliare il nostro catalogo completo
@@ -272,10 +272,10 @@ Visita: https://shop.didieffeb2b.com
 Se hai domande o hai bisogno di assistenza, non esitare a contattarci rispondendo a questa email.
 
 Buono shopping!
-Il Team Di Dieffe
+Il Team Didieffe
 
 ---
-Di Dieffe B2B - Il tuo partner per persiane e scuri di qualità
+Didieffe B2B - Il tuo partner per persiane e scuri di qualità
 Hai ricevuto questa email perché ti sei registrato su shop.didieffeb2b.com
     `,
   });
@@ -343,13 +343,13 @@ export async function sendB2BRegistrationConfirmation(email: string, companyName
       </head>
       <body>
         <div class="header">
-          <img src="${getLogoBase64(config)}" alt="Di Dieffe" class="logo">
+          <img src="${getLogoBase64(config)}" alt="Didieffe" class="logo">
         </div>
 
         <div class="content">
           <h2 style="color: #2563eb;">Ciao ${companyName}!</h2>
 
-          <p>Grazie per aver richiesto la registrazione come <strong>cliente Business</strong> su Di Dieffe B2B.</p>
+          <p>Grazie per aver richiesto la registrazione come <strong>cliente Business</strong> su Didieffe B2B.</p>
 
           <div class="alert">
             <strong>⏳ Richiesta in Attesa di Approvazione</strong><br>
@@ -368,11 +368,11 @@ export async function sendB2BRegistrationConfirmation(email: string, companyName
           <p>Se hai urgenze o domande, contattaci rispondendo a questa email.</p>
 
           <p>A presto!</p>
-          <p><strong>Il Team Di Dieffe</strong></p>
+          <p><strong>Il Team Didieffe</strong></p>
         </div>
 
         <div class="footer">
-          <p>Di Dieffe B2B - Soluzioni professionali per persiane e scuri</p>
+          <p>Didieffe B2B - Soluzioni professionali per persiane e scuri</p>
           <p>Hai ricevuto questa email perché hai richiesto un account Business</p>
         </div>
       </body>
@@ -381,7 +381,7 @@ export async function sendB2BRegistrationConfirmation(email: string, companyName
     textContent: `
 Ciao ${companyName}!
 
-Grazie per aver richiesto la registrazione come cliente Business su Di Dieffe B2B.
+Grazie per aver richiesto la registrazione come cliente Business su Didieffe B2B.
 
 ⏳ RICHIESTA IN ATTESA DI APPROVAZIONE
 
@@ -397,10 +397,10 @@ Non dimenticare di verificare la tua email cliccando sul link che ti abbiamo inv
 Se hai urgenze o domande, contattaci rispondendo a questa email.
 
 A presto!
-Il Team Di Dieffe
+Il Team Didieffe
 
 ---
-Di Dieffe B2B - Soluzioni professionali per persiane e scuri
+Didieffe B2B - Soluzioni professionali per persiane e scuri
 Hai ricevuto questa email perché hai richiesto un account Business
     `,
   });

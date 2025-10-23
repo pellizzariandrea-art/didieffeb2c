@@ -212,7 +212,7 @@
                         type="text"
                         id="senderName"
                         required
-                        placeholder="Di Dieffe B2B"
+                        placeholder="Didieffe B2B"
                     >
                     <p class="help-text">Il nome che apparirà come mittente delle email</p>
                 </div>
@@ -236,7 +236,7 @@
                     <input
                         type="text"
                         id="replyToName"
-                        placeholder="Di Dieffe Support"
+                        placeholder="Didieffe Support"
                     >
                 </div>
             </div>
@@ -296,7 +296,7 @@
                     <input
                         type="text"
                         id="b2cSubject"
-                        placeholder="Benvenuto su Di Dieffe B2B!"
+                        placeholder="Benvenuto su Didieffe B2B!"
                     >
                 </div>
 
@@ -319,13 +319,13 @@
                     <input
                         type="text"
                         id="b2bSubject"
-                        placeholder="Richiesta Registrazione B2B Ricevuta - Di Dieffe"
+                        placeholder="Richiesta Registrazione B2B Ricevuta - Didieffe"
                     >
                 </div>
             </div>
 
             <div class="button-group">
-                <button type="submit" class="btn-primary">
+                <button type="button" id="saveConfigBtn" class="btn-primary">
                     💾 Salva Configurazione
                 </button>
                 <button type="button" class="btn-secondary" onclick="loadConfig()">
@@ -351,12 +351,17 @@
 
         // Load configuration
         async function loadConfig() {
+            console.log('📥 [Email Settings] Loading config...');
             try {
                 const response = await fetch(`${API_BASE}/get-email-config.php`);
+                console.log('📥 [Email Settings] Response status:', response.status);
+
                 const result = await response.json();
+                console.log('📥 [Email Settings] Response data:', result);
 
                 if (result.success) {
                     const config = result.config;
+                    console.log('✅ [Email Settings] Config loaded:', config);
 
                     // Brevo settings
                     document.getElementById('senderEmail').value = config.brevo.senderEmail || '';
@@ -374,25 +379,36 @@
                     if (config.logo && config.logo.base64) {
                         document.getElementById('logoPreview').style.display = 'block';
                         document.getElementById('currentLogo').src = config.logo.base64;
+                        console.log('🖼️ [Email Settings] Logo found in config');
                     } else {
                         document.getElementById('logoPreview').style.display = 'none';
+                        console.log('ℹ️ [Email Settings] No logo in config');
                     }
 
-                    console.log('✅ Configuration loaded');
+                    console.log('✅ [Email Settings] Configuration loaded successfully');
                 } else {
+                    console.error('❌ [Email Settings] Load failed:', result.error);
                     showAlert('Errore nel caricamento della configurazione', 'error');
                 }
             } catch (error) {
-                console.error('Error loading config:', error);
+                console.error('❌ [Email Settings] Error loading config:', error);
                 showAlert('Errore di connessione al server', 'error');
             }
         }
 
         // Save configuration
-        document.getElementById('emailForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
+        console.log('🔧 [Email Settings] Setting up save button click listener...');
+        const saveBtn = document.getElementById('saveConfigBtn');
 
-            const config = {
+        if (!saveBtn) {
+            console.error('❌ [Email Settings] Save button not found!');
+        } else {
+            console.log('✅ [Email Settings] Save button found, attaching listener...');
+
+            saveBtn.addEventListener('click', async () => {
+                console.log('📤 [Email Settings] Save button clicked!');
+
+                const config = {
                 brevo: {
                     senderEmail: document.getElementById('senderEmail').value,
                     senderName: document.getElementById('senderName').value,
@@ -411,6 +427,8 @@
                 }
             };
 
+            console.log('📤 [Email Settings] Saving config:', config);
+
             try {
                 const response = await fetch(`${API_BASE}/save-email-config.php`, {
                     method: 'POST',
@@ -420,18 +438,25 @@
                     body: JSON.stringify(config)
                 });
 
+                console.log('📥 [Email Settings] Response status:', response.status);
+
                 const result = await response.json();
+                console.log('📥 [Email Settings] Response data:', result);
 
                 if (result.success) {
                     showAlert('✅ Configurazione salvata con successo!', 'success');
+                    console.log('✅ [Email Settings] Config saved successfully');
                 } else {
                     showAlert(`❌ Errore: ${result.error}`, 'error');
+                    console.error('❌ [Email Settings] Save failed:', result.error);
                 }
             } catch (error) {
-                console.error('Error saving config:', error);
+                console.error('❌ [Email Settings] Error saving config:', error);
                 showAlert('❌ Errore di connessione al server', 'error');
             }
-        });
+            });
+            console.log('✅ [Email Settings] Click listener attached to save button');
+        }
 
         // Upload logo handler
         document.getElementById('uploadLogoBtn').addEventListener('click', async () => {
@@ -495,7 +520,19 @@
         });
 
         // Load config on page load
-        window.addEventListener('DOMContentLoaded', loadConfig);
+        window.addEventListener('DOMContentLoaded', () => {
+            console.log('🚀 [Email Settings] Page loaded, initializing...');
+
+            // Check if form exists
+            const form = document.getElementById('emailForm');
+            if (form) {
+                console.log('✅ [Email Settings] Form found');
+            } else {
+                console.error('❌ [Email Settings] Form NOT found!');
+            }
+
+            loadConfig();
+        });
     </script>
 </body>
 </html>
