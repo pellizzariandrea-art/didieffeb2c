@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2025-01-22",
+  "lastUpdated": "2025-10-22",
   "steps": [
     {
       "id": "category",
@@ -27,115 +27,120 @@
       "allowTextInput": false
     },
     {
-      "id": "filter_1",
+      "id": "filter_1761116424396",
       "order": 2,
-      "type": "filter",
-      "filterKey": "Applicazione su Legno",
-      "required": false,
+      "type": "characteristics",
+      "filterKey": "_characteristics_group",
+      "required": true,
       "multiSelect": true,
       "title": {
-        "it": "Dove lo userai?",
-        "en": "Where will you use it?",
-        "de": "Wo werden Sie es verwenden?",
-        "fr": "Où allez-vous l'utiliser?",
-        "es": "¿Dónde lo usarás?",
-        "pt": "Onde você vai usá-lo?"
+        "it": "Quale è il materiale su cui andrai ad applicare il prodotto che stai cercando?",
+        "en": "Features",
+        "de": "Eigenschaften",
+        "fr": "Caractéristiques",
+        "es": "Características",
+        "pt": "Características"
       },
       "subtitle": {
-        "it": "Seleziona una o più applicazioni",
-        "en": "Select one or more applications",
-        "de": "Wählen Sie eine oder mehrere Anwendungen",
-        "fr": "Sélectionnez une ou plusieurs applications",
-        "es": "Selecciona una o más aplicaciones",
-        "pt": "Selecione uma ou mais aplicações"
+        "it": "Scegli le caratteristiche del prodotto",
+        "en": "Choose the product features",
+        "de": "Wählen Sie die Produkteigenschaften",
+        "fr": "Choisissez les caractéristiques du produit",
+        "es": "Elige las características del producto",
+        "pt": "Escolha as características do produto"
       },
-      "aiPrompt": "L'utente deve scegliere dove applicare il prodotto. Opzioni disponibili: {options}",
-      "allowTextInput": true
+      "aiPrompt": "Aiuta l'utente a scegliere. Opzioni: {options}",
+      "allowTextInput": false,
+      "includeFilters": [
+        "Applicazione su Legno",
+        "Applicazione su Allumino",
+        "Applicazione su Pvc"
+      ]
     },
     {
-      "id": "filter_2",
+      "id": "filter_1761116457327",
       "order": 3,
       "type": "filter",
-      "filterKey": "Materiale",
-      "required": false,
+      "filterKey": "Tipologia",
+      "required": true,
       "multiSelect": true,
       "title": {
-        "it": "Quale materiale preferisci?",
-        "en": "Which material do you prefer?",
-        "de": "Welches Material bevorzugen Sie?",
-        "fr": "Quel matériau préférez-vous?",
-        "es": "¿Qué material prefieres?",
-        "pt": "Qual material você prefere?"
+        "it": "Quale tipologia di prodotto stai cercando?",
+        "en": "New Step",
+        "de": "Neuer Schritt",
+        "fr": "Nouvelle étape",
+        "es": "Nuevo paso",
+        "pt": "Nova etapa"
       },
       "subtitle": {
-        "it": "Scegli il materiale più adatto",
-        "en": "Choose the most suitable material",
-        "de": "Wählen Sie das am besten geeignete Material",
-        "fr": "Choisissez le matériau le plus approprié",
-        "es": "Elige el material más adecuado",
-        "pt": "Escolha o material mais adequado"
+        "it": "Scegli tipologia",
+        "en": "Description",
+        "de": "Beschreibung",
+        "fr": "Description",
+        "es": "Descripción",
+        "pt": "Descrição"
       },
-      "aiPrompt": "L'utente deve scegliere il materiale. Opzioni: {options}",
-      "allowTextInput": true
+      "aiPrompt": "Aiuta l'utente a scegliere. Opzioni: {options}",
+      "allowTextInput": false
     },
     {
-      "id": "filter_3",
+      "id": "filter_1761116481644",
       "order": 4,
+      "type": "filter",
+      "filterKey": "Materiale",
+      "required": true,
+      "multiSelect": true,
+      "title": {
+        "it": "Di quale materiale preferisci sia fatto l'articolo che stai cercando?",
+        "en": "New Step",
+        "de": "Neuer Schritt",
+        "fr": "Nouvelle étape",
+        "es": "Nuevo paso",
+        "pt": "Nova etapa"
+      },
+      "subtitle": {
+        "it": "Scegli materiale",
+        "en": "Description",
+        "de": "Beschreibung",
+        "fr": "Description",
+        "es": "Descripción",
+        "pt": "Descrição"
+      },
+      "aiPrompt": "Aiuta l'utente a scegliere. Opzioni: {options}",
+      "allowTextInput": false
+    },
+    {
+      "id": "filter_1761116528202",
+      "order": 5,
       "type": "filter",
       "filterKey": "Colore",
       "required": false,
-      "multiSelect": false,
+      "multiSelect": true,
       "title": {
-        "it": "Che colore vuoi?",
-        "en": "What color do you want?",
-        "de": "Welche Farbe möchten Sie?",
-        "fr": "Quelle couleur voulez-vous?",
-        "es": "¿Qué color quieres?",
-        "pt": "Qual cor você quer?"
+        "it": "Hai prefenze sul colore?",
+        "en": "New Step",
+        "de": "Neuer Schritt",
+        "fr": "Nouvelle étape",
+        "es": "Nuevo paso",
+        "pt": "Nova etapa"
       },
       "subtitle": {
-        "it": "Seleziona un colore",
-        "en": "Select a color",
-        "de": "Wählen Sie eine Farbe",
-        "fr": "Sélectionnez une couleur",
-        "es": "Selecciona un color",
-        "pt": "Selecione uma cor"
+        "it": "Scegli colore",
+        "en": "Description",
+        "de": "Beschreibung",
+        "fr": "Description",
+        "es": "Descripción",
+        "pt": "Descrição"
       },
-      "aiPrompt": "L'utente vuole scegliere il colore. Colori disponibili: {options}",
-      "allowTextInput": true
-    },
-    {
-      "id": "other_filters",
-      "order": 5,
-      "type": "multi_filter",
-      "required": false,
-      "title": {
-        "it": "Affina la ricerca",
-        "en": "Refine your search",
-        "de": "Verfeinern Sie Ihre Suche",
-        "fr": "Affinez votre recherche",
-        "es": "Refina tu búsqueda",
-        "pt": "Refine sua pesquisa"
-      },
-      "subtitle": {
-        "it": "Seleziona altre caratteristiche (opzionale)",
-        "en": "Select other characteristics (optional)",
-        "de": "Wählen Sie weitere Eigenschaften (optional)",
-        "fr": "Sélectionnez d'autres caractéristiques (optionnel)",
-        "es": "Selecciona otras características (opcional)",
-        "pt": "Selecione outras características (opcional)"
-      },
-      "maxFilters": 5,
-      "excludeFilters": ["Applicazione su Legno", "Materiale", "Colore", "prezzo"],
-      "aiPrompt": "L'utente può aggiungere filtri aggiuntivi per affinare la ricerca. Filtri disponibili: {filters}",
-      "allowTextInput": true
+      "aiPrompt": "Aiuta l'utente a scegliere. Opzioni: {options}",
+      "allowTextInput": false
     }
   ],
   "ai": {
     "enabled": false,
     "provider": "claude",
     "model": "claude-3-sonnet",
-    "systemPrompt": "Sei un assistente che aiuta gli utenti a trovare prodotti per serramenti. Interpreta le richieste dell'utente e suggerisci i filtri appropriati.",
+    "systemPrompt": "Sei un assistente che aiuta gli utenti a trovare prodotti per serramenti.",
     "temperature": 0.7
   }
 }

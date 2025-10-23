@@ -672,6 +672,17 @@ $pageTitle = "Wizard Builder";
             };
 
             wizardConfig.lastUpdated = new Date().toISOString().split('T')[0];
+            // Add includeFilters to characteristics steps
+            wizardConfig.steps.forEach(step => {
+                if (step.type === 'characteristics' || step.filterKey === '_characteristics_group') {
+                    // Get enabled boolean filters (not disabled)
+                    const enabledFilters = availableFilters
+                        .filter(f => f.type === 'boolean' && !disabledBooleanFilters.has(f.key))
+                        .map(f => f.key);
+                    step.includeFilters = enabledFilters;
+                }
+            });
+
 
             try {
                 const response = await fetch('../api/save-wizard-config.php', {

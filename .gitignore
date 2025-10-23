@@ -40,14 +40,30 @@ admin/data/export-v2-error.log
 # Temporary files
 *.tmp
 *.temp
+*.backup
 nul
 
 # Admin data (sensibili)
 admin/data/db-config.json
 admin/data/translation-settings.json
 admin/data/*.json.bak
+admin/data/ai-descriptions/
+admin/data/logs/
+admin/api/*debug*.php
+admin/api/php_errorlog
 translation-settings.json
 db-config.json
+
+# Claude & Session files
+SESSION_NOTES.md
+.claude/
+
+# Test & temp files
+products_temp.json
+*_temp.json
+*_old/
+wordpress/
+scripts/
 
 # Build artifacts
 dist/

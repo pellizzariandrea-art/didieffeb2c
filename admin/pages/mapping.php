@@ -125,6 +125,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $mapping['useInDescription'] = true;
                 }
 
+                // Flag per usare attributo nelle gallery prodotti correlati
+                if (isset($_POST['attr_use_for_gallery'][$index]) && $_POST['attr_use_for_gallery'][$index] === '1') {
+                    $mapping['useForGallery'] = true;
+                }
+
                 $mappings[] = $mapping;
             }
         }
@@ -524,6 +529,16 @@ include '../includes/header.php';
                                 <span>📝 Descrizione</span>
                             </label>
                         </div>
+                        <div style="display: flex; align-items: center;">
+                            <label style="display: flex; align-items: center; gap: 5px; cursor: pointer; color: #10b981;">
+                                <input type="hidden" name="attr_use_for_gallery[]" value="<?php echo ($attr && !empty($attr['useForGallery'])) ? '1' : '0'; ?>" class="gallery-hidden">
+                                <input type="checkbox" value="1" class="gallery-checkbox"
+                                    <?php echo ($attr && !empty($attr['useForGallery'])) ? 'checked' : ''; ?>
+                                    onchange="updateGalleryCheckboxes(this)"
+                                    style="margin: 0;">
+                                <span>🎨 Gallery</span>
+                            </label>
+                        </div>
                     </div>
 
                     <!-- Area mappatura booleana -->
@@ -553,6 +568,23 @@ include '../includes/header.php';
 
 <script>
 let attrCounter = <?php echo $attrCount; ?>;
+
+// Funzione per limitare a max 2 checkbox Gallery selezionati
+function updateGalleryCheckboxes(changedCheckbox) {
+    const hiddenInput = changedCheckbox.previousElementSibling;
+    hiddenInput.value = changedCheckbox.checked ? '1' : '0';
+
+    // Conta quanti checkbox Gallery sono selezionati
+    const galleryCheckboxes = document.querySelectorAll('.gallery-checkbox');
+    const checkedCount = Array.from(galleryCheckboxes).filter(cb => cb.checked).length;
+
+    // Se più di 2, deseleziona l'ultimo
+    if (checkedCount > 2) {
+        changedCheckbox.checked = false;
+        hiddenInput.value = '0';
+        alert('⚠️ Puoi selezionare massimo 2 attributi per le gallery prodotti correlati');
+    }
+}
 
 // Event delegation per rimozione attributi
 document.addEventListener('click', function(e) {
@@ -845,6 +877,15 @@ function aggiungiAttributo() {
                             onchange="this.previousElementSibling.value = this.checked ? '1' : '0'"
                             style="margin: 0;">
                         <span>📝 Descrizione</span>
+                    </label>
+                </div>
+                <div style="display: flex; align-items: center;">
+                    <label style="display: flex; align-items: center; gap: 5px; cursor: pointer; color: #10b981;">
+                        <input type="hidden" name="attr_use_for_gallery[]" value="0" class="gallery-hidden">
+                        <input type="checkbox" value="1" class="gallery-checkbox"
+                            onchange="updateGalleryCheckboxes(this)"
+                            style="margin: 0;">
+                        <span>🎨 Gallery</span>
                     </label>
                 </div>
             </div>
