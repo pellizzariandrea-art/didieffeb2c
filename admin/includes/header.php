@@ -277,6 +277,7 @@
                 <a href="/admin/pages/export.php" <?php if(basename($_SERVER['PHP_SELF']) == 'export.php') echo 'class="active"'; ?>>Export</a>
                 <a href="/admin/pages/export-v2.php" <?php if(basename($_SERVER['PHP_SELF']) == 'export-v2.php') echo 'class="active"'; ?>>🚀 Export v2</a>
                 <a href="/admin/pages/settings.php" <?php if(basename($_SERVER['PHP_SELF']) == 'settings.php') echo 'class="active"'; ?>>⚙️ Settings</a>
+                <a href="/admin/pages/email-settings.php" <?php if(basename($_SERVER['PHP_SELF']) == 'email-settings.php') echo 'class="active"'; ?>>📧 Email</a>
                 <a href="/admin/pages/ai-descriptions.php" <?php if(basename($_SERVER['PHP_SELF']) == 'ai-descriptions.php') echo 'class="active"'; ?>>🤖 Descrizioni AI</a>
                 <a href="/admin/pages/images.php" <?php if(basename($_SERVER['PHP_SELF']) == 'images.php') echo 'class="active"'; ?>>🖼️ Immagini</a>
                 <a href="/admin/pages/resources.php" <?php if(basename($_SERVER['PHP_SELF']) == 'resources.php') echo 'class="active"'; ?>>📦 Risorse</a>

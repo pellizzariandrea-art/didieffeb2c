@@ -22,20 +22,97 @@ interface SendEmailOptions {
   textContent?: string;
 }
 
+interface EmailConfig {
+  brevo: {
+    senderEmail: string;
+    senderName: string;
+    replyToEmail: string;
+    replyToName: string;
+  };
+  templates: {
+    b2c_welcome: {
+      subject: string;
+      enabled: boolean;
+    };
+    b2b_confirmation: {
+      subject: string;
+      enabled: boolean;
+    };
+  };
+}
+
+// Cache for email configuration
+let configCache: EmailConfig | null = null;
+let configCacheTime: number = 0;
+const CACHE_DURATION = 5 * 60 * 1000; // 5 minutes
+
+/**
+ * Get email configuration from backend
+ */
+export async function getEmailConfig(): Promise<EmailConfig> {
+  // Return cached config if still valid
+  if (configCache && Date.now() - configCacheTime < CACHE_DURATION) {
+    return configCache;
+  }
+
+  try {
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://shop.didieffeb2b.com';
+    const response = await fetch(`${apiUrl}/admin/api/get-email-config.php`);
+    const result = await response.json();
+
+    if (result.success) {
+      configCache = result.config;
+      configCacheTime = Date.now();
+      return result.config;
+    }
+
+    throw new Error('Failed to load email configuration');
+  } catch (error) {
+    console.error('❌ [Brevo] Error loading config, using defaults:', error);
+
+    // Return default configuration as fallback
+    const defaultConfig: EmailConfig = {
+      brevo: {
+        senderEmail: process.env.BREVO_SENDER_EMAIL || 'noreply@didieffe.com',
+        senderName: process.env.BREVO_SENDER_NAME || 'Di Dieffe B2B',
+        replyToEmail: process.env.BREVO_REPLY_TO_EMAIL || 'apellizzari@didieffe.com',
+        replyToName: process.env.BREVO_REPLY_TO_NAME || 'Di Dieffe Support',
+      },
+      templates: {
+        b2c_welcome: {
+          subject: 'Benvenuto su Di Dieffe B2B!',
+          enabled: true,
+        },
+        b2b_confirmation: {
+          subject: 'Richiesta Registrazione B2B Ricevuta - Di Dieffe',
+          enabled: true,
+        },
+      },
+    };
+
+    return defaultConfig;
+  }
+}
+
 /**
  * Send transactional email via Brevo
  */
-export async function sendEmail(options: SendEmailOptions) {
+export async function sendEmail(options: SendEmailOptions, config?: EmailConfig) {
   try {
+    // Get configuration if not provided
+    if (!config) {
+      config = await getEmailConfig();
+    }
+
     const sendSmtpEmail = new brevo.SendSmtpEmail();
     sendSmtpEmail.to = [{ email: options.to.email, name: options.to.name }];
     sendSmtpEmail.sender = {
-      name: process.env.BREVO_SENDER_NAME || 'Di Dieffe B2B',
-      email: process.env.BREVO_SENDER_EMAIL || 'noreply@didieffe.com',
+      name: config.brevo.senderName,
+      email: config.brevo.senderEmail,
     };
     sendSmtpEmail.replyTo = {
-      name: process.env.BREVO_REPLY_TO_NAME || 'Di Dieffe Support',
-      email: process.env.BREVO_REPLY_TO_EMAIL || 'apellizzari@didieffe.com',
+      name: config.brevo.replyToName,
+      email: config.brevo.replyToEmail,
     };
     sendSmtpEmail.subject = options.subject;
     sendSmtpEmail.htmlContent = options.htmlContent;
@@ -56,9 +133,18 @@ export async function sendEmail(options: SendEmailOptions) {
  * Send welcome email to new B2C customer
  */
 export async function sendWelcomeEmailB2C(email: string, name: string) {
+  // Get configuration
+  const config = await getEmailConfig();
+
+  // Check if B2C welcome email is enabled
+  if (!config.templates.b2c_welcome.enabled) {
+    console.log('ℹ️ [Brevo] B2C welcome email is disabled, skipping');
+    return { success: true, skipped: true };
+  }
+
   return sendEmail({
     to: { email, name },
-    subject: 'Benvenuto su Di Dieffe B2B!',
+    subject: config.templates.b2c_welcome.subject,
     htmlContent: `
       <!DOCTYPE html>
       <html>
@@ -181,9 +267,18 @@ Hai ricevuto questa email perché ti sei registrato su shop.didieffeb2b.com
  * Send registration confirmation email to new B2B company (pending approval)
  */
 export async function sendB2BRegistrationConfirmation(email: string, companyName: string) {
+  // Get configuration
+  const config = await getEmailConfig();
+
+  // Check if B2B confirmation email is enabled
+  if (!config.templates.b2b_confirmation.enabled) {
+    console.log('ℹ️ [Brevo] B2B confirmation email is disabled, skipping');
+    return { success: true, skipped: true };
+  }
+
   return sendEmail({
     to: { email, name: companyName },
-    subject: 'Richiesta Registrazione B2B Ricevuta - Di Dieffe',
+    subject: config.templates.b2b_confirmation.subject,
     htmlContent: `
       <!DOCTYPE html>
       <html>
