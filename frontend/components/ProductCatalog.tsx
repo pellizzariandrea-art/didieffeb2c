@@ -3,6 +3,8 @@
 // components/ProductCatalog.tsx
 import React, { useState, useMemo, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
+import Link from 'next/link';
+import Image from 'next/image';
 import { Product } from '@/types/product';
 import ProductCard from './ProductCard';
 import ProductCardSkeleton from './ProductCardSkeleton';
@@ -15,7 +17,7 @@ import RecentlyViewedCarousel from './RecentlyViewedCarousel';
 import SearchAutocomplete from './SearchAutocomplete';
 import WizardSearch from './WizardSearch';
 import { getLabel } from '@/lib/ui-labels';
-import { formatAttributeValue } from '@/lib/product-utils';
+import { formatAttributeValue, getTranslatedValue } from '@/lib/product-utils';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useProductNavigation } from '@/contexts/ProductNavigationContext';
 import { useAnalyticsStore } from '@/stores/analyticsStore';
@@ -131,12 +133,26 @@ export default function ProductCatalog({
   // Funzione per leggere i filtri dall'URL
   const getFiltersFromURL = () => {
     const filters: Record<string, string[]> = {};
+    const systemParams = ['q', 'category', 'view', 'sort', 'page']; // Parametri riservati al sistema
+
+    // 1. Leggi parametri con prefisso f_ (formato complesso)
     searchParams.forEach((value, key) => {
       if (key.startsWith('f_')) {
         const filterKey = key.substring(2); // Rimuovi prefisso "f_"
         filters[filterKey] = value.split(',');
       }
     });
+
+    // 2. Se non ci sono filtri con prefisso, leggi parametri diretti (formato semplice)
+    // Questo permette link tipo /products?Serie=Giotto che resettano tutto il resto
+    if (Object.keys(filters).length === 0) {
+      searchParams.forEach((value, key) => {
+        if (!systemParams.includes(key)) {
+          filters[key] = value.split(',');
+        }
+      });
+    }
+
     return filters;
   };
 
@@ -155,6 +171,27 @@ export default function ProductCatalog({
   const [showBackToTop, setShowBackToTop] = useState(false); // Floating button
   const [showSortModal, setShowSortModal] = useState(false); // Mobile sort modal
   const [isWizardOpen, setIsWizardOpen] = useState(false); // Wizard search modal
+  const [variantQualifiers, setVariantQualifiers] = useState<string[]>([]); // Nomi degli attributi varianti
+
+  // Load variant qualifiers configuration
+  useEffect(() => {
+    fetch('/admin/api/get-variant-config')
+      .then(res => res.json())
+      .then(config => {
+        if (config.qualifiers && Array.isArray(config.qualifiers)) {
+          const qualifierNames = config.qualifiers.map((q: any) => q.attributeName);
+          setVariantQualifiers(qualifierNames);
+          console.log('[VARIANT CONFIG] Loaded qualifiers:', qualifierNames);
+        }
+      })
+      .catch(err => console.error('Failed to load variant config:', err));
+  }, []);
+
+  // Debug: track selectedProduct changes
+  useEffect(() => {
+    console.log('[SELECTED PRODUCT] Changed to:', selectedProduct ? selectedProduct.codice : 'null');
+    console.log('[SELECTED PRODUCT] isLoading:', isLoading);
+  }, [selectedProduct, isLoading]);
 
   // Count active filters for mobile badge
   const activeFiltersCount = Object.values(selectedFilters).flat().length +
@@ -162,30 +199,42 @@ export default function ProductCatalog({
 
   // Al mount, prova a ripristinare lo stato salvato dal localStorage (solo una volta)
   useEffect(() => {
-    const savedState = getCatalogState();
-    if (savedState) {
-      console.log('📥 Restoring saved catalog state from localStorage', savedState);
-      setSearchQuery(savedState.searchQuery || '');
-      setSelectedFilters(savedState.selectedFilters || {});
-      setIsInitialized(true);
-      // Scroll alla posizione salvata
-      if (savedState.scrollPosition > 0) {
-        setTimeout(() => window.scrollTo(0, savedState.scrollPosition), 100);
-      }
-      // Pulisci il localStorage DOPO che i filtri sono stati applicati
-      // Usiamo un timeout per assicurarci che lo stato sia stato sincronizzato
-      setTimeout(() => {
-        console.log('🧹 Clearing saved catalog state');
-        clearCatalogState();
-      }, 500);
-    } else {
-      console.log('🔄 Reading from URL (no saved state)');
+    // Check if URL has any filters - URL always takes precedence
+    const urlFilters = getFiltersFromURL();
+    const hasUrlParams = Object.keys(urlFilters).length > 0 ||
+                         searchParams.get('q') ||
+                         searchParams.get('category');
+
+    if (hasUrlParams) {
+      console.log('🔗 Reading from URL (has params - URL takes precedence)', urlFilters);
       setSelectedCategory(searchParams.get('category') || null);
-      setSelectedFilters(getFiltersFromURL());
+      setSelectedFilters(urlFilters);
       setViewMode((searchParams.get('view') as 'grid' | 'list') || 'grid');
       setSortBy(searchParams.get('sort') || 'price-asc');
       setSearchQuery(searchParams.get('q') || '');
       setIsInitialized(true);
+      // Clear any saved state since we're using URL
+      clearCatalogState();
+    } else {
+      const savedState = getCatalogState();
+      if (savedState) {
+        console.log('📥 Restoring saved catalog state from localStorage', savedState);
+        setSearchQuery(savedState.searchQuery || '');
+        setSelectedFilters(savedState.selectedFilters || {});
+        setIsInitialized(true);
+        // Scroll alla posizione salvata
+        if (savedState.scrollPosition > 0) {
+          setTimeout(() => window.scrollTo(0, savedState.scrollPosition), 100);
+        }
+        // Pulisci il localStorage DOPO che i filtri sono stati applicati
+        setTimeout(() => {
+          console.log('🧹 Clearing saved catalog state');
+          clearCatalogState();
+        }, 500);
+      } else {
+        console.log('🔄 No URL params, no saved state - using defaults');
+        setIsInitialized(true);
+      }
     }
     // Simula loading iniziale per mostrare skeleton
     setTimeout(() => setIsLoading(false), 800);
@@ -752,12 +801,18 @@ export default function ProductCatalog({
                 products={expandedProducts}
                 categories={categories}
                 currentLang={currentLang}
+                variantQualifiers={variantQualifiers}
                 onSelect={(productCode) => {
+                  console.log('[SEARCH] Selected product code:', productCode);
                   const product = expandedProducts.find(p => p.codice === productCode);
+                  console.log('[SEARCH] Found product:', product);
                   if (product) {
+                    console.log('[SEARCH] Setting selected product:', product.codice);
                     setSelectedProduct(product);
                     setShowAutocomplete(false);
                     window.scrollTo({ top: 0, behavior: 'smooth' });
+                  } else {
+                    console.error('[SEARCH] Product not found in expandedProducts!', productCode);
                   }
                 }}
                 onSearchSubmit={(query) => {
@@ -848,12 +903,18 @@ export default function ProductCatalog({
                   products={expandedProducts}
                   categories={categories}
                   currentLang={currentLang}
+                  variantQualifiers={variantQualifiers}
                   onSelect={(productCode) => {
+                    console.log('[SEARCH DESKTOP] Selected product code:', productCode);
                     const product = expandedProducts.find(p => p.codice === productCode);
+                    console.log('[SEARCH DESKTOP] Found product:', product);
                     if (product) {
+                      console.log('[SEARCH DESKTOP] Setting selected product:', product.codice);
                       setSelectedProduct(product);
                       setShowAutocomplete(false);
                       window.scrollTo({ top: 0, behavior: 'smooth' });
+                    } else {
+                      console.error('[SEARCH DESKTOP] Product not found in expandedProducts!', productCode);
                     }
                   }}
                   onSearchSubmit={(query) => {
@@ -1104,13 +1165,39 @@ export default function ProductCatalog({
                   {/* Filtri attributi */}
                   {Object.entries(selectedFilters).map(([key, values]) =>
                     values.slice(0, 2).map((value) => {
-                      const translatedValue = translateBooleanValue(value, currentLang);
+                      // Trova il filtro e traduci il valore
+                      const filter = dynamicFilters.find(f => f.key === key);
+                      let translatedValue = translateBooleanValue(value, currentLang);
+
+                      // Ottieni label tradotta del filtro
+                      let filterLabel = '';
+                      if (filter && (filter as any).options && (filter as any).options.length > 0 && (filter as any).options[0].label) {
+                        const labelObj = (filter as any).options[0].label;
+                        filterLabel = typeof labelObj === 'object' ? (labelObj[currentLang] || labelObj['it'] || Object.values(labelObj)[0]) : key;
+                      }
+
+                      if (filter && (filter as any).options) {
+                        const option = (filter as any).options.find((opt: any) => {
+                          const optValueIt = typeof opt.value === 'object' ? opt.value.it : opt.value;
+                          return String(optValueIt).trim().toLowerCase() === String(value).trim().toLowerCase();
+                        });
+                        if (option && option.value && typeof option.value === 'object') {
+                          translatedValue = option.value[currentLang] || option.value.it || value;
+                        }
+                      }
+
+                      // Per booleani, mostra anche la label
+                      const isBooleanFilter = value === 'true' || value === 'false' || value === '1' || value === '0' ||
+                                              translatedValue.toLowerCase() === 'yes' || translatedValue.toLowerCase() === 'no' ||
+                                              translatedValue.toLowerCase() === 'si' || translatedValue.toLowerCase() === 'sì';
+                      const displayText = isBooleanFilter && filterLabel ? `${filterLabel}: ${translatedValue}` : translatedValue;
+
                       return (
                         <span
                           key={`${key}-${value}`}
                           className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-emerald-50 text-emerald-800 text-xs font-semibold rounded-lg border border-emerald-200"
                         >
-                          {translatedValue}
+                          {displayText}
                           <button
                             onClick={() => {
                               const newValues = selectedFilters[key].filter(v => v !== value);
@@ -1250,7 +1337,18 @@ export default function ProductCatalog({
                         }
                       }
 
-                      const translatedValue = translateBooleanValue(value, currentLang);
+                      // Traduci il valore cercandolo nelle options del filtro
+                      let translatedValue = translateBooleanValue(value, currentLang);
+                      if (filter && (filter as any).options) {
+                        // Cerca il valore nelle options per trovare la traduzione
+                        const option = (filter as any).options.find((opt: any) => {
+                          const optValueIt = typeof opt.value === 'object' ? opt.value.it : opt.value;
+                          return String(optValueIt).trim().toLowerCase() === String(value).trim().toLowerCase();
+                        });
+                        if (option && option.value && typeof option.value === 'object') {
+                          translatedValue = option.value[currentLang] || option.value.it || value;
+                        }
+                      }
 
                       return (
                         <span
@@ -1369,12 +1467,12 @@ export default function ProductCatalog({
               </>
             ) : (
               <>
-                {/* Sezione Prodotto Selezionato */}
+                {/* Sezione Prodotto Selezionato - Layout Compatto */}
                 {selectedProduct && (
-                  <div className="mb-12 bg-gradient-to-r from-emerald-50 to-green-50 border-2 border-emerald-200 rounded-2xl p-6">
-                    <div className="flex items-center justify-between mb-4">
-                      <h2 className="text-lg font-bold text-emerald-900 flex items-center gap-2">
-                        <svg className="w-6 h-6 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <div className="mb-8 bg-gradient-to-r from-emerald-50 to-green-50 border-2 border-emerald-200 rounded-xl p-4">
+                    <div className="flex items-center justify-between mb-3">
+                      <h2 className="text-base md:text-lg font-bold text-emerald-900 flex items-center gap-2">
+                        <svg className="w-5 h-5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                         </svg>
                         {currentLang === 'it' && 'Prodotto selezionato'}
@@ -1399,13 +1497,88 @@ export default function ProductCatalog({
                         {currentLang === 'pt' && 'Remover'}
                       </button>
                     </div>
-                    <div className={viewMode === 'grid' ? 'max-w-sm' : 'w-full'}>
-                      <ProductCard
-                        product={selectedProduct}
-                        lang={currentLang}
-                        viewMode={viewMode}
-                        priority={true}
-                      />
+
+                    {/* Layout orizzontale compatto su desktop, verticale su mobile */}
+                    <div className="flex flex-col md:flex-row gap-4 bg-white rounded-lg p-3 border border-emerald-100">
+                      {/* Immagine prodotto - compatta */}
+                      <Link href={`/products/${selectedProduct.codice}`} className="shrink-0">
+                        <div className="relative w-full md:w-40 h-40 bg-gray-50 rounded-lg overflow-hidden group">
+                          {selectedProduct.immagine ? (
+                            <Image
+                              src={selectedProduct.immagine}
+                              alt={getTranslatedValue(selectedProduct.nome, currentLang)}
+                              fill
+                              className="object-contain p-2 group-hover:scale-105 transition-transform"
+                              sizes="(max-width: 768px) 100vw, 160px"
+                              priority
+                            />
+                          ) : (
+                            <div className="flex items-center justify-center h-full text-gray-400 text-5xl">📦</div>
+                          )}
+                        </div>
+                      </Link>
+
+                      {/* Info prodotto */}
+                      <div className="flex-1 min-w-0 flex flex-col justify-between">
+                        <div>
+                          <Link href={`/products/${selectedProduct.codice}`}>
+                            <h3 className="text-base md:text-lg font-bold text-gray-900 hover:text-emerald-600 transition-colors mb-1 line-clamp-2">
+                              {getTranslatedValue(selectedProduct.nome, currentLang)}
+                            </h3>
+                          </Link>
+                          <p className="text-sm text-gray-500 font-mono mb-2">{selectedProduct.codice}</p>
+
+                          {/* Attributi varianti del prodotto selezionato */}
+                          {selectedProduct.attributi && variantQualifiers.length > 0 && (
+                            <div className="flex flex-wrap gap-1.5 mb-3">
+                              {variantQualifiers
+                                .filter(key => selectedProduct.attributi[key])
+                                .map(key => {
+                                  const value = selectedProduct.attributi[key];
+                                  let displayValue = '';
+                                  if (typeof value === 'object' && value !== null && 'value' in value) {
+                                    const rawValue = (value as any).value;
+                                    if (typeof rawValue === 'boolean') return null;
+                                    if (typeof rawValue === 'object') {
+                                      displayValue = getTranslatedValue(rawValue, currentLang);
+                                    } else {
+                                      displayValue = String(rawValue);
+                                    }
+                                  } else if (typeof value === 'boolean') {
+                                    return null;
+                                  } else {
+                                    displayValue = String(value);
+                                  }
+                                  return displayValue ? (
+                                    <span key={key} className="inline-flex items-center px-2 py-1 bg-emerald-100 text-emerald-800 text-xs font-medium rounded">
+                                      {displayValue}
+                                    </span>
+                                  ) : null;
+                                })}
+                            </div>
+                          )}
+                        </div>
+
+                        {/* Prezzo e azioni */}
+                        <div className="flex items-center justify-between gap-4 mt-2">
+                          {selectedProduct.prezzo !== undefined && (
+                            <p className="text-xl md:text-2xl font-bold text-emerald-600">
+                              €{selectedProduct.prezzo.toFixed(2).replace('.', ',')}
+                            </p>
+                          )}
+                          <Link
+                            href={`/products/${selectedProduct.codice}`}
+                            className="px-4 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors text-sm font-medium whitespace-nowrap"
+                          >
+                            {currentLang === 'it' && 'Vedi dettagli'}
+                            {currentLang === 'en' && 'View details'}
+                            {currentLang === 'de' && 'Details anzeigen'}
+                            {currentLang === 'fr' && 'Voir détails'}
+                            {currentLang === 'es' && 'Ver detalles'}
+                            {currentLang === 'pt' && 'Ver detalhes'}
+                          </Link>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 )}

@@ -10,7 +10,22 @@ export async function GET(
   try {
     const { category, filename } = params;
 
-    // Validazione categoria
+    // SECURITY: Validazione contro path traversal
+    if (category.includes('..') || category.includes('/') || category.includes('\\')) {
+      return NextResponse.json(
+        { error: 'Categoria non valida' },
+        { status: 400 }
+      );
+    }
+
+    if (filename.includes('..') || filename.includes('/') || filename.includes('\\')) {
+      return NextResponse.json(
+        { error: 'Nome file non valido' },
+        { status: 400 }
+      );
+    }
+
+    // Validazione categoria contro whitelist
     const allowedCategories = ['cataloghi', 'schede-tecniche', 'certificazioni', 'documentazione'];
     if (!allowedCategories.includes(category)) {
       return NextResponse.json(
@@ -19,10 +34,21 @@ export async function GET(
       );
     }
 
-    // Validazione filename (solo .pdf per ora)
-    if (!filename.endsWith('.pdf')) {
+    // Validazione estensione file
+    const allowedExtensions = ['.pdf', '.doc', '.docx'];
+    const hasValidExtension = allowedExtensions.some(ext => filename.toLowerCase().endsWith(ext));
+
+    if (!hasValidExtension) {
       return NextResponse.json(
         { error: 'Formato file non supportato' },
+        { status: 400 }
+      );
+    }
+
+    // Validazione lunghezza filename (max 100 caratteri)
+    if (filename.length > 100) {
+      return NextResponse.json(
+        { error: 'Nome file troppo lungo' },
         { status: 400 }
       );
     }

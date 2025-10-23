@@ -5,7 +5,7 @@ import { useLanguage } from '@/contexts/LanguageContext';
 import { getTranslatedValue } from '@/lib/product-utils';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
-import rehypeRaw from 'rehype-raw';
+// SECURITY: rehypeRaw removed to prevent XSS attacks via HTML injection
 
 // Browser logger (solo per sviluppo, in produzione usa file logger server-side)
 const browserLog = {
@@ -360,7 +360,6 @@ export default function AIDescription({ productCode, productData }: AIDescriptio
     <div className="ai-description-container prose prose-sm sm:prose-base max-w-none">
       <ReactMarkdown
         remarkPlugins={[remarkGfm]}
-        rehypePlugins={[rehypeRaw]}
         components={{
           // Titoli personalizzati
           h1: ({ node, ...props }) => (

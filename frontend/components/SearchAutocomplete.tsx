@@ -24,6 +24,7 @@ interface SearchAutocompleteProps {
   products: Product[];
   categories?: Category[];
   currentLang: string;
+  variantQualifiers?: string[]; // Nomi degli attributi varianti dalla configurazione
   onSelect: (productCode: string) => void;
   onSearchSubmit?: (query: string) => void;
   isVisible: boolean;
@@ -35,6 +36,7 @@ export default function SearchAutocomplete({
   products,
   categories = [],
   currentLang,
+  variantQualifiers = [],
   onSelect,
   onSearchSubmit,
   isVisible,
@@ -245,12 +247,15 @@ export default function SearchAutocomplete({
 
   // Seleziona il prodotto (senza navigare, delega al parent)
   const handleSelectProduct = (product: Product) => {
+    console.log('[AUTOCOMPLETE] handleSelectProduct called with:', product.codice);
     // Salva la ricerca come recente se c'è una query
     if (searchQuery && searchQuery.trim().length >= 2) {
       addRecentSearch(searchQuery.trim());
     }
+    console.log('[AUTOCOMPLETE] Calling onSelect with:', product.codice);
     // Chiama onSelect che gestirà la selezione (mostra prodotto pinnato)
     onSelect(product.codice);
+    console.log('[AUTOCOMPLETE] onSelect completed');
   };
 
   // Gestisce click su ricerca recente
@@ -331,8 +336,15 @@ export default function SearchAutocomplete({
     };
 
     if (isVisible) {
-      document.addEventListener('mousedown', handleClickOutside);
-      return () => document.removeEventListener('mousedown', handleClickOutside);
+      // Aggiungi un piccolo delay per evitare che il click di apertura venga catturato
+      const timer = setTimeout(() => {
+        document.addEventListener('click', handleClickOutside);
+      }, 100);
+
+      return () => {
+        clearTimeout(timer);
+        document.removeEventListener('click', handleClickOutside);
+      };
     }
   }, [isVisible, onClose]);
 
@@ -471,6 +483,38 @@ export default function SearchAutocomplete({
                       {highlightMatch(nome, searchQuery)}
                     </p>
                     <p className="text-xs text-gray-500 truncate">{product.codice}</p>
+                    {/* Attributi varianti */}
+                    {product.attributi && Object.keys(product.attributi).length > 0 && (
+                      <div className="flex flex-wrap gap-1 mt-1">
+                        {/* Mostra solo gli attributi configurati come qualifiers (varianti) */}
+                        {variantQualifiers
+                          .filter(key => product.attributi[key])
+                          .map(key => {
+                            const value = product.attributi[key];
+                            let displayValue = '';
+                            if (typeof value === 'object' && value !== null && 'value' in value) {
+                              const rawValue = (value as any).value;
+                              if (typeof rawValue === 'boolean') {
+                                return null; // Skip boolean attributes
+                              } else if (typeof rawValue === 'object') {
+                                displayValue = getTranslatedValue(rawValue, currentLang);
+                              } else {
+                                displayValue = String(rawValue);
+                              }
+                            } else if (typeof value === 'boolean') {
+                              return null; // Skip boolean attributes
+                            } else {
+                              displayValue = String(value);
+                            }
+
+                            return displayValue ? (
+                              <span key={key} className="inline-flex items-center px-1.5 py-0.5 bg-gray-100 text-gray-700 text-xs rounded">
+                                {displayValue}
+                              </span>
+                            ) : null;
+                          })}
+                      </div>
+                    )}
                   </div>
 
                   {/* Prezzo */}

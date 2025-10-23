@@ -58,6 +58,14 @@
         "pt": "pcs"
       }
     },
+    "ai_description_title": {
+      "it": "Descrizione",
+      "en": "Description",
+      "de": "Beschreibung",
+      "fr": "Description",
+      "es": "Descripción",
+      "pt": "Descrição"
+    },
     "specifications_title": {
       "it": "Specifiche tecniche",
       "en": "Technical specifications",
@@ -73,6 +81,46 @@
       "fr": "Documents disponibles",
       "es": "Documentos disponibles",
       "pt": "Documentos disponíveis"
+    },
+    "same_series_title": {
+      "it": "Prodotti della serie",
+      "en": "Products from the series",
+      "de": "Produkte der Serie",
+      "fr": "Produits de la série",
+      "es": "Productos de la serie",
+      "pt": "Produtos da série"
+    },
+    "other": {
+      "it": "Altri",
+      "en": "Other",
+      "de": "Andere",
+      "fr": "Autres",
+      "es": "Otros",
+      "pt": "Outros"
+    },
+    "same_category_title": {
+      "it": "Altri prodotti simili",
+      "en": "Other similar products",
+      "de": "Andere ähnliche Produkte",
+      "fr": "Autres produits similaires",
+      "es": "Otros productos similares",
+      "pt": "Outros produtos semelhantes"
+    },
+    "also_viewed_title": {
+      "it": "Altri hanno visto anche",
+      "en": "Others also viewed",
+      "de": "Andere haben auch angesehen",
+      "fr": "Les autres ont également vu",
+      "es": "Otros también vieron",
+      "pt": "Outros também visualizaram"
+    },
+    "view_all": {
+      "it": "Vedi tutti",
+      "en": "View all",
+      "de": "Alle ansehen",
+      "fr": "Voir tout",
+      "es": "Ver todos",
+      "pt": "Ver todos"
     },
     "back_to_catalog": {
       "it": "Torna al catalogo",
@@ -169,6 +217,22 @@
       "fr": "Retirer des favoris",
       "es": "Quitar de favoritos",
       "pt": "Remover dos favoritos"
+    },
+    "downloads_title": {
+      "it": "Download",
+      "en": "Downloads",
+      "de": "Downloads",
+      "fr": "Téléchargements",
+      "es": "Descargas",
+      "pt": "Downloads"
+    },
+    "actions_title": {
+      "it": "Azioni",
+      "en": "Actions",
+      "de": "Aktionen",
+      "fr": "Actions",
+      "es": "Acciones",
+      "pt": "Ações"
     }
   },
   "common": {
@@ -1207,6 +1271,32 @@
       "fr": "Produit {current} de {total}",
       "es": "Producto {current} de {total}",
       "pt": "Produto {current} de {total}"
+    }
+  },
+  "pagination": {
+    "previous": {
+      "it": "Precedenti",
+      "en": "Previous",
+      "de": "Vorherige",
+      "fr": "Précédents",
+      "es": "Anteriores",
+      "pt": "Anteriores"
+    },
+    "next": {
+      "it": "Successivi",
+      "en": "Next",
+      "de": "Nächste",
+      "fr": "Suivants",
+      "es": "Siguientes",
+      "pt": "Próximos"
+    },
+    "of": {
+      "it": "di",
+      "en": "of",
+      "de": "von",
+      "fr": "de",
+      "es": "de",
+      "pt": "de"
     }
   },
   "compare": {
