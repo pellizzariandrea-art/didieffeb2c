@@ -7,6 +7,7 @@ import { LanguageProvider } from "@/contexts/LanguageContext";
 import { CompareProvider } from "@/contexts/CompareContext";
 import { ProductNavigationProvider } from "@/contexts/ProductNavigationContext";
 import { BrandProvider } from "@/contexts/BrandContext";
+import { AuthProvider } from "@/contexts/AuthContext";
 import CompareBar from "@/components/CompareBar";
 import LoadingBar from "@/components/LoadingBar";
 import SlideCartPanel from "@/components/SlideCartPanel";
@@ -48,17 +49,19 @@ export default function RootLayout({
           <LoadingBar />
         </Suspense>
         <Toaster position="top-right" richColors closeButton />
-        <BrandProvider>
-          <LanguageProvider initialLang="it" availableLanguages={['it', 'en', 'de', 'fr', 'es', 'pt']}>
-            <ProductNavigationProvider>
-              <CompareProvider>
-                {children}
-                <CompareBar />
-                <SlideCartPanel />
-              </CompareProvider>
-            </ProductNavigationProvider>
-          </LanguageProvider>
-        </BrandProvider>
+        <AuthProvider>
+          <BrandProvider>
+            <LanguageProvider initialLang="it" availableLanguages={['it', 'en', 'de', 'fr', 'es', 'pt']}>
+              <ProductNavigationProvider>
+                <CompareProvider>
+                  {children}
+                  <CompareBar />
+                  <SlideCartPanel />
+                </CompareProvider>
+              </ProductNavigationProvider>
+            </LanguageProvider>
+          </BrandProvider>
+        </AuthProvider>
       </body>
     </html>
   );

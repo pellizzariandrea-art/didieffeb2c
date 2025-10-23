@@ -1502,5 +1502,361 @@
       "es": "Característica",
       "pt": "Característica"
     }
+  },
+  "auth": {
+    "email": {
+      "it": "Email",
+      "en": "Email",
+      "de": "E-Mail",
+      "fr": "Email",
+      "es": "Email",
+      "pt": "Email"
+    },
+    "password": {
+      "it": "Password",
+      "en": "Password",
+      "de": "Passwort",
+      "fr": "Mot de passe",
+      "es": "Contraseña",
+      "pt": "Senha"
+    },
+    "confirm_password": {
+      "it": "Conferma password",
+      "en": "Confirm password",
+      "de": "Passwort bestätigen",
+      "fr": "Confirmer le mot de passe",
+      "es": "Confirmar contraseña",
+      "pt": "Confirmar senha"
+    },
+    "login": {
+      "it": "Accedi",
+      "en": "Log in",
+      "de": "Anmelden",
+      "fr": "Se connecter",
+      "es": "Iniciar sesión",
+      "pt": "Entrar"
+    },
+    "logout": {
+      "it": "Esci",
+      "en": "Log out",
+      "de": "Abmelden",
+      "fr": "Se déconnecter",
+      "es": "Cerrar sesión",
+      "pt": "Sair"
+    },
+    "register": {
+      "it": "Registrati",
+      "en": "Register",
+      "de": "Registrieren",
+      "fr": "S'inscrire",
+      "es": "Registrarse",
+      "pt": "Registrar"
+    },
+    "forgot_password": {
+      "it": "Password dimenticata?",
+      "en": "Forgot password?",
+      "de": "Passwort vergessen?",
+      "fr": "Mot de passe oublié?",
+      "es": "¿Olvidaste tu contraseña?",
+      "pt": "Esqueceu a senha?"
+    },
+    "reset_password": {
+      "it": "Reimposta password",
+      "en": "Reset password",
+      "de": "Passwort zurücksetzen",
+      "fr": "Réinitialiser le mot de passe",
+      "es": "Restablecer contraseña",
+      "pt": "Redefinir senha"
+    },
+    "no_account": {
+      "it": "Non hai un account?",
+      "en": "Don't have an account?",
+      "de": "Haben Sie kein Konto?",
+      "fr": "Vous n'avez pas de compte?",
+      "es": "¿No tienes una cuenta?",
+      "pt": "Não tem uma conta?"
+    },
+    "have_account": {
+      "it": "Hai già un account?",
+      "en": "Already have an account?",
+      "de": "Haben Sie bereits ein Konto?",
+      "fr": "Vous avez déjà un compte?",
+      "es": "¿Ya tienes una cuenta?",
+      "pt": "Já tem uma conta?"
+    },
+    "admin_login": {
+      "it": "Accesso amministratore",
+      "en": "Admin login",
+      "de": "Administrator-Anmeldung",
+      "fr": "Connexion administrateur",
+      "es": "Acceso de administrador",
+      "pt": "Login de administrador"
+    },
+    "customer_type": {
+      "it": "Tipo di cliente",
+      "en": "Customer type",
+      "de": "Kundentyp",
+      "fr": "Type de client",
+      "es": "Tipo de cliente",
+      "pt": "Tipo de cliente"
+    },
+    "b2c_customer": {
+      "it": "Cliente privato",
+      "en": "Private customer",
+      "de": "Privatkunde",
+      "fr": "Client privé",
+      "es": "Cliente privado",
+      "pt": "Cliente privado"
+    },
+    "b2b_customer": {
+      "it": "Azienda",
+      "en": "Business",
+      "de": "Unternehmen",
+      "fr": "Entreprise",
+      "es": "Empresa",
+      "pt": "Empresa"
+    },
+    "personal_info": {
+      "it": "Informazioni personali",
+      "en": "Personal information",
+      "de": "Persönliche Informationen",
+      "fr": "Informations personnelles",
+      "es": "Información personal",
+      "pt": "Informações pessoais"
+    },
+    "company_info": {
+      "it": "Informazioni aziendali",
+      "en": "Company information",
+      "de": "Firmeninformationen",
+      "fr": "Informations sur l'entreprise",
+      "es": "Información de la empresa",
+      "pt": "Informações da empresa"
+    },
+    "first_name": {
+      "it": "Nome",
+      "en": "First name",
+      "de": "Vorname",
+      "fr": "Prénom",
+      "es": "Nombre",
+      "pt": "Nome"
+    },
+    "last_name": {
+      "it": "Cognome",
+      "en": "Last name",
+      "de": "Nachname",
+      "fr": "Nom de famille",
+      "es": "Apellido",
+      "pt": "Sobrenome"
+    },
+    "company_name": {
+      "it": "Ragione sociale",
+      "en": "Company name",
+      "de": "Firmenname",
+      "fr": "Raison sociale",
+      "es": "Razón social",
+      "pt": "Razão social"
+    },
+    "vat_number": {
+      "it": "Partita IVA",
+      "en": "VAT number",
+      "de": "USt-IdNr.",
+      "fr": "Numéro de TVA",
+      "es": "Número de IVA",
+      "pt": "Número de IVA"
+    },
+    "fiscal_code": {
+      "it": "Codice fiscale",
+      "en": "Fiscal code",
+      "de": "Steuernummer",
+      "fr": "Code fiscal",
+      "es": "Código fiscal",
+      "pt": "Código fiscal"
+    },
+    "sdi_code": {
+      "it": "Codice SDI",
+      "en": "SDI code",
+      "de": "SDI-Code",
+      "fr": "Code SDI",
+      "es": "Código SDI",
+      "pt": "Código SDI"
+    },
+    "phone": {
+      "it": "Telefono",
+      "en": "Phone",
+      "de": "Telefon",
+      "fr": "Téléphone",
+      "es": "Teléfono",
+      "pt": "Telefone"
+    },
+    "address": {
+      "it": "Indirizzo",
+      "en": "Address",
+      "de": "Adresse",
+      "fr": "Adresse",
+      "es": "Dirección",
+      "pt": "Endereço"
+    },
+    "street": {
+      "it": "Via",
+      "en": "Street",
+      "de": "Straße",
+      "fr": "Rue",
+      "es": "Calle",
+      "pt": "Rua"
+    },
+    "city": {
+      "it": "Città",
+      "en": "City",
+      "de": "Stadt",
+      "fr": "Ville",
+      "es": "Ciudad",
+      "pt": "Cidade"
+    },
+    "zip": {
+      "it": "CAP",
+      "en": "ZIP code",
+      "de": "PLZ",
+      "fr": "Code postal",
+      "es": "Código postal",
+      "pt": "Código postal"
+    },
+    "province": {
+      "it": "Provincia",
+      "en": "Province",
+      "de": "Provinz",
+      "fr": "Province",
+      "es": "Provincia",
+      "pt": "Província"
+    },
+    "country": {
+      "it": "Paese",
+      "en": "Country",
+      "de": "Land",
+      "fr": "Pays",
+      "es": "País",
+      "pt": "País"
+    },
+    "shipping_address": {
+      "it": "Indirizzo di spedizione",
+      "en": "Shipping address",
+      "de": "Lieferadresse",
+      "fr": "Adresse de livraison",
+      "es": "Dirección de envío",
+      "pt": "Endereço de entrega"
+    },
+    "billing_address": {
+      "it": "Indirizzo di fatturazione",
+      "en": "Billing address",
+      "de": "Rechnungsadresse",
+      "fr": "Adresse de facturation",
+      "es": "Dirección de facturación",
+      "pt": "Endereço de faturamento"
+    },
+    "reference_person": {
+      "it": "Persona di riferimento",
+      "en": "Reference person",
+      "de": "Ansprechpartner",
+      "fr": "Personne de référence",
+      "es": "Persona de referencia",
+      "pt": "Pessoa de referência"
+    },
+    "account_pending": {
+      "it": "Il tuo account è in attesa di approvazione",
+      "en": "Your account is pending approval",
+      "de": "Ihr Konto wartet auf Genehmigung",
+      "fr": "Votre compte est en attente d'approbation",
+      "es": "Tu cuenta está pendiente de aprobación",
+      "pt": "Sua conta está aguardando aprovação"
+    },
+    "account_disabled": {
+      "it": "Il tuo account è stato disabilitato",
+      "en": "Your account has been disabled",
+      "de": "Ihr Konto wurde deaktiviert",
+      "fr": "Votre compte a été désactivé",
+      "es": "Tu cuenta ha sido deshabilitada",
+      "pt": "Sua conta foi desabilitada"
+    },
+    "registration_success": {
+      "it": "Registrazione completata! Ti invieremo una email quando il tuo account sarà attivato.",
+      "en": "Registration completed! We'll send you an email when your account is activated.",
+      "de": "Registrierung abgeschlossen! Wir senden Ihnen eine E-Mail, wenn Ihr Konto aktiviert ist.",
+      "fr": "Inscription terminée! Nous vous enverrons un email lorsque votre compte sera activé.",
+      "es": "¡Registro completado! Te enviaremos un email cuando tu cuenta esté activada.",
+      "pt": "Registro concluído! Enviaremos um email quando sua conta for ativada."
+    },
+    "login_success": {
+      "it": "Login effettuato con successo!",
+      "en": "Login successful!",
+      "de": "Anmeldung erfolgreich!",
+      "fr": "Connexion réussie!",
+      "es": "¡Inicio de sesión exitoso!",
+      "pt": "Login bem-sucedido!"
+    },
+    "error": {
+      "invalid_credentials": {
+        "it": "Email o password non validi",
+        "en": "Invalid email or password",
+        "de": "Ungültige E-Mail oder Passwort",
+        "fr": "Email ou mot de passe invalide",
+        "es": "Email o contraseña no válidos",
+        "pt": "Email ou senha inválidos"
+      },
+      "email_already_exists": {
+        "it": "Questa email è già registrata",
+        "en": "This email is already registered",
+        "de": "Diese E-Mail ist bereits registriert",
+        "fr": "Cet email est déjà enregistré",
+        "es": "Este email ya está registrado",
+        "pt": "Este email já está registrado"
+      },
+      "weak_password": {
+        "it": "La password deve essere di almeno 6 caratteri",
+        "en": "Password must be at least 6 characters",
+        "de": "Passwort muss mindestens 6 Zeichen lang sein",
+        "fr": "Le mot de passe doit contenir au moins 6 caractères",
+        "es": "La contraseña debe tener al menos 6 caracteres",
+        "pt": "A senha deve ter pelo menos 6 caracteres"
+      },
+      "passwords_dont_match": {
+        "it": "Le password non corrispondono",
+        "en": "Passwords don't match",
+        "de": "Passwörter stimmen nicht überein",
+        "fr": "Les mots de passe ne correspondent pas",
+        "es": "Las contraseñas no coinciden",
+        "pt": "As senhas não correspondem"
+      },
+      "required_field": {
+        "it": "Campo obbligatorio",
+        "en": "Required field",
+        "de": "Pflichtfeld",
+        "fr": "Champ requis",
+        "es": "Campo obligatorio",
+        "pt": "Campo obrigatório"
+      },
+      "invalid_email": {
+        "it": "Email non valida",
+        "en": "Invalid email",
+        "de": "Ungültige E-Mail",
+        "fr": "Email invalide",
+        "es": "Email no válido",
+        "pt": "Email inválido"
+      },
+      "user_not_found": {
+        "it": "Utente non trovato",
+        "en": "User not found",
+        "de": "Benutzer nicht gefunden",
+        "fr": "Utilisateur non trouvé",
+        "es": "Usuario no encontrado",
+        "pt": "Usuário não encontrado"
+      },
+      "wrong_password": {
+        "it": "Password errata",
+        "en": "Wrong password",
+        "de": "Falsches Passwort",
+        "fr": "Mot de passe incorrect",
+        "es": "Contraseña incorrecta",
+        "pt": "Senha incorreta"
+      }
+    }
   }
 }

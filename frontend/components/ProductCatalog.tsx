@@ -13,6 +13,7 @@ import FilterSidebar from './FilterSidebar';
 import LanguageSelector from './LanguageSelector';
 import CartIcon from './CartIcon';
 import WishlistIcon from './WishlistIcon';
+import UserIcon from './UserIcon';
 import RecentlyViewedCarousel from './RecentlyViewedCarousel';
 import SearchAutocomplete from './SearchAutocomplete';
 import WizardSearch from './WizardSearch';
@@ -726,6 +727,7 @@ export default function ProductCatalog({
               <div className="flex items-center gap-1.5 flex-shrink-0">
                 <WishlistIcon />
                 <CartIcon />
+                <UserIcon />
                 <LanguageSelector />
               </div>
             </div>
@@ -848,10 +850,11 @@ export default function ProductCatalog({
                 </p>
               </div>
 
-              {/* Wishlist, Cart, and Language Selector */}
+              {/* Wishlist, Cart, User, and Language Selector */}
               <div className="flex items-center gap-2 flex-shrink-0">
                 <WishlistIcon />
                 <CartIcon />
+                <UserIcon />
                 <LanguageSelector />
               </div>
             </div>
