@@ -241,6 +241,38 @@
                 </div>
             </div>
 
+            <!-- Logo Settings -->
+            <div class="section">
+                <h2 style="display: flex; align-items: center;">
+                    <span style="margin-right: 10px;">🖼️</span>
+                    Logo Email
+                </h2>
+
+                <div id="logoPreview" style="margin-bottom: 20px; display: none;">
+                    <label>Logo Attuale:</label>
+                    <div style="background: #f9fafb; padding: 20px; border-radius: 8px; text-align: center; border: 1px solid #e5e7eb; margin-top: 10px;">
+                        <img id="currentLogo" src="" alt="Logo" style="max-width: 300px; max-height: 100px; object-fit: contain;">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>
+                        Carica Nuovo Logo
+                    </label>
+                    <input
+                        type="file"
+                        id="logoFile"
+                        accept="image/png,image/jpeg,image/jpg"
+                        style="padding: 8px;"
+                    >
+                    <p class="help-text">Formato supportato: PNG, JPG (consigliato: PNG trasparente, max 300x100px)</p>
+                </div>
+
+                <button type="button" id="uploadLogoBtn" class="btn-secondary" style="margin-top: 10px;">
+                    📤 Carica Logo
+                </button>
+            </div>
+
             <!-- Email Templates -->
             <div class="section">
                 <h2>Template Email</h2>
@@ -338,6 +370,14 @@
                     document.getElementById('b2bEnabled').checked = config.templates.b2b_confirmation.enabled;
                     document.getElementById('b2bSubject').value = config.templates.b2b_confirmation.subject || '';
 
+                    // Logo preview
+                    if (config.logo && config.logo.base64) {
+                        document.getElementById('logoPreview').style.display = 'block';
+                        document.getElementById('currentLogo').src = config.logo.base64;
+                    } else {
+                        document.getElementById('logoPreview').style.display = 'none';
+                    }
+
                     console.log('✅ Configuration loaded');
                 } else {
                     showAlert('Errore nel caricamento della configurazione', 'error');
@@ -390,6 +430,67 @@
             } catch (error) {
                 console.error('Error saving config:', error);
                 showAlert('❌ Errore di connessione al server', 'error');
+            }
+        });
+
+        // Upload logo handler
+        document.getElementById('uploadLogoBtn').addEventListener('click', async () => {
+            const fileInput = document.getElementById('logoFile');
+            const file = fileInput.files[0];
+
+            if (!file) {
+                showAlert('Seleziona un file da caricare', 'error');
+                return;
+            }
+
+            // Check file type
+            if (!file.type.match('image/(png|jpeg|jpg)')) {
+                showAlert('Formato file non supportato. Usa PNG o JPG', 'error');
+                return;
+            }
+
+            // Check file size (max 1MB)
+            if (file.size > 1024 * 1024) {
+                showAlert('File troppo grande. Massimo 1MB', 'error');
+                return;
+            }
+
+            try {
+                // Convert to base64
+                const reader = new FileReader();
+                reader.onload = async (e) => {
+                    const base64 = e.target.result;
+
+                    // Save logo to config
+                    const response = await fetch(`${API_BASE}/upload-logo.php`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ base64 })
+                    });
+
+                    const result = await response.json();
+
+                    if (result.success) {
+                        showAlert('✅ Logo caricato con successo!', 'success');
+                        // Reload config to show new logo
+                        await loadConfig();
+                        // Clear file input
+                        fileInput.value = '';
+                    } else {
+                        showAlert(`❌ Errore: ${result.error}`, 'error');
+                    }
+                };
+
+                reader.onerror = () => {
+                    showAlert('❌ Errore nella lettura del file', 'error');
+                };
+
+                reader.readAsDataURL(file);
+            } catch (error) {
+                console.error('Error uploading logo:', error);
+                showAlert('❌ Errore nel caricamento del logo', 'error');
             }
         });
 
