@@ -8,6 +8,7 @@ import {
   GoogleAuthProvider,
   signOut,
   sendPasswordResetEmail,
+  sendEmailVerification,
   updateProfile,
   User as FirebaseUser,
 } from 'firebase/auth';
@@ -100,10 +101,14 @@ export async function registerB2C(data: B2CRegistrationData) {
       displayName: `${data.nome} ${data.cognome}`,
     });
 
+    // Send email verification
+    await sendEmailVerification(userCredential.user);
+    console.log('✅ [registerB2C] Verification email sent to:', data.email);
+
     const profile: UserProfile = {
       email: data.email,
       role: 'b2c',
-      status: 'pending', // B2C requires approval
+      status: 'active', // B2C clients are active by default
       nome: data.nome,
       cognome: data.cognome,
       codiceFiscale: data.codiceFiscale,
@@ -136,10 +141,14 @@ export async function registerB2B(data: B2BRegistrationData) {
       displayName: data.ragioneSociale,
     });
 
+    // Send email verification
+    await sendEmailVerification(userCredential.user);
+    console.log('✅ [registerB2B] Verification email sent to:', data.email);
+
     const profile: UserProfile = {
       email: data.email,
       role: 'b2b',
-      status: 'pending', // B2B requires approval
+      status: 'pending', // B2B requires admin approval
       ragioneSociale: data.ragioneSociale,
       partitaIva: data.partitaIva,
       codiceSDI: data.codiceSDI,
@@ -223,7 +232,7 @@ export async function loginWithGoogle(requiredRole?: 'admin' | 'b2c' | 'b2b') {
       const newProfile: UserProfile = {
         email: result.user.email!,
         role: requiredRole || 'b2c', // Default to b2c if not specified
-        status: requiredRole === 'admin' ? 'active' : 'pending', // Admins active, others pending
+        status: requiredRole === 'b2b' ? 'pending' : 'active', // B2B pending (needs approval), B2C and admin active
         nome: firstName,
         cognome: lastName,
         createdAt: new Date(),
