@@ -3,7 +3,7 @@
 // app/login/page.tsx
 // Universal Login Page
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { useAuth } from '@/contexts/AuthContext';
@@ -11,7 +11,7 @@ import { useLanguage } from '@/contexts/LanguageContext';
 import { loginWithGoogle } from '@/lib/firebase/auth';
 import uiLabels from '@/config/ui-labels.json';
 
-export default function LoginPage() {
+function LoginContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const { login, user, loading: authLoading } = useAuth();
@@ -246,5 +246,17 @@ export default function LoginPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function LoginPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
+      </div>
+    }>
+      <LoginContent />
+    </Suspense>
   );
 }
