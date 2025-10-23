@@ -208,6 +208,23 @@ function B2CRegistrationForm({ language, labels, loading, error, setLoading, set
       };
 
       await registerB2C(registrationData);
+
+      // Send welcome email via Brevo
+      try {
+        await fetch('/api/send-welcome', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            email: formData.email,
+            name: `${formData.nome} ${formData.cognome}`,
+            type: 'b2c'
+          })
+        });
+      } catch (emailError) {
+        console.error('Failed to send welcome email:', emailError);
+        // Don't block registration if email fails
+      }
+
       toast.success(labels.registration_success[language]);
       setTimeout(() => router.push('/login'), 2000);
     } catch (err: any) {
@@ -505,6 +522,23 @@ function B2BRegistrationForm({ language, labels, loading, error, setLoading, set
       };
 
       await registerB2B(registrationData);
+
+      // Send B2B registration confirmation email via Brevo
+      try {
+        await fetch('/api/send-welcome', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            email: formData.email,
+            name: formData.ragioneSociale,
+            type: 'b2b'
+          })
+        });
+      } catch (emailError) {
+        console.error('Failed to send B2B confirmation email:', emailError);
+        // Don't block registration if email fails
+      }
+
       toast.success(labels.registration_success[language]);
       setTimeout(() => router.push('/login'), 2000);
     } catch (err: any) {
