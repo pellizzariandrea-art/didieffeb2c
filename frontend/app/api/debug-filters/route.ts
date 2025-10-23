@@ -44,7 +44,8 @@ export async function GET(request: NextRequest) {
   let sampleProducts: any[] = [];
 
   try {
-    const productsResponse = await fetch('https://shop.didieffeb2b.com/data/products.json', {
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://shop.didieffeb2b.com';
+    const productsResponse = await fetch(`${apiUrl}/data/products.json`, {
       cache: 'no-store',
     });
     const productsData = await productsResponse.json();
@@ -90,7 +91,10 @@ export async function GET(request: NextRequest) {
     }));
 
   } catch (error: any) {
-    return Response.json({ error: error.message });
+    console.error('Debug filters error:', error);
+    return Response.json({
+      error: 'Internal server error'
+    }, { status: 500 });
   }
 
   return Response.json({

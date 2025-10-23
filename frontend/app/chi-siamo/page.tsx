@@ -7,6 +7,7 @@ import Link from 'next/link';
 
 export default function ChiSiamoPage() {
   const { currentLang } = useLanguage();
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://shop.didieffeb2b.com';
 
   return (
     <main className="min-h-screen">
@@ -269,7 +270,7 @@ export default function ChiSiamoPage() {
           <div className="flex flex-col md:flex-row items-center justify-center gap-12">
             <div className="text-center">
               <Image
-                src="https://shop.didieffeb2b.com/admin/data/Made_in_dolomiti.jpg"
+                src={`${apiUrl}/admin/data/Made_in_dolomiti.jpg`}
                 alt="Made in Dolomiti"
                 width={120}
                 height={120}
@@ -281,7 +282,7 @@ export default function ChiSiamoPage() {
 
             <div className="text-center">
               <Image
-                src="https://shop.didieffeb2b.com/admin/data/rolando_quality.jpg"
+                src={`${apiUrl}/admin/data/rolando_quality.jpg`}
                 alt="Rolando Quality"
                 width={120}
                 height={120}

@@ -24,14 +24,16 @@ const nextConfig: NextConfig = {
     ],
   },
   async rewrites() {
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://shop.didieffeb2b.com';
     return [
       {
         source: '/admin/api/:path*',
-        destination: 'https://shop.didieffeb2b.com/admin/api/:path*',
+        destination: `${apiUrl}/admin/api/:path*`,
       },
     ];
   },
   async headers() {
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://shop.didieffeb2b.com';
     return [
       {
         source: '/:path*',
@@ -70,9 +72,9 @@ const nextConfig: NextConfig = {
               "default-src 'self'",
               "script-src 'self' 'unsafe-inline' 'unsafe-eval'", // unsafe-eval needed for Next.js dev
               "style-src 'self' 'unsafe-inline'",
-              "img-src 'self' data: https://didieffeb2b.com https://shop.didieffeb2b.com",
+              `img-src 'self' data: https://didieffeb2b.com ${apiUrl}`,
               "font-src 'self' data:",
-              "connect-src 'self' https://shop.didieffeb2b.com",
+              `connect-src 'self' ${apiUrl}`,
               "frame-ancestors 'self'",
               "base-uri 'self'",
               "form-action 'self'",

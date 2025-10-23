@@ -7,7 +7,7 @@ import fsSync from 'fs';
 import path from 'path';
 import { ProductsResponse } from '@/types/product';
 
-const PRODUCTS_URL = 'https://shop.didieffeb2b.com/data/products.json';
+const PRODUCTS_URL = `${process.env.NEXT_PUBLIC_API_URL || 'https://shop.didieffeb2b.com'}/data/products.json`;
 const CACHE_DIR = path.join(process.cwd(), 'data');
 const CACHE_FILE = path.join(CACHE_DIR, 'products-cache.json');
 const CACHE_META_FILE = path.join(CACHE_DIR, 'products-cache-meta.json');

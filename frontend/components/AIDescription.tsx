@@ -56,13 +56,14 @@ export default function AIDescription({ productCode, productData }: AIDescriptio
         setLoading(true);
         setError(null);
 
+        const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://shop.didieffeb2b.com';
         const langKey = currentLang === 'en' ? 'en_us' : currentLang;
 
         // Step 1: Prova a leggere descrizione esistente dal server
         browserLog.info(`Checking for existing description ${productCode} ${langKey}`);
         const timestamp = new Date().getTime();
         const getResponse = await fetch(
-          `https://shop.didieffeb2b.com/admin/api/get-ai-description.php?code=${productCode}&lang=${langKey}&auto_generate=true&_=${timestamp}`,
+          `${apiUrl}/admin/api/get-ai-description.php?code=${productCode}&lang=${langKey}&auto_generate=true&_=${timestamp}`,
           { signal: abortController.signal }
         );
 
@@ -130,7 +131,7 @@ export default function AIDescription({ productCode, productData }: AIDescriptio
         };
         browserLog.info(`Generating description for ${productCode} ${langKey}`, requestBody);
 
-        const response = await fetch('https://shop.didieffeb2b.com/admin/api/generate-ai-description.php', {
+        const response = await fetch(`${apiUrl}/admin/api/generate-ai-description.php`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

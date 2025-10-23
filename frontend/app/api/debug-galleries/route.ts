@@ -12,16 +12,17 @@ export async function GET(request: NextRequest) {
 
   const searchParams = request.nextUrl.searchParams;
   const productCode = searchParams.get('code');
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://shop.didieffeb2b.com';
 
   try {
     // 1. Carica gallery config
-    const configResponse = await fetch('https://shop.didieffeb2b.com/admin/api/get-gallery-config.php', {
+    const configResponse = await fetch(`${apiUrl}/admin/api/get-gallery-config.php`, {
       cache: 'no-store',
     });
     const galleryConfig = await configResponse.json();
 
     // 2. Carica prodotti
-    const productsResponse = await fetch('https://shop.didieffeb2b.com/data/products.json', {
+    const productsResponse = await fetch(`${apiUrl}/data/products.json`, {
       cache: 'no-store',
     });
     const productsData = await productsResponse.json();
@@ -102,9 +103,9 @@ export async function GET(request: NextRequest) {
     });
 
   } catch (error: any) {
+    console.error('Debug galleries error:', error);
     return Response.json({
-      error: error.message,
-      stack: error.stack
+      error: 'Internal server error'
     }, { status: 500 });
   }
 }
