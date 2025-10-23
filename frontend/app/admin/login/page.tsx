@@ -28,7 +28,7 @@ function AdminLoginContent() {
   useEffect(() => {
     if (!authLoading && user) {
       if (user.role === 'admin') {
-        const redirect = searchParams.get('redirect') || '/admin';
+        const redirect = searchParams.get('redirect') || '/admin-panel';
         router.push(redirect);
       } else {
         // Not an admin, redirect to homepage
