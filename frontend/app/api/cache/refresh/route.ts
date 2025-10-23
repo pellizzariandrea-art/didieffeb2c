@@ -3,9 +3,23 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import { refreshCache, getCacheInfo } from '@/lib/server/products-cache';
+import { validateCsrf } from '@/lib/csrf';
+import { rateLimit, RateLimitPresets, applyRateLimitHeaders } from '@/lib/rate-limit';
 
 export async function POST(request: NextRequest) {
   try {
+    // SECURITY: Rate limiting (admin preset: 10 req/min)
+    const rateLimitResult = await rateLimit(request, RateLimitPresets.admin);
+    if (rateLimitResult.limited && rateLimitResult.response) {
+      return rateLimitResult.response;
+    }
+
+    // SECURITY: Verifica CSRF token (defense-in-depth)
+    const csrfCheck = await validateCsrf(request);
+    if (!csrfCheck.valid && csrfCheck.error) {
+      return csrfCheck.error;
+    }
+
     // Verifica autenticazione (opzionale, usa lo stesso token dei log)
     const authHeader = request.headers.get('authorization');
     const token = process.env.ADMIN_API_TOKEN;
@@ -22,11 +36,14 @@ export async function POST(request: NextRequest) {
 
     if (success) {
       const info = getCacheInfo();
-      return NextResponse.json({
+      const response = NextResponse.json({
         success: true,
         message: 'Cache refreshed successfully',
         cache: info,
       });
+
+      // Aggiungi rate limit headers
+      return applyRateLimitHeaders(response, rateLimitResult);
     } else {
       return NextResponse.json(
         {
