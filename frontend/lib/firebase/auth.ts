@@ -88,10 +88,17 @@ export async function registerAdmin(data: AdminRegistrationData) {
 }
 
 // Register B2C
-export async function registerB2C(data: B2CRegistrationData) {
+export async function registerB2C(data: B2CRegistrationData, language?: string) {
+  const auth = getAuthInstance();
+  let userCredential;
+
   try {
-    const auth = getAuthInstance();
-    const userCredential = await createUserWithEmailAndPassword(
+    // Set Firebase auth language if provided
+    if (language) {
+      auth.languageCode = language;
+    }
+
+    userCredential = await createUserWithEmailAndPassword(
       auth,
       data.email,
       data.password
@@ -111,8 +118,8 @@ export async function registerB2C(data: B2CRegistrationData) {
       status: 'active', // B2C clients are active by default
       nome: data.nome,
       cognome: data.cognome,
-      codiceFiscale: data.codiceFiscale,
-      partitaIva: data.partitaIva,
+      ...(data.codiceFiscale && { codiceFiscale: data.codiceFiscale }),
+      ...(data.partitaIva && { partitaIva: data.partitaIva }),
       indirizzoSpedizione: data.indirizzoSpedizione,
       telefono: data.telefono,
       createdAt: new Date(),
@@ -123,15 +130,31 @@ export async function registerB2C(data: B2CRegistrationData) {
 
     return { user: userCredential.user, profile };
   } catch (error: any) {
+    // Rollback: delete Firebase Auth user if profile creation failed
+    if (userCredential?.user) {
+      try {
+        await userCredential.user.delete();
+        console.log('🔄 [registerB2C] Rolled back user creation due to error');
+      } catch (deleteError) {
+        console.error('❌ [registerB2C] Failed to rollback user:', deleteError);
+      }
+    }
     throw new Error(error.message || 'Errore durante la registrazione');
   }
 }
 
 // Register B2B
-export async function registerB2B(data: B2BRegistrationData) {
+export async function registerB2B(data: B2BRegistrationData, language?: string) {
+  const auth = getAuthInstance();
+  let userCredential;
+
   try {
-    const auth = getAuthInstance();
-    const userCredential = await createUserWithEmailAndPassword(
+    // Set Firebase auth language if provided
+    if (language) {
+      auth.languageCode = language;
+    }
+
+    userCredential = await createUserWithEmailAndPassword(
       auth,
       data.email,
       data.password
@@ -162,6 +185,15 @@ export async function registerB2B(data: B2BRegistrationData) {
 
     return { user: userCredential.user, profile };
   } catch (error: any) {
+    // Rollback: delete Firebase Auth user if profile creation failed
+    if (userCredential?.user) {
+      try {
+        await userCredential.user.delete();
+        console.log('🔄 [registerB2B] Rolled back user creation due to error');
+      } catch (deleteError) {
+        console.error('❌ [registerB2B] Failed to rollback user:', deleteError);
+      }
+    }
     throw new Error(error.message || 'Errore durante la registrazione');
   }
 }

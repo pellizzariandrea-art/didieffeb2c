@@ -6,7 +6,7 @@ import { sendWelcomeEmailB2C, sendB2BRegistrationConfirmation } from '@/lib/brev
 
 export async function POST(req: NextRequest) {
   try {
-    const { email, name, type } = await req.json();
+    const { email, name, type, language = 'it' } = await req.json();
 
     if (!email || !name) {
       return NextResponse.json(
@@ -17,10 +17,10 @@ export async function POST(req: NextRequest) {
 
     // Send appropriate email based on customer type
     if (type === 'b2b') {
-      await sendB2BRegistrationConfirmation(email, name);
+      await sendB2BRegistrationConfirmation(email, name, language);
     } else {
       // Default to B2C welcome email
-      await sendWelcomeEmailB2C(email, name);
+      await sendWelcomeEmailB2C(email, name, language);
     }
 
     return NextResponse.json({ success: true });

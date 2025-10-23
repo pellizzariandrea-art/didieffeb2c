@@ -207,7 +207,7 @@ function B2CRegistrationForm({ language, labels, loading, error, setLoading, set
         telefono: formData.telefono,
       };
 
-      await registerB2C(registrationData);
+      await registerB2C(registrationData, language);
 
       // Send welcome email via Brevo
       try {
@@ -217,7 +217,8 @@ function B2CRegistrationForm({ language, labels, loading, error, setLoading, set
           body: JSON.stringify({
             email: formData.email,
             name: `${formData.nome} ${formData.cognome}`,
-            type: 'b2c'
+            type: 'b2c',
+            language: language
           })
         });
       } catch (emailError) {
@@ -521,7 +522,7 @@ function B2BRegistrationForm({ language, labels, loading, error, setLoading, set
         },
       };
 
-      await registerB2B(registrationData);
+      await registerB2B(registrationData, language);
 
       // Send B2B registration confirmation email via Brevo
       try {
@@ -531,7 +532,8 @@ function B2BRegistrationForm({ language, labels, loading, error, setLoading, set
           body: JSON.stringify({
             email: formData.email,
             name: formData.ragioneSociale,
-            type: 'b2b'
+            type: 'b2b',
+            language: language
           })
         });
       } catch (emailError) {
