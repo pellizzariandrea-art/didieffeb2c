@@ -119,6 +119,39 @@ $mappingConfig = loadMappingConfig();
     </a>
 </div>
 
+<!-- Email Settings Card -->
+<div class="card" style="background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(147, 51, 234, 0.1) 100%); border: 2px solid rgba(59, 130, 246, 0.3);">
+    <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 15px;">
+        <div style="width: 60px; height: 60px; background: linear-gradient(135deg, #3b82f6 0%, #9333ea 100%); border-radius: 15px; display: flex; align-items: center; justify-content: center; font-size: 30px;">
+            📧
+        </div>
+        <div>
+            <h2 style="margin: 0; color: #3b82f6;">Impostazioni Email</h2>
+            <p style="margin: 5px 0 0 0; color: #666; font-size: 14px;">Configura Brevo per l'invio automatico di email di registrazione</p>
+        </div>
+    </div>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 20px;">
+        <div style="background: white; padding: 15px; border-radius: 10px; border-left: 4px solid #3b82f6;">
+            <div style="font-size: 24px; font-weight: bold; color: #3b82f6;">✉️</div>
+            <div style="font-size: 12px; color: #666; margin-top: 5px;">Email di Benvenuto</div>
+        </div>
+        <div style="background: white; padding: 15px; border-radius: 10px; border-left: 4px solid #9333ea;">
+            <div style="font-size: 24px; font-weight: bold; color: #9333ea;">🏢</div>
+            <div style="font-size: 12px; color: #666; margin-top: 5px;">Conferma B2B</div>
+        </div>
+        <div style="background: white; padding: 15px; border-radius: 10px; border-left: 4px solid #10b981;">
+            <div style="font-size: 24px; font-weight: bold; color: #10b981;">⚙️</div>
+            <div style="font-size: 12px; color: #666; margin-top: 5px;">Gestione Dinamica</div>
+        </div>
+    </div>
+
+    <a href="/admin/pages/email-settings.php" class="btn" style="background: linear-gradient(135deg, #3b82f6 0%, #9333ea 100%); display: inline-flex; align-items: center; gap: 10px;">
+        <span style="font-size: 20px;">🚀</span>
+        <span>Configura Email Settings</span>
+    </a>
+</div>
+
 <?php if (file_exists(PUBLIC_JSON_PATH)): ?>
 <div class="card">
     <h2>JSON Pubblico</h2>
