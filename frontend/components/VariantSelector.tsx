@@ -15,6 +15,8 @@ interface VariantSelectorProps {
   groupProducts?: any[];
   lang?: string;
   onVariantChange?: (code: string) => void;
+  onOpenGallery?: (images: string[]) => void; // Callback per aprire lightbox con immagini variante
+  compact?: boolean; // Modalità compatta con dropdowns (mobile)
 }
 
 export default function VariantSelector({
@@ -23,7 +25,9 @@ export default function VariantSelector({
   productAttributes,
   groupProducts = [],
   lang = 'it',
-  onVariantChange
+  onVariantChange,
+  onOpenGallery,
+  compact = false
 }: VariantSelectorProps) {
   const router = useRouter();
 
@@ -259,6 +263,101 @@ export default function VariantSelector({
     return isSelected ? colorSet.selected : colorSet.normal;
   };
 
+  // Render compatto con gallery di varianti GRANDE per mobile
+  if (compact) {
+    return (
+      <div>
+        <p className="text-xs font-bold text-gray-700 mb-3 uppercase tracking-wide">
+          {getLabel('variants.select', lang)}
+        </p>
+        <div className="flex gap-3 overflow-x-auto py-2 pb-3 -mx-3 px-3 scrollbar-thin scrollbar-thumb-gray-300">
+          {variants.map((variant) => {
+            const isSelected = variant.codice === currentCode;
+
+            // Costruisci il testo descrittivo della variante
+            const variantDescription = Object.entries(variant.qualifiers)
+              .map(([key, value]) => getAttributeValue(key, String(value)))
+              .join(' • ');
+
+            return (
+              <div
+                key={variant.codice}
+                onClick={() => {
+                  // Cambia variante (il pulsante foto gestisce l'apertura gallery)
+                  if (!isSelected) {
+                    if (onVariantChange) {
+                      onVariantChange(variant.codice);
+                    } else {
+                      router.push(`/products/${variant.codice}`);
+                    }
+                  }
+                }}
+                className={`relative flex-shrink-0 w-44 transition-all duration-200 cursor-pointer ${
+                  isSelected ? 'scale-105' : 'active:scale-95'
+                }`}
+              >
+                {/* Foto variante - PIÙ GRANDE */}
+                <div className={`relative aspect-[4/3] rounded-xl overflow-hidden mb-2 transition-all ${
+                  isSelected
+                    ? 'bg-green-50 border-4 border-green-600 ring-4 ring-green-200 shadow-2xl'
+                    : 'bg-gray-100 border-2 border-gray-300 hover:border-gray-400 shadow-md'
+                }`}>
+                  <Image
+                    src={variant.immagini?.[0] || '/placeholder.png'}
+                    alt={variantDescription}
+                    fill
+                    className="object-contain p-3"
+                    sizes="176px"
+                    priority={isSelected}
+                  />
+
+                  {/* Check icon se selezionata */}
+                  {isSelected && (
+                    <div className="absolute top-2 left-2 w-6 h-6 bg-green-600 rounded-full flex items-center justify-center shadow-lg ring-2 ring-white z-10">
+                      <svg className="w-3.5 h-3.5 text-white font-bold" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                      </svg>
+                    </div>
+                  )}
+
+                  {/* Pulsante Gallery Foto - sempre visibile se ci sono foto */}
+                  {variant.immagini && variant.immagini.length > 0 && (
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation(); // Previeni il click sulla card
+                        if (onOpenGallery) {
+                          onOpenGallery(variant.immagini!);
+                        }
+                      }}
+                      className="absolute top-2 right-2 bg-black/70 hover:bg-black/90 backdrop-blur-sm text-white text-[10px] font-bold px-2 py-1 rounded-md flex items-center gap-1 transition-all hover:scale-105 z-10 shadow-lg"
+                    >
+                      📷 {variant.immagini.length}
+                    </button>
+                  )}
+                </div>
+
+                {/* Testo descrittivo - PIÙ LEGGIBILE */}
+                <div className={`text-left px-1 ${isSelected ? 'bg-green-50 border-2 border-green-600 rounded-lg p-2 -mt-1' : ''}`}>
+                  <p className={`text-[11px] leading-snug font-bold mb-1 line-clamp-2 ${
+                    isSelected ? 'text-green-800' : 'text-gray-800'
+                  }`}>
+                    {variantDescription}
+                  </p>
+                  <p className={`text-[10px] font-mono font-semibold ${
+                    isSelected ? 'text-green-700' : 'text-gray-500'
+                  }`}>
+                    {variant.codice}
+                  </p>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    );
+  }
+
+  // Render normale con pulsanti per desktop
   return (
     <div className="space-y-3">
       {/* Card Configuratore */}
@@ -270,18 +369,18 @@ export default function VariantSelector({
           {getLabel('variants.select', lang)}
         </h3>
 
-        {/* PARTE 1: Pulsanti per qualifier - Compatti */}
-        <div className="space-y-4">
+        {/* PARTE 1: Pulsanti per qualifier - Ultra-compatti */}
+        <div className="space-y-2 sm:space-y-3">
           {qualifierKeys.map((qualifierKey, keyIndex) => {
             const options = Array.from(qualifierOptions[qualifierKey]);
             const currentValue = String(currentVariant.qualifiers[qualifierKey] || '');
 
             return (
               <div key={qualifierKey}>
-                <p className="text-xs sm:text-sm font-semibold text-gray-700 mb-2 uppercase tracking-wide">
+                <p className="text-xs font-semibold text-gray-700 mb-1.5 uppercase tracking-wide">
                   {getAttributeLabel(qualifierKey)}:
                 </p>
-                <div className="flex flex-wrap gap-2">
+                <div className="flex flex-wrap gap-1.5 sm:gap-2">
                   {options.map((optionValue) => {
                     const isSelected = optionValue === currentValue;
                     const isAvailable = isOptionAvailable(qualifierKey, optionValue);
@@ -291,17 +390,17 @@ export default function VariantSelector({
                         key={optionValue}
                         onClick={() => isAvailable && handleQualifierSelect(qualifierKey, optionValue)}
                         disabled={!isAvailable}
-                        className={`relative px-3 sm:px-4 py-2 rounded-lg border-2 font-medium text-sm transition-all ${
+                        className={`relative px-2.5 sm:px-3 py-1.5 sm:py-2 rounded-lg border-2 font-medium text-xs sm:text-sm transition-all ${
                           !isAvailable
                             ? 'opacity-40 cursor-not-allowed border-dashed bg-gray-50 text-gray-400'
                             : isSelected
-                            ? 'bg-emerald-600 text-white border-emerald-600 shadow-md scale-105'
+                            ? 'bg-emerald-600 text-white border-emerald-600 shadow-md'
                             : 'bg-white text-gray-700 border-gray-300 hover:border-emerald-400 hover:bg-emerald-50'
                         }`}
                         title={!isAvailable ? getLabel('variants.not_available', lang) || 'Combinazione non disponibile' : undefined}
                       >
                         {isSelected && (
-                          <svg className="absolute -top-1 -right-1 w-4 h-4 text-emerald-600 bg-white rounded-full" fill="currentColor" viewBox="0 0 20 20">
+                          <svg className="absolute -top-1 -right-1 w-3.5 h-3.5 text-emerald-600 bg-white rounded-full" fill="currentColor" viewBox="0 0 20 20">
                             <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                           </svg>
                         )}
@@ -315,14 +414,14 @@ export default function VariantSelector({
           })}
         </div>
 
-        {/* Riepilogo configurazione - Compatto */}
-        <div className="mt-4 pt-4 border-t border-gray-200">
+        {/* Riepilogo configurazione - Nascondi su mobile per risparmiare spazio */}
+        <div className="hidden sm:block mt-3 pt-3 border-t border-gray-200">
           <div className="flex items-start justify-between gap-3">
             <div className="flex-1 min-w-0">
               <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1">
                 {getLabel('variants.selected_config', lang) || 'Configurazione'}
               </p>
-              <p className="text-sm font-medium text-gray-900 leading-relaxed">
+              <p className="text-sm font-medium text-gray-900">
                 {Object.entries(currentVariant.qualifiers)
                   .map(([k, v]) => getAttributeValue(k, String(v)))
                   .join(' • ')}

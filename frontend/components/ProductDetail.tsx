@@ -11,6 +11,8 @@ import LanguageSelector from '@/components/LanguageSelector';
 import CartIcon from '@/components/CartIcon';
 import WishlistIcon from '@/components/WishlistIcon';
 import AIDescription from '@/components/AIDescription';
+import Accordion from '@/components/Accordion';
+import ProductGrid from '@/components/ProductGrid';
 import { getLabel } from '@/lib/ui-labels';
 import { Product, Variant } from '@/types/product';
 import { useLanguage } from '@/contexts/LanguageContext';
@@ -19,11 +21,18 @@ import { useProductNavigation } from '@/contexts/ProductNavigationContext';
 import ProductNavigationBar from '@/components/ProductNavigationBar';
 import { useCartStore } from '@/stores/cartStore';
 import { useWishlistStore } from '@/stores/wishlistStore';
+import { useAnalyticsStore } from '@/stores/analyticsStore';
+import { useRecentlyViewed } from '@/hooks/useRecentlyViewed';
 import { toast } from 'sonner';
 import { useState, useMemo, useEffect, useRef } from 'react';
-import { useRecentlyViewed } from '@/hooks/useRecentlyViewed';
+import type { GalleryConfig } from '@/lib/variant-config';
 import { ShoppingCart, Heart } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import Lightbox from 'yet-another-react-lightbox';
+import { Counter, Zoom } from 'yet-another-react-lightbox/plugins';
+import 'yet-another-react-lightbox/styles.css';
+import 'yet-another-react-lightbox/plugins/counter.css';
+import 'yet-another-react-lightbox/plugins/thumbnails.css';
 
 interface ProductDetailProps {
   product: Product;
@@ -36,23 +45,40 @@ export default function ProductDetail({ product, groupProducts }: ProductDetailP
   const { addToCompare, removeFromCompare, isInCompare } = useCompare();
   const { navigationProducts, clearCatalogState } = useProductNavigation();
   const { addItem, openCart } = useCartStore();
-  const { addProduct } = useRecentlyViewed();
+  const { addProduct, recentProducts } = useRecentlyViewed();
   const { toggleItem, isInWishlist } = useWishlistStore();
+  const getRelatedProducts = useAnalyticsStore(state => state.getRelatedProducts);
 
   // Track product view
   useEffect(() => {
     addProduct(product);
   }, [product.codice]); // Only re-run if product code changes
 
-  // Sticky cart scroll handler
+  // Sticky cart scroll handler + variant info auto-collapse
   useEffect(() => {
+    let lastScrollY = window.scrollY;
+
     const handleScroll = () => {
-      // Check price position instead of add-to-cart button for better mobile UX
+      const currentScrollY = window.scrollY;
+
+      // Sticky cart logic
       if (priceRef.current) {
         const rect = priceRef.current.getBoundingClientRect();
-        // Mostra sticky quando il prezzo è oltre il viewport (nascosto sopra)
         setShowStickyCart(rect.bottom < 0);
       }
+
+      // Variant info auto-collapse: se scroll > 100px, riduce automaticamente
+      if (currentScrollY > 100) {
+        setIsScrolled(true);
+        // Auto-collapse quando scrolli verso il basso
+        if (currentScrollY > lastScrollY) {
+          setIsVariantInfoExpanded(false);
+        }
+      } else {
+        setIsScrolled(false);
+      }
+
+      lastScrollY = currentScrollY;
     };
 
     window.addEventListener('scroll', handleScroll);
@@ -72,13 +98,45 @@ export default function ProductDetail({ product, groupProducts }: ProductDetailP
   const addToCartButtonRef = useRef<HTMLButtonElement>(null);
   const priceRef = useRef<HTMLDivElement>(null);
 
+  // State per sticky variant info
+  const [isVariantInfoExpanded, setIsVariantInfoExpanded] = useState(false); // Collassato di default
+  const [isScrolled, setIsScrolled] = useState(false); // Traccia se l'utente ha scrollato
+  const variantInfoRef = useRef<HTMLDivElement>(null);
+
   // State for client-side hydration
   const [mounted, setMounted] = useState(false);
+
+  // State per lightbox mobile
+  const [isLightboxOpen, setIsLightboxOpen] = useState(false);
+  const [lightboxImages, setLightboxImages] = useState<string[]>([]);
+  const [lightboxIndex, setLightboxIndex] = useState(0);
+
+  // State per configurazione gallery
+  const [galleryConfig, setGalleryConfig] = useState<GalleryConfig | null>(null);
 
   // Wait for client-side hydration
   useEffect(() => {
     setMounted(true);
   }, []);
+
+  // Fetch gallery configuration (solo al primo caricamento, cached per 1 ora)
+  useEffect(() => {
+    fetch('/api/get-variant-config')
+      .then(res => res.json())
+      .then(config => {
+        if (config.success) {
+          setGalleryConfig(config);
+        }
+      })
+      .catch(err => console.error('Failed to load gallery config:', err));
+  }, []);
+
+  // Reset scroll state quando cambia variante (ma mantieni collapsed)
+  useEffect(() => {
+    if (selectedVariantCode) {
+      setIsScrolled(false);
+    }
+  }, [selectedVariantCode]);
 
   // Determina il codice del prodotto da usare per il confronto
   // Se ci sono varianti, usa la variante selezionata, altrimenti usa il prodotto master
@@ -158,6 +216,13 @@ export default function ProductDetail({ product, groupProducts }: ProductDetailP
         onClick: () => openCart(),
       },
     });
+  };
+
+  // Handler per aprire lightbox con immagini variante (mobile)
+  const handleOpenGallery = (images: string[]) => {
+    setLightboxImages(images);
+    setLightboxIndex(0);
+    setIsLightboxOpen(true);
   };
 
   // Trova la variante selezionata (o usa il prodotto corrente se non ci sono varianti)
@@ -258,6 +323,145 @@ export default function ProductDetail({ product, groupProducts }: ProductDetailP
     return [];
   }, [selectedVariant, product.immagini, product.immagine]);
 
+  // Dynamic product galleries - max 2 basate su attributi configurati
+  const dynamicGalleries = useMemo(() => {
+    if (!groupProducts || groupProducts.length === 0 || !galleryConfig) return [];
+    if (!galleryConfig.success || galleryConfig.count === 0) return [];
+
+    const currentProduct = selectedVariant || product;
+    const galleries: Array<{
+      attribute: string;
+      attributeLabel: string;
+      value: string;
+      valueIt: string; // Valore in italiano per i filtri URL
+      products: Product[];
+    }> = [];
+
+    // Usa solo i 2 attributi configurati dall'admin (max 2)
+    galleryConfig.galleryAttributes.forEach(configAttr => {
+      const attrName = configAttr.name;
+      const currentAttr = currentProduct.attributi?.[attrName];
+      if (!currentAttr) return;
+
+      // Get attribute value and label (lingua corrente per display)
+      let attrValue: string;
+      let attrValueIt: string; // Valore in italiano per filtri
+      let attrLabel: string = attrName;
+
+      if (typeof currentAttr === 'object' && 'value' in currentAttr) {
+        attrValue = getTranslatedValue(currentAttr.value, currentLang);
+        attrValueIt = getTranslatedValue(currentAttr.value, 'it'); // Sempre italiano per filtri
+        if ('label' in currentAttr) {
+          attrLabel = getTranslatedValue(currentAttr.label, currentLang);
+        }
+      } else {
+        attrValue = String(currentAttr);
+        attrValueIt = String(currentAttr);
+      }
+
+      if (!attrValue || !attrValueIt) return;
+
+      // Filter products: SAME value for this attribute, DIFFERENT for others
+      const filtered = groupProducts.filter(p => {
+        if (p.codice === product.codice) return false; // Exclude current product
+
+        const pAttr = p.attributi?.[attrName];
+        if (!pAttr) return false;
+
+        let pValue: string;
+        if (typeof pAttr === 'object' && 'value' in pAttr) {
+          pValue = getTranslatedValue(pAttr.value, currentLang);
+        } else {
+          pValue = String(pAttr);
+        }
+
+        return pValue === attrValue;
+      });
+
+      // Only add gallery if there are products
+      if (filtered.length > 0) {
+        galleries.push({
+          attribute: attrName,
+          attributeLabel: attrLabel,
+          value: attrValue, // Valore tradotto per display
+          valueIt: attrValueIt, // Valore italiano per filtri URL
+          products: filtered.sort((a, b) => a.codice.localeCompare(b.codice)),
+        });
+      }
+    });
+
+    return galleries;
+  }, [groupProducts, product, selectedVariant, currentLang, galleryConfig]);
+
+  // Also viewed products from analytics
+  const alsoViewedProducts = useMemo(() => {
+    if (!groupProducts || groupProducts.length === 0) return [];
+    if (!mounted) return []; // Wait for client-side hydration to avoid mismatch
+
+    const MIN_PRODUCTS = 10;
+    const result: Product[] = [];
+    const usedCodes = new Set<string>();
+
+    // 1. Start with analytics data (only on client)
+    const relatedCodes = getRelatedProducts(product.codice, MIN_PRODUCTS);
+    relatedCodes.forEach(code => {
+      const p = groupProducts.find(prod => prod.codice === code);
+      if (p && !usedCodes.has(p.codice)) {
+        result.push(p);
+        usedCodes.add(p.codice);
+      }
+    });
+
+    // 2. If we need more, add from dynamic galleries (Serie, then Tipologia)
+    if (result.length < MIN_PRODUCTS && dynamicGalleries.length > 0) {
+      for (const gallery of dynamicGalleries) {
+        if (result.length >= MIN_PRODUCTS) break;
+
+        // Use gallery products in their sorted order (already sorted by codice)
+        for (const p of gallery.products) {
+          if (result.length >= MIN_PRODUCTS) break;
+          if (!usedCodes.has(p.codice)) {
+            result.push(p);
+            usedCodes.add(p.codice);
+          }
+        }
+      }
+    }
+
+    // 3. Final deterministic sort to avoid hydration issues
+    return result.sort((a, b) => a.codice.localeCompare(b.codice)).slice(0, MIN_PRODUCTS);
+  }, [groupProducts, product, getRelatedProducts, dynamicGalleries, mounted]);
+
+  // Variant Pills per sticky cart - mostra solo attributi chiave
+  const variantPills = useMemo(() => {
+    if (!selectedVariant?.attributi) return [];
+
+    const pills: string[] = [];
+    const priorityAttributes = ['Colore', 'Materiale', 'Specifiche tecniche'];
+
+    priorityAttributes.forEach(attrKey => {
+      const attrValue = selectedVariant.attributi?.[attrKey];
+      if (!attrValue) return;
+
+      let displayValue = '';
+      if (typeof attrValue === 'object' && 'value' in attrValue) {
+        const rawValue = attrValue.value;
+        if (typeof rawValue === 'object') {
+          displayValue = getTranslatedValue(rawValue, currentLang);
+        } else {
+          displayValue = String(rawValue);
+        }
+      } else {
+        displayValue = String(attrValue);
+      }
+
+      // Truncate a 12 caratteri per compattezza
+      pills.push(displayValue.length > 12 ? displayValue.substring(0, 12) + '...' : displayValue);
+    });
+
+    return pills;
+  }, [selectedVariant, currentLang]);
+
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header con breadcrumb e back button */}
@@ -316,17 +520,16 @@ export default function ProductDetail({ product, groupProducts }: ProductDetailP
         />
       )}
 
-      <main className="container mx-auto px-3 sm:px-4 py-4 sm:py-8">
-        <div className="bg-white rounded-lg shadow-lg overflow-hidden">
-          {/* Griglia: Immagine + Info/Varianti/CTA */}
-          <div className="grid md:grid-cols-2 gap-4 sm:gap-6 md:gap-8 p-3 sm:p-6 md:p-8">
-            {/* Colonna Sinistra: Solo Immagini */}
-            <div>
-              {/* Gallery immagini */}
+      <main className="container mx-auto px-0 sm:px-4 py-0 sm:py-8">
+        <div className="bg-white sm:rounded-lg sm:shadow-lg overflow-hidden">
+          {/* Layout Mobile-First: Stack su mobile, Grid su desktop */}
+          <div className="md:grid md:grid-cols-2 md:gap-6 lg:gap-8">
+            {/* Colonna SINISTRA Desktop: Galleria Immagini tradizionale */}
+            <div className="hidden md:block p-3 sm:p-6 md:p-8">
               {galleryImages.length > 0 ? (
                 <ImageGallery images={galleryImages} productName={nome} />
               ) : (
-                <div className="aspect-square bg-gray-100 rounded-lg flex items-center justify-center">
+                <div className="h-[240px] md:h-auto md:aspect-square bg-gray-100 rounded-lg flex items-center justify-center">
                   <div className="text-center text-gray-400">
                     <div className="text-4xl sm:text-6xl mb-2">📦</div>
                     <p className="text-sm sm:text-base">{getLabel('product.no_image', currentLang)}</p>
@@ -335,89 +538,11 @@ export default function ProductDetail({ product, groupProducts }: ProductDetailP
               )}
             </div>
 
-            {/* Colonna Destra: Info Prodotto + Varianti + CTA */}
-            <div className="flex flex-col space-y-4 sm:space-y-6">
-              {/* Nome + Prezzo */}
-              <div className="space-y-2" ref={priceRef}>
-                <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900">
-                  {nome}
-                </h1>
-                {/* Prezzo (mostrato per prodotti con varianti, dalla variante selezionata) */}
-                {selectedVariant && (
-                  <div className="flex items-baseline gap-2">
-                    <p className="text-2xl sm:text-3xl font-bold text-green-600">
-                      €{selectedVariant.prezzo.toFixed(2).replace('.', ',')}
-                    </p>
-                    <p className="text-sm text-gray-500">
-                      {getLabel('product.price_suffix', currentLang)}
-                    </p>
-                  </div>
-                )}
-                {/* Prezzo per prodotti senza varianti */}
-                {!selectedVariant && product.prezzo !== undefined && (
-                  <div className="flex items-baseline gap-2">
-                    <p className="text-2xl sm:text-3xl font-bold text-green-600">
-                      €{product.prezzo.toFixed(2).replace('.', ',')}
-                    </p>
-                    <p className="text-sm text-gray-500">
-                      {getLabel('product.price_suffix', currentLang)}
-                    </p>
-                  </div>
-                )}
-              </div>
-
-              {/* Descrizione dinamica - stile testo scorrevole */}
-              {descrizioneData.length > 0 && (
-                <div className="bg-gray-50 border-l-4 border-green-500 rounded-r-lg p-3 sm:p-4 shadow-sm">
-                  <p className="text-sm sm:text-base text-gray-700 leading-relaxed">
-                    {descrizioneData.map((item, idx) => (
-                      <span key={idx}>
-                        <span className="font-bold text-gray-900">{item.label}</span>
-                        {': '}
-                        {item.isBoolean ? (
-                          <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded text-xs font-bold ${
-                            item.booleanValue
-                              ? 'bg-gradient-to-r from-green-500 to-emerald-500 text-white'
-                              : 'bg-gray-300 text-gray-700'
-                          }`}>
-                            {item.booleanValue ? '✓' : '✗'} {item.value}
-                          </span>
-                        ) : (
-                          <span className="text-gray-900">{item.value}</span>
-                        )}
-                        {idx < descrizioneData.length - 1 && (
-                          <span className="text-gray-400 mx-1 sm:mx-2">•</span>
-                        )}
-                      </span>
-                    ))}
-                  </p>
-                </div>
-              )}
-
-              {/* Disponibilità */}
-              {product.disponibilita !== undefined && (
-                <div className="flex items-center gap-2">
-                  {product.disponibilita > 0 ? (
-                    <>
-                      <div className="w-2.5 sm:w-3 h-2.5 sm:h-3 bg-green-500 rounded-full flex-shrink-0"></div>
-                      <span className="text-sm sm:text-base text-green-700 font-medium">
-                        {getLabel('product.availability.available', currentLang)} ({product.disponibilita} {getLabel('product.availability.pieces', currentLang)})
-                      </span>
-                    </>
-                  ) : (
-                    <>
-                      <div className="w-2.5 sm:w-3 h-2.5 sm:h-3 bg-red-500 rounded-full flex-shrink-0"></div>
-                      <span className="text-sm sm:text-base text-red-700 font-medium">
-                        {getLabel('product.availability.not_available', currentLang)}
-                      </span>
-                    </>
-                  )}
-                </div>
-              )}
-
-              {/* Varianti */}
-              {product.variants && product.variants.length > 0 && (
-                <div className="border-t pt-6">
+            {/* Colonna DESTRA: Info Prodotto + Varianti */}
+            <div className="flex flex-col space-y-1.5 sm:space-y-4 md:space-y-6 p-3 sm:p-6 md:p-8 md:pt-8">
+              {/* Gallery Varianti GRANDE - Solo mobile, al posto della foto */}
+              {product.variants && product.variants.length > 0 ? (
+                <div className="md:hidden mb-2">
                   <VariantSelector
                     variants={product.variants}
                     currentCode={selectedVariantCode}
@@ -425,131 +550,213 @@ export default function ProductDetail({ product, groupProducts }: ProductDetailP
                     groupProducts={groupProducts}
                     lang={currentLang}
                     onVariantChange={setSelectedVariantCode}
+                    onOpenGallery={handleOpenGallery}
+                    compact={true}
                   />
                 </div>
+              ) : galleryImages.length > 0 && (
+                <div className="md:hidden mb-2">
+                  <div className="relative aspect-square bg-gray-100 rounded-lg overflow-hidden">
+                    <Image
+                      src={galleryImages[0]}
+                      alt={nome}
+                      fill
+                      className="object-contain p-2"
+                      priority
+                    />
+                  </div>
+                </div>
               )}
+              {/* Nome + Prezzo + Azioni - ULTRA COMPATTO */}
+              <div className="space-y-2" ref={priceRef}>
+                {/* Riga 1: Nome + Prezzo */}
+                <div className="flex items-start justify-between gap-2">
+                  <h1 className="text-base font-bold text-gray-900 leading-tight line-clamp-2 flex-1">
+                    {nome}
+                  </h1>
+                  {selectedVariant ? (
+                    <span className="text-xl font-bold text-green-600 flex-shrink-0">
+                      €{selectedVariant.prezzo.toFixed(2).replace('.', ',')}
+                    </span>
+                  ) : product.prezzo !== undefined && (
+                    <span className="text-xl font-bold text-green-600 flex-shrink-0">
+                      €{product.prezzo.toFixed(2).replace('.', ',')}
+                    </span>
+                  )}
+                </div>
 
-              {/* Sezione Downloads + Azioni (Carrello + Confronta) */}
-              <div className="pt-4 sm:pt-6">
-                {/* Downloads + Azioni - stack su mobile, riga su desktop */}
-                <div className="flex flex-col sm:flex-row items-start gap-3 sm:gap-3">
-                  {/* Downloads compatti (se presenti) */}
+                {/* Riga 2: Disponibilità */}
+                {product.disponibilita !== undefined && (
+                  <div className="flex items-center gap-1">
+                    <div className={`w-1.5 h-1.5 rounded-full ${product.disponibilita > 0 ? 'bg-green-500' : 'bg-red-500'}`}></div>
+                    <span className={`text-xs font-medium ${product.disponibilita > 0 ? 'text-green-700' : 'text-red-700'}`}>
+                      {product.disponibilita > 0 ? `✓ ${getLabel('product.availability.available', currentLang)}` : getLabel('product.availability.not_available', currentLang)}
+                    </span>
+                  </div>
+                )}
+
+                {/* Descrizione composta variante - Solo Desktop */}
+                {descrizioneData.length > 0 && (
+                  <div className="hidden md:block pt-2">
+                    <p className="text-sm text-gray-700 leading-relaxed">
+                      {descrizioneData.map((attr, idx) => (
+                        <span key={idx}>
+                          <span className="font-semibold text-gray-900">{attr.label}:</span>{' '}
+                          <span className="text-gray-700">{attr.value}</span>
+                          {idx < descrizioneData.length - 1 && <span className="text-gray-400 mx-1.5">•</span>}
+                        </span>
+                      ))}
+                    </p>
+                  </div>
+                )}
+
+                {/* Riga 3: Tutti i pulsanti INLINE */}
+                <div className="md:hidden flex items-center gap-2 flex-wrap pt-1">
+                  {/* Carrello */}
+                  <button
+                    ref={addToCartButtonRef}
+                    onClick={handleAddToCart}
+                    className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2 px-3 rounded-lg shadow-lg flex items-center gap-1.5 text-xs"
+                  >
+                    <ShoppingCart className="w-4 h-4" />
+                    <span>{getLabel('product.add', currentLang)}</span>
+                  </button>
+
+                  {/* Downloads */}
                   {product.risorse && product.risorse.length > 0 && (
-                    <div className="flex-shrink-0 w-full sm:w-auto">
-                      <h4 className="text-xs font-bold uppercase tracking-wider text-gray-500 mb-2 sm:mb-3">
-                        {getLabel('product.resources_title', currentLang)}
-                      </h4>
-                      <div className="flex gap-2 flex-wrap">
-                        {product.risorse.map((resource, idx) => {
-                      // Mappa estensione -> icona SVG con testo
-                      const getFileIcon = (ext: string) => {
-                        const extension = ext.toLowerCase();
-                        return (
-                          <svg className="w-10 h-10" viewBox="0 0 40 40" fill="none">
-                            {/* Forma documento */}
-                            <rect x="8" y="4" width="24" height="32" rx="2" fill="white" stroke="currentColor" strokeWidth="2"/>
-                            <path d="M26 4L32 10L26 10V4Z" fill="currentColor" opacity="0.3"/>
-                            {/* Testo estensione */}
-                            <text
-                              x="20"
-                              y="26"
-                              fontSize="8"
-                              fontWeight="bold"
-                              fill="currentColor"
-                              textAnchor="middle"
-                              className="uppercase"
-                            >
-                              {extension.toUpperCase()}
-                            </text>
-                          </svg>
-                        );
-                      };
-
-                      return (
+                    <>
+                      {product.risorse.map((resource, idx) => (
                         <a
                           key={idx}
                           href={resource.url}
                           target="_blank"
                           rel="noopener noreferrer"
-                          title={`${resource.category} (${resource.extension.toUpperCase()})`}
-                          className="group relative flex items-center justify-center w-12 h-12 bg-white hover:bg-green-50 border-2 border-gray-300 hover:border-green-500 rounded-lg transition-all hover:scale-110"
+                          className="px-2.5 py-2 text-xs font-bold bg-gray-100 hover:bg-gray-200 border border-gray-300 rounded-lg transition-colors flex items-center gap-1"
                         >
-                          <div className="text-gray-600 group-hover:text-green-600">
-                            {getFileIcon(resource.extension)}
-                          </div>
-                          {/* Icona download piccola */}
-                          <div className="absolute -bottom-1 -right-1 bg-green-500 rounded-full p-1">
-                            <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M19 14l-7 7m0 0l-7-7m7 7V3"/>
-                            </svg>
-                          </div>
+                          📄 {resource.extension.toUpperCase()}
                         </a>
-                      );
-                        })}
+                      ))}
+                    </>
+                  )}
+
+                  {/* Wishlist */}
+                  <button
+                    onClick={handleWishlistClick}
+                    className={`p-2 rounded-lg border transition-all ${
+                      inWishlist
+                        ? 'bg-red-50 border-red-500 text-red-600'
+                        : 'bg-white border-gray-300 text-gray-600'
+                    }`}
+                    title={inWishlist ? 'Rimuovi dai preferiti' : 'Aggiungi ai preferiti'}
+                  >
+                    <Heart className={`w-4 h-4 ${inWishlist ? 'fill-current' : ''}`} />
+                  </button>
+
+                  {/* Compare */}
+                  <button
+                    onClick={handleCompareClick}
+                    className={`p-2 rounded-lg border transition-all ${
+                      inCompare
+                        ? 'bg-blue-50 border-blue-500 text-blue-600'
+                        : 'bg-white border-gray-300 text-gray-600'
+                    }`}
+                    title={inCompare ? 'Rimuovi dal confronto' : 'Aggiungi al confronto'}
+                  >
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+
+              {/* Varianti Desktop: Pulsanti normali */}
+              {product.variants && product.variants.length > 0 && (
+                <div className="hidden md:block pt-0.5 sm:pt-2">
+                  <VariantSelector
+                    variants={product.variants}
+                    currentCode={selectedVariantCode}
+                    productAttributes={product.attributi}
+                    groupProducts={groupProducts}
+                    lang={currentLang}
+                    onVariantChange={setSelectedVariantCode}
+                    compact={false}
+                  />
+                </div>
+              )}
+
+              {/* Sezione Desktop - Layout Migliorato */}
+              <div className="hidden md:block pt-4">
+                {/* Card Downloads + Azioni Raggruppate */}
+                <div className="bg-gray-50 border border-gray-200 rounded-xl p-4 space-y-4">
+                  {/* Downloads */}
+                  {product.risorse && product.risorse.length > 0 && (
+                    <div>
+                      <h4 className="text-xs font-bold uppercase tracking-wider text-gray-600 mb-2">
+                        📥 {getLabel('product.downloads_title', currentLang)}
+                      </h4>
+                      <div className="flex gap-2 flex-wrap">
+                        {product.risorse.map((resource, idx) => (
+                          <a
+                            key={idx}
+                            href={resource.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            title={`${resource.category} (${resource.extension.toUpperCase()})`}
+                            className="px-4 py-2 text-sm font-bold bg-white hover:bg-green-50 border-2 border-gray-300 hover:border-green-500 rounded-lg transition-all shadow-sm hover:shadow-md flex items-center gap-2"
+                          >
+                            📄 {resource.extension.toUpperCase()}
+                          </a>
+                        ))}
                       </div>
                     </div>
                   )}
 
-                  {/* Azioni: Confronta + Aggiungi al carrello - flessibile */}
-                  <div className="flex-1 w-full">
-                    {/* Titolo invisibile per allineamento solo su desktop */}
-                    <h4 className="hidden sm:block text-xs font-bold uppercase tracking-wider text-transparent mb-3 select-none">
-                      &nbsp;
+                  {/* Azioni */}
+                  <div>
+                    <h4 className="text-xs font-bold uppercase tracking-wider text-gray-600 mb-2">
+                      🎯 {getLabel('product.actions_title', currentLang)}
                     </h4>
-                    <div className="flex gap-2 sm:gap-3">
+                    <div className="flex gap-2 flex-wrap">
                       {/* Pulsante Wishlist */}
                       <button
                         onClick={handleWishlistClick}
-                        className={`flex-shrink-0 font-bold py-3 sm:py-4 px-3 lg:px-6 rounded-lg transition-all shadow-lg hover:shadow-xl flex items-center justify-center gap-1.5 sm:gap-2 text-sm sm:text-base ${
+                        className={`flex-1 min-w-[120px] font-bold py-3 px-4 rounded-lg transition-all shadow-sm hover:shadow-md flex items-center justify-center gap-2 text-sm border-2 ${
                           inWishlist
-                            ? 'bg-red-500 hover:bg-red-600 text-white'
-                            : 'bg-gray-100 hover:bg-gray-200 text-gray-700'
+                            ? 'bg-red-500 hover:bg-red-600 text-white border-red-500'
+                            : 'bg-white hover:bg-red-50 text-gray-700 border-gray-300 hover:border-red-500'
                         }`}
                         title={inWishlist ? getLabel('product.remove_from_wishlist', currentLang) : getLabel('product.add_to_wishlist', currentLang)}
                       >
-                        <Heart className={`w-4 sm:w-5 h-4 sm:h-5 flex-shrink-0 ${inWishlist ? 'fill-current' : ''}`} />
-                        <span className="hidden lg:inline">
-                          {inWishlist ? getLabel('product.in_wishlist', currentLang) : getLabel('product.add_to_wishlist_short', currentLang)}
+                        <Heart className={`w-5 h-5 flex-shrink-0 ${inWishlist ? 'fill-current' : ''}`} />
+                        <span>
+                          {inWishlist ? `❤️ ${getLabel('product.in_wishlist', currentLang)}` : getLabel('product.add_to_wishlist_short', currentLang)}
                         </span>
                       </button>
 
                       {/* Pulsante Confronta */}
                       <button
                         onClick={handleCompareClick}
-                        className={`flex-shrink-0 font-bold py-3 sm:py-4 px-3 lg:px-6 rounded-lg transition-all shadow-lg hover:shadow-xl flex items-center justify-center gap-1.5 sm:gap-2 text-sm sm:text-base ${
+                        className={`flex-1 min-w-[120px] font-bold py-3 px-4 rounded-lg transition-all shadow-sm hover:shadow-md flex items-center justify-center gap-2 text-sm border-2 ${
                           inCompare
-                            ? 'bg-blue-600 hover:bg-blue-700 text-white'
-                            : 'bg-gray-100 hover:bg-gray-200 text-gray-700'
+                            ? 'bg-blue-600 hover:bg-blue-700 text-white border-blue-600'
+                            : 'bg-white hover:bg-blue-50 text-gray-700 border-gray-300 hover:border-blue-500'
                         }`}
                         title={inCompare ? getLabel('compare.remove', currentLang) : getLabel('compare.add', currentLang)}
                       >
-                        <svg className="w-4 sm:w-5 h-4 sm:h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg className="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
                         </svg>
-                        <span className="hidden lg:inline">
-                          {inCompare ? getLabel('compare.remove_short', currentLang) : getLabel('compare.add_short', currentLang)}
+                        <span>
+                          {inCompare ? `✓ ${getLabel('compare.added', currentLang)}` : getLabel('compare.add_short', currentLang)}
                         </span>
                       </button>
 
                       {/* Pulsante Aggiungi al carrello */}
                       <button
-                        ref={addToCartButtonRef}
                         onClick={handleAddToCart}
-                        className="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 sm:py-4 px-3 sm:px-6 rounded-lg transition-all shadow-lg hover:shadow-xl flex items-center justify-center gap-1.5 sm:gap-2 text-sm sm:text-base"
+                        className="flex-1 min-w-[200px] bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 px-6 rounded-lg transition-all shadow-sm hover:shadow-md flex items-center justify-center gap-2 text-sm border-2 border-emerald-600"
                       >
-                        <svg
-                          className="w-4 sm:w-5 h-4 sm:h-5 flex-shrink-0"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
-                          />
-                        </svg>
+                        <ShoppingCart className="w-5 h-5 flex-shrink-0" />
                         <span>{getLabel('product.add_to_cart', currentLang)}</span>
                       </button>
                     </div>
@@ -604,15 +811,21 @@ export default function ProductDetail({ product, groupProducts }: ProductDetailP
 
           {/* Sezione full-width: Descrizione AI */}
           <div className="border-t border-gray-200 px-3 sm:px-6 md:px-8 py-4 sm:py-8 bg-white">
-            <AIDescription
-              productCode={product.codice}
-              productData={{
-                nome: product.nome,
-                descrizione: product.descrizione,
-                immagine: product.immagine,
-                attributi: selectedVariant?.attributi || product.attributi
-              }}
-            />
+            <Accordion
+              title={getLabel('product.ai_description_title', currentLang) || 'Descrizione'}
+              defaultOpen={false}
+              icon={<span className="text-xl">🤖</span>}
+            >
+              <AIDescription
+                productCode={product.codice}
+                productData={{
+                  nome: product.nome,
+                  descrizione: product.descrizione,
+                  immagine: product.immagine,
+                  attributi: selectedVariant?.attributi || product.attributi
+                }}
+              />
+            </Accordion>
           </div>
 
           {/* Sezione full-width: Specifiche tecniche dinamiche dalla variante */}
@@ -636,13 +849,12 @@ export default function ProductDetail({ product, groupProducts }: ProductDetailP
 
             return (
               <div className="border-t border-gray-200 px-3 sm:px-6 md:px-8 py-4 sm:py-8 bg-gradient-to-br from-gray-50 via-white to-gray-50">
-                <div className="flex items-center gap-2 sm:gap-3 mb-4 sm:mb-6">
-                  <div className="w-1 h-6 sm:h-8 bg-gradient-to-b from-green-500 to-green-600 rounded-full"></div>
-                  <h3 className="text-xl sm:text-2xl font-bold text-gray-900">
-                    {getLabel('product.specifications_title', currentLang)}
-                  </h3>
-                </div>
-                <dl className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
+                <Accordion
+                  title={getLabel('product.specifications_title', currentLang)}
+                  defaultOpen={false}
+                  icon={<span className="text-xl">📋</span>}
+                >
+                  <dl className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
                   {filteredAttributes.map(([key, value]) => {
                     // Ottieni la label tradotta
                     let attributeLabel = key;
@@ -702,10 +914,52 @@ export default function ProductDetail({ product, groupProducts }: ProductDetailP
                       </div>
                     );
                   })}
-                </dl>
+                  </dl>
+                </Accordion>
               </div>
             );
           })()}
+
+          {/* Dynamic Galleries - Generate based on variant configuration */}
+          {dynamicGalleries.map((gallery, index) => (
+            <div
+              key={gallery.attribute}
+              className={`border-t border-gray-200 px-3 sm:px-6 md:px-8 py-4 sm:py-8 ${index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}`}
+            >
+              <ProductGrid
+                products={gallery.products}
+                title={`${getLabel('product.other', currentLang) || 'Altri'} ${gallery.attributeLabel}: ${gallery.value}`}
+                viewAllLink={`/products?${gallery.attribute}=${encodeURIComponent(gallery.valueIt)}`}
+                viewAllText={getLabel('product.view_all', currentLang) || 'Vedi tutti'}
+                lang={currentLang}
+                itemsPerPage={8}
+              />
+            </div>
+          ))}
+
+          {/* Sezione full-width: Altri hanno visto anche */}
+          {mounted && alsoViewedProducts.length > 0 && (
+            <div className="border-t border-gray-200 px-3 sm:px-6 md:px-8 py-4 sm:py-8 bg-white">
+              <ProductGrid
+                products={alsoViewedProducts}
+                title={getLabel('product.also_viewed_title', currentLang) || 'Altri hanno visto anche'}
+                lang={currentLang}
+                itemsPerPage={8}
+              />
+            </div>
+          )}
+
+          {/* Sezione full-width: Visti di recente */}
+          {mounted && recentProducts.length > 0 && (
+            <div className="border-t border-gray-200 px-3 sm:px-6 md:px-8 py-4 sm:py-8 bg-gray-50">
+              <ProductGrid
+                products={recentProducts}
+                title={getLabel('recently_viewed.title', currentLang) || 'Visti di recente'}
+                lang={currentLang}
+                itemsPerPage={8}
+              />
+            </div>
+          )}
 
         </div>
       </main>
@@ -720,35 +974,53 @@ export default function ProductDetail({ product, groupProducts }: ProductDetailP
             transition={{ type: 'spring', stiffness: 300, damping: 30 }}
             className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 shadow-2xl z-50"
           >
-            <div className="container mx-auto px-3 lg:px-8 py-3">
+            <div className="container mx-auto px-3 lg:px-6 py-2.5 lg:py-3">
               <div className="flex items-center gap-2 lg:gap-3">
-              {/* Product Image - Hidden on small screens, visible on large */}
-              <div className="hidden lg:block relative w-12 h-12 lg:w-14 lg:h-14 bg-gray-100 rounded-lg overflow-hidden flex-shrink-0">
+              {/* Product Image - Hidden on mobile */}
+              <div className="hidden sm:block relative w-10 h-10 lg:w-12 lg:h-12 bg-gray-100 rounded-lg overflow-hidden flex-shrink-0">
                 <Image
                   src={(selectedVariant?.immagine || product.immagine || product.immagini?.[0]) ?? '/placeholder.svg'}
                   alt={getTranslatedValue(product.nome, currentLang)}
                   fill
                   className="object-contain p-1"
-                  sizes="56px"
+                  sizes="48px"
                 />
               </div>
 
-              {/* Product Info */}
+              {/* Product Info + Variant Pills */}
               <div className="flex-1 min-w-0">
-                <h3 className="text-sm lg:text-base font-semibold text-gray-900 truncate">
+                <h3 className="text-xs sm:text-sm lg:text-base font-semibold text-gray-900 truncate">
                   {getTranslatedValue(product.nome, currentLang)}
                 </h3>
-                <p className="text-base lg:text-lg font-bold text-emerald-600">
+
+                {/* Variant Pills - Mobile only */}
+                {variantPills.length > 0 && (
+                  <div className="flex gap-1 mt-1 lg:hidden">
+                    {variantPills.map((pill, idx) => (
+                      <span
+                        key={idx}
+                        className="text-xs bg-green-100 text-green-700 px-1.5 py-0.5 rounded-full font-medium"
+                      >
+                        {pill}
+                      </span>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              {/* Price - Desktop only */}
+              <div className="hidden lg:block text-right flex-shrink-0">
+                <p className="text-lg font-bold text-emerald-600">
                   €{(selectedVariant?.prezzo || product.prezzo).toFixed(2).replace('.', ',')}
                 </p>
               </div>
 
               {/* Action Buttons */}
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-1.5 sm:gap-2 flex-shrink-0">
                 {/* Wishlist Button */}
                 <button
                   onClick={handleWishlistClick}
-                  className={`flex-shrink-0 font-bold py-2.5 px-2.5 lg:py-3.5 lg:px-4 rounded-lg transition-all shadow-lg hover:shadow-xl flex items-center justify-center ${
+                  className={`font-bold py-2 px-2 sm:py-2.5 sm:px-2.5 lg:py-3 lg:px-3 rounded-lg transition-all shadow-lg hover:shadow-xl flex items-center justify-center ${
                     inWishlist
                       ? 'bg-red-500 hover:bg-red-600 text-white'
                       : 'bg-white hover:bg-gray-50 text-gray-700 border-2 border-gray-300'
@@ -758,14 +1030,14 @@ export default function ProductDetail({ product, groupProducts }: ProductDetailP
                   <Heart className={`w-4 h-4 lg:w-5 lg:h-5 ${inWishlist ? 'fill-current' : ''}`} />
                 </button>
 
-                {/* Add to Cart Button - Compact on tablet */}
+                {/* Add to Cart Button */}
                 <button
                   onClick={handleAddToCart}
-                  className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2.5 px-3 lg:py-3.5 lg:px-6 rounded-lg transition-all shadow-lg hover:shadow-xl flex items-center gap-1.5 lg:gap-2 text-sm lg:text-base flex-shrink-0"
+                  className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2 px-2.5 sm:py-2.5 sm:px-3 lg:py-3 lg:px-5 rounded-lg transition-all shadow-lg hover:shadow-xl flex items-center gap-1 lg:gap-2 text-xs sm:text-sm lg:text-base"
                 >
                   <ShoppingCart className="w-4 h-4 lg:w-5 lg:h-5" />
+                  <span className="hidden sm:inline">{getLabel('product.add', currentLang)}</span>
                   <span className="hidden lg:inline">{getLabel('product.add_to_cart', currentLang)}</span>
-                  <span className="lg:hidden">{getLabel('product.add', currentLang)}</span>
                 </button>
               </div>
               </div>
@@ -773,6 +1045,23 @@ export default function ProductDetail({ product, groupProducts }: ProductDetailP
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* Lightbox per mobile (apertura da variante) */}
+      <Lightbox
+        open={isLightboxOpen}
+        close={() => setIsLightboxOpen(false)}
+        slides={lightboxImages.map(img => ({ src: img, alt: nome }))}
+        index={lightboxIndex}
+        plugins={[Counter, Zoom]}
+        zoom={{
+          maxZoomPixelRatio: 3,
+          scrollToZoom: true,
+        }}
+        on={{
+          view: ({ index }) => setLightboxIndex(index),
+        }}
+      />
+
     </div>
   );
 }

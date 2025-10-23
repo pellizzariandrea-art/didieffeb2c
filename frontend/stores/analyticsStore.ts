@@ -78,6 +78,7 @@ interface AnalyticsStore {
   getTopProducts: (limit?: number) => ProductStats[];
   getTopSearches: (limit?: number) => SearchStats[];
   getTopFilters: (limit?: number) => FilterStats[];
+  getRelatedProducts: (productCode: string, limit?: number) => string[]; // Co-viewed products
   getTotalViews: () => number;
   getTotalSearches: () => number;
   getTotalAddToCarts: () => number;
@@ -279,6 +280,52 @@ export const useAnalyticsStore = create<AnalyticsStore>()(
         return Array.from(filterMap.values())
           .sort((a, b) => b.count - a.count)
           .slice(0, limit);
+      },
+
+      getRelatedProducts: (productCode, limit = 6) => {
+        const events = get().events;
+        const productViews = events.filter(
+          e => e.type === 'product_view' && e.productCode === productCode
+        ) as ProductViewEvent[];
+
+        if (productViews.length === 0) {
+          return []; // No data for this product
+        }
+
+        // Time window for co-viewing: 30 minutes (1800000 ms)
+        const TIME_WINDOW = 30 * 60 * 1000;
+        const relatedProductScores = new Map<string, number>();
+
+        // For each view of the target product, find other products viewed nearby
+        productViews.forEach(targetView => {
+          const windowStart = targetView.timestamp - TIME_WINDOW;
+          const windowEnd = targetView.timestamp + TIME_WINDOW;
+
+          // Find all product views in this time window
+          const nearbyViews = events.filter(
+            e =>
+              e.type === 'product_view' &&
+              e.timestamp >= windowStart &&
+              e.timestamp <= windowEnd &&
+              (e as ProductViewEvent).productCode !== productCode // Exclude the target product itself
+          ) as ProductViewEvent[];
+
+          // Score each co-viewed product (closer in time = higher score)
+          nearbyViews.forEach(nearbyView => {
+            const timeDiff = Math.abs(nearbyView.timestamp - targetView.timestamp);
+            // Score: inverse of time difference, normalized (closer = higher score)
+            const score = 1 - (timeDiff / TIME_WINDOW);
+
+            const existing = relatedProductScores.get(nearbyView.productCode) || 0;
+            relatedProductScores.set(nearbyView.productCode, existing + score);
+          });
+        });
+
+        // Sort by score and return top N product codes
+        return Array.from(relatedProductScores.entries())
+          .sort((a, b) => b[1] - a[1]) // Sort by score descending
+          .slice(0, limit)
+          .map(entry => entry[0]); // Return only product codes
       },
 
       getTotalViews: () => {
