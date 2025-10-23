@@ -87,6 +87,9 @@ export default function ProductGrid({
                     fill
                     className="object-contain p-3 group-hover:scale-105 transition-transform duration-200"
                     sizes="(max-width: 768px) 50vw, 25vw"
+                    loading="lazy"
+                    placeholder="blur"
+                    blurDataURL="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjQwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iNDAwIiBoZWlnaHQ9IjQwMCIgZmlsbD0iI2YzZjRmNiIvPjwvc3ZnPg=="
                   />
                 ) : (
                   <div className="flex items-center justify-center h-full text-gray-400 text-4xl">
