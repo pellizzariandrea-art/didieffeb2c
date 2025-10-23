@@ -56,10 +56,20 @@ try {
         throw new Exception('Missing required fields: to, subject, htmlContent');
     }
 
-    // Get Brevo API key from environment or config
+    // Get Brevo API key from multiple sources (in order of preference)
+
+    // 1. Try environment variable (most secure - set in cPanel)
     $brevoApiKey = getenv('BREVO_API_KEY');
+
+    // 2. Try hardcoded constant (secure if file permissions are correct)
     if (!$brevoApiKey) {
-        // Try to load from a config file
+        // SECURITY: This file should have restricted permissions (644 or 600)
+        // Only uncomment and set this if you can't use environment variables
+        // $brevoApiKey = 'xkeysib-your-api-key-here';
+    }
+
+    // 3. Try protected config file (least secure, needs .htaccess protection)
+    if (!$brevoApiKey) {
         $configFile = __DIR__ . '/../data/email-config.json';
         if (file_exists($configFile)) {
             $config = json_decode(file_get_contents($configFile), true);
