@@ -303,12 +303,13 @@ export default function VariantSelector({
                     : 'bg-gray-100 border-2 border-gray-300 hover:border-gray-400 shadow-md'
                 }`}>
                   <Image
-                    src={variant.immagini?.[0] || '/placeholder.png'}
+                    src={variant.immagini?.[0] || variant.immagine || '/placeholder.png'}
                     alt={variantDescription}
                     fill
                     className="object-contain p-3"
-                    sizes="176px"
+                    sizes="(max-width: 768px) 176px, 176px"
                     priority={isSelected}
+                    loading={isSelected ? 'eager' : 'lazy'}
                   />
 
                   {/* Check icon se selezionata */}
