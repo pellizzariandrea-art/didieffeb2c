@@ -1,9 +1,9 @@
 // app/api/send-test-email/route.ts
 // API route for sending test emails from admin panel
+// Uses PHP proxy to avoid Brevo IP whitelist issues
 
 import { NextRequest, NextResponse } from 'next/server';
 import { getEmailConfig as getFirestoreConfig } from '@/lib/firebase/email-config';
-import { sendEmail } from '@/lib/brevo';
 
 export async function POST(req: NextRequest) {
   try {
@@ -178,23 +178,47 @@ Di Dieffe B2B - Sistema di Email Transazionali
 Questa è un'email di test inviata dal pannello di amministrazione
     `;
 
-    // Send test email
-    const result = await sendEmail(
-      {
+    // Send test email via PHP proxy (to use SiteGround's static IP)
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://shop.didieffeb2b.com';
+    const proxyUrl = `${apiUrl}/admin/api/send-brevo-email.php`;
+
+    console.log('[Test Email] Sending via PHP proxy:', proxyUrl);
+
+    const proxyResponse = await fetch(proxyUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
         to: { email, name: 'Test User' },
         subject: '🧪 Test Email - Configurazione Brevo',
         htmlContent,
         textContent,
-      },
-      config
-    );
+        sender: {
+          email: config.brevo.senderEmail,
+          name: config.brevo.senderName,
+        },
+        replyTo: {
+          email: config.brevo.replyToEmail,
+          name: config.brevo.replyToName,
+        },
+      }),
+    });
 
-    console.log('[Test Email] Email sent successfully:', result);
+    const result = await proxyResponse.json();
+
+    if (!result.success) {
+      throw new Error(result.error || 'Proxy error');
+    }
+
+    console.log('[Test Email] Email sent successfully via proxy:', result.messageId);
 
     return NextResponse.json({
       success: true,
       messageId: result.messageId,
       message: 'Email di test inviata con successo!',
+      viaProxy: true,
+      proxyUrl: apiUrl,
     });
   } catch (error: any) {
     console.error('[Test Email] Error sending test email:', error);

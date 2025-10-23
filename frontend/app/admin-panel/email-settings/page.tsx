@@ -165,6 +165,9 @@ export default function EmailSettingsPage() {
       const result = await response.json();
 
       if (result.success) {
+        if (result.viaProxy) {
+          addLog('info', `📡 Invio tramite proxy PHP (${result.proxyUrl}) - IP statico whitelistato`);
+        }
         addLog('success', '✅ Email inviata con successo!');
         if (result.messageId) {
           addLog('info', `Message ID: ${result.messageId}`);
