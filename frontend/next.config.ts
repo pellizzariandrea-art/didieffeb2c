@@ -75,7 +75,7 @@ const nextConfig: NextConfig = {
               `img-src 'self' data: https://didieffeb2b.com ${apiUrl} https://*.googleusercontent.com`,
               "font-src 'self' data:",
               `connect-src 'self' ${apiUrl} https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://firestore.googleapis.com https://*.firebaseio.com https://accounts.google.com`,
-              "frame-src https://accounts.google.com",
+              "frame-src https://accounts.google.com https://didieffeb2b-ecommerce.firebaseapp.com",
               "frame-ancestors 'self'",
               "base-uri 'self'",
               "form-action 'self'",
