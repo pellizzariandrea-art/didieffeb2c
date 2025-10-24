@@ -32,8 +32,53 @@ export async function getAppSettings(useCache: boolean = true): Promise<AppSetti
     const docSnap = await getDoc(docRef);
 
     if (docSnap.exists()) {
-      const settings = docSnap.data() as AppSettings;
+      let settings = docSnap.data() as AppSettings;
       console.log('[Settings] Loaded successfully');
+
+      // Migrate old structure to new multilingual structure if needed
+      if (settings.templates.b2c_welcome && !('translations' in settings.templates.b2c_welcome)) {
+        console.log('[Settings] Migrating to multilingual structure...');
+        const oldTemplates = settings.templates as any;
+
+        settings.templates = {
+          b2c_welcome: {
+            enabled: oldTemplates.b2c_welcome.enabled ?? true,
+            translations: {
+              it: {
+                subject: oldTemplates.b2c_welcome.subject || DEFAULT_SETTINGS.templates.b2c_welcome.translations.it.subject,
+                body: DEFAULT_SETTINGS.templates.b2c_welcome.translations.it.body,
+              },
+              en: DEFAULT_SETTINGS.templates.b2c_welcome.translations.en,
+              fr: DEFAULT_SETTINGS.templates.b2c_welcome.translations.fr,
+              de: DEFAULT_SETTINGS.templates.b2c_welcome.translations.de,
+              es: DEFAULT_SETTINGS.templates.b2c_welcome.translations.es,
+              pt: DEFAULT_SETTINGS.templates.b2c_welcome.translations.pt,
+            },
+          },
+          b2b_confirmation: {
+            enabled: oldTemplates.b2b_confirmation.enabled ?? true,
+            translations: {
+              it: {
+                subject: oldTemplates.b2b_confirmation.subject || DEFAULT_SETTINGS.templates.b2b_confirmation.translations.it.subject,
+                body: DEFAULT_SETTINGS.templates.b2b_confirmation.translations.it.body,
+              },
+              en: DEFAULT_SETTINGS.templates.b2b_confirmation.translations.en,
+              fr: DEFAULT_SETTINGS.templates.b2b_confirmation.translations.fr,
+              de: DEFAULT_SETTINGS.templates.b2b_confirmation.translations.de,
+              es: DEFAULT_SETTINGS.templates.b2b_confirmation.translations.es,
+              pt: DEFAULT_SETTINGS.templates.b2b_confirmation.translations.pt,
+            },
+          },
+        };
+
+        // Save migrated structure back to Firestore
+        try {
+          await setDoc(docRef, settings, { merge: true });
+          console.log('[Settings] Migration completed and saved');
+        } catch (error) {
+          console.error('[Settings] Error saving migration:', error);
+        }
+      }
 
       // Update cache
       settingsCache = settings;
