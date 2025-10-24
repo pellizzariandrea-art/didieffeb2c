@@ -823,7 +823,7 @@ function EmailTab({
               placeholder="<p>Inserisci il corpo dell'email in HTML...</p>"
             />
             <p className="mt-2 text-xs text-gray-500">
-              Puoi usare HTML e variabili come {{'{'}}{'{'}name{'}'}{'}'}, {{'{'}}{'{'}company{'}'}{'}'}, ecc.
+              Puoi usare HTML e variabili come {`{{name}}`}, {`{{company}}`}, {`{{email}}`}, ecc.
             </p>
           </div>
         </div>
