@@ -11,6 +11,8 @@ $settings = [
     'translate_description' => true,
     'translate_attributes' => true,
     'api_key' => '',
+    'translation_model' => 'claude-haiku-4-5-20251001', // Per traduzioni (economico)
+    'ai_model' => 'claude-sonnet-4-5-20250929', // Per descrizioni AI (qualità - Sonnet 4.5)
     'ai_description_enabled' => false,
     'ai_description_prompt' => ''
 ];
@@ -30,6 +32,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
     $settings['translate_description'] = isset($_POST['translate_description']);
     $settings['translate_attributes'] = isset($_POST['translate_attributes']);
     $settings['api_key'] = trim($_POST['api_key'] ?? '');
+    $settings['translation_model'] = trim($_POST['translation_model'] ?? 'claude-haiku-4-5-20251001');
+    $settings['ai_model'] = trim($_POST['ai_model'] ?? 'claude-sonnet-4-5-20250929');
     $settings['ai_description_enabled'] = isset($_POST['ai_description_enabled']);
     $settings['ai_description_prompt'] = trim($_POST['ai_description_prompt'] ?? '');
 
@@ -154,6 +158,24 @@ include '../includes/header.php';
                 value="<?php echo htmlspecialchars($settings['api_key']); ?>">
             <small style="color: #a0a0b8; display: block; margin-top: 5px;">
                 La chiave viene salvata in modo sicuro nel server
+            </small>
+        </div>
+
+        <div class="form-group">
+            <label>🌍 Modello per Traduzioni</label>
+            <input type="text" name="translation_model" placeholder="claude-haiku-4-5-20251001"
+                value="<?php echo htmlspecialchars($settings['translation_model'] ?? 'claude-haiku-4-5-20251001'); ?>">
+            <small style="color: #a0a0b8; display: block; margin-top: 5px;">
+                💰 Usa <strong>Haiku</strong> per traduzioni economiche ($1/MTok - 70% risparmio). <a href="https://docs.anthropic.com/en/docs/about-claude/models" target="_blank" style="color: #667eea;">Confronto modelli</a>
+            </small>
+        </div>
+
+        <div class="form-group">
+            <label>🎨 Modello per Descrizioni AI</label>
+            <input type="text" name="ai_model" placeholder="claude-sonnet-4-5-20250929"
+                value="<?php echo htmlspecialchars($settings['ai_model'] ?? 'claude-sonnet-4-5-20250929'); ?>">
+            <small style="color: #a0a0b8; display: block; margin-top: 5px;">
+                ✨ Usa <strong>Sonnet 4.5</strong> per testi marketing di qualità ($3/MTok). <a href="https://docs.anthropic.com/en/docs/about-claude/models" target="_blank" style="color: #667eea;">Confronto modelli</a>
             </small>
         </div>
 

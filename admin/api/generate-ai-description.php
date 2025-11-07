@@ -77,6 +77,9 @@ try {
         exit;
     }
 
+    // Default model se non configurato
+    $aiModel = $settings['ai_model'] ?? 'claude-sonnet-4-5-20250929';
+
     // Path alla cartella delle descrizioni AI
     $aiDescriptionFile = $aiDescriptionsDir . '/' . $productCode . '.json';
 
@@ -95,16 +98,14 @@ try {
         $cachedDescription = $aiDescriptions[$language];
         if (isset($cachedDescription['html']) && isset($cachedDescription['timestamp'])) {
             $age = time() - $cachedDescription['timestamp'];
-            // Se ha meno di 30 giorni, usala
-            if ($age < (30 * 24 * 60 * 60)) {
-                echo json_encode([
-                    'success' => true,
-                    'description' => $cachedDescription['html'],
-                    'cached' => true,
-                    'age_days' => round($age / (24 * 60 * 60))
-                ]);
-                exit;
-            }
+            // Cache infinita - nessuna scadenza
+            echo json_encode([
+                'success' => true,
+                'description' => $cachedDescription['html'],
+                'cached' => true,
+                'age_days' => round($age / (24 * 60 * 60))
+            ]);
+            exit;
         }
     }
 
@@ -129,7 +130,7 @@ try {
     }
 
     // Chiama API Claude (funzione inline)
-    function callClaudeAPI($apiKey, $prompt) {
+    function callClaudeAPI($apiKey, $prompt, $model) {
         $ch = curl_init('https://api.anthropic.com/v1/messages');
 
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -141,7 +142,7 @@ try {
         ]);
 
         curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode([
-            'model' => 'claude-3-5-sonnet-20241022',
+            'model' => $model,
             'max_tokens' => 4096,
             'messages' => [
                 [
@@ -153,20 +154,38 @@ try {
 
         $response = curl_exec($ch);
         $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        $curlError = curl_error($ch);
         curl_close($ch);
 
-        if ($httpCode !== 200) {
-            return null;
-        }
-
-        return json_decode($response, true);
+        return [
+            'response' => $response,
+            'httpCode' => $httpCode,
+            'curlError' => $curlError
+        ];
     }
 
-    $response = callClaudeAPI($settings['api_key'], $prompt);
+    $apiResult = callClaudeAPI($settings['api_key'], $prompt, $aiModel);
+
+    // Debug dettagliato
+    if ($apiResult['httpCode'] !== 200) {
+        http_response_code(500);
+        echo json_encode([
+            'error' => 'Claude API call failed',
+            'http_code' => $apiResult['httpCode'],
+            'curl_error' => $apiResult['curlError'],
+            'api_response' => substr($apiResult['response'], 0, 500) // primi 500 caratteri
+        ]);
+        exit;
+    }
+
+    $response = json_decode($apiResult['response'], true);
 
     if (!$response || !isset($response['content'][0]['text'])) {
         http_response_code(500);
-        echo json_encode(['error' => 'Failed to generate AI description']);
+        echo json_encode([
+            'error' => 'Invalid API response format',
+            'response_snippet' => substr($apiResult['response'], 0, 500)
+        ]);
         exit;
     }
 

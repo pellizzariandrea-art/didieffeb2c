@@ -850,6 +850,10 @@ function translateText($text, $targetLang, $apiKey, $keepAliveCallback = null) {
         return $cached;
     }
 
+    // Carica il modello dalle settings
+    $settings = loadTranslationSettings();
+    $translationModel = $settings['translation_model'] ?? 'claude-haiku-4-5-20251001';
+
     $languageNames = [
         'en' => 'English',
         'de' => 'German',
@@ -891,7 +895,7 @@ Translation:";
             'anthropic-version: 2023-06-01'
         ]);
         curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode([
-            'model' => 'claude-3-5-sonnet-20241022',
+            'model' => $translationModel,
             'max_tokens' => 500,
             'messages' => [
                 ['role' => 'user', 'content' => $prompt]
@@ -964,6 +968,10 @@ function translateBatch($texts, $targetLang, $apiKey) {
         return array_fill(0, count($texts), '');
     }
 
+    // Carica il modello dalle settings
+    $settings = loadTranslationSettings();
+    $translationModel = $settings['translation_model'] ?? 'claude-haiku-4-5-20251001';
+
     $translations = [];
     $toTranslate = [];
     $indices = [];
@@ -1014,7 +1022,7 @@ Translations:";
                 'anthropic-version: 2023-06-01'
             ]);
             curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode([
-                'model' => 'claude-3-5-sonnet-20241022',
+                'model' => $translationModel,
                 'max_tokens' => 2000,
                 'messages' => [
                     ['role' => 'user', 'content' => $prompt]
