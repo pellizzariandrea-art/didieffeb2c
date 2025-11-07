@@ -10,6 +10,7 @@ export interface BaseUserProfile {
   email: string;
   role: UserRole;
   status: UserStatus;
+  clientCode?: string;  // Codice cliente nel gestionale MySQL (opzionale, usato per B2B/B2C)
   createdAt: Date;
   updatedAt: Date;
   lastLogin?: Date;

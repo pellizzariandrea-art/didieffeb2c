@@ -59,10 +59,16 @@ export default function AdminPanelLayout({
                   Dashboard
                 </Link>
                 <Link
-                  href="/admin-panel/email-settings"
+                  href="/admin-panel/settings"
                   className="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
                 >
-                  Email Settings
+                  Settings
+                </Link>
+                <Link
+                  href="/admin-panel/email-templates"
+                  className="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
+                >
+                  Email Templates
                 </Link>
                 <Link
                   href="/admin-panel/users"

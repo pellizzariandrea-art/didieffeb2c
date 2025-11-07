@@ -35,6 +35,20 @@ export async function getAppSettings(useCache: boolean = true): Promise<AppSetti
       let settings = docSnap.data() as AppSettings;
       console.log('[Settings] Loaded successfully');
 
+      // Migrate emailSignature if missing
+      if (!settings.emailSignature) {
+        console.log('[Settings] Adding missing emailSignature with defaults...');
+        settings.emailSignature = DEFAULT_SETTINGS.emailSignature;
+
+        // Save the migration
+        try {
+          await setDoc(docRef, { emailSignature: settings.emailSignature }, { merge: true });
+          console.log('[Settings] emailSignature migration completed');
+        } catch (error) {
+          console.error('[Settings] Error saving emailSignature migration:', error);
+        }
+      }
+
       // Migrate old structure to new multilingual structure if needed
       if (settings.templates.b2c_welcome && !('translations' in settings.templates.b2c_welcome)) {
         console.log('[Settings] Migrating to multilingual structure...');

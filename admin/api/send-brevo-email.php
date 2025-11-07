@@ -61,12 +61,10 @@ try {
     // 1. Try environment variable (most secure - set in cPanel)
     $brevoApiKey = getenv('BREVO_API_KEY');
 
-    // 2. Try hardcoded constant (secure if file permissions are correct)
-    if (!$brevoApiKey) {
-        // SECURITY: This file should have restricted permissions (644 or 600)
-        // Only uncomment and set this if you can't use environment variables
-        // $brevoApiKey = 'your-brevo-api-key-here';
-    }
+    // 2. Try hardcoded constant (NOT RECOMMENDED - use environment variable instead)
+    // if (!$brevoApiKey) {
+    //     $brevoApiKey = 'YOUR_BREVO_API_KEY_HERE';
+    // }
 
     // 3. Try protected config file (least secure, needs .htaccess protection)
     if (!$brevoApiKey) {

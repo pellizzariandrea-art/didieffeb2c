@@ -132,18 +132,16 @@ export default function UserIcon() {
               </Link>
             )}
 
-            {/* Admin Dashboard */}
+            {/* Admin Panel */}
             {user.role === 'admin' && (
-              <a
-                href={`${process.env.NEXT_PUBLIC_API_URL || 'https://shop.didieffeb2b.com'}/admin`}
-                target="_blank"
-                rel="noopener noreferrer"
+              <Link
+                href="/admin-panel"
                 onClick={() => setIsOpen(false)}
                 className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
               >
                 <Settings className="w-4 h-4 mr-3 text-gray-400" />
-                {language === 'it' ? 'Dashboard Admin' : language === 'en' ? 'Admin Dashboard' : language === 'de' ? 'Admin-Dashboard' : language === 'fr' ? 'Tableau de bord Admin' : language === 'es' ? 'Panel de administración' : 'Painel do administrador'}
-              </a>
+                {language === 'it' ? 'Pannello Admin' : language === 'en' ? 'Admin Panel' : language === 'de' ? 'Admin-Panel' : language === 'fr' ? 'Panneau Admin' : language === 'es' ? 'Panel Admin' : 'Painel Admin'}
+              </Link>
             )}
 
             {/* Logout */}

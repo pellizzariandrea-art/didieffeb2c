@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { useRouter } from 'next/navigation';
 import { getAppSettings, saveAppSettings, updateLogo } from '@/lib/firebase/settings';
-import { AppSettings, SupportedLanguage, SUPPORTED_LANGUAGES, EmailContent } from '@/types/settings';
+import { AppSettings, SUPPORTED_LANGUAGES, SupportedLanguage } from '@/types/settings';
 import { toast } from 'sonner';
 
 type TabType = 'company' | 'email';
@@ -470,11 +470,7 @@ function EmailTab({
   settings: AppSettings;
   onSettingsChange: (settings: AppSettings) => void;
 }) {
-  const [testEmail, setTestEmail] = useState('');
-  const [sendingTest, setSendingTest] = useState(false);
-  const [selectedTemplate, setSelectedTemplate] = useState<'b2c_welcome' | 'b2b_confirmation'>('b2c_welcome');
-  const [selectedLanguage, setSelectedLanguage] = useState<SupportedLanguage>('it');
-  const [translating, setTranslating] = useState(false);
+  const [signatureLanguage, setSignatureLanguage] = useState<SupportedLanguage>('it');
 
   const updateBrevo = (field: string, value: string) => {
     onSettingsChange({
@@ -486,148 +482,17 @@ function EmailTab({
     });
   };
 
-  const updateTemplateEnabled = (template: 'b2c_welcome' | 'b2b_confirmation', enabled: boolean) => {
+  const updateSignature = (lang: SupportedLanguage, value: string) => {
     onSettingsChange({
       ...settings,
-      templates: {
-        ...settings.templates,
-        [template]: {
-          ...settings.templates[template],
-          enabled,
+      emailSignature: {
+        translations: {
+          ...(settings.emailSignature?.translations || {}),
+          [lang]: value,
         },
       },
     });
   };
-
-  const updateEmailContent = (
-    template: 'b2c_welcome' | 'b2b_confirmation',
-    language: SupportedLanguage,
-    field: 'subject' | 'body',
-    value: string
-  ) => {
-    onSettingsChange({
-      ...settings,
-      templates: {
-        ...settings.templates,
-        [template]: {
-          ...settings.templates[template],
-          translations: {
-            ...settings.templates[template].translations,
-            [language]: {
-              ...settings.templates[template].translations[language],
-              [field]: value,
-            },
-          },
-        },
-      },
-    });
-  };
-
-  const handleTranslate = async () => {
-    // Get Italian content
-    const italianContent = settings.templates[selectedTemplate].translations.it;
-
-    try {
-      setTranslating(true);
-
-      // Call translation API (we'll create this next)
-      const response = await fetch('/api/translate-email', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          template: selectedTemplate,
-          sourceLanguage: 'it',
-          sourceContent: italianContent,
-          targetLanguages: ['en', 'fr', 'de', 'es', 'pt'],
-        }),
-      });
-
-      const result = await response.json();
-
-      if (result.success) {
-        // Update all translations
-        const updatedTranslations = { ...settings.templates[selectedTemplate].translations };
-
-        for (const [lang, content] of Object.entries(result.translations)) {
-          if (lang !== 'it') {
-            updatedTranslations[lang as SupportedLanguage] = content as EmailContent;
-          }
-        }
-
-        onSettingsChange({
-          ...settings,
-          templates: {
-            ...settings.templates,
-            [selectedTemplate]: {
-              ...settings.templates[selectedTemplate],
-              translations: updatedTranslations,
-            },
-          },
-        });
-
-        toast.success('Traduzioni generate con successo!');
-      } else {
-        throw new Error(result.error || 'Errore nella traduzione');
-      }
-    } catch (error: any) {
-      console.error('Error translating:', error);
-      toast.error(error.message || 'Errore nella generazione delle traduzioni');
-    } finally {
-      setTranslating(false);
-    }
-  };
-
-  const handleSendTestEmail = async () => {
-    if (!testEmail) {
-      toast.error('Inserisci un indirizzo email');
-      return;
-    }
-
-    try {
-      setSendingTest(true);
-      const response = await fetch('/api/send-test-email', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          email: testEmail,
-          template: selectedTemplate,
-          language: selectedLanguage,
-        }),
-      });
-
-      const result = await response.json();
-
-      if (result.success) {
-        toast.success('Email di test inviata con successo!');
-        setTestEmail('');
-      } else {
-        throw new Error(result.error || 'Errore nell\'invio');
-      }
-    } catch (error: any) {
-      console.error('Error sending test email:', error);
-      toast.error(error.message || 'Errore nell\'invio dell\'email di test');
-    } finally {
-      setSendingTest(false);
-    }
-  };
-
-  const currentTemplate = settings.templates[selectedTemplate];
-  const currentContent = currentTemplate.translations[selectedLanguage];
-
-  const templateNames = {
-    b2c_welcome: 'Email Benvenuto B2C',
-    b2b_confirmation: 'Email Conferma Registrazione B2B',
-  };
-
-  // Available variables for email templates
-  const availableVariables = [
-    '{{name}}',
-    '{{email}}',
-    '{{company}}',
-    '{{userCompany}}',
-    '{{address}}',
-    '{{phone}}',
-  ];
 
   return (
     <div className="space-y-6">
@@ -706,172 +571,57 @@ function EmailTab({
         </div>
       </div>
 
-      {/* Email Templates with Multilingual Support */}
+      {/* Email Signature */}
       <div className="bg-white rounded-lg shadow p-6">
-        <div className="flex items-center justify-between mb-6">
-          <h2 className="text-lg font-semibold text-gray-900">Template Email Multilingua</h2>
-          <button
-            onClick={handleTranslate}
-            disabled={translating}
-            className="px-4 py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700 disabled:opacity-50 disabled:cursor-not-allowed flex items-center space-x-2"
-          >
-            <span>{translating ? 'Traduzione...' : '🌐 Traduci da IT'}</span>
-          </button>
-        </div>
-
+        <h2 className="text-lg font-semibold text-gray-900 mb-4">Firma Email</h2>
         <p className="text-sm text-gray-600 mb-6">
-          Gestisci i contenuti delle email in 6 lingue. Usa il pulsante "Traduci" per generare automaticamente le traduzioni dall'italiano.
+          La firma verrà aggiunta automaticamente a tutte le email tramite la variabile <code className="bg-gray-100 px-2 py-1 rounded text-sm">{'{{firma}}'}</code>
         </p>
-
-        {/* Template Selector */}
-        <div className="mb-6">
-          <label className="block text-sm font-medium text-gray-700 mb-2">
-            Seleziona Template
-          </label>
-          <div className="flex space-x-4">
-            <button
-              onClick={() => setSelectedTemplate('b2c_welcome')}
-              className={`flex-1 px-4 py-3 border-2 rounded-lg text-left ${
-                selectedTemplate === 'b2c_welcome'
-                  ? 'border-blue-500 bg-blue-50 text-blue-900'
-                  : 'border-gray-200 hover:border-gray-300'
-              }`}
-            >
-              <div className="font-medium">Email Benvenuto B2C</div>
-              <div className="text-xs text-gray-600 mt-1">Inviata ai nuovi utenti B2C</div>
-            </button>
-            <button
-              onClick={() => setSelectedTemplate('b2b_confirmation')}
-              className={`flex-1 px-4 py-3 border-2 rounded-lg text-left ${
-                selectedTemplate === 'b2b_confirmation'
-                  ? 'border-blue-500 bg-blue-50 text-blue-900'
-                  : 'border-gray-200 hover:border-gray-300'
-              }`}
-            >
-              <div className="font-medium">Email Conferma B2B</div>
-              <div className="text-xs text-gray-600 mt-1">Conferma richiesta registrazione B2B</div>
-            </button>
-          </div>
-
-          {/* Enable/Disable Toggle */}
-          <div className="mt-4 flex items-center">
-            <input
-              type="checkbox"
-              id="template-enabled"
-              checked={currentTemplate.enabled}
-              onChange={(e) => updateTemplateEnabled(selectedTemplate, e.target.checked)}
-              className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
-            />
-            <label htmlFor="template-enabled" className="ml-2 text-sm text-gray-700">
-              Template attivo
-            </label>
-          </div>
-        </div>
 
         {/* Language Tabs */}
-        <div className="mb-6">
-          <div className="border-b border-gray-200">
-            <div className="flex space-x-4 overflow-x-auto">
-              {SUPPORTED_LANGUAGES.map((lang) => (
-                <button
-                  key={lang.code}
-                  onClick={() => setSelectedLanguage(lang.code)}
-                  className={`py-3 px-4 border-b-2 font-medium text-sm whitespace-nowrap ${
-                    selectedLanguage === lang.code
-                      ? 'border-blue-500 text-blue-600'
-                      : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
-                  }`}
-                >
-                  {lang.flag} {lang.name}
-                </button>
-              ))}
-            </div>
-          </div>
+        <div className="mb-4 flex gap-2 overflow-x-auto pb-2">
+          {SUPPORTED_LANGUAGES.map(({ code, flag, name }) => (
+            <button
+              key={code}
+              onClick={() => setSignatureLanguage(code)}
+              className={`px-4 py-2 rounded-lg text-sm font-medium whitespace-nowrap transition-colors ${
+                signatureLanguage === code
+                  ? 'bg-blue-600 text-white'
+                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+              }`}
+            >
+              {flag} {name}
+            </button>
+          ))}
         </div>
 
-        {/* Email Content Editor */}
-        <div className="space-y-6">
-          {/* Subject */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Oggetto Email
-            </label>
-            <input
-              type="text"
-              value={currentContent.subject}
-              onChange={(e) => updateEmailContent(selectedTemplate, selectedLanguage, 'subject', e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
-              placeholder="Inserisci l'oggetto dell'email"
-            />
-          </div>
-
-          {/* Body */}
-          <div>
-            <div className="flex items-center justify-between mb-2">
-              <label className="block text-sm font-medium text-gray-700">
-                Corpo Email (HTML)
-              </label>
-              <div className="text-xs text-gray-500">
-                Variabili disponibili: {availableVariables.join(', ')}
-              </div>
-            </div>
-            <textarea
-              value={currentContent.body}
-              onChange={(e) => updateEmailContent(selectedTemplate, selectedLanguage, 'body', e.target.value)}
-              rows={12}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 font-mono text-sm"
-              placeholder="<p>Inserisci il corpo dell'email in HTML...</p>"
-            />
-            <p className="mt-2 text-xs text-gray-500">
-              Puoi usare HTML e variabili come {`{{name}}`}, {`{{company}}`}, {`{{email}}`}, ecc.
-            </p>
-          </div>
-        </div>
-
-        {/* Email Preview */}
-        <div className="mt-6 pt-6 border-t border-gray-200">
-          <h3 className="text-sm font-semibold text-gray-900 mb-3">Anteprima Email</h3>
-          <div className="border border-gray-300 rounded-lg p-6 bg-gray-50">
-            <div className="bg-white rounded shadow-sm p-6">
-              <div className="mb-4 pb-4 border-b border-gray-200">
-                <div className="text-xs text-gray-500 mb-1">Oggetto:</div>
-                <div className="font-semibold text-gray-900">{currentContent.subject}</div>
-              </div>
-              <div
-                className="prose prose-sm max-w-none"
-                dangerouslySetInnerHTML={{ __html: currentContent.body }}
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Test Email */}
-      <div className="bg-white rounded-lg shadow p-6">
-        <h2 className="text-lg font-semibold text-gray-900 mb-4">Invia Email di Test</h2>
-        <p className="text-sm text-gray-600 mb-4">
-          Invia un'email di test per verificare il template selezionato nella lingua corrente ({SUPPORTED_LANGUAGES.find(l => l.code === selectedLanguage)?.name})
-        </p>
-
-        <div className="flex space-x-4">
-          <input
-            type="email"
-            value={testEmail}
-            onChange={(e) => setTestEmail(e.target.value)}
-            placeholder="tua-email@esempio.com"
-            className="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+        {/* Signature Editor */}
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-2">
+            Firma {SUPPORTED_LANGUAGES.find(l => l.code === signatureLanguage)?.name}
+          </label>
+          <textarea
+            value={settings.emailSignature?.translations?.[signatureLanguage] || ''}
+            onChange={(e) => updateSignature(signatureLanguage, e.target.value)}
+            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 font-mono text-sm"
+            rows={4}
+            placeholder="Cordiali saluti,<br>Il Team Didieffe"
           />
-          <button
-            onClick={handleSendTestEmail}
-            disabled={sendingTest || !testEmail}
-            className="px-6 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed"
-          >
-            {sendingTest ? 'Invio...' : 'Invia Test'}
-          </button>
+          <p className="mt-2 text-xs text-gray-500">
+            Puoi usare HTML: &lt;br&gt;, &lt;strong&gt;, &lt;em&gt;
+          </p>
         </div>
-        <p className="mt-2 text-xs text-gray-500">
-          Verrà inviato: "{templateNames[selectedTemplate]}" in {SUPPORTED_LANGUAGES.find(l => l.code === selectedLanguage)?.name}
-        </p>
+
+        {/* Preview */}
+        {settings.emailSignature?.translations?.[signatureLanguage] && (
+          <div className="mt-4 p-4 bg-gray-50 rounded-lg border">
+            <div className="text-xs font-semibold text-gray-600 mb-2">Anteprima:</div>
+            <div
+              className="text-sm"
+              dangerouslySetInnerHTML={{ __html: settings.emailSignature.translations[signatureLanguage] }}
+            />
+          </div>
+        )}
       </div>
     </div>
   );

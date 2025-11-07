@@ -1,0 +1,103 @@
+{
+    "filters": [
+        {
+            "field": "prezzo",
+            "enabled": true,
+            "type": "range",
+            "label": "prezzo",
+            "order": 5
+        },
+        {
+            "field": "Serie",
+            "enabled": true,
+            "type": "checkbox",
+            "label": "Serie",
+            "order": 45
+        },
+        {
+            "field": "Colore",
+            "enabled": true,
+            "type": "tags",
+            "label": "Colore",
+            "order": 20
+        },
+        {
+            "field": "Materiale",
+            "enabled": true,
+            "type": "tags",
+            "label": "Materiale",
+            "order": 30
+        },
+        {
+            "field": "Specifiche tecniche",
+            "enabled": true,
+            "type": "select",
+            "label": "Specifiche tecniche",
+            "order": 40
+        },
+        {
+            "field": "Tipologia",
+            "enabled": true,
+            "type": "tags",
+            "label": "Tipologia",
+            "order": 50
+        },
+        {
+            "field": "Confezione da Pezzi",
+            "enabled": true,
+            "type": "select",
+            "label": "Confezione da Pezzi",
+            "order": 60
+        },
+        {
+            "field": "Applicazione su Legno",
+            "enabled": true,
+            "type": "checkbox",
+            "label": "Applicazione su Legno",
+            "order": 99
+        },
+        {
+            "field": "Applicazione su Allumino",
+            "enabled": true,
+            "type": "checkbox",
+            "label": "Applicazione su Allumino",
+            "order": 99
+        },
+        {
+            "field": "Applicazione su Pvc",
+            "enabled": true,
+            "type": "checkbox",
+            "label": "Applicazione su Pvc",
+            "order": 99
+        }
+    ],
+    "categories": [
+        {
+            "field": "Scuri alla Veneta",
+            "enabled": true,
+            "label": "Scuri alla Veneta",
+            "icon": "\ud83d\udce6",
+            "image": "https:\/\/shop.didieffeb2b.com\/admin\/data\/category_icon\/category_1760792486_68f38fa680454.png",
+            "color": "#667eea",
+            "description": ""
+        },
+        {
+            "field": "Persiane a Muro",
+            "enabled": true,
+            "label": "Persiane a Muro",
+            "icon": "\ud83d\udce6",
+            "image": "https:\/\/shop.didieffeb2b.com\/admin\/data\/category_icon\/category_1760792630_68f39036b0bec.png",
+            "color": "#667eea",
+            "description": ""
+        },
+        {
+            "field": "Persiane con Telaio",
+            "enabled": true,
+            "label": "Persiane con Telaio",
+            "icon": "\ud83d\udce6",
+            "image": "https:\/\/shop.didieffeb2b.com\/admin\/data\/category_icon\/category_1760792546_68f38fe2c1d40.png",
+            "color": "#667eea",
+            "description": ""
+        }
+    ]
+}

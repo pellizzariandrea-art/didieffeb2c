@@ -53,6 +53,11 @@ export interface BrevoConfig {
   replyToName: string;
 }
 
+// Email signature (multilingua)
+export interface EmailSignature {
+  translations: Record<SupportedLanguage, string>;
+}
+
 export interface EmailTemplates {
   b2c_welcome: MultilingualEmailTemplate;
   b2b_confirmation: MultilingualEmailTemplate;
@@ -62,6 +67,7 @@ export interface AppSettings {
   company: CompanyInfo;
   logo?: LogoConfig;
   brevo: BrevoConfig;
+  emailSignature: EmailSignature;
   templates: EmailTemplates;
   updatedAt?: string;
   updatedBy?: string;
@@ -85,6 +91,16 @@ export const DEFAULT_SETTINGS: AppSettings = {
     senderName: 'Didieffe B2B',
     replyToEmail: 'info@didieffe.com',
     replyToName: 'Didieffe Support',
+  },
+  emailSignature: {
+    translations: {
+      it: 'Cordiali saluti,<br>Il Team Didieffe',
+      en: 'Best regards,<br>The Didieffe Team',
+      fr: 'Cordialement,<br>L\'équipe Didieffe',
+      de: 'Mit freundlichen Grüßen,<br>Das Didieffe Team',
+      es: 'Saludos cordiales,<br>El equipo Didieffe',
+      pt: 'Atenciosamente,<br>A equipe Didieffe',
+    },
   },
   templates: {
     b2c_welcome: {

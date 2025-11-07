@@ -1,0 +1,23 @@
+{
+    "enabled": true,
+    "baseUrl": "https:\/\/didieffeb2b.com\/template\/risorse",
+    "categories": [
+        {
+            "name": "Scheda Tecnica PDF",
+            "folder": "pdf",
+            "extensions": [
+                "pdf"
+            ],
+            "icon": "\ud83d\udcc4"
+        },
+        {
+            "name": "Disegno Tecnico DWG",
+            "folder": "dwg",
+            "extensions": [
+                "dwg",
+                "dxf"
+            ],
+            "icon": "\ud83d\udcd0"
+        }
+    ]
+}

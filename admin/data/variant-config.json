@@ -1,0 +1,33 @@
+{
+    "enabled": true,
+    "groupByField": "Pos. Assoluto",
+    "orderByField": "Ord in tabella",
+    "qualifiers": [
+        {
+            "attributeName": "Colore",
+            "type": "text"
+        },
+        {
+            "attributeName": "Materiale",
+            "type": "text"
+        },
+        {
+            "attributeName": "Specifiche tecniche",
+            "type": "text"
+        }
+    ],
+    "columnQualifier": "Specifiche tecniche",
+    "rowQualifiersOrder": [
+        "Materiale",
+        "Colore"
+    ],
+    "printCatalogFields": [
+        "Serie",
+        "Tipologia",
+        "Confezione da Pezzi",
+        "Ean",
+        "Applicazione su Legno",
+        "Applicazione su Allumino",
+        "Applicazione su Pvc"
+    ]
+}

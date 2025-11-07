@@ -1,0 +1,47 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Helper per verificare se l'utente è admin
+    function isAdmin() {
+      return request.auth != null &&
+        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin';
+    }
+
+    // Regole per gli utenti
+    match /users/{userId} {
+      // Ogni utente può leggere e modificare SOLO il proprio documento
+      allow read: if request.auth != null && request.auth.uid == userId;
+      allow write: if request.auth != null && request.auth.uid == userId;
+
+      // Gli admin possono leggere e modificare TUTTI gli utenti
+      allow read, write: if isAdmin();
+
+      // Gli admin possono eliminare utenti
+      allow delete: if isAdmin();
+    }
+
+    // Regole per le impostazioni (solo admin)
+    match /settings/{document} {
+      allow read, write: if isAdmin();
+    }
+
+    // Regole per gli ordini (se esistono)
+    match /orders/{orderId} {
+      // L'utente può leggere i propri ordini
+      allow read: if request.auth != null && resource.data.userId == request.auth.uid;
+
+      // L'utente può creare nuovi ordini
+      allow create: if request.auth != null;
+
+      // Gli admin possono leggere tutti gli ordini
+      allow read: if isAdmin();
+    }
+
+    // Regole per i template email (solo admin)
+    match /email_templates/{templateId} {
+      allow read, write, delete: if isAdmin();
+    }
+  }
+}
