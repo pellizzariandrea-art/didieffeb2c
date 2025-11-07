@@ -13,7 +13,7 @@ import uiLabels from '@/config/ui-labels.json';
 
 export default function UserIcon() {
   const { user, logout, loading } = useAuth();
-  const { language } = useLanguage();
+  const { currentLang: language } = useLanguage();
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);

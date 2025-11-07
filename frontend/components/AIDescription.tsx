@@ -354,8 +354,15 @@ export default function AIDescription({ productCode, productData }: AIDescriptio
     return null; // Non mostrare nulla se c'è un errore o non è abilitato
   }
 
-  // La descrizione è in formato misto: Markdown + HTML inline per i loghi
-  // Usa sempre ReactMarkdown che supporta HTML inline tramite rehype-raw
+  // La descrizione è in formato Markdown - estrai e renderizza i loghi separatamente per sicurezza
+
+  // Estrai il div dei loghi (sicuro perché sono URL controllati)
+  const logoRegex = /<div style="text-align: center[^>]*>[\s\S]*?<\/div>/;
+  const logoMatch = description.match(logoRegex);
+  const logosHtml = logoMatch ? logoMatch[0] : null;
+
+  // Rimuovi il div HTML dal markdown per evitare che venga mostrato come testo
+  const cleanMarkdown = description.replace(logoRegex, '\n\n---LOGOS---\n\n');
 
   return (
     <div className="ai-description-container prose prose-sm sm:prose-base max-w-none">
@@ -375,10 +382,27 @@ export default function AIDescription({ productCode, productData }: AIDescriptio
           h4: ({ node, ...props }) => (
             <h4 className="text-base sm:text-lg font-semibold text-gray-700 mt-4 mb-2" {...props} />
           ),
-          // Paragrafi
-          p: ({ node, ...props }) => (
-            <p className="text-sm sm:text-base text-gray-700 leading-relaxed mb-4" {...props} />
-          ),
+          // Paragrafi - intercetta placeholder loghi
+          p: ({ node, children, ...props }) => {
+            // Se il paragrafo contiene solo "---LOGOS---", renderizza i loghi
+            if (children && typeof children === 'string' && children.includes('---LOGOS---')) {
+              return (
+                <div className="text-center my-8">
+                  <img
+                    src="https://shop.didieffeb2b.com/admin/data/Made_in_dolomiti.jpg"
+                    alt="Made in Dolomiti"
+                    className="inline-block w-20 h-20 mx-4"
+                  />
+                  <img
+                    src="https://shop.didieffeb2b.com/admin/data/rolando_quality.jpg"
+                    alt="Rolando Quality"
+                    className="inline-block w-20 h-20 mx-4"
+                  />
+                </div>
+              );
+            }
+            return <p className="text-sm sm:text-base text-gray-700 leading-relaxed mb-4" {...props}>{children}</p>;
+          },
           // Liste
           ul: ({ node, ...props }) => (
             <ul className="space-y-2 mb-4 ml-6" {...props} />
@@ -418,7 +442,7 @@ export default function AIDescription({ productCode, productData }: AIDescriptio
           ),
         }}
       >
-        {description}
+        {cleanMarkdown}
       </ReactMarkdown>
     </div>
   );
