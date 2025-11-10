@@ -1,0 +1,9 @@
+{
+    "status": "completed",
+    "started_at": 1760886034,
+    "total_products": 800,
+    "completed_products": 0,
+    "current_chunk": 1,
+    "chunk_size": 50,
+    "completed_at": 1760887848
+}

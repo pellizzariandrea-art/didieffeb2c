@@ -3,13 +3,16 @@
 import { useState } from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
 
-const languageInfo: Record<string, { name: string; flag: string }> = {
+export const languageInfo: Record<string, { name: string; flag: string }> = {
   it: { name: 'Italiano', flag: '🇮🇹' },
   en: { name: 'English', flag: '🇬🇧' },
   de: { name: 'Deutsch', flag: '🇩🇪' },
   fr: { name: 'Français', flag: '🇫🇷' },
   es: { name: 'Español', flag: '🇪🇸' },
   pt: { name: 'Português', flag: '🇵🇹' },
+  hr: { name: 'Hrvatski', flag: '🇭🇷' },
+  sl: { name: 'Slovenščina', flag: '🇸🇮' },
+  el: { name: 'Ελληνικά', flag: '🇬🇷' },
 };
 
 export default function LanguageSelector() {

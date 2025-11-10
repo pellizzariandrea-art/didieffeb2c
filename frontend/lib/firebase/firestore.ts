@@ -114,6 +114,44 @@ export async function getPendingUsers(): Promise<UserProfile[]> {
   }
 }
 
+// Get active users (optionally filtered by role)
+export async function getActiveUsers(role?: 'b2b' | 'b2c'): Promise<UserProfile[]> {
+  try {
+    const db = getDbInstance();
+    let q;
+
+    if (role) {
+      // Filter by both status and role
+      q = query(
+        collection(db, 'users'),
+        where('status', '==', 'active'),
+        where('role', '==', role),
+        orderBy('createdAt', 'desc')
+      );
+    } else {
+      // Filter only by status
+      q = query(
+        collection(db, 'users'),
+        where('status', '==', 'active'),
+        orderBy('createdAt', 'desc')
+      );
+    }
+
+    const querySnapshot = await getDocs(q);
+    return querySnapshot.docs.map((doc) => {
+      const data = doc.data();
+      return {
+        ...data,
+        createdAt: data.createdAt?.toDate(),
+        updatedAt: data.updatedAt?.toDate(),
+        lastLogin: data.lastLogin?.toDate(),
+      } as UserProfile;
+    });
+  } catch (error: any) {
+    throw new Error(`Failed to get active users: ${error.message}`);
+  }
+}
+
 // ==================== ORDERS ====================
 
 // Generate order number

@@ -105,6 +105,37 @@ export default function AdminDashboard() {
             </div>
           </div>
         </div>
+
+        {/* Reports Card */}
+        <div className="bg-white overflow-hidden shadow rounded-lg">
+          <div className="p-6">
+            <div className="flex items-center">
+              <div className="flex-shrink-0">
+                <svg className="h-8 w-8 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                </svg>
+              </div>
+              <div className="ml-5 w-0 flex-1">
+                <dl>
+                  <dt className="text-sm font-medium text-gray-500 truncate">
+                    Report Clienti
+                  </dt>
+                  <dd className="text-lg font-semibold text-gray-900">
+                    Gestione Dinamica
+                  </dd>
+                </dl>
+              </div>
+            </div>
+            <div className="mt-4">
+              <a
+                href="/admin-panel/reports"
+                className="text-sm font-medium text-orange-600 hover:text-orange-500"
+              >
+                Gestisci report →
+              </a>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

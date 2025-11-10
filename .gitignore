@@ -54,6 +54,12 @@ admin/api/php_errorlog
 translation-settings.json
 db-config.json
 
+# ⚠️ CREDENZIALI - MAI COMMITTARE
+admin/config.php
+admin/didieffeb2b-*-firebase-adminsdk-*.json
+*firebase-adminsdk*.json
+config.php
+
 # Claude & Session files
 SESSION_NOTES.md
 .claude/

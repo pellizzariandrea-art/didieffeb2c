@@ -2,6 +2,11 @@
 // execute-query.php
 // Generic query executor with security and validation
 
+// Enable error reporting
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+ini_set('log_errors', 1);
+
 header('Content-Type: application/json');
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: POST, OPTIONS');
@@ -164,7 +169,12 @@ echo json_encode([
     'success' => true,
     'query' => $querySlug,
     'data' => $rows,
-    'count' => count($rows)
+    'count' => count($rows),
+    'debug' => [
+        'sql' => $sql,
+        'params' => $validatedParams,
+        'bindTypes' => $bindTypes
+    ]
 ]);
 
 $stmt->close();

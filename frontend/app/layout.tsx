@@ -35,11 +35,40 @@ export const viewport: Viewport = {
   userScalable: true,
 };
 
-export default function RootLayout({
+async function getEnabledLanguages(): Promise<string[]> {
+  try {
+    const backendUrl = process.env.NEXT_PUBLIC_API_URL || 'https://shop.didieffeb2b.com';
+    const response = await fetch(`${backendUrl}/admin/data/translation-settings.json`, {
+      cache: 'no-store', // Always get fresh data
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to fetch translation settings');
+    }
+
+    const settings = await response.json();
+    const languages = settings.languages || ['it'];
+
+    // Ensure 'it' is always included as base language
+    if (!languages.includes('it')) {
+      languages.unshift('it');
+    }
+
+    return languages;
+  } catch (error) {
+    console.error('Error fetching enabled languages, using defaults:', error);
+    // Fallback to 6 original languages if fetch fails
+    return ['it', 'en', 'de', 'fr', 'es', 'pt'];
+  }
+}
+
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const enabledLanguages = await getEnabledLanguages();
+
   return (
     <html lang="en">
       <body
@@ -51,7 +80,7 @@ export default function RootLayout({
         <Toaster position="top-right" richColors closeButton />
         <AuthProvider>
           <BrandProvider>
-            <LanguageProvider initialLang="it" availableLanguages={['it', 'en', 'de', 'fr', 'es', 'pt']}>
+            <LanguageProvider initialLang="it" availableLanguages={enabledLanguages}>
               <ProductNavigationProvider>
                 <CompareProvider>
                   {children}

@@ -18,6 +18,7 @@ export interface ReportColumn {
   aggregate?: ReportAggregateFunction; // Funzione di aggregazione per totali
   width?: number;                   // Larghezza colonna in pixel
   align?: 'left' | 'center' | 'right'; // Allineamento testo
+  translatable?: boolean;           // Se il contenuto deve essere tradotto (usa getTranslatedValue da products.json)
 }
 
 /**
@@ -71,6 +72,9 @@ export interface ReportConfig {
   filters?: ReportFilter[];         // Filtri disponibili
   sorting?: ReportSorting;          // Ordinamento default
   export?: ReportExportOptions;     // Opzioni export
+  clientTypes?: ('b2b' | 'b2c')[]; // Tipologie cliente autorizzate (default: entrambi)
+  enabled?: boolean;                // Se il report è attivo (default: true)
+  clientCodeField?: string;         // Campo della query che contiene il codice cliente (per filtro automatico)
 }
 
 /**

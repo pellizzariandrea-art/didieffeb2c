@@ -114,6 +114,52 @@ include '../includes/header.php';
                     <span>🇵🇹 Portoghese</span>
                 </label>
             </div>
+            <div>
+                <label style="display: flex; align-items: center; gap: 10px;">
+                    <input type="checkbox" name="languages[]" value="hr" <?php echo in_array('hr', $settings['languages']) ? 'checked' : ''; ?>>
+                    <span>🇭🇷 Croato</span>
+                </label>
+            </div>
+            <div>
+                <label style="display: flex; align-items: center; gap: 10px;">
+                    <input type="checkbox" name="languages[]" value="sl" <?php echo in_array('sl', $settings['languages']) ? 'checked' : ''; ?>>
+                    <span>🇸🇮 Sloveno</span>
+                </label>
+            </div>
+            <div>
+                <label style="display: flex; align-items: center; gap: 10px;">
+                    <input type="checkbox" name="languages[]" value="el" <?php echo in_array('el', $settings['languages']) ? 'checked' : ''; ?>>
+                    <span>🇬🇷 Greco</span>
+                </label>
+            </div>
+            <!-- ⬇️ AGGIUNGI ALTRE LINGUE QUI -->
+            <!-- ESEMPIO: Russo -->
+            <!--
+            <div>
+                <label style="display: flex; align-items: center; gap: 10px;">
+                    <input type="checkbox" name="languages[]" value="ru" <?php echo in_array('ru', $settings['languages']) ? 'checked' : ''; ?>>
+                    <span>🇷🇺 Russo</span>
+                </label>
+            </div>
+            -->
+            <!-- ESEMPIO: Cinese -->
+            <!--
+            <div>
+                <label style="display: flex; align-items: center; gap: 10px;">
+                    <input type="checkbox" name="languages[]" value="zh" <?php echo in_array('zh', $settings['languages']) ? 'checked' : ''; ?>>
+                    <span>🇨🇳 Cinese</span>
+                </label>
+            </div>
+            -->
+            <!-- ESEMPIO: Giapponese -->
+            <!--
+            <div>
+                <label style="display: flex; align-items: center; gap: 10px;">
+                    <input type="checkbox" name="languages[]" value="ja" <?php echo in_array('ja', $settings['languages']) ? 'checked' : ''; ?>>
+                    <span>🇯🇵 Giapponese</span>
+                </label>
+            </div>
+            -->
         </div>
 
         <hr style="border-color: rgba(255,255,255,0.1); margin: 30px 0;">
