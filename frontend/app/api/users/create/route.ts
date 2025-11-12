@@ -61,9 +61,10 @@ export async function POST(req: NextRequest) {
     });
 
     // Create setup link pointing to our custom page
-    const appUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
-    const resetLink = `${appUrl}/auth/setup-password?token=${setupToken}`;
-    console.log('🔐 Password setup link generated (valid 24h)');
+    // Use request origin to ensure correct URL in all environments
+    const origin = req.headers.get('origin') || req.headers.get('referer')?.split('/').slice(0, 3).join('/') || process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
+    const resetLink = `${origin}/auth/setup-password?token=${setupToken}`;
+    console.log('🔐 Password setup link generated (valid 24h):', resetLink);
 
     // Get settings and send welcome email with password setup instructions
     const settings = await getAppSettingsServer();

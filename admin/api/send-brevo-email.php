@@ -87,11 +87,7 @@ try {
         ],
         'to' => [$data['to']],
         'subject' => $data['subject'],
-        'htmlContent' => $data['htmlContent'],
-        // Disable link tracking to preserve original URLs
-        'params' => [
-            'ENABLE_TRACKING' => '0'
-        ]
+        'htmlContent' => $data['htmlContent']
     ];
 
     // Add optional fields
