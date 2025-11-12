@@ -3,6 +3,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getAdminAuth, getAdminFirestore } from '@/lib/firebase/admin';
 import { getAppSettingsServer } from '@/lib/firebase/settings-server';
 import { randomBytes } from 'crypto';
+import { logEmail } from '@/lib/email-logger';
 
 export async function POST(req: NextRequest) {
   try {
@@ -124,17 +125,50 @@ export async function POST(req: NextRequest) {
     };
 
     console.log('📤 [Brevo] Sending password setup email...');
-    const emailResponse = await fetch(`${backendUrl}/admin/api/send-brevo-email.php`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload),
-    });
+    try {
+      const emailResponse = await fetch(`${backendUrl}/admin/api/send-brevo-email.php`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
 
-    if (emailResponse.ok) {
-      const emailResult = await emailResponse.json();
-      console.log('✅ [Brevo] Setup email sent:', emailResult.messageId);
-    } else {
-      console.error('⚠️ [Brevo] Failed to send setup email, but user was created');
+      if (emailResponse.ok) {
+        const emailResult = await emailResponse.json();
+        console.log('✅ [Brevo] Setup email sent:', emailResult.messageId);
+
+        // Log successful email
+        await logEmail({
+          to: email,
+          subject,
+          templateSlug: 'account-setup',
+          status: 'success',
+          messageId: emailResult.messageId,
+          brevoResponse: emailResult,
+        });
+      } else {
+        const errorText = await emailResponse.text();
+        console.error('⚠️ [Brevo] Failed to send setup email:', errorText);
+
+        // Log failed email
+        await logEmail({
+          to: email,
+          subject,
+          templateSlug: 'account-setup',
+          status: 'error',
+          error: `HTTP ${emailResponse.status}: ${errorText}`,
+        });
+      }
+    } catch (emailError: any) {
+      console.error('❌ [Brevo] Error sending email:', emailError);
+
+      // Log error
+      await logEmail({
+        to: email,
+        subject,
+        templateSlug: 'account-setup',
+        status: 'error',
+        error: emailError.message,
+      });
     }
 
     return NextResponse.json({
