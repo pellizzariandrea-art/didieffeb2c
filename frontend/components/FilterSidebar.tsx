@@ -383,7 +383,7 @@ export default function FilterSidebar({
                           <div className="relative">
                             <input
                               type="text"
-                              placeholder={`Cerca ${getFilterLabel(filter).toLowerCase()}...`}
+                              placeholder={`${getLabel('filters.search_placeholder', lang)} ${getFilterLabel(filter).toLowerCase()}...`}
                               value={searchTerms[filter.key] || ''}
                               onChange={(e) => setSearchTerms({ ...searchTerms, [filter.key]: e.target.value })}
                               className="w-full px-3 py-2 pl-9 text-sm text-gray-900 placeholder-gray-400 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"

@@ -22,6 +22,7 @@ import { formatAttributeValue, getTranslatedValue } from '@/lib/product-utils';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useProductNavigation } from '@/contexts/ProductNavigationContext';
 import { useAnalyticsStore } from '@/stores/analyticsStore';
+import { getCatalogText, getCatalogTextFn, Language } from '@/lib/catalog-translations';
 import { motion, AnimatePresence } from 'framer-motion';
 import { RefreshCw, ArrowUp, ChevronDown, Sparkles } from 'lucide-react';
 
@@ -634,7 +635,7 @@ export default function ProductCatalog({
       const availableOptions: any[] = [];
 
       // Filtra prodotti escludendo solo il filtro corrente
-      const productsForThisFilter = products.filter(product => {
+      const productsForThisFilter = expandedProducts.filter(product => {
         // Applica filtro categoria (le categorie sono attributi booleani)
         if (selectedCategory) {
           const categoryAttr = product.attributi?.[selectedCategory];
@@ -691,7 +692,8 @@ export default function ProductCatalog({
       // Per altri tipi di filtro, raccogli valori unici DISPONIBILI e contali
       productsForThisFilter.forEach(product => {
         const productValue = product.attributi?.[filter.key];
-        if (!productValue) return;
+        // Permetti anche valori booleani false, ma salta undefined/null
+        if (productValue === undefined || productValue === null) return;
 
         const italianValue = formatAttributeValue(productValue, 'it').trim();
         availableValues.add(italianValue);
@@ -708,8 +710,19 @@ export default function ProductCatalog({
         availableCount: availableValues.size,
         valueCounts: Object.fromEntries(valueCounts) // NEW: Converti Map in oggetto
       };
+    })
+    // Filtra i filtri che hanno SOLO valori con 0 prodotti
+    .filter(filter => {
+      // Se non abbiamo valueCounts o è vuoto, rimuovi il filtro
+      if (!filter.valueCounts || Object.keys(filter.valueCounts).length === 0) {
+        return false; // Nessun prodotto per questo filtro, rimuovilo
+      }
+
+      // Controlla se almeno un valore ha prodotti
+      const hasProductsInAnyValue = Object.values(filter.valueCounts).some(count => count > 0);
+      return hasProductsInAnyValue;
     });
-  }, [filters, products, selectedCategory, selectedFilters, currentLang]);
+  }, [filters, expandedProducts, selectedCategory, selectedFilters, currentLang]);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-50">
@@ -787,12 +800,7 @@ export default function ProductCatalog({
                     }}
                     className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-emerald-600 hover:bg-emerald-700 text-white px-2.5 py-1 rounded-md transition-colors text-xs font-semibold"
                   >
-                    {currentLang === 'it' && 'Cerca'}
-                    {currentLang === 'en' && 'Search'}
-                    {currentLang === 'de' && 'Suchen'}
-                    {currentLang === 'fr' && 'Chercher'}
-                    {currentLang === 'es' && 'Buscar'}
-                    {currentLang === 'pt' && 'Buscar'}
+                    {getCatalogText('searchButton', currentLang as Language)}
                   </button>
                 </>
               )}
@@ -1392,40 +1400,20 @@ export default function ProductCatalog({
                     /* Ci sono risultati esatti + suggerimenti */
                     <>
                       <p className="text-sm font-semibold text-blue-900 mb-1">
-                        {currentLang === 'it' && `Trovati ${filteredProducts.length} risultati esatti per "${searchQuery}"`}
-                        {currentLang === 'en' && `Found ${filteredProducts.length} exact results for "${searchQuery}"`}
-                        {currentLang === 'de' && `${filteredProducts.length} exakte Ergebnisse für "${searchQuery}" gefunden`}
-                        {currentLang === 'fr' && `${filteredProducts.length} résultats exacts trouvés pour "${searchQuery}"`}
-                        {currentLang === 'es' && `${filteredProducts.length} resultados exactos encontrados para "${searchQuery}"`}
-                        {currentLang === 'pt' && `${filteredProducts.length} resultados exatos encontrados para "${searchQuery}"`}
+                        {getCatalogTextFn('foundExactResults', currentLang as Language, filteredProducts.length, searchQuery)}
                       </p>
                       <p className="text-xs text-blue-700">
-                        {currentLang === 'it' && `Mostriamo anche ${suggestedProducts.length} prodotti correlati`}
-                        {currentLang === 'en' && `Also showing ${suggestedProducts.length} related products`}
-                        {currentLang === 'de' && `Zeige auch ${suggestedProducts.length} verwandte Produkte`}
-                        {currentLang === 'fr' && `Affiche également ${suggestedProducts.length} produits associés`}
-                        {currentLang === 'es' && `También mostrando ${suggestedProducts.length} productos relacionados`}
-                        {currentLang === 'pt' && `Também mostrando ${suggestedProducts.length} produtos relacionados`}
+                        {getCatalogTextFn('alsoShowingRelated', currentLang as Language, suggestedProducts.length)}
                       </p>
                     </>
                   ) : (
                     /* Solo suggerimenti, nessun risultato esatto */
                     <>
                       <p className="text-sm font-semibold text-blue-900 mb-1">
-                        {currentLang === 'it' && `Nessun risultato esatto per "${searchQuery}"`}
-                        {currentLang === 'en' && `No exact results for "${searchQuery}"`}
-                        {currentLang === 'de' && `Keine exakten Ergebnisse für "${searchQuery}"`}
-                        {currentLang === 'fr' && `Aucun résultat exact pour "${searchQuery}"`}
-                        {currentLang === 'es' && `No hay resultados exactos para "${searchQuery}"`}
-                        {currentLang === 'pt' && `Nenhum resultado exato para "${searchQuery}"`}
+                        {getCatalogTextFn('noExactResults', currentLang as Language, searchQuery)}
                       </p>
                       <p className="text-xs text-blue-700">
-                        {currentLang === 'it' && `Mostriamo ${suggestedProducts.length} prodotti correlati che potrebbero interessarti`}
-                        {currentLang === 'en' && `Showing ${suggestedProducts.length} related products that might interest you`}
-                        {currentLang === 'de' && `Zeige ${suggestedProducts.length} verwandte Produkte, die Sie interessieren könnten`}
-                        {currentLang === 'fr' && `Affichage de ${suggestedProducts.length} produits associés qui pourraient vous intéresser`}
-                        {currentLang === 'es' && `Mostrando ${suggestedProducts.length} productos relacionados que podrían interesarte`}
-                        {currentLang === 'pt' && `Mostrando ${suggestedProducts.length} produtos relacionados que podem interessar`}
+                        {getCatalogTextFn('showingRelatedProducts', currentLang as Language, suggestedProducts.length)}
                       </p>
                     </>
                   )}
@@ -1478,12 +1466,7 @@ export default function ProductCatalog({
                         <svg className="w-5 h-5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                         </svg>
-                        {currentLang === 'it' && 'Prodotto selezionato'}
-                        {currentLang === 'en' && 'Selected product'}
-                        {currentLang === 'de' && 'Ausgewähltes Produkt'}
-                        {currentLang === 'fr' && 'Produit sélectionné'}
-                        {currentLang === 'es' && 'Producto seleccionado'}
-                        {currentLang === 'pt' && 'Produto selecionado'}
+                        {getCatalogText('selectedProduct', currentLang as Language)}
                       </h2>
                       <button
                         onClick={() => setSelectedProduct(null)}
@@ -1492,12 +1475,7 @@ export default function ProductCatalog({
                         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                         </svg>
-                        {currentLang === 'it' && 'Rimuovi'}
-                        {currentLang === 'en' && 'Remove'}
-                        {currentLang === 'de' && 'Entfernen'}
-                        {currentLang === 'fr' && 'Supprimer'}
-                        {currentLang === 'es' && 'Eliminar'}
-                        {currentLang === 'pt' && 'Remover'}
+                        {getCatalogText('removeButton', currentLang as Language)}
                       </button>
                     </div>
 
@@ -1573,12 +1551,7 @@ export default function ProductCatalog({
                             href={`/products/${selectedProduct.codice}`}
                             className="px-4 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors text-sm font-medium whitespace-nowrap"
                           >
-                            {currentLang === 'it' && 'Vedi dettagli'}
-                            {currentLang === 'en' && 'View details'}
-                            {currentLang === 'de' && 'Details anzeigen'}
-                            {currentLang === 'fr' && 'Voir détails'}
-                            {currentLang === 'es' && 'Ver detalles'}
-                            {currentLang === 'pt' && 'Ver detalhes'}
+                            {getCatalogText('viewDetailsButton', currentLang as Language)}
                           </Link>
                         </div>
                       </div>
@@ -1605,12 +1578,7 @@ export default function ProductCatalog({
                                 <svg className="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                                 </svg>
-                                {currentLang === 'it' && `Prodotti correlati`}
-                                {currentLang === 'en' && `Related products`}
-                                {currentLang === 'de' && `Verwandte Produkte`}
-                                {currentLang === 'fr' && `Produits associés`}
-                                {currentLang === 'es' && `Productos relacionados`}
-                                {currentLang === 'pt' && `Produtos relacionados`}
+                                {getCatalogText('relatedProducts', currentLang as Language)}
                               </h2>
                             </div>
                           )}
@@ -1637,12 +1605,7 @@ export default function ProductCatalog({
                                 <svg className="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                                 </svg>
-                                {currentLang === 'it' && `Prodotti correlati`}
-                                {currentLang === 'en' && `Related products`}
-                                {currentLang === 'de' && `Verwandte Produkte`}
-                                {currentLang === 'fr' && `Produits associés`}
-                                {currentLang === 'es' && `Productos relacionados`}
-                                {currentLang === 'pt' && `Produtos relacionados`}
+                                {getCatalogText('relatedProducts', currentLang as Language)}
                               </h2>
                             </div>
                           )}

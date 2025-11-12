@@ -36,6 +36,14 @@ export default function VariantSelector({
 
   // Funzione per tradurre la label di un attributo
   const getAttributeLabel = (key: string): string => {
+    // Prima prova a cercare una traduzione in ui-labels.json per attributi comuni
+    const normalizedKey = key.toLowerCase();
+    const attributeLabel = getLabel(`attributes.${normalizedKey}`, lang);
+    if (attributeLabel) {
+      return attributeLabel;
+    }
+
+    // Se non trovata, usa i dati del prodotto
     if (!productAttributes || !productAttributes[key]) {
       return key;
     }

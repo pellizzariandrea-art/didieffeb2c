@@ -2,6 +2,7 @@
 
 import { useBrand, brandConfigs, type Brand } from '@/contexts/BrandContext';
 import { useLanguage } from '@/contexts/LanguageContext';
+import { getCatalogText, Language } from '@/lib/catalog-translations';
 import Link from 'next/link';
 import { ArrowRight, Building2, Sparkles, Package } from 'lucide-react';
 
@@ -237,12 +238,7 @@ export default function BrandShowcase() {
 
           <div className="prose prose-lg max-w-none text-gray-600">
             <p>
-              {currentLang === 'it' && 'Con oltre 30 anni di esperienza, il nostro gruppo offre soluzioni complete per ogni esigenza nel settore della ferramenta per serramenti. Ogni brand del gruppo è specializzato in un segmento specifico, garantendo competenza e qualità.'}
-              {currentLang === 'en' && 'With over 30 years of experience, our group offers complete solutions for every need in the window and door hardware sector. Each brand in the group specializes in a specific segment, ensuring expertise and quality.'}
-              {currentLang === 'de' && 'Mit über 30 Jahren Erfahrung bietet unsere Gruppe vollständige Lösungen für jeden Bedarf im Bereich Fenster- und Türbeschläge. Jede Marke der Gruppe ist auf ein bestimmtes Segment spezialisiert und gewährleistet Expertise und Qualität.'}
-              {currentLang === 'fr' && 'Avec plus de 30 ans d\'expérience, notre groupe offre des solutions complètes pour chaque besoin dans le secteur de la quincaillerie pour fenêtres et portes. Chaque marque du groupe est spécialisée dans un segment spécifique, garantissant expertise et qualité.'}
-              {currentLang === 'es' && 'Con más de 30 años de experiencia, nuestro grupo ofrece soluciones completas para cada necesidad en el sector de herrajes para ventanas y puertas. Cada marca del grupo se especializa en un segmento específico, garantizando experiencia y calidad.'}
-              {currentLang === 'pt' && 'Com mais de 30 anos de experiência, o nosso grupo oferece soluções completas para cada necessidade no setor de ferragens para janelas e portas. Cada marca do grupo é especializada num segmento específico, garantindo experiência e qualidade.'}
+              {getCatalogText('brandDescription', currentLang as Language)}
             </p>
           </div>
         </div>

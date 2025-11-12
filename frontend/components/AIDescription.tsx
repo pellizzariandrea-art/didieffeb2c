@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { getTranslatedValue } from '@/lib/product-utils';
+import { getCatalogText, Language } from '@/lib/catalog-translations';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 // SECURITY: rehypeRaw removed to prevent XSS attacks via HTML injection
@@ -243,18 +244,13 @@ export default function AIDescription({ productCode, productData }: AIDescriptio
           {/* Testo con effetto typing */}
           <div className="text-center space-y-3">
             <h3 className="text-xl font-semibold text-gray-800">
-              {currentLang === 'it' && 'Stiamo preparando la documentazione per te'}
-              {currentLang === 'en' && 'We are preparing the documentation for you'}
-              {currentLang === 'de' && 'Wir bereiten die Dokumentation für Sie vor'}
-              {currentLang === 'fr' && 'Nous préparons la documentation pour vous'}
-              {currentLang === 'es' && 'Estamos preparando la documentación para ti'}
-              {currentLang === 'pt' && 'Estamos preparando a documentação para você'}
+              {getCatalogText('preparingDocumentation', currentLang as Language)}
             </h3>
 
             {/* Punti animati */}
             <div className="flex items-center justify-center gap-2">
               <span className="text-emerald-600 font-medium">
-                {currentLang === 'it' ? 'Elaborazione' : currentLang === 'en' ? 'Processing' : currentLang === 'de' ? 'Verarbeitung' : currentLang === 'fr' ? 'Traitement' : currentLang === 'es' ? 'Procesando' : 'Processando'}
+                {getCatalogText('processing', currentLang as Language)}
               </span>
               <div className="flex gap-1">
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-dot-1"></span>

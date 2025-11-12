@@ -1,6 +1,7 @@
 'use client';
 
 import { useLanguage } from '@/contexts/LanguageContext';
+import { getCatalogText, Language } from '@/lib/catalog-translations';
 import { Factory, Cog, Award, Users, TrendingUp, Shield } from 'lucide-react';
 import { getCompanyContent } from '@/lib/company-content';
 
@@ -23,28 +24,13 @@ export default function WhyChooseUs() {
         {/* Intestazione Minimal */}
         <div className="max-w-3xl mb-20">
           <div className="text-sm uppercase tracking-wider text-green-600 font-semibold mb-4">
-            {currentLang === 'it' && 'Perché sceglierci'}
-            {currentLang === 'en' && 'Why choose us'}
-            {currentLang === 'de' && 'Warum uns wählen'}
-            {currentLang === 'fr' && 'Pourquoi nous choisir'}
-            {currentLang === 'es' && 'Por qué elegirnos'}
-            {currentLang === 'pt' && 'Por que nos escolher'}
+            {getCatalogText('whyChooseUs', currentLang as Language)}
           </div>
           <h2 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6">
-            {currentLang === 'it' && 'Qualità senza compromessi'}
-            {currentLang === 'en' && 'Quality without compromise'}
-            {currentLang === 'de' && 'Qualität ohne Kompromisse'}
-            {currentLang === 'fr' && 'Qualité sans compromis'}
-            {currentLang === 'es' && 'Calidad sin compromisos'}
-            {currentLang === 'pt' && 'Qualidade sem compromissos'}
+            {getCatalogText('qualityWithoutCompromise', currentLang as Language)}
           </h2>
           <p className="text-xl text-gray-600">
-            {currentLang === 'it' && '40 anni di esperienza al servizio dell\'eccellenza manifatturiera italiana'}
-            {currentLang === 'en' && '40 years of experience serving Italian manufacturing excellence'}
-            {currentLang === 'de' && '40 Jahre Erfahrung im Dienste der italienischen Fertigungsexzellenz'}
-            {currentLang === 'fr' && '40 ans d\'expérience au service de l\'excellence manufacturière italienne'}
-            {currentLang === 'es' && '40 años de experiencia al servicio de la excelencia manufacturera italiana'}
-            {currentLang === 'pt' && '40 anos de experiência a serviço da excelência manufatureira italiana'}
+            {getCatalogText('experienceDescription', currentLang as Language)}
           </p>
         </div>
 
@@ -80,48 +66,28 @@ export default function WhyChooseUs() {
             <div>
               <div className="text-4xl md:text-5xl font-bold text-gray-900 mb-2">150+</div>
               <div className="text-sm text-gray-600 uppercase tracking-wider">
-                {currentLang === 'it' && 'Prodotti'}
-                {currentLang === 'en' && 'Products'}
-                {currentLang === 'de' && 'Produkte'}
-                {currentLang === 'fr' && 'Produits'}
-                {currentLang === 'es' && 'Productos'}
-                {currentLang === 'pt' && 'Produtos'}
+                {getCatalogText('products', currentLang as Language)}
               </div>
             </div>
 
             <div>
               <div className="text-4xl md:text-5xl font-bold text-gray-900 mb-2">500+</div>
               <div className="text-sm text-gray-600 uppercase tracking-wider">
-                {currentLang === 'it' && 'Clienti'}
-                {currentLang === 'en' && 'Clients'}
-                {currentLang === 'de' && 'Kunden'}
-                {currentLang === 'fr' && 'Clients'}
-                {currentLang === 'es' && 'Clientes'}
-                {currentLang === 'pt' && 'Clientes'}
+                {getCatalogText('clients', currentLang as Language)}
               </div>
             </div>
 
             <div>
               <div className="text-4xl md:text-5xl font-bold text-gray-900 mb-2">99%</div>
               <div className="text-sm text-gray-600 uppercase tracking-wider">
-                {currentLang === 'it' && 'Soddisfazione'}
-                {currentLang === 'en' && 'Satisfaction'}
-                {currentLang === 'de' && 'Zufriedenheit'}
-                {currentLang === 'fr' && 'Satisfaction'}
-                {currentLang === 'es' && 'Satisfacción'}
-                {currentLang === 'pt' && 'Satisfação'}
+                {getCatalogText('satisfaction', currentLang as Language)}
               </div>
             </div>
 
             <div>
               <div className="text-4xl md:text-5xl font-bold text-gray-900 mb-2">24/7</div>
               <div className="text-sm text-gray-600 uppercase tracking-wider">
-                {currentLang === 'it' && 'Supporto'}
-                {currentLang === 'en' && 'Support'}
-                {currentLang === 'de' && 'Unterstützung'}
-                {currentLang === 'fr' && 'Assistance'}
-                {currentLang === 'es' && 'Soporte'}
-                {currentLang === 'pt' && 'Suporte'}
+                {getCatalogText('support', currentLang as Language)}
               </div>
             </div>
           </div>

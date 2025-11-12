@@ -1,6 +1,7 @@
 'use client';
 
 import { useLanguage } from '@/contexts/LanguageContext';
+import { getCommonText, Language } from '@/lib/common-translations';
 import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
@@ -32,12 +33,7 @@ export default function CategoryGrid({ categories, title, type }: CategoryGridPr
             {title}
           </h2>
           <p className="text-xl text-gray-600">
-            {currentLang === 'it' && 'Componenti di precisione progettati per performance eccezionali e lunga durata.'}
-            {currentLang === 'en' && 'Precision components designed for exceptional performance and long lifespan.'}
-            {currentLang === 'de' && 'Präzisionskomponenten für außergewöhnliche Leistung und Langlebigkeit.'}
-            {currentLang === 'fr' && 'Composants de précision conçus pour des performances exceptionnelles et une longue durée de vie.'}
-            {currentLang === 'es' && 'Componentes de precisión diseñados para rendimiento excepcional y larga duración.'}
-            {currentLang === 'pt' && 'Componentes de precisão projetados para desempenho excepcional e longa vida útil.'}
+            {getCommonText('precisionComponents', currentLang as Language)}
           </p>
         </div>
 
@@ -69,9 +65,9 @@ export default function CategoryGrid({ categories, title, type }: CategoryGridPr
                   <div className="flex-1">
                     <div className="inline-block px-3 py-1 rounded-full bg-green-50 border border-green-200 mb-3">
                       <span className="text-xs uppercase tracking-wider text-green-600 font-bold">
-                        {type === 'serie' && (currentLang === 'it' ? 'Serie' : 'Series')}
-                        {type === 'linea' && (currentLang === 'it' ? 'Linea' : 'Line')}
-                        {type === 'applicazione' && (currentLang === 'it' ? 'Applicazione' : 'Application')}
+                        {type === 'serie' && getCommonText('serie', currentLang as Language)}
+                        {type === 'linea' && getCommonText('linea', currentLang as Language)}
+                        {type === 'applicazione' && getCommonText('applicazione', currentLang as Language)}
                       </span>
                     </div>
                     <h3 className="text-2xl font-bold text-gray-900 mb-2">
@@ -81,12 +77,7 @@ export default function CategoryGrid({ categories, title, type }: CategoryGridPr
                       <div className="h-1 w-12 bg-gradient-to-r from-green-500 to-emerald-500 rounded-full" />
                       <p className="text-sm text-gray-600 font-medium">
                         {category.productCount}{' '}
-                        {currentLang === 'it' && 'prodotti'}
-                        {currentLang === 'en' && 'products'}
-                        {currentLang === 'de' && 'Produkte'}
-                        {currentLang === 'fr' && 'produits'}
-                        {currentLang === 'es' && 'productos'}
-                        {currentLang === 'pt' && 'produtos'}
+                        {getCommonText('products', currentLang as Language)}
                       </p>
                     </div>
                   </div>
@@ -106,12 +97,7 @@ export default function CategoryGrid({ categories, title, type }: CategoryGridPr
             href="/products"
             className="inline-flex items-center gap-2 text-gray-900 hover:text-green-600 font-semibold text-lg group transition-colors"
           >
-            {currentLang === 'it' && 'Esplora tutti i prodotti'}
-            {currentLang === 'en' && 'Explore all products'}
-            {currentLang === 'de' && 'Alle Produkte erkunden'}
-            {currentLang === 'fr' && 'Explorer tous les produits'}
-            {currentLang === 'es' && 'Explorar todos los productos'}
-            {currentLang === 'pt' && 'Explorar todos os produtos'}
+            {getCommonText('exploreAllProducts', currentLang as Language)}
             <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
           </Link>
         </div>

@@ -2,6 +2,7 @@
 
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useBrand } from '@/contexts/BrandContext';
+import { getCommonText, Language } from '@/lib/common-translations';
 import { usePathname } from 'next/navigation';
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
@@ -69,13 +70,8 @@ export default function SiteHeader() {
                     : 'text-gray-700'
               }`}
             >
-              {currentLang === 'it' && 'Home'}
-              {currentLang === 'en' && 'Home'}
-              {currentLang === 'de' && 'Startseite'}
-              {currentLang === 'fr' && 'Accueil'}
-              {currentLang === 'es' && 'Inicio'}
-              {currentLang === 'pt' && 'Início'}
-            </Link>
+              {getCommonText('navHome', currentLang as Language)}
+</Link>
 
             <Link
               href="/about"
@@ -87,13 +83,8 @@ export default function SiteHeader() {
                     : 'text-gray-700'
               }`}
             >
-              {currentLang === 'it' && 'Azienda'}
-              {currentLang === 'en' && 'About'}
-              {currentLang === 'de' && 'Über uns'}
-              {currentLang === 'fr' && 'À propos'}
-              {currentLang === 'es' && 'Empresa'}
-              {currentLang === 'pt' && 'Empresa'}
-            </Link>
+              {getCommonText('navCompany', currentLang as Language)}
+</Link>
 
             <Link
               href="/products"
@@ -105,13 +96,8 @@ export default function SiteHeader() {
                     : 'text-gray-700'
               }`}
             >
-              {currentLang === 'it' && 'Catalogo'}
-              {currentLang === 'en' && 'Catalog'}
-              {currentLang === 'de' && 'Katalog'}
-              {currentLang === 'fr' && 'Catalogue'}
-              {currentLang === 'es' && 'Catálogo'}
-              {currentLang === 'pt' && 'Catálogo'}
-            </Link>
+              {getCommonText('navCatalog', currentLang as Language)}
+</Link>
 
             <Link
               href="/download"
@@ -149,13 +135,8 @@ export default function SiteHeader() {
                     : 'text-gray-700'
               }`}
             >
-              {currentLang === 'it' && 'Lavora con Noi'}
-              {currentLang === 'en' && 'Careers'}
-              {currentLang === 'de' && 'Karriere'}
-              {currentLang === 'fr' && 'Carrières'}
-              {currentLang === 'es' && 'Empleo'}
-              {currentLang === 'pt' && 'Carreiras'}
-            </Link>
+              {getCommonText('navCareers', currentLang as Language)}
+</Link>
 
             <Link
               href="/contact"
@@ -167,13 +148,8 @@ export default function SiteHeader() {
                     : 'text-gray-700'
               }`}
             >
-              {currentLang === 'it' && 'Contatti'}
-              {currentLang === 'en' && 'Contact'}
-              {currentLang === 'de' && 'Kontakt'}
-              {currentLang === 'fr' && 'Contact'}
-              {currentLang === 'es' && 'Contacto'}
-              {currentLang === 'pt' && 'Contato'}
-            </Link>
+              {getCommonText('navContact', currentLang as Language)}
+</Link>
           </div>
 
           {/* Right Actions */}

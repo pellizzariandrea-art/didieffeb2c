@@ -1,6 +1,7 @@
 'use client';
 
 import { useLanguage } from '@/contexts/LanguageContext';
+import { getPagesText, Language } from '@/lib/pages-translations';
 import { Mountain, Award, Factory, Heart, Users, Truck } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -23,20 +24,10 @@ export default function ChiSiamoPage() {
 
         <div className="relative z-10 container mx-auto px-4 text-center text-white">
           <h1 className="text-5xl md:text-6xl font-bold mb-4">
-            {currentLang === 'it' && 'La Nostra Storia'}
-            {currentLang === 'en' && 'Our Story'}
-            {currentLang === 'de' && 'Unsere Geschichte'}
-            {currentLang === 'fr' && 'Notre Histoire'}
-            {currentLang === 'es' && 'Nuestra Historia'}
-            {currentLang === 'pt' && 'Nossa História'}
+            {getPagesText('ourStory', currentLang as Language)}
           </h1>
           <p className="text-xl text-gray-200">
-            {currentLang === 'it' && '40 anni di passione artigianale nelle Dolomiti'}
-            {currentLang === 'en' && '40 years of artisan passion in the Dolomites'}
-            {currentLang === 'de' && '40 Jahre handwerkliche Leidenschaft in den Dolomiten'}
-            {currentLang === 'fr' && '40 ans de passion artisanale dans les Dolomites'}
-            {currentLang === 'es' && '40 años de pasión artesanal en los Dolomitas'}
-            {currentLang === 'pt' && '40 anos de paixão artesanal nos Dolomitas'}
+            {getPagesText('artisanPassion40Years', currentLang as Language)}
           </p>
         </div>
       </section>
@@ -46,12 +37,7 @@ export default function ChiSiamoPage() {
         <div className="container mx-auto max-w-4xl">
           <div className="prose prose-lg max-w-none">
             <h2 className="text-3xl font-bold text-gray-900 mb-6">
-              {currentLang === 'it' && 'Dal 1985 nel cuore delle Dolomiti'}
-              {currentLang === 'en' && 'Since 1985 in the heart of the Dolomites'}
-              {currentLang === 'de' && 'Seit 1985 im Herzen der Dolomiten'}
-              {currentLang === 'fr' && 'Depuis 1985 au cœur des Dolomites'}
-              {currentLang === 'es' && 'Desde 1985 en el corazón de los Dolomitas'}
-              {currentLang === 'pt' && 'Desde 1985 no coração dos Dolomitas'}
+              {getPagesText('since1985Dolomites', currentLang as Language)}
             </h2>
 
             {currentLang === 'it' && (
@@ -110,12 +96,7 @@ export default function ChiSiamoPage() {
       <section className="py-16 px-4 bg-gray-50">
         <div className="container mx-auto">
           <h2 className="text-3xl md:text-4xl font-bold text-center text-gray-900 mb-12">
-            {currentLang === 'it' && 'I Nostri Valori'}
-            {currentLang === 'en' && 'Our Values'}
-            {currentLang === 'de' && 'Unsere Werte'}
-            {currentLang === 'fr' && 'Nos Valeurs'}
-            {currentLang === 'es' && 'Nuestros Valores'}
-            {currentLang === 'pt' && 'Nossos Valores'}
+            {getPagesText('ourValues', currentLang as Language)}
           </h2>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">

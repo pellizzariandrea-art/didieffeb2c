@@ -2,6 +2,7 @@
 
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useBrand } from '@/contexts/BrandContext';
+import { getCatalogText, Language } from '@/lib/catalog-translations';
 import { ArrowRight, ChevronDown } from 'lucide-react';
 import Link from 'next/link';
 
@@ -145,12 +146,7 @@ export default function HeroSection() {
               className="inline-flex items-center gap-4 text-white px-12 py-6 rounded-xl font-bold text-lg transition-all hover:scale-105 bg-gradient-to-r from-emerald-600 to-emerald-500 shadow-xl hover:shadow-2xl"
             >
               <span>
-                {currentLang === 'it' && 'Esplora Tutti i Prodotti'}
-                {currentLang === 'en' && 'Explore All Products'}
-                {currentLang === 'de' && 'Alle Produkte entdecken'}
-                {currentLang === 'fr' && 'Explorer Tous les Produits'}
-                {currentLang === 'es' && 'Explorar Todos los Productos'}
-                {currentLang === 'pt' && 'Explorar Todos os Produtos'}
+                {getCatalogText('exploreAllProducts', currentLang as Language)}
               </span>
               <ArrowRight className="w-6 h-6" />
             </Link>

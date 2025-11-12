@@ -40,9 +40,9 @@
       "fr": "TVA exclue",
       "es": "IVA excluido",
       "pt": "IVA excluído",
-      "hr": "bez PDV-a",
-      "sl": "brez DDV",
-      "el": "χωρίς ΦΠΑ"
+      "hr": "VAT excluded",
+      "sl": "VAT excluded",
+      "el": "VAT excluded"
     },
     "availability": {
       "available": {
@@ -74,9 +74,9 @@
         "fr": "pcs",
         "es": "uds",
         "pt": "pcs",
-        "hr": "kom",
-        "sl": "kos",
-        "el": "τεμ"
+        "hr": "pcs",
+        "sl": "pcs",
+        "el": "pcs"
       }
     },
     "ai_description_title": {
@@ -97,9 +97,9 @@
       "fr": "Spécifications techniques",
       "es": "Especificaciones técnicas",
       "pt": "Especificações técnicas",
-      "hr": "Tehnič specs",
-      "sl": "Tehnične specifikacije",
-      "el": "Τεχνικές προδιαγραφές"
+      "hr": "Technical specifications",
+      "sl": "Technical specifications",
+      "el": "Technical specifications"
     },
     "resources_title": {
       "it": "Documenti disponibili",
@@ -108,9 +108,9 @@
       "fr": "Documents disponibles",
       "es": "Documentos disponibles",
       "pt": "Documentos disponíveis",
-      "hr": "Dostupni dokumenti",
-      "sl": "Razpoložljivi dokumenti",
-      "el": "Διαθέσιμα έγγραφα"
+      "hr": "Available documents",
+      "sl": "Available documents",
+      "el": "Available documents"
     },
     "same_series_title": {
       "it": "Prodotti della serie",
@@ -119,9 +119,9 @@
       "fr": "Produits de la série",
       "es": "Productos de la serie",
       "pt": "Produtos da série",
-      "hr": "Proizvodi iz serije",
-      "sl": "Izdelki iz serije",
-      "el": "Προϊόντα της σειράς"
+      "hr": "Products from the series",
+      "sl": "Products from the series",
+      "el": "Products from the series"
     },
     "other": {
       "it": "Altri",
@@ -130,9 +130,9 @@
       "fr": "Autres",
       "es": "Otros",
       "pt": "Outros",
-      "hr": "Ostali",
-      "sl": "Drugi",
-      "el": "Άλλα"
+      "hr": "Other",
+      "sl": "Other",
+      "el": "Other"
     },
     "same_category_title": {
       "it": "Altri prodotti simili",
@@ -141,9 +141,9 @@
       "fr": "Autres produits similaires",
       "es": "Otros productos similares",
       "pt": "Outros produtos semelhantes",
-      "hr": "Drugi slični proizvodi",
-      "sl": "Drugi podobni izdelki",
-      "el": "Άλλα παρόμοια προϊόντα"
+      "hr": "Other similar products",
+      "sl": "Other similar products",
+      "el": "Other similar products"
     },
     "also_viewed_title": {
       "it": "Altri hanno visto anche",
@@ -152,9 +152,9 @@
       "fr": "Les autres ont également vu",
       "es": "Otros también vieron",
       "pt": "Outros também visualizaram",
-      "hr": "Drugi su također pogledali",
-      "sl": "Drugi so si ogledali tudi",
-      "el": "Άλλοι είδαν επίσης"
+      "hr": "Others also viewed",
+      "sl": "Others also viewed",
+      "el": "Others also viewed"
     },
     "view_all": {
       "it": "Vedi tutti",
@@ -163,9 +163,9 @@
       "fr": "Voir tout",
       "es": "Ver todos",
       "pt": "Ver todos",
-      "hr": "Pogledaj sve",
-      "sl": "Prikaži vse",
-      "el": "Προβολή όλων"
+      "hr": "View all",
+      "sl": "View all",
+      "el": "View all"
     },
     "back_to_catalog": {
       "it": "Torna al catalogo",
@@ -174,9 +174,9 @@
       "fr": "Retour au catalogue",
       "es": "Volver al catálogo",
       "pt": "Voltar ao catálogo",
-      "hr": "Natrag na katalog",
-      "sl": "Nazaj na katalog",
-      "el": "Επιστροφή στον κατάλογο"
+      "hr": "Back to catalog",
+      "sl": "Back to catalog",
+      "el": "Back to catalog"
     },
     "no_image": {
       "it": "Nessuna immagine disponibile",
@@ -185,9 +185,9 @@
       "fr": "Aucune image disponible",
       "es": "No hay imagen disponible",
       "pt": "Nenhuma imagem disponível",
-      "hr": "Slika nije dostupna",
-      "sl": "Slika ni na voljo",
-      "el": "Δεν υπάρχει εικόνα"
+      "hr": "No image available",
+      "sl": "No image available",
+      "el": "No image available"
     },
     "add_to_cart": {
       "it": "Aggiungi al carrello",
@@ -196,9 +196,9 @@
       "fr": "Ajouter au panier",
       "es": "Añadir al carrito",
       "pt": "Adicionar ao carrinho",
-      "hr": "Dodaj u košaricu",
-      "sl": "Dodaj v košarico",
-      "el": "Προσθήκη στο καλάθι"
+      "hr": "Add to cart",
+      "sl": "Add to cart",
+      "el": "Add to cart"
     },
     "click_to_zoom": {
       "it": "Clicca per ingrandire",
@@ -207,9 +207,9 @@
       "fr": "Cliquer pour agrandir",
       "es": "Clic para ampliar",
       "pt": "Clique para ampliar",
-      "hr": "Kliknite za uvećanje",
-      "sl": "Kliknite za povečavo",
-      "el": "Κλικ για μεγέθυνση"
+      "hr": "Click to zoom",
+      "sl": "Click to zoom",
+      "el": "Click to zoom"
     },
     "add": {
       "it": "Aggiungi",
@@ -229,9 +229,9 @@
       "fr": "Aperçu rapide",
       "es": "Vista rápida",
       "pt": "Visualização rápida",
-      "hr": "Brzi pregled",
-      "sl": "Hiter pregled",
-      "el": "Γρήγορη προβολή"
+      "hr": "Quick view",
+      "sl": "Quick view",
+      "el": "Quick view"
     },
     "view_details": {
       "it": "Vedi dettagli completi",
@@ -240,9 +240,9 @@
       "fr": "Voir les détails complets",
       "es": "Ver detalles completos",
       "pt": "Ver detalhes completos",
-      "hr": "Pogledaj sve detalje",
-      "sl": "Prikaži vse podrobnosti",
-      "el": "Προβολή πλήρων λεπτομερειών"
+      "hr": "View full details",
+      "sl": "View full details",
+      "el": "View full details"
     },
     "select_variant": {
       "it": "Seleziona variante",
@@ -251,9 +251,9 @@
       "fr": "Sélectionner la variante",
       "es": "Seleccionar variante",
       "pt": "Selecionar variante",
-      "hr": "Odaberi varijantu",
-      "sl": "Izberi varianto",
-      "el": "Επιλέξτε παραλλαγή"
+      "hr": "Select variant",
+      "sl": "Select variant",
+      "el": "Select variant"
     },
     "add_to_wishlist": {
       "it": "Aggiungi ai preferiti",
@@ -262,9 +262,9 @@
       "fr": "Ajouter aux favoris",
       "es": "Añadir a favoritos",
       "pt": "Adicionar aos favoritos",
-      "hr": "Dodaj na listu želja",
-      "sl": "Dodaj na seznam želja",
-      "el": "Προσθήκη στη λίστα επιθυμιών"
+      "hr": "Add to wishlist",
+      "sl": "Add to wishlist",
+      "el": "Add to wishlist"
     },
     "add_to_wishlist_short": {
       "it": "Preferiti",
@@ -284,9 +284,9 @@
       "fr": "Dans les favoris",
       "es": "En favoritos",
       "pt": "Nos favoritos",
-      "hr": "Na listi želja",
-      "sl": "Na seznamu želja",
-      "el": "Στη λίστα επιθυμιών"
+      "hr": "In wishlist",
+      "sl": "In wishlist",
+      "el": "In wishlist"
     },
     "remove_from_wishlist": {
       "it": "Rimuovi dai preferiti",
@@ -295,9 +295,9 @@
       "fr": "Retirer des favoris",
       "es": "Quitar de favoritos",
       "pt": "Remover dos favoritos",
-      "hr": "Ukloni s liste želja",
-      "sl": "Odstrani s seznama želja",
-      "el": "Αφαίρεση από τη λίστα επιθυμιών"
+      "hr": "Remove from wishlist",
+      "sl": "Remove from wishlist",
+      "el": "Remove from wishlist"
     },
     "downloads_title": {
       "it": "Download",
@@ -306,9 +306,9 @@
       "fr": "Téléchargements",
       "es": "Descargas",
       "pt": "Downloads",
-      "hr": "Preuzimanja",
-      "sl": "Prenosi",
-      "el": "Λήψεις"
+      "hr": "Downloads",
+      "sl": "Downloads",
+      "el": "Downloads"
     },
     "actions_title": {
       "it": "Azioni",
@@ -317,9 +317,9 @@
       "fr": "Actions",
       "es": "Acciones",
       "pt": "Ações",
-      "hr": "Radnje",
-      "sl": "Dejanja",
-      "el": "Ενέργειες"
+      "hr": "Actions",
+      "sl": "Actions",
+      "el": "Actions"
     }
   },
   "common": {
@@ -363,121 +363,9 @@
       "fr": "Chargement...",
       "es": "Cargando...",
       "pt": "Carregando...",
-      "hr": "Učitavanje...",
-      "sl": "Nalaganje...",
-      "el": "Φόρτωση..."
-    }
-  },
-  "attributes": {
-    "serie": {
-      "it": "Serie",
-      "en": "Series",
-      "de": "Reihe",
-      "fr": "Série",
-      "es": "Serie",
-      "pt": "Série",
-      "hr": "Serija",
-      "sl": "Serija",
-      "el": "Σειρά"
-    },
-    "colore": {
-      "it": "Colore",
-      "en": "Color",
-      "de": "Farbe",
-      "fr": "Couleur",
-      "es": "Color",
-      "pt": "Cor",
-      "hr": "Boja",
-      "sl": "Barva",
-      "el": "Χρώμα"
-    },
-    "materiale": {
-      "it": "Materiale",
-      "en": "Material",
-      "de": "Material",
-      "fr": "Matériau",
-      "es": "Material",
-      "pt": "Material",
-      "hr": "Materijal",
-      "sl": "Material",
-      "el": "Υλικό"
-    },
-    "specifiche tecniche": {
-      "it": "Specifiche tecniche",
-      "en": "Technical specifications",
-      "de": "Technische Daten",
-      "fr": "Spécifications techniques",
-      "es": "Especificaciones técnicas",
-      "pt": "Especificações técnicas",
-      "hr": "Tehničke specifikacije",
-      "sl": "Tehnične specifikacije",
-      "el": "Τεχνικές προδιαγραφές"
-    },
-    "tipologia": {
-      "it": "Tipologia",
-      "en": "Type",
-      "de": "Typ",
-      "fr": "Type",
-      "es": "Tipo",
-      "pt": "Tipo",
-      "hr": "Tip",
-      "sl": "Tip",
-      "el": "Τύπος"
-    },
-    "confezione da pezzi": {
-      "it": "Confezione da Pezzi",
-      "en": "Package Quantity",
-      "de": "Verpackungseinheit",
-      "fr": "Conditionnement",
-      "es": "Cantidad del paquete",
-      "pt": "Quantidade da embalagem",
-      "hr": "Količina u pakiranju",
-      "sl": "Količina pakiranja",
-      "el": "Ποσότητα συσκευασίας"
-    },
-    "ean": {
-      "it": "Ean",
-      "en": "Barcode",
-      "de": "Strichcode",
-      "fr": "Code-barres",
-      "es": "Código de barras",
-      "pt": "Código de barras",
-      "hr": "Barkod",
-      "sl": "Črtna koda",
-      "el": "Γραμμωτός κώδικας"
-    },
-    "applicazione su legno": {
-      "it": "Applicazione su Legno",
-      "en": "Application on Wood",
-      "de": "Anwendung auf Holz",
-      "fr": "Application sur bois",
-      "es": "Aplicación en madera",
-      "pt": "Aplicação em madeira",
-      "hr": "Primjena na drvo",
-      "sl": "Uporaba na lesu",
-      "el": "Εφαρμογή σε ξύλο"
-    },
-    "applicazione su allumino": {
-      "it": "Applicazione su Allumino",
-      "en": "Application on Aluminum",
-      "de": "Anwendung auf Aluminium",
-      "fr": "Application sur aluminium",
-      "es": "Aplicación en aluminio",
-      "pt": "Aplicação em alumínio",
-      "hr": "Primjena na aluminij",
-      "sl": "Uporaba na aluminiju",
-      "el": "Εφαρμογή σε αλουμίνιο"
-    },
-    "applicazione su pvc": {
-      "it": "Applicazione su Pvc",
-      "en": "Application on PVC",
-      "de": "Anwendung auf PVC",
-      "fr": "Application sur PVC",
-      "es": "Aplicación en PVC",
-      "pt": "Aplicação em PVC",
-      "hr": "Primjena na PVC",
-      "sl": "Uporaba na PVC",
-      "el": "Εφαρμογή σε PVC"
+      "hr": "Loading...",
+      "sl": "Loading...",
+      "el": "Loading..."
     }
   },
   "variants": {
@@ -488,9 +376,9 @@
       "fr": "Variantes disponibles",
       "es": "Variantes disponibles",
       "pt": "Variantes disponíveis",
-      "hr": "Dostupne varijante",
-      "sl": "Razpoložljive variante",
-      "el": "Διαθέσιμες παραλλαγές"
+      "hr": "Available variants",
+      "sl": "Available variants",
+      "el": "Available variants"
     },
     "badge_short": {
       "it": "Var.",
@@ -510,9 +398,9 @@
       "fr": "Variante",
       "es": "Variante",
       "pt": "Variante",
-      "hr": "Varijanta",
-      "sl": "Varianta",
-      "el": "Παραλλαγή"
+      "hr": "Variant",
+      "sl": "Variant",
+      "el": "Variant"
     },
     "badge_of": {
       "it": "di",
@@ -532,9 +420,9 @@
       "fr": "Sélectionner une variante",
       "es": "Seleccionar variante",
       "pt": "Selecionar variante",
-      "hr": "Odaberi varijantu",
-      "sl": "Izberi varianto",
-      "el": "Επιλέξτε παραλλαγή"
+      "hr": "Select variant",
+      "sl": "Select variant",
+      "el": "Select variant"
     },
     "selected_config": {
       "it": "Configurazione selezionata",
@@ -543,9 +431,9 @@
       "fr": "Configuration sélectionnée",
       "es": "Configuración seleccionada",
       "pt": "Configuração selecionada",
-      "hr": "Odabrana konfiguracija",
-      "sl": "Izbrana konfiguracija",
-      "el": "Επιλεγμένη διαμόρφωση"
+      "hr": "Selected configuration",
+      "sl": "Selected configuration",
+      "el": "Selected configuration"
     },
     "view_full_table": {
       "it": "Vista tabella completa",
@@ -554,9 +442,9 @@
       "fr": "Voir le tableau complet",
       "es": "Ver tabla completa",
       "pt": "Ver tabela completa",
-      "hr": "Prikaz cijele tablice",
-      "sl": "Prikaži celotno tabelo",
-      "el": "Προβολή πλήρους πίνακα"
+      "hr": "View full table",
+      "sl": "View full table",
+      "el": "View full table"
     },
     "click_to_select": {
       "it": "Clicca su una cella per selezionare la variante desiderata",
@@ -565,9 +453,9 @@
       "fr": "Cliquez sur une cellule pour sélectionner la variante souhaitée",
       "es": "Haga clic en una celda para seleccionar la variante deseada",
       "pt": "Clique em uma célula para selecionar a variante desejada",
-      "hr": "Kliknite na ćeliju da odaberete željenu varijantu",
-      "sl": "Kliknite na celico za izbiro želene variante",
-      "el": "Κάντε κλικ σε ένα κελί για επιλογή της επιθυμητής παραλλαγής"
+      "hr": "Click on a cell to select the desired variant",
+      "sl": "Click on a cell to select the desired variant",
+      "el": "Click on a cell to select the desired variant"
     },
     "selected": {
       "it": "Selezionata",
@@ -576,9 +464,9 @@
       "fr": "Sélectionnée",
       "es": "Seleccionada",
       "pt": "Selecionada",
-      "hr": "Odabrano",
-      "sl": "Izbrano",
-      "el": "Επιλεγμένο"
+      "hr": "Selected",
+      "sl": "Selected",
+      "el": "Selected"
     },
     "not_available": {
       "it": "Combinazione non disponibile",
@@ -587,9 +475,9 @@
       "fr": "Combinaison non disponible",
       "es": "Combinación no disponible",
       "pt": "Combinação não disponível",
-      "hr": "Kombinacija nije dostupna",
-      "sl": "Kombinacija ni na voljo",
-      "el": "Ο συνδυασμός δεν είναι διαθέσιμος"
+      "hr": "Combination not available",
+      "sl": "Combination not available",
+      "el": "Combination not available"
     }
   },
   "gallery": {
@@ -600,9 +488,9 @@
       "fr": "Image",
       "es": "Imagen",
       "pt": "Imagem",
-      "hr": "Slika",
-      "sl": "Slika",
-      "el": "Εικόνα"
+      "hr": "Image",
+      "sl": "Image",
+      "el": "Image"
     },
     "thumbnail": {
       "it": "Miniatura",
@@ -611,9 +499,9 @@
       "fr": "Miniature",
       "es": "Miniatura",
       "pt": "Miniatura",
-      "hr": "Sličica",
-      "sl": "Sličica",
-      "el": "Μικρογραφία"
+      "hr": "Thumbnail",
+      "sl": "Thumbnail",
+      "el": "Thumbnail"
     }
   },
   "home": {
@@ -635,9 +523,9 @@
       "fr": "Catalogue de produits - {count} articles disponibles",
       "es": "Catálogo de productos - {count} artículos disponibles",
       "pt": "Catálogo de produtos - {count} itens disponíveis",
-      "hr": "Katalog proizvoda - {count} dostupnih artikala",
-      "sl": "Katalog izdelkov - {count} razpoložljivih artiklov",
-      "el": "Κατάλογος προϊόντων - {count} διαθέσιμα στοιχεία"
+      "hr": "Product catalog - {count} items available",
+      "sl": "Product catalog - {count} items available",
+      "el": "Product catalog - {count} items available"
     },
     "product": {
       "it": "prodotto",
@@ -690,9 +578,9 @@
       "fr": "Aucun produit trouvé",
       "es": "No se encontraron productos",
       "pt": "Nenhum produto encontrado",
-      "hr": "Nijedan proizvod nije pronađen",
-      "sl": "Ni najdenih izdelkov",
-      "el": "Δεν βρέθηκαν προϊόντα"
+      "hr": "No products found",
+      "sl": "No products found",
+      "el": "No products found"
     },
     "no_products_message": {
       "it": "Prova a modificare i filtri o la ricerca per trovare quello che cerchi",
@@ -701,9 +589,9 @@
       "fr": "Essayez d'ajuster les filtres ou la recherche pour trouver ce que vous cherchez",
       "es": "Intenta ajustar los filtros o la búsqueda para encontrar lo que buscas",
       "pt": "Tente ajustar os filtros ou a pesquisa para encontrar o que procura",
-      "hr": "Pokušajte prilagoditi filtere ili pretragu za pronalaženje onoga što tražite",
-      "sl": "Poskusite prilagoditi filtre ali iskanje za iskanje tega, kar iščete",
-      "el": "Δοκιμάστε να προσαρμόσετε τα φίλτρα ή την αναζήτηση για να βρείτε αυτό που ψάχνετε"
+      "hr": "Try adjusting filters or search to find what you're looking for",
+      "sl": "Try adjusting filters or search to find what you're looking for",
+      "el": "Try adjusting filters or search to find what you're looking for"
     },
     "no_exact_results": {
       "it": "Nessun risultato esatto trovato",
@@ -712,9 +600,9 @@
       "fr": "Aucun résultat exact trouvé",
       "es": "No se encontraron resultados exactos",
       "pt": "Nenhum resultado exato encontrado",
-      "hr": "Nema točnih rezultata",
-      "sl": "Ni natančnih rezultatov",
-      "el": "Δεν υπάρχουν ακριβή αποτελέσματα"
+      "hr": "No exact results found",
+      "sl": "No exact results found",
+      "el": "No exact results found"
     },
     "check_suggestions": {
       "it": "Ma guarda i suggerimenti qui sotto",
@@ -723,9 +611,9 @@
       "fr": "Mais consultez les suggestions ci-dessous",
       "es": "Pero mira las sugerencias a continuación",
       "pt": "Mas confira as sugestões abaixo",
-      "hr": "Ali pogledajte prijedloge u nastavku",
-      "sl": "A poglejte predloge spodaj",
-      "el": "Αλλά ελέγξτε τις προτάσεις παρακάτω"
+      "hr": "But check the suggestions below",
+      "sl": "But check the suggestions below",
+      "el": "But check the suggestions below"
     },
     "suggested_products": {
       "it": "Potrebbero interessarti",
@@ -734,9 +622,9 @@
       "fr": "Cela pourrait vous intéresser",
       "es": "Te podría interesar",
       "pt": "Pode interessar você",
-      "hr": "Možda vas zanima",
-      "sl": "Morda vas zanima",
-      "el": "Μπορεί να σας ενδιαφέρουν"
+      "hr": "You might be interested in",
+      "sl": "You might be interested in",
+      "el": "You might be interested in"
     },
     "footer": {
       "it": "© 2025 Didieffeb2b - E-Commerce AI Powered",
@@ -745,9 +633,9 @@
       "fr": "© 2025 Didieffeb2b - E-Commerce alimenté par IA",
       "es": "© 2025 Didieffeb2b - Comercio electrónico con IA",
       "pt": "© 2025 Didieffeb2b - E-Commerce com IA",
-      "hr": "© 2025 Didieffeb2b - E-Commerce pokrenuto AI-jem",
-      "sl": "© 2025 Didieffeb2b - E-trgovina, ki jo poganja AI",
-      "el": "© 2025 Didieffeb2b - Ηλεκτρονικό εμπόριο με τεχνητή νοημοσύνη"
+      "hr": "© 2025 Didieffeb2b - AI Powered E-Commerce",
+      "sl": "© 2025 Didieffeb2b - AI Powered E-Commerce",
+      "el": "© 2025 Didieffeb2b - AI Powered E-Commerce"
     },
     "show": {
       "it": "Mostra",
@@ -767,9 +655,9 @@
       "fr": "Filtres actifs:",
       "es": "Filtros activos:",
       "pt": "Filtros ativos:",
-      "hr": "Aktivni filteri:",
-      "sl": "Aktivni filtri:",
-      "el": "Ενεργά φίλτρα:"
+      "hr": "Active filters:",
+      "sl": "Active filters:",
+      "el": "Active filters:"
     },
     "previous": {
       "it": "Precedente",
@@ -800,9 +688,9 @@
       "fr": "Rechercher des produits...",
       "es": "Buscar productos...",
       "pt": "Pesquisar produtos...",
-      "hr": "Traži proizvode...",
-      "sl": "Iskanje izdelkov...",
-      "el": "Αναζήτηση προϊόντων..."
+      "hr": "Search products...",
+      "sl": "Search products...",
+      "el": "Search products..."
     },
     "sort_by": {
       "it": "Ordina per",
@@ -811,9 +699,9 @@
       "fr": "Trier par",
       "es": "Ordenar por",
       "pt": "Ordenar por",
-      "hr": "Sortiraj po",
-      "sl": "Razvrsti po",
-      "el": "Ταξινόμηση κατά"
+      "hr": "Sort by",
+      "sl": "Sort by",
+      "el": "Sort by"
     },
     "sort_button": {
       "it": "Ordina",
@@ -833,9 +721,9 @@
       "fr": "Afficher {count} produits",
       "es": "Mostrar {count} productos",
       "pt": "Mostrar {count} produtos",
-      "hr": "Prikaži {count} proizvoda",
-      "sl": "Prikaži {count} izdelkov",
-      "el": "Εμφάνιση {count} προϊόντων"
+      "hr": "Show {count} products",
+      "sl": "Show {count} products",
+      "el": "Show {count} products"
     },
     "showing": {
       "it": "Mostrando",
@@ -844,9 +732,9 @@
       "fr": "Affichage",
       "es": "Mostrando",
       "pt": "Mostrando",
-      "hr": "Prikazivanje",
-      "sl": "Prikaz",
-      "el": "Εμφάνιση"
+      "hr": "Showing",
+      "sl": "Showing",
+      "el": "Showing"
     },
     "of": {
       "it": "di",
@@ -866,9 +754,9 @@
       "fr": "Charger plus de produits",
       "es": "Cargar más productos",
       "pt": "Carregar mais produtos",
-      "hr": "Učitaj više proizvoda",
-      "sl": "Naloži več izdelkov",
-      "el": "Φόρτωση περισσότερων προϊόντων"
+      "hr": "Load more products",
+      "sl": "Load more products",
+      "el": "Load more products"
     },
     "remaining": {
       "it": "prodotti rimanenti",
@@ -877,9 +765,9 @@
       "fr": "produits restants",
       "es": "productos restantes",
       "pt": "produtos restantes",
-      "hr": "preostali proizvodi",
-      "sl": "preostali izdelki",
-      "el": "υπόλοιπα προϊόντα"
+      "hr": "products remaining",
+      "sl": "products remaining",
+      "el": "products remaining"
     },
     "show_all": {
       "it": "Mostra tutti i prodotti",
@@ -888,9 +776,9 @@
       "fr": "Afficher tous les produits",
       "es": "Mostrar todos los productos",
       "pt": "Mostrar todos os produtos",
-      "hr": "Prikaži sve proizvode",
-      "sl": "Prikaži vse izdelke",
-      "el": "Εμφάνιση όλων των προϊόντων"
+      "hr": "Show all products",
+      "sl": "Show all products",
+      "el": "Show all products"
     },
     "sort": {
       "price_asc": {
@@ -900,9 +788,9 @@
         "fr": "Prix: bas → élevé",
         "es": "Precio: bajo → alto",
         "pt": "Preço: baixo → alto",
-        "hr": "Cijena: niska → visoka",
-        "sl": "Cena: nizka → visoka",
-        "el": "Τιμή: χαμηλή → υψηλή"
+        "hr": "Price: low → high",
+        "sl": "Price: low → high",
+        "el": "Price: low → high"
       },
       "price_desc": {
         "it": "Prezzo: alto → basso",
@@ -911,9 +799,9 @@
         "fr": "Prix: élevé → bas",
         "es": "Precio: alto → bajo",
         "pt": "Preço: alto → baixo",
-        "hr": "Cijena: visoka → niska",
-        "sl": "Cena: visoka → nizka",
-        "el": "Τιμή: υψηλή → χαμηλή"
+        "hr": "Price: high → low",
+        "sl": "Price: high → low",
+        "el": "Price: high → low"
       },
       "name_asc": {
         "it": "Nome: A → Z",
@@ -969,9 +857,9 @@
       "fr": "Trouvez le bon produit",
       "es": "Encuentra el producto correcto",
       "pt": "Encontre o produto certo",
-      "hr": "Pronađi pravi proizvod",
-      "sl": "Poiščite pravi izdelek",
-      "el": "Βρείτε το σωστό προϊόν"
+      "hr": "Find the right product",
+      "sl": "Find the right product",
+      "el": "Find the right product"
     },
     "button": {
       "it": "Aiutami a scegliere",
@@ -980,9 +868,9 @@
       "fr": "Aide-moi à choisir",
       "es": "Ayúdame a elegir",
       "pt": "Ajuda-me a escolher",
-      "hr": "Pomozite mi da odaberem",
-      "sl": "Pomagajte mi izbrati",
-      "el": "Βοηθήστε με να επιλέξω"
+      "hr": "Help me choose",
+      "sl": "Help me choose",
+      "el": "Help me choose"
     },
     "button_short": {
       "it": "Guida",
@@ -991,9 +879,9 @@
       "fr": "Guide",
       "es": "Guía",
       "pt": "Guia",
-      "hr": "Vodič",
-      "sl": "Vodnik",
-      "el": "Οδηγός"
+      "hr": "Guide",
+      "sl": "Guide",
+      "el": "Guide"
     },
     "welcome": {
       "greeting": {
@@ -1003,9 +891,9 @@
         "fr": "Bonjour! 👋",
         "es": "¡Hola! 👋",
         "pt": "Olá! 👋",
-        "hr": "Pozdrav! 👋",
-        "sl": "Pozdravljeni! 👋",
-        "el": "Γεια σας! 👋"
+        "hr": "Hello! 👋",
+        "sl": "Hello! 👋",
+        "el": "Hello! 👋"
       },
       "message": {
         "it": "Ti aiuto a trovare il prodotto perfetto per le tue esigenze. Rispondi ad alcune semplici domande e troveremo insieme la soluzione ideale.",
@@ -1014,9 +902,9 @@
         "fr": "Je vais vous aider à trouver le produit parfait pour vos besoins. Répondez à quelques questions simples et nous trouverons ensemble la solution idéale.",
         "es": "Te ayudaré a encontrar el producto perfecto para tus necesidades. Responde algunas preguntas simples y encontraremos juntos la solución ideal.",
         "pt": "Vou ajudá-lo a encontrar o produto perfeito para suas necessidades. Responda algumas perguntas simples e encontraremos juntos a solução ideal.",
-        "hr": "Pomoći ću vam pronaći savršen proizvod za vaše potrebe. Odgovorite na nekoliko jednostavnih pitanja i zajedno ćemo pronaći idealno rješenje.",
-        "sl": "Pomagal vam bom najti popoln izdelek za vaše potrebe. Odgovorite na nekaj preprostih vprašanj in skupaj bomo našli idealno rešitev.",
-        "el": "Θα σας βοηθήσω να βρείτε το τέλειο προϊόν για τις ανάγκες σας. Απαντήστε σε μερικές απλές ερωτήσεις και θα βρούμε μαζί την ιδανική λύση."
+        "hr": "I'll help you find the perfect product for your needs. Answer a few simple questions and we'll find the ideal solution together.",
+        "sl": "I'll help you find the perfect product for your needs. Answer a few simple questions and we'll find the ideal solution together.",
+        "el": "I'll help you find the perfect product for your needs. Answer a few simple questions and we'll find the ideal solution together."
       },
       "start": {
         "it": "Inizia",
@@ -1038,9 +926,9 @@
         "fr": "Bienvenue",
         "es": "Bienvenido",
         "pt": "Bem-vindo",
-        "hr": "Dobrodošli",
-        "sl": "Dobrodošli",
-        "el": "Καλώς ήρθατε"
+        "hr": "Welcome",
+        "sl": "Welcome",
+        "el": "Welcome"
       },
       "category": {
         "it": "Step 1: Tipologia",
@@ -1049,9 +937,9 @@
         "fr": "Étape 1: Catégorie",
         "es": "Paso 1: Categoría",
         "pt": "Passo 1: Categoria",
-        "hr": "Korak 1: Tipologija",
-        "sl": "Korak 1: Tipologija",
-        "el": "Βήμα 1: Κατηγορία"
+        "hr": "Step 1: Category",
+        "sl": "Step 1: Category",
+        "el": "Step 1: Category"
       },
       "application": {
         "it": "Step 2: Applicazione",
@@ -1060,9 +948,9 @@
         "fr": "Étape 2: Application",
         "es": "Paso 2: Aplicación",
         "pt": "Passo 2: Aplicação",
-        "hr": "Korak 2: Primjena",
-        "sl": "Korak 2: Aplikacija",
-        "el": "Βήμα 2: Εφαρμογή"
+        "hr": "Step 2: Application",
+        "sl": "Step 2: Application",
+        "el": "Step 2: Application"
       },
       "characteristics": {
         "it": "Step 3: Caratteristiche",
@@ -1071,9 +959,9 @@
         "fr": "Étape 3: Caractéristiques",
         "es": "Paso 3: Características",
         "pt": "Passo 3: Características",
-        "hr": "Korak 3: Karakteristike",
-        "sl": "Korak 3: Lastnosti",
-        "el": "Βήμα 3: Χαρακτηριστικά"
+        "hr": "Step 3: Characteristics",
+        "sl": "Step 3: Characteristics",
+        "el": "Step 3: Characteristics"
       },
       "results": {
         "it": "Risultati",
@@ -1082,9 +970,9 @@
         "fr": "Résultats",
         "es": "Resultados",
         "pt": "Resultados",
-        "hr": "Rezultati",
-        "sl": "Rezultati",
-        "el": "Αποτελέσματα"
+        "hr": "Results",
+        "sl": "Results",
+        "el": "Results"
       }
     },
     "category_question": {
@@ -1094,9 +982,9 @@
       "fr": "Que cherchez-vous?",
       "es": "¿Qué estás buscando?",
       "pt": "O que você está procurando?",
-      "hr": "Što tražite?",
-      "sl": "Kaj iščete?",
-      "el": "Τι ψάχνετε;"
+      "hr": "What are you looking for?",
+      "sl": "What are you looking for?",
+      "el": "What are you looking for?"
     },
     "category_subtitle": {
       "it": "Seleziona la tipologia di prodotto",
@@ -1105,9 +993,9 @@
       "fr": "Sélectionnez le type de produit",
       "es": "Selecciona el tipo de producto",
       "pt": "Selecione o tipo de produto",
-      "hr": "Odaberite tip proizvoda",
-      "sl": "Izberite vrsto izdelka",
-      "el": "Επιλέξτε τον τύπο προϊόντος"
+      "hr": "Select the product type",
+      "sl": "Select the product type",
+      "el": "Select the product type"
     },
     "application_question": {
       "it": "Dove lo userai?",
@@ -1116,9 +1004,9 @@
       "fr": "Où allez-vous l'utiliser?",
       "es": "¿Dónde lo usarás?",
       "pt": "Onde você vai usá-lo?",
-      "hr": "Gdje ćete ga koristiti?",
-      "sl": "Kje ga boste uporabili?",
-      "el": "Πού θα το χρησιμοποιήσετε;"
+      "hr": "Where will you use it?",
+      "sl": "Where will you use it?",
+      "el": "Where will you use it?"
     },
     "application_subtitle": {
       "it": "Puoi selezionare più opzioni",
@@ -1127,9 +1015,9 @@
       "fr": "Vous pouvez sélectionner plusieurs options",
       "es": "Puedes seleccionar múltiples opciones",
       "pt": "Você pode selecionar várias opções",
-      "hr": "Možete odabrati više opcija",
-      "sl": "Lahko izberete več možnosti",
-      "el": "Μπορείτε να επιλέξετε πολλαπλές επιλογές"
+      "hr": "You can select multiple options",
+      "sl": "You can select multiple options",
+      "el": "You can select multiple options"
     },
     "characteristics_question": {
       "it": "Personalizza la ricerca",
@@ -1138,9 +1026,9 @@
       "fr": "Personnalisez votre recherche",
       "es": "Personaliza tu búsqueda",
       "pt": "Personalize sua pesquisa",
-      "hr": "Prilagodite pretragu",
-      "sl": "Prilagodite iskanje",
-      "el": "Προσαρμόστε την αναζήτησή σας"
+      "hr": "Customize your search",
+      "sl": "Customize your search",
+      "el": "Customize your search"
     },
     "characteristics_subtitle": {
       "it": "Seleziona le caratteristiche desiderate (opzionale)",
@@ -1149,9 +1037,9 @@
       "fr": "Sélectionnez les caractéristiques souhaitées (optionnel)",
       "es": "Selecciona las características deseadas (opcional)",
       "pt": "Selecione as características desejadas (opcional)",
-      "hr": "Odaberite željene karakteristike (neobavezno)",
-      "sl": "Izberite želene lastnosti (neobvezno)",
-      "el": "Επιλέξτε τα επιθυμητά χαρακτηριστικά (προαιρετικό)"
+      "hr": "Select desired characteristics (optional)",
+      "sl": "Select desired characteristics (optional)",
+      "el": "Select desired characteristics (optional)"
     },
     "results_message": {
       "it": "Perfetto! Ecco cosa abbiamo trovato per te",
@@ -1160,9 +1048,9 @@
       "fr": "Parfait! Voici ce que nous avons trouvé pour vous",
       "es": "¡Perfecto! Esto es lo que encontramos para ti",
       "pt": "Perfeito! Aqui está o que encontramos para você",
-      "hr": "Savršeno! Evo što smo pronašli za vas",
-      "sl": "Popolno! Tu je, kar smo našli za vas",
-      "el": "Τέλειο! Να τι βρήκαμε για εσάς"
+      "hr": "Perfect! Here's what we found for you",
+      "sl": "Perfect! Here's what we found for you",
+      "el": "Perfect! Here's what we found for you"
     },
     "products_found": {
       "it": "{count} prodotti trovati!",
@@ -1171,9 +1059,9 @@
       "fr": "{count} produits trouvés!",
       "es": "¡{count} productos encontrados!",
       "pt": "{count} produtos encontrados!",
-      "hr": "{count} pronađenih proizvoda!",
-      "sl": "{count} najdenih izdelkov!",
-      "el": "{count} προϊόντα βρέθηκαν!"
+      "hr": "{count} products found!",
+      "sl": "{count} products found!",
+      "el": "{count} products found!"
     },
     "products_count": {
       "it": "{count} prodotti",
@@ -1182,9 +1070,9 @@
       "fr": "{count} produits",
       "es": "{count} productos",
       "pt": "{count} produtos",
-      "hr": "{count} proizvoda",
-      "sl": "{count} izdelkov",
-      "el": "{count} προϊόντα"
+      "hr": "{count} products",
+      "sl": "{count} products",
+      "el": "{count} products"
     },
     "back": {
       "it": "Indietro",
@@ -1215,9 +1103,9 @@
       "fr": "Recommencer",
       "es": "Empezar de nuevo",
       "pt": "Recomeçar",
-      "hr": "Počni iznova",
-      "sl": "Začni znova",
-      "el": "Ξεκινήστε από την αρχή"
+      "hr": "Start over",
+      "sl": "Start over",
+      "el": "Start over"
     },
     "view_all": {
       "it": "Vedi tutti i prodotti",
@@ -1226,9 +1114,9 @@
       "fr": "Voir tous les produits",
       "es": "Ver todos los productos",
       "pt": "Ver todos os produtos",
-      "hr": "Pogledaj sve proizvode",
-      "sl": "Prikaži vse izdelke",
-      "el": "Προβολή όλων των προϊόντων"
+      "hr": "View all products",
+      "sl": "View all products",
+      "el": "View all products"
     }
   },
   "search": {
@@ -1239,9 +1127,9 @@
       "fr": "suggestions",
       "es": "sugerencias",
       "pt": "sugestões",
-      "hr": "prijedlozi",
-      "sl": "predlogi",
-      "el": "προτάσεις"
+      "hr": "suggestions",
+      "sl": "suggestions",
+      "el": "suggestions"
     },
     "keyboard_hint": {
       "it": "Usa ↑↓ per navigare, Invio per selezionare, Esc per chiudere",
@@ -1250,9 +1138,9 @@
       "fr": "Utilisez ↑↓ pour naviguer, Entrée pour sélectionner, Échap pour fermer",
       "es": "Usa ↑↓ para navegar, Enter para seleccionar, Esc para cerrar",
       "pt": "Use ↑↓ para navegar, Enter para selecionar, Esc para fechar",
-      "hr": "Koristite ↑↓ za navigaciju, Enter za odabir, Esc za zatvaranje",
-      "sl": "Uporabite ↑↓ za krmarjenje, Enter za izbiro, Esc za zapiranje",
-      "el": "Χρησιμοποιήστε ↑↓ για πλοήγηση, Enter για επιλογή, Esc για κλείσιμο"
+      "hr": "Use ↑↓ to navigate, Enter to select, Esc to close",
+      "sl": "Use ↑↓ to navigate, Enter to select, Esc to close",
+      "el": "Use ↑↓ to navigate, Enter to select, Esc to close"
     },
     "recent_searches": {
       "it": "Ricerche recenti",
@@ -1261,9 +1149,9 @@
       "fr": "Recherches récentes",
       "es": "Búsquedas recientes",
       "pt": "Pesquisas recentes",
-      "hr": "Nedavne pretrage",
-      "sl": "Nedavna iskanja",
-      "el": "Πρόσφατες αναζητήσεις"
+      "hr": "Recent searches",
+      "sl": "Recent searches",
+      "el": "Recent searches"
     },
     "clear_all": {
       "it": "Cancella tutto",
@@ -1272,9 +1160,9 @@
       "fr": "Tout effacer",
       "es": "Borrar todo",
       "pt": "Limpar tudo",
-      "hr": "Obriši sve",
-      "sl": "Počisti vse",
-      "el": "Διαγραφή όλων"
+      "hr": "Clear all",
+      "sl": "Clear all",
+      "el": "Clear all"
     },
     "categories": {
       "it": "Categorie",
@@ -1305,9 +1193,9 @@
       "fr": "Aucun résultat trouvé",
       "es": "No se encontraron resultados",
       "pt": "Nenhum resultado encontrado",
-      "hr": "Nema rezultata",
-      "sl": "Ni rezultatov",
-      "el": "Δεν βρέθηκαν αποτελέσματα"
+      "hr": "No results found",
+      "sl": "No results found",
+      "el": "No results found"
     },
     "try_different": {
       "it": "Prova con termini di ricerca diversi",
@@ -1316,9 +1204,9 @@
       "fr": "Essayez d'autres termes de recherche",
       "es": "Prueba con otros términos de búsqueda",
       "pt": "Tente termos de pesquisa diferentes",
-      "hr": "Pokušajte s različitim pojmovima pretrage",
-      "sl": "Poskusite z drugimi iskalnimi izrazi",
-      "el": "Δοκιμάστε διαφορετικούς όρους αναζήτησης"
+      "hr": "Try different search terms",
+      "sl": "Try different search terms",
+      "el": "Try different search terms"
     }
   },
   "breadcrumb": {
@@ -1353,9 +1241,9 @@
       "fr": "Produit non trouvé",
       "es": "Producto no encontrado",
       "pt": "Produto não encontrado",
-      "hr": "Proizvod nije pronađen",
-      "sl": "Izdelek ni najden",
-      "el": "Το προϊόν δεν βρέθηκε"
+      "hr": "Product not found",
+      "sl": "Product not found",
+      "el": "Product not found"
     },
     "message": {
       "it": "Il prodotto che stai cercando non esiste o non è disponibile.",
@@ -1364,9 +1252,9 @@
       "fr": "Le produit que vous recherchez n'existe pas ou n'est pas disponible.",
       "es": "El producto que buscas no existe o no está disponible.",
       "pt": "O produto que você está procurando não existe ou não está disponível.",
-      "hr": "Proizvod koji tražite ne postoji ili nije dostupan.",
-      "sl": "Izdelek, ki ga iščete, ne obstaja ali ni na voljo.",
-      "el": "Το προϊόν που ψάχνετε δεν υπάρχει ή δεν είναι διαθέσιμο."
+      "hr": "The product you are looking for does not exist or is not available.",
+      "sl": "The product you are looking for does not exist or is not available.",
+      "el": "The product you are looking for does not exist or is not available."
     }
   },
   "categories": {
@@ -1390,9 +1278,9 @@
       "fr": "Vus récemment",
       "es": "Vistos recientemente",
       "pt": "Vistos recentemente",
-      "hr": "Nedavno pogledano",
-      "sl": "Nedavno ogledano",
-      "el": "Πρόσφατα προβολή"
+      "hr": "Recently viewed",
+      "sl": "Recently viewed",
+      "el": "Recently viewed"
     },
     "subtitle": {
       "it": "Continua da dove hai lasciato",
@@ -1401,9 +1289,9 @@
       "fr": "Continuez là où vous vous êtes arrêté",
       "es": "Continúa donde lo dejaste",
       "pt": "Continue de onde parou",
-      "hr": "Nastavite tamo gdje ste stali",
-      "sl": "Nadaljujte, kjer ste končali",
-      "el": "Συνεχίστε από εκεί που σταματήσατε"
+      "hr": "Continue where you left off",
+      "sl": "Continue where you left off",
+      "el": "Continue where you left off"
     }
   },
   "cart": {
@@ -1414,9 +1302,9 @@
       "fr": "Votre panier",
       "es": "Tu carrito",
       "pt": "Seu carrinho",
-      "hr": "Vaša košarica",
-      "sl": "Vaša košarica",
-      "el": "Το καλάθι σας"
+      "hr": "Your cart",
+      "sl": "Your cart",
+      "el": "Your cart"
     },
     "item": {
       "it": "prodotto",
@@ -1425,9 +1313,9 @@
       "fr": "article",
       "es": "producto",
       "pt": "produto",
-      "hr": "proizvod",
-      "sl": "izdelek",
-      "el": "προϊόν"
+      "hr": "item",
+      "sl": "item",
+      "el": "item"
     },
     "items": {
       "it": "prodotti",
@@ -1447,9 +1335,9 @@
       "fr": "Votre panier est vide",
       "es": "Tu carrito está vacío",
       "pt": "Seu carrinho está vazio",
-      "hr": "Košarica je prazna",
-      "sl": "Košarica je prazna",
-      "el": "Το καλάθι είναι άδειο"
+      "hr": "Your cart is empty",
+      "sl": "Your cart is empty",
+      "el": "Your cart is empty"
     },
     "empty_message": {
       "it": "Aggiungi alcuni prodotti per iniziare",
@@ -1458,9 +1346,9 @@
       "fr": "Ajoutez des produits pour commencer",
       "es": "Añade algunos productos para empezar",
       "pt": "Adicione alguns produtos para começar",
-      "hr": "Dodajte neke proizvode za početak",
-      "sl": "Dodajte nekaj izdelkov za začetek",
-      "el": "Προσθέστε μερικά προϊόντα για να ξεκινήσετε"
+      "hr": "Add some products to get started",
+      "sl": "Add some products to get started",
+      "el": "Add some products to get started"
     },
     "continue_shopping": {
       "it": "Continua ad acquistare",
@@ -1469,9 +1357,9 @@
       "fr": "Continuer vos achats",
       "es": "Seguir comprando",
       "pt": "Continuar comprando",
-      "hr": "Nastavi kupnju",
-      "sl": "Nadaljuj z nakupovanjem",
-      "el": "Συνεχίστε τα ψώνια"
+      "hr": "Continue shopping",
+      "sl": "Continue shopping",
+      "el": "Continue shopping"
     },
     "total": {
       "it": "Totale",
@@ -1491,9 +1379,9 @@
       "fr": "Passer à la caisse",
       "es": "Proceder al pago",
       "pt": "Finalizar compra",
-      "hr": "Nastavite s narudžbom",
-      "sl": "Nadaljujte s naročilom",
-      "el": "Προχωρήστε στο ταμείο"
+      "hr": "Proceed to checkout",
+      "sl": "Proceed to checkout",
+      "el": "Proceed to checkout"
     },
     "added_to_cart": {
       "it": "Aggiunto al carrello!",
@@ -1502,9 +1390,9 @@
       "fr": "Ajouté au panier!",
       "es": "¡Añadido al carrito!",
       "pt": "Adicionado ao carrinho!",
-      "hr": "Dodano u košaricu!",
-      "sl": "Dodano v košarico!",
-      "el": "Προστέθηκε στο καλάθι!"
+      "hr": "Added to cart!",
+      "sl": "Added to cart!",
+      "el": "Added to cart!"
     },
     "view_cart": {
       "it": "Vedi carrello",
@@ -1513,9 +1401,9 @@
       "fr": "Voir le panier",
       "es": "Ver carrito",
       "pt": "Ver carrinho",
-      "hr": "Pogledaj košaricu",
-      "sl": "Prikaži košarico",
-      "el": "Προβολή καλαθιού"
+      "hr": "View cart",
+      "sl": "View cart",
+      "el": "View cart"
     },
     "removed_from_cart": {
       "it": "Rimosso dal carrello",
@@ -1524,9 +1412,9 @@
       "fr": "Retiré du panier",
       "es": "Eliminado del carrito",
       "pt": "Removido do carrinho",
-      "hr": "Uklonjeno iz košarice",
-      "sl": "Odstranjeno iz košarice",
-      "el": "Αφαιρέθηκε από το καλάθι"
+      "hr": "Removed from cart",
+      "sl": "Removed from cart",
+      "el": "Removed from cart"
     },
     "save_for_later": {
       "it": "Salva per dopo",
@@ -1535,9 +1423,9 @@
       "fr": "Enregistrer pour plus tard",
       "es": "Guardar para después",
       "pt": "Salvar para depois",
-      "hr": "Spremi za kasnije",
-      "sl": "Shrani za kasneje",
-      "el": "Αποθήκευση για αργότερα"
+      "hr": "Save for later",
+      "sl": "Save for later",
+      "el": "Save for later"
     },
     "saved_for_later": {
       "it": "Salvato per dopo",
@@ -1546,9 +1434,9 @@
       "fr": "Enregistré pour plus tard",
       "es": "Guardado para después",
       "pt": "Salvo para depois",
-      "hr": "Spremljeno za kasnije",
-      "sl": "Shranjeno za kasneje",
-      "el": "Αποθηκεύτηκε για αργότερα"
+      "hr": "Saved for later",
+      "sl": "Saved for later",
+      "el": "Saved for later"
     },
     "in_cart": {
       "it": "In carrello",
@@ -1557,9 +1445,9 @@
       "fr": "Dans le panier",
       "es": "En el carrito",
       "pt": "No carrinho",
-      "hr": "U košarici",
-      "sl": "V košarici",
-      "el": "Στο καλάθι"
+      "hr": "In cart",
+      "sl": "In cart",
+      "el": "In cart"
     }
   },
   "wishlist": {
@@ -1570,9 +1458,9 @@
       "fr": "Mes favoris",
       "es": "Mis favoritos",
       "pt": "Meus favoritos",
-      "hr": "Moja lista želja",
-      "sl": "Moj seznam želja",
-      "el": "Η λίστα επιθυμιών μου"
+      "hr": "My wishlist",
+      "sl": "My wishlist",
+      "el": "My wishlist"
     },
     "empty_title": {
       "it": "La tua lista desideri è vuota",
@@ -1581,9 +1469,9 @@
       "fr": "Votre liste de souhaits est vide",
       "es": "Tu lista de deseos está vacía",
       "pt": "Sua lista de desejos está vazia",
-      "hr": "Vaša lista želja je prazna",
-      "sl": "Vaš seznam želja je prazen",
-      "el": "Η λίστα επιθυμιών σας είναι άδεια"
+      "hr": "Your wishlist is empty",
+      "sl": "Your wishlist is empty",
+      "el": "Your wishlist is empty"
     },
     "empty_message": {
       "it": "Aggiungi prodotti cliccando sul cuore",
@@ -1592,9 +1480,9 @@
       "fr": "Ajoutez des produits en cliquant sur le cœur",
       "es": "Añade productos haciendo clic en el corazón",
       "pt": "Adicione produtos clicando no coração",
-      "hr": "Dodajte proizvode klikom na srce",
-      "sl": "Dodajte izdelke s klikom na srce",
-      "el": "Προσθέστε προϊόντα κάνοντας κλικ στην καρδιά"
+      "hr": "Add products by clicking the heart",
+      "sl": "Add products by clicking the heart",
+      "el": "Add products by clicking the heart"
     },
     "items_count": {
       "it": "{{count}} prodotti",
@@ -1603,9 +1491,9 @@
       "fr": "{{count}} produits",
       "es": "{{count}} productos",
       "pt": "{{count}} produtos",
-      "hr": "{{count}} proizvoda",
-      "sl": "{{count}} izdelkov",
-      "el": "{{count}} προϊόντα"
+      "hr": "{{count}} products",
+      "sl": "{{count}} products",
+      "el": "{{count}} products"
     },
     "clear_all": {
       "it": "Svuota lista",
@@ -1614,9 +1502,9 @@
       "fr": "Tout effacer",
       "es": "Borrar todo",
       "pt": "Limpar tudo",
-      "hr": "Isprazni listu",
-      "sl": "Počisti seznam",
-      "el": "Καθαρισμός λίστας"
+      "hr": "Clear all",
+      "sl": "Clear all",
+      "el": "Clear all"
     },
     "cleared": {
       "it": "Lista svuotata",
@@ -1625,9 +1513,9 @@
       "fr": "Liste vidée",
       "es": "Lista vaciada",
       "pt": "Lista esvaziada",
-      "hr": "Lista ispražnjena",
-      "sl": "Seznam počiščen",
-      "el": "Η λίστα καθαρίστηκε"
+      "hr": "List cleared",
+      "sl": "List cleared",
+      "el": "List cleared"
     }
   },
   "filters": {
@@ -1649,9 +1537,9 @@
       "fr": "Effacer les filtres",
       "es": "Borrar filtros",
       "pt": "Limpar filtros",
-      "hr": "Obriši filtere",
-      "sl": "Počisti filtre",
-      "el": "Καθαρισμός φίλτρων"
+      "hr": "Clear filters",
+      "sl": "Clear filters",
+      "el": "Clear filters"
     },
     "apply": {
       "it": "Applica",
@@ -1695,9 +1583,9 @@
       "fr": "{count} produits trouvés",
       "es": "{count} productos encontrados",
       "pt": "{count} produtos encontrados",
-      "hr": "{count} pronađenih proizvoda",
-      "sl": "{count} najdenih izdelkov",
-      "el": "{count} προϊόντα βρέθηκαν"
+      "hr": "{count} products found",
+      "sl": "{count} products found",
+      "el": "{count} products found"
     },
     "features": {
       "it": "Caratteristiche",
@@ -1706,9 +1594,9 @@
       "fr": "Caractéristiques",
       "es": "Características",
       "pt": "Características",
-      "hr": "Karakteristike",
-      "sl": "Lastnosti",
-      "el": "Χαρακτηριστικά"
+      "hr": "Features",
+      "sl": "Features",
+      "el": "Features"
     },
     "show_more": {
       "it": "Mostra altri {count}",
@@ -1717,9 +1605,9 @@
       "fr": "Afficher {count} de plus",
       "es": "Mostrar {count} más",
       "pt": "Mostrar mais {count}",
-      "hr": "Prikaži još {count}",
-      "sl": "Prikaži še {count}",
-      "el": "Εμφάνιση {count} ακόμα"
+      "hr": "Show {count} more",
+      "sl": "Show {count} more",
+      "el": "Show {count} more"
     },
     "show_less": {
       "it": "Mostra meno",
@@ -1728,9 +1616,9 @@
       "fr": "Afficher moins",
       "es": "Mostrar menos",
       "pt": "Mostrar menos",
-      "hr": "Prikaži manje",
-      "sl": "Prikaži manj",
-      "el": "Εμφάνιση λιγότερων"
+      "hr": "Show less",
+      "sl": "Show less",
+      "el": "Show less"
     },
     "range": {
       "min": {
@@ -1762,9 +1650,9 @@
         "fr": "Prix minimum",
         "es": "Precio mínimo",
         "pt": "Preço mínimo",
-        "hr": "Minimalna cijena",
-        "sl": "Minimalna cena",
-        "el": "Ελάχιστη τιμή"
+        "hr": "Minimum price",
+        "sl": "Minimum price",
+        "el": "Minimum price"
       },
       "price_max": {
         "it": "Prezzo massimo",
@@ -1773,9 +1661,9 @@
         "fr": "Prix maximum",
         "es": "Precio máximo",
         "pt": "Preço máximo",
-        "hr": "Maksimalna cijena",
-        "sl": "Maksimalna cena",
-        "el": "Μέγιστη τιμή"
+        "hr": "Maximum price",
+        "sl": "Maximum price",
+        "el": "Maximum price"
       },
       "reset": {
         "it": "Reset",
@@ -1809,9 +1697,9 @@
       "fr": "Réduire la galerie",
       "es": "Reducir galería",
       "pt": "Reduzir galeria",
-      "hr": "Smanji galeriju",
-      "sl": "Skrči galerijo",
-      "el": "Σύμπτυξη γκαλερί"
+      "hr": "Collapse Gallery",
+      "sl": "Collapse Gallery",
+      "el": "Collapse Gallery"
     },
     "expand_gallery": {
       "it": "Mostra Galleria ({count} prodotti)",
@@ -1820,9 +1708,9 @@
       "fr": "Afficher la galerie ({count} produits)",
       "es": "Mostrar galería ({count} productos)",
       "pt": "Mostrar galeria ({count} produtos)",
-      "hr": "Prikaži galeriju ({count} proizvoda)",
-      "sl": "Prikaži galerijo ({count} izdelkov)",
-      "el": "Εμφάνιση γκαλερί ({count} προϊόντα)"
+      "hr": "Show Gallery ({count} products)",
+      "sl": "Show Gallery ({count} products)",
+      "el": "Show Gallery ({count} products)"
     },
     "previous": {
       "it": "Precedente",
@@ -1853,9 +1741,9 @@
       "fr": "Produit {current} de {total}",
       "es": "Producto {current} de {total}",
       "pt": "Produto {current} de {total}",
-      "hr": "Proizvod {current} od {total}",
-      "sl": "Izdelek {current} od {total}",
-      "el": "Προϊόν {current} από {total}"
+      "hr": "Product {current} of {total}",
+      "sl": "Product {current} of {total}",
+      "el": "Product {current} of {total}"
     }
   },
   "pagination": {
@@ -1901,9 +1789,9 @@
       "fr": "Ajouter à la comparaison",
       "es": "Agregar a comparar",
       "pt": "Adicionar à comparação",
-      "hr": "Dodaj u usporedbu",
-      "sl": "Dodaj v primerjavo",
-      "el": "Προσθήκη στη σύγκριση"
+      "hr": "Add to compare",
+      "sl": "Add to compare",
+      "el": "Add to compare"
     },
     "add_short": {
       "it": "Confronta",
@@ -1923,9 +1811,9 @@
       "fr": "Retirer de la comparaison",
       "es": "Quitar de comparar",
       "pt": "Remover da comparação",
-      "hr": "Ukloni iz usporedbe",
-      "sl": "Odstrani iz primerjave",
-      "el": "Αφαίρεση από τη σύγκριση"
+      "hr": "Remove from compare",
+      "sl": "Remove from compare",
+      "el": "Remove from compare"
     },
     "remove_short": {
       "it": "Rimuovi",
@@ -1945,9 +1833,9 @@
       "fr": "En comparaison",
       "es": "En comparación",
       "pt": "Em comparação",
-      "hr": "U usporedbi",
-      "sl": "V primerjavi",
-      "el": "Στη σύγκριση"
+      "hr": "In compare",
+      "sl": "In compare",
+      "el": "In compare"
     },
     "product": {
       "it": "prodotto",
@@ -1978,9 +1866,9 @@
       "fr": "sélectionnés pour la comparaison",
       "es": "seleccionados para comparar",
       "pt": "selecionados para comparação",
-      "hr": "odabrano za usporedbu",
-      "sl": "izbrano za primerjavo",
-      "el": "επιλεγμένα για σύγκριση"
+      "hr": "selected for comparison",
+      "sl": "selected for comparison",
+      "el": "selected for comparison"
     },
     "clear_all": {
       "it": "Svuota",
@@ -1989,9 +1877,9 @@
       "fr": "Tout effacer",
       "es": "Borrar todo",
       "pt": "Limpar tudo",
-      "hr": "Isprazni",
-      "sl": "Počisti",
-      "el": "Καθαρισμός"
+      "hr": "Clear all",
+      "sl": "Clear all",
+      "el": "Clear all"
     },
     "compare_now": {
       "it": "Confronta ora",
@@ -2000,9 +1888,9 @@
       "fr": "Comparer maintenant",
       "es": "Comparar ahora",
       "pt": "Comparar agora",
-      "hr": "Usporedi sada",
-      "sl": "Primerjaj zdaj",
-      "el": "Σύγκριση τώρα"
+      "hr": "Compare now",
+      "sl": "Compare now",
+      "el": "Compare now"
     },
     "add_more_products": {
       "it": "Aggiungi almeno 2 prodotti",
@@ -2011,9 +1899,9 @@
       "fr": "Ajouter au moins 2 produits",
       "es": "Agregar al menos 2 productos",
       "pt": "Adicione pelo menos 2 produtos",
-      "hr": "Dodajte najmanje 2 proizvoda",
-      "sl": "Dodajte vsaj 2 izdelka",
-      "el": "Προσθέστε τουλάχιστον 2 προϊόντα"
+      "hr": "Add at least 2 products",
+      "sl": "Add at least 2 products",
+      "el": "Add at least 2 products"
     },
     "title": {
       "it": "Confronto Prodotti",
@@ -2022,9 +1910,9 @@
       "fr": "Comparaison de produits",
       "es": "Comparación de productos",
       "pt": "Comparação de produtos",
-      "hr": "Usporedba proizvoda",
-      "sl": "Primerjava izdelkov",
-      "el": "Σύγκριση προϊόντων"
+      "hr": "Product Comparison",
+      "sl": "Product Comparison",
+      "el": "Product Comparison"
     },
     "differences_only": {
       "it": "Mostra solo differenze",
@@ -2033,9 +1921,9 @@
       "fr": "Afficher uniquement les différences",
       "es": "Mostrar solo diferencias",
       "pt": "Mostrar apenas diferenças",
-      "hr": "Prikaži samo razlike",
-      "sl": "Prikaži samo razlike",
-      "el": "Εμφάνιση μόνο διαφορών"
+      "hr": "Show differences only",
+      "sl": "Show differences only",
+      "el": "Show differences only"
     },
     "back_to_catalog": {
       "it": "Torna al catalogo",
@@ -2044,9 +1932,9 @@
       "fr": "Retour au catalogue",
       "es": "Volver al catálogo",
       "pt": "Voltar ao catálogo",
-      "hr": "Natrag na katalog",
-      "sl": "Nazaj na katalog",
-      "el": "Επιστροφή στον κατάλογο"
+      "hr": "Back to catalog",
+      "sl": "Back to catalog",
+      "el": "Back to catalog"
     },
     "max_products_alert": {
       "title": {
@@ -2056,9 +1944,9 @@
         "fr": "Limite atteinte",
         "es": "Límite alcanzado",
         "pt": "Limite atingido",
-        "hr": "Dosegnuto ograničenje",
-        "sl": "Dosežena omejitev",
-        "el": "Έφτασε το όριο"
+        "hr": "Limit reached",
+        "sl": "Limit reached",
+        "el": "Limit reached"
       },
       "message": {
         "it": "Puoi confrontare massimo {max} prodotti alla volta.",
@@ -2067,9 +1955,9 @@
         "fr": "Vous pouvez comparer jusqu'à {max} produits à la fois.",
         "es": "Puedes comparar hasta {max} productos a la vez.",
         "pt": "Você pode comparar até {max} produtos de cada vez.",
-        "hr": "Možete usporediti najviše {max} proizvoda odjednom.",
-        "sl": "Lahko primerjate največ {max} izdelkov naenkrat.",
-        "el": "Μπορείτε να συγκρίνετε έως {max} προϊόντα κάθε φορά."
+        "hr": "You can compare up to {max} products at a time.",
+        "sl": "You can compare up to {max} products at a time.",
+        "el": "You can compare up to {max} products at a time."
       },
       "ok": {
         "it": "Ok",
@@ -2090,9 +1978,9 @@
       "fr": "Afficher la barre de comparaison",
       "es": "Mostrar barra de comparación",
       "pt": "Mostrar barra de comparação",
-      "hr": "Prikaži traku usporedbe",
-      "sl": "Prikaži vrstico za primerjavo",
-      "el": "Εμφάνιση γραμμής σύγκρισης"
+      "hr": "Show compare bar",
+      "sl": "Show compare bar",
+      "el": "Show compare bar"
     },
     "hide_compare_bar": {
       "it": "Nascondi barra confronto",
@@ -2101,9 +1989,9 @@
       "fr": "Masquer la barre de comparaison",
       "es": "Ocultar barra de comparación",
       "pt": "Ocultar barra de comparação",
-      "hr": "Sakrij traku usporedbe",
-      "sl": "Skrij vrstico za primerjavo",
-      "el": "Απόκρυψη γραμμής σύγκρισης"
+      "hr": "Hide compare bar",
+      "sl": "Hide compare bar",
+      "el": "Hide compare bar"
     },
     "clear_all_short": {
       "it": "Svuota",
@@ -2112,9 +2000,9 @@
       "fr": "Effacer",
       "es": "Borrar",
       "pt": "Limpar",
-      "hr": "Isprazni",
-      "sl": "Počisti",
-      "el": "Καθαρισμός"
+      "hr": "Clear",
+      "sl": "Clear",
+      "el": "Clear"
     },
     "compare_now_short": {
       "it": "Confronta",
@@ -2134,9 +2022,9 @@
       "fr": "Min. 2 produits",
       "es": "Mín. 2 productos",
       "pt": "Mín. 2 produtos",
-      "hr": "Min. 2 proizvoda",
-      "sl": "Min. 2 izdelka",
-      "el": "Ελάχ. 2 προϊόντα"
+      "hr": "Min. 2 products",
+      "sl": "Min. 2 products",
+      "el": "Min. 2 products"
     },
     "differences_only_short": {
       "it": "Solo differenze",
@@ -2145,9 +2033,9 @@
       "fr": "Différences uniquement",
       "es": "Solo diferencias",
       "pt": "Apenas diferenças",
-      "hr": "Samo razlike",
-      "sl": "Samo razlike",
-      "el": "Μόνο διαφορές"
+      "hr": "Differences only",
+      "sl": "Differences only",
+      "el": "Differences only"
     },
     "back_to_catalog_short": {
       "it": "Catalogo",
@@ -2167,9 +2055,9 @@
       "fr": "Caractéristique",
       "es": "Característica",
       "pt": "Característica",
-      "hr": "Karakteristika",
-      "sl": "Lastnost",
-      "el": "Χαρακτηριστικό"
+      "hr": "Characteristic",
+      "sl": "Characteristic",
+      "el": "Characteristic"
     }
   },
   "auth": {
@@ -2213,9 +2101,9 @@
       "fr": "Se connecter",
       "es": "Iniciar sesión",
       "pt": "Entrar",
-      "hr": "Prijavite se",
-      "sl": "Prijavite se",
-      "el": "Συνδεθείτε"
+      "hr": "Log in",
+      "sl": "Log in",
+      "el": "Log in"
     },
     "logout": {
       "it": "Esci",
@@ -2224,9 +2112,9 @@
       "fr": "Se déconnecter",
       "es": "Cerrar sesión",
       "pt": "Sair",
-      "hr": "Odjavite se",
-      "sl": "Odjavite se",
-      "el": "Αποσυνδεθείτε"
+      "hr": "Log out",
+      "sl": "Log out",
+      "el": "Log out"
     },
     "register": {
       "it": "Registrati",
@@ -2246,9 +2134,9 @@
       "fr": "Mot de passe oublié?",
       "es": "¿Olvidaste tu contraseña?",
       "pt": "Esqueceu a senha?",
-      "hr": "Zaboravili ste lozinku?",
-      "sl": "Pozabili geslo?",
-      "el": "Ξεχάσατε τον κωδικό;"
+      "hr": "Forgot password?",
+      "sl": "Forgot password?",
+      "el": "Forgot password?"
     },
     "reset_password": {
       "it": "Reimposta password",
@@ -2257,9 +2145,9 @@
       "fr": "Réinitialiser le mot de passe",
       "es": "Restablecer contraseña",
       "pt": "Redefinir senha",
-      "hr": "Resetirajte lozinku",
-      "sl": "Ponastavite geslo",
-      "el": "Επαναφορά κωδικού"
+      "hr": "Reset password",
+      "sl": "Reset password",
+      "el": "Reset password"
     },
     "no_account": {
       "it": "Non hai un account?",
@@ -2268,9 +2156,9 @@
       "fr": "Vous n'avez pas de compte?",
       "es": "¿No tienes una cuenta?",
       "pt": "Não tem uma conta?",
-      "hr": "Nemate račun?",
-      "sl": "Nimate računa?",
-      "el": "Δεν έχετε λογαριασμό;"
+      "hr": "Don't have an account?",
+      "sl": "Don't have an account?",
+      "el": "Don't have an account?"
     },
     "have_account": {
       "it": "Hai già un account?",
@@ -2279,9 +2167,9 @@
       "fr": "Vous avez déjà un compte?",
       "es": "¿Ya tienes una cuenta?",
       "pt": "Já tem uma conta?",
-      "hr": "Već imate račun?",
-      "sl": "Že imate račun?",
-      "el": "Έχετε ήδη λογαριασμό;"
+      "hr": "Already have an account?",
+      "sl": "Already have an account?",
+      "el": "Already have an account?"
     },
     "admin_login": {
       "it": "Accesso amministratore",
@@ -2290,9 +2178,9 @@
       "fr": "Connexion administrateur",
       "es": "Acceso de administrador",
       "pt": "Login de administrador",
-      "hr": "Prijava administratora",
-      "sl": "Prijava skrbnika",
-      "el": "Σύνδεση διαχειριστή"
+      "hr": "Admin login",
+      "sl": "Admin login",
+      "el": "Admin login"
     },
     "customer_type": {
       "it": "Tipo di cliente",
@@ -2301,9 +2189,9 @@
       "fr": "Type de client",
       "es": "Tipo de cliente",
       "pt": "Tipo de cliente",
-      "hr": "Vrsta klijenta",
-      "sl": "Vrsta stranke",
-      "el": "Τύπος πελάτη"
+      "hr": "Customer type",
+      "sl": "Customer type",
+      "el": "Customer type"
     },
     "b2c_customer": {
       "it": "Cliente privato",
@@ -2312,9 +2200,9 @@
       "fr": "Client privé",
       "es": "Cliente privado",
       "pt": "Cliente privado",
-      "hr": "Privatni klijent",
-      "sl": "Zasebna stranka",
-      "el": "Ιδιωτικός πελάτης"
+      "hr": "Private customer",
+      "sl": "Private customer",
+      "el": "Private customer"
     },
     "b2b_customer": {
       "it": "Azienda",
@@ -2323,9 +2211,9 @@
       "fr": "Entreprise",
       "es": "Empresa",
       "pt": "Empresa",
-      "hr": "Tvrtka",
-      "sl": "Podjetje",
-      "el": "Επιχείρηση"
+      "hr": "Business",
+      "sl": "Business",
+      "el": "Business"
     },
     "personal_info": {
       "it": "Informazioni personali",
@@ -2334,9 +2222,9 @@
       "fr": "Informations personnelles",
       "es": "Información personal",
       "pt": "Informações pessoais",
-      "hr": "Osobni podaci",
-      "sl": "Osebni podatki",
-      "el": "Προσωπικές πληροφορίες"
+      "hr": "Personal information",
+      "sl": "Personal information",
+      "el": "Personal information"
     },
     "company_info": {
       "it": "Informazioni aziendali",
@@ -2345,9 +2233,9 @@
       "fr": "Informations sur l'entreprise",
       "es": "Información de la empresa",
       "pt": "Informações da empresa",
-      "hr": "Podaci o tvrtki",
-      "sl": "Podatki o podjetju",
-      "el": "Πληροφορίες εταιρείας"
+      "hr": "Company information",
+      "sl": "Company information",
+      "el": "Company information"
     },
     "first_name": {
       "it": "Nome",
@@ -2356,9 +2244,9 @@
       "fr": "Prénom",
       "es": "Nombre",
       "pt": "Nome",
-      "hr": "Ime",
-      "sl": "Ime",
-      "el": "Όνομα"
+      "hr": "First name",
+      "sl": "First name",
+      "el": "First name"
     },
     "last_name": {
       "it": "Cognome",
@@ -2367,9 +2255,9 @@
       "fr": "Nom de famille",
       "es": "Apellido",
       "pt": "Sobrenome",
-      "hr": "Prezime",
-      "sl": "Priimek",
-      "el": "Επώνυμο"
+      "hr": "Last name",
+      "sl": "Last name",
+      "el": "Last name"
     },
     "company_name": {
       "it": "Ragione sociale",
@@ -2378,9 +2266,9 @@
       "fr": "Raison sociale",
       "es": "Razón social",
       "pt": "Razão social",
-      "hr": "Naziv tvrtke",
-      "sl": "Naziv podjetja",
-      "el": "Όνομα εταιρείας"
+      "hr": "Company name",
+      "sl": "Company name",
+      "el": "Company name"
     },
     "vat_number": {
       "it": "Partita IVA",
@@ -2389,9 +2277,9 @@
       "fr": "Numéro de TVA",
       "es": "Número de IVA",
       "pt": "Número de IVA",
-      "hr": "PDV broj",
-      "sl": "Davčna številka",
-      "el": "Αριθμός ΦΠΑ"
+      "hr": "VAT number",
+      "sl": "VAT number",
+      "el": "VAT number"
     },
     "fiscal_code": {
       "it": "Codice fiscale",
@@ -2400,9 +2288,9 @@
       "fr": "Code fiscal",
       "es": "Código fiscal",
       "pt": "Código fiscal",
-      "hr": "Fiskalni kod",
-      "sl": "Davčna številka",
-      "el": "Κωδικός φορολογίας"
+      "hr": "Fiscal code",
+      "sl": "Fiscal code",
+      "el": "Fiscal code"
     },
     "sdi_code": {
       "it": "Codice SDI",
@@ -2411,9 +2299,9 @@
       "fr": "Code SDI",
       "es": "Código SDI",
       "pt": "Código SDI",
-      "hr": "SDI kod",
-      "sl": "SDI koda",
-      "el": "Κωδικός SDI"
+      "hr": "SDI code",
+      "sl": "SDI code",
+      "el": "SDI code"
     },
     "phone": {
       "it": "Telefono",
@@ -2444,9 +2332,9 @@
       "fr": "Rue",
       "es": "Calle",
       "pt": "Rua",
-      "hr": "Ulica",
-      "sl": "Ulica",
-      "el": "Οδός"
+      "hr": "Street",
+      "sl": "Street",
+      "el": "Street"
     },
     "city": {
       "it": "Città",
@@ -2455,9 +2343,9 @@
       "fr": "Ville",
       "es": "Ciudad",
       "pt": "Cidade",
-      "hr": "Grad",
-      "sl": "Mesto",
-      "el": "Πόλη"
+      "hr": "City",
+      "sl": "City",
+      "el": "City"
     },
     "zip": {
       "it": "CAP",
@@ -2466,9 +2354,9 @@
       "fr": "Code postal",
       "es": "Código postal",
       "pt": "Código postal",
-      "hr": "Poštanski broj",
-      "sl": "Poštna številka",
-      "el": "Ταχυδρομικός κώδικας"
+      "hr": "ZIP code",
+      "sl": "ZIP code",
+      "el": "ZIP code"
     },
     "province": {
       "it": "Provincia",
@@ -2477,9 +2365,9 @@
       "fr": "Province",
       "es": "Provincia",
       "pt": "Província",
-      "hr": "Pokrajina",
-      "sl": "Pokrajina",
-      "el": "Επαρχία"
+      "hr": "Province",
+      "sl": "Province",
+      "el": "Province"
     },
     "country": {
       "it": "Paese",
@@ -2488,9 +2376,9 @@
       "fr": "Pays",
       "es": "País",
       "pt": "País",
-      "hr": "Država",
-      "sl": "Država",
-      "el": "Χώρα"
+      "hr": "Country",
+      "sl": "Country",
+      "el": "Country"
     },
     "shipping_address": {
       "it": "Indirizzo di spedizione",
@@ -2499,9 +2387,9 @@
       "fr": "Adresse de livraison",
       "es": "Dirección de envío",
       "pt": "Endereço de entrega",
-      "hr": "Adresa dostave",
-      "sl": "Naslov za dostavo",
-      "el": "Διεύθυνση αποστολής"
+      "hr": "Shipping address",
+      "sl": "Shipping address",
+      "el": "Shipping address"
     },
     "billing_address": {
       "it": "Indirizzo di fatturazione",
@@ -2510,9 +2398,9 @@
       "fr": "Adresse de facturation",
       "es": "Dirección de facturación",
       "pt": "Endereço de faturamento",
-      "hr": "Adresa za naplatu",
-      "sl": "Naslov za obračun",
-      "el": "Διεύθυνση χρέωσης"
+      "hr": "Billing address",
+      "sl": "Billing address",
+      "el": "Billing address"
     },
     "reference_person": {
       "it": "Persona di riferimento",
@@ -2521,9 +2409,9 @@
       "fr": "Personne de référence",
       "es": "Persona de referencia",
       "pt": "Pessoa de referência",
-      "hr": "Kontakt osoba",
-      "sl": "Kontaktna oseba",
-      "el": "Υπεύθυνο άτομο"
+      "hr": "Reference person",
+      "sl": "Reference person",
+      "el": "Reference person"
     },
     "account_pending": {
       "it": "Il tuo account è in attesa di approvazione",
@@ -2532,9 +2420,9 @@
       "fr": "Votre compte est en attente d'approbation",
       "es": "Tu cuenta está pendiente de aprobación",
       "pt": "Sua conta está aguardando aprovação",
-      "hr": "Vaš račun čeka odobrenje",
-      "sl": "Vaš račun čaka na odobritev",
-      "el": "Ο λογαριασμός σας είναι σε αναμονή έγκρισης"
+      "hr": "Your account is pending approval",
+      "sl": "Your account is pending approval",
+      "el": "Your account is pending approval"
     },
     "account_disabled": {
       "it": "Il tuo account è stato disabilitato",
@@ -2543,9 +2431,9 @@
       "fr": "Votre compte a été désactivé",
       "es": "Tu cuenta ha sido deshabilitada",
       "pt": "Sua conta foi desabilitada",
-      "hr": "Vaš račun je onemogućen",
-      "sl": "Vaš račun je onemogočen",
-      "el": "Ο λογαριασμός σας έχει απενεργοποιηθεί"
+      "hr": "Your account has been disabled",
+      "sl": "Your account has been disabled",
+      "el": "Your account has been disabled"
     },
     "registration_success": {
       "it": "Registrazione completata! Ti invieremo una email quando il tuo account sarà attivato.",
@@ -2554,9 +2442,9 @@
       "fr": "Inscription terminée! Nous vous enverrons un email lorsque votre compte sera activé.",
       "es": "¡Registro completado! Te enviaremos un email cuando tu cuenta esté activada.",
       "pt": "Registro concluído! Enviaremos um email quando sua conta for ativada.",
-      "hr": "Registracija dovršena! Poslat ćemo vam e-poštu kada vaš račun bude aktiviran.",
-      "sl": "Registracija zaključena! Poslali vam bomo e-pošto, ko bo vaš račun aktiviran.",
-      "el": "Η εγγραφή ολοκληρώθηκε! Θα σας στείλουμε email όταν ενεργοποιηθεί ο λογαριασμός σας."
+      "hr": "Registration completed! We'll send you an email when your account is activated.",
+      "sl": "Registration completed! We'll send you an email when your account is activated.",
+      "el": "Registration completed! We'll send you an email when your account is activated."
     },
     "login_success": {
       "it": "Login effettuato con successo!",
@@ -2565,9 +2453,9 @@
       "fr": "Connexion réussie!",
       "es": "¡Inicio de sesión exitoso!",
       "pt": "Login bem-sucedido!",
-      "hr": "Prijava uspješna!",
-      "sl": "Prijava uspešna!",
-      "el": "Επιτυχής σύνδεση!"
+      "hr": "Login successful!",
+      "sl": "Login successful!",
+      "el": "Login successful!"
     },
     "error": {
       "invalid_credentials": {
@@ -2577,9 +2465,9 @@
         "fr": "Email ou mot de passe invalide",
         "es": "Email o contraseña no válidos",
         "pt": "Email ou senha inválidos",
-        "hr": "Nevažeća e-pošta ili lozinka",
-        "sl": "Neveljavna e-pošta ali geslo",
-        "el": "Μη έγκυρο email ή κωδικός"
+        "hr": "Invalid email or password",
+        "sl": "Invalid email or password",
+        "el": "Invalid email or password"
       },
       "email_already_exists": {
         "it": "Questa email è già registrata",
@@ -2588,9 +2476,9 @@
         "fr": "Cet email est déjà enregistré",
         "es": "Este email ya está registrado",
         "pt": "Este email já está registrado",
-        "hr": "Ova e-pošta je već registrirana",
-        "sl": "Ta e-pošta je že registrirana",
-        "el": "Αυτό το email είναι ήδη εγγεγραμμένο"
+        "hr": "This email is already registered",
+        "sl": "This email is already registered",
+        "el": "This email is already registered"
       },
       "weak_password": {
         "it": "La password deve essere di almeno 6 caratteri",
@@ -2599,9 +2487,9 @@
         "fr": "Le mot de passe doit contenir au moins 6 caractères",
         "es": "La contraseña debe tener al menos 6 caracteres",
         "pt": "A senha deve ter pelo menos 6 caracteres",
-        "hr": "Lozinka mora imati najmanje 6 znakova",
-        "sl": "Geslo mora imeti najmanj 6 znakov",
-        "el": "Ο κωδικός πρέπει να είναι τουλάχιστον 6 χαρακτήρες"
+        "hr": "Password must be at least 6 characters",
+        "sl": "Password must be at least 6 characters",
+        "el": "Password must be at least 6 characters"
       },
       "passwords_dont_match": {
         "it": "Le password non corrispondono",
@@ -2610,9 +2498,9 @@
         "fr": "Les mots de passe ne correspondent pas",
         "es": "Las contraseñas no coinciden",
         "pt": "As senhas não correspondem",
-        "hr": "Lozinke se ne podudaraju",
-        "sl": "Gesla se ne ujemajo",
-        "el": "Οι κωδικοί δεν ταιριάζουν"
+        "hr": "Passwords don't match",
+        "sl": "Passwords don't match",
+        "el": "Passwords don't match"
       },
       "required_field": {
         "it": "Campo obbligatorio",
@@ -2621,9 +2509,9 @@
         "fr": "Champ requis",
         "es": "Campo obligatorio",
         "pt": "Campo obrigatório",
-        "hr": "Obavezno polje",
-        "sl": "Obvezno polje",
-        "el": "Υποχρεωτικό πεδίο"
+        "hr": "Required field",
+        "sl": "Required field",
+        "el": "Required field"
       },
       "invalid_email": {
         "it": "Email non valida",
@@ -2632,9 +2520,9 @@
         "fr": "Email invalide",
         "es": "Email no válido",
         "pt": "Email inválido",
-        "hr": "Nevažeća e-pošta",
-        "sl": "Neveljavna e-pošta",
-        "el": "Μη έγκυρο email"
+        "hr": "Invalid email",
+        "sl": "Invalid email",
+        "el": "Invalid email"
       },
       "user_not_found": {
         "it": "Utente non trovato",
@@ -2643,9 +2531,9 @@
         "fr": "Utilisateur non trouvé",
         "es": "Usuario no encontrado",
         "pt": "Usuário não encontrado",
-        "hr": "Korisnik nije pronađen",
-        "sl": "Uporabnik ni najden",
-        "el": "Ο χρήστης δεν βρέθηκε"
+        "hr": "User not found",
+        "sl": "User not found",
+        "el": "User not found"
       },
       "wrong_password": {
         "it": "Password errata",
@@ -2654,9 +2542,9 @@
         "fr": "Mot de passe incorrect",
         "es": "Contraseña incorrecta",
         "pt": "Senha incorreta",
-        "hr": "Pogrešna lozinka",
-        "sl": "Napačno geslo",
-        "el": "Λάθος κωδικός"
+        "hr": "Wrong password",
+        "sl": "Wrong password",
+        "el": "Wrong password"
       }
     }
   }

@@ -6,6 +6,7 @@ import { Product } from '@/types/product';
 import { getTranslatedValue } from '@/lib/product-utils';
 import { useRouter } from 'next/navigation';
 import { getLabel } from '@/lib/ui-labels';
+import { getCatalogText, getCatalogTextFn, Language } from '@/lib/catalog-translations';
 import Image from 'next/image';
 import { useRecentSearches } from '@/hooks/useRecentSearches';
 import { Clock, X, Search, Tag } from 'lucide-react';
@@ -567,22 +568,12 @@ export default function SearchAutocomplete({
               {exactResultsCount > 0 ? (
                 // Ci sono risultati esatti (100% match) → "Mostra tutti i N risultati"
                 <>
-                  {currentLang === 'it' && `Mostra tutti i ${totalResults} risultati`}
-                  {currentLang === 'en' && `Show all ${totalResults} results`}
-                  {currentLang === 'de' && `Alle ${totalResults} Ergebnisse anzeigen`}
-                  {currentLang === 'fr' && `Afficher les ${totalResults} résultats`}
-                  {currentLang === 'es' && `Mostrar los ${totalResults} resultados`}
-                  {currentLang === 'pt' && `Mostrar todos os ${totalResults} resultados`}
+                  {getCatalogTextFn('showAllResults', currentLang as Language, totalResults)}
                 </>
               ) : (
                 // Solo suggerimenti (≥50% match) → "Vedi N prodotti correlati"
                 <>
-                  {currentLang === 'it' && `Vedi ${totalResults} prodotti correlati`}
-                  {currentLang === 'en' && `View ${totalResults} related products`}
-                  {currentLang === 'de' && `${totalResults} verwandte Produkte anzeigen`}
-                  {currentLang === 'fr' && `Voir ${totalResults} produits associés`}
-                  {currentLang === 'es' && `Ver ${totalResults} productos relacionados`}
-                  {currentLang === 'pt' && `Ver ${totalResults} produtos relacionados`}
+                  {getCatalogTextFn('viewRelatedProducts', currentLang as Language, totalResults)}
                 </>
               )}
             </span>
@@ -598,7 +589,7 @@ export default function SearchAutocomplete({
         <div className="hidden md:block px-4 py-2 border-t border-gray-100 bg-gray-50 rounded-b-xl">
           <p className="text-xs text-gray-500 text-center">
             {getLabel('search.keyboard_hint', currentLang)} ·
-            <span className="font-semibold"> Enter</span> {currentLang === 'it' ? 'per vedere tutti' : 'to view all'}
+            <span className="font-semibold"> Enter</span> {getCatalogText('enterToViewAll', currentLang as Language)}
           </p>
         </div>
       )}

@@ -2,6 +2,7 @@
 
 import { useBrand } from '@/contexts/BrandContext';
 import { useLanguage } from '@/contexts/LanguageContext';
+import { getPagesText, Language } from '@/lib/pages-translations';
 import { Phone, MapPin, Mail } from 'lucide-react';
 
 export default function ContactPage() {
@@ -198,12 +199,7 @@ export default function ContactPage() {
 
             <div>
               <label className="block text-gray-700 font-semibold mb-2">
-                {currentLang === 'it' && 'Messaggio'}
-                {currentLang === 'en' && 'Message'}
-                {currentLang === 'de' && 'Nachricht'}
-                {currentLang === 'fr' && 'Message'}
-                {currentLang === 'es' && 'Mensaje'}
-                {currentLang === 'pt' && 'Mensagem'}
+                {getPagesText('message', currentLang as Language)}
               </label>
               <textarea
                 rows={6}
@@ -219,12 +215,7 @@ export default function ContactPage() {
                 backgroundColor: brandConfig.primaryColor
               }}
             >
-              {currentLang === 'it' && 'Invia Messaggio'}
-              {currentLang === 'en' && 'Send Message'}
-              {currentLang === 'de' && 'Nachricht senden'}
-              {currentLang === 'fr' && 'Envoyer le Message'}
-              {currentLang === 'es' && 'Enviar Mensaje'}
-              {currentLang === 'pt' && 'Enviar Mensagem'}
+              {getPagesText('sendMessage', currentLang as Language)}
             </button>
           </form>
         </div>

@@ -262,9 +262,18 @@ export default function ProductDetail({ product, groupProducts }: ProductDetailP
       }
 
       // Ottieni la label tradotta
-      let label = key;
-      if (typeof attrValue === 'object' && attrValue !== null && 'label' in attrValue) {
+      // Prima prova ui-labels per attributi comuni
+      const normalizedKey = key.toLowerCase();
+      let label = getLabel(`attributes.${normalizedKey}`, currentLang);
+
+      // Se non trovata in ui-labels, prova dal valore stesso
+      if (!label && typeof attrValue === 'object' && attrValue !== null && 'label' in attrValue) {
         label = getTranslatedValue(attrValue.label, currentLang);
+      }
+
+      // Fallback: usa la chiave originale
+      if (!label) {
+        label = key;
       }
 
       // Ottieni il valore formattato
@@ -276,19 +285,61 @@ export default function ProductDetail({ product, groupProducts }: ProductDetailP
         isBoolean = true;
         booleanValue = attrValue;
         displayValue = attrValue ? getLabel('common.yes', currentLang) : getLabel('common.no', currentLang);
-      } else if (typeof attrValue === 'object' && attrValue !== null && 'value' in attrValue) {
-        const rawValue = attrValue.value;
-        if (typeof rawValue === 'boolean') {
-          isBoolean = true;
-          booleanValue = rawValue;
-          displayValue = rawValue ? getLabel('common.yes', currentLang) : getLabel('common.no', currentLang);
-        } else if (typeof rawValue === 'object') {
-          displayValue = getTranslatedValue(rawValue, currentLang);
+      } else if (typeof attrValue === 'object' && attrValue !== null) {
+        if ('value' in attrValue) {
+          // Old structure: {value: ...}
+          const rawValue = attrValue.value;
+          if (typeof rawValue === 'boolean') {
+            isBoolean = true;
+            booleanValue = rawValue;
+            displayValue = rawValue ? getLabel('common.yes', currentLang) : getLabel('common.no', currentLang);
+          } else if (typeof rawValue === 'object') {
+            displayValue = getTranslatedValue(rawValue, currentLang);
+          } else {
+            displayValue = String(rawValue);
+          }
         } else {
-          displayValue = String(rawValue);
+          // New structure: multilingual object {it: "...", en: "...", ...}
+          displayValue = getTranslatedValue(attrValue, currentLang);
         }
       } else {
-        displayValue = String(attrValue);
+        // String or number
+        // Se è una stringa e esiste negli attributi del master come oggetto multilingua, usa quello
+        if (typeof attrValue === 'string' && product.attributi && product.attributi[key]) {
+          const masterAttr = product.attributi[key];
+          if (typeof masterAttr === 'object' && masterAttr !== null && !('value' in masterAttr) && !('label' in masterAttr)) {
+            // È un oggetto multilingua diretto nel master
+            displayValue = getTranslatedValue(masterAttr, currentLang);
+          } else {
+            // Non è multilingua nel master, usa il valore così com'è
+            const strValue = attrValue.toLowerCase();
+            if (strValue === 'yes' || strValue === 'sì' || strValue === 'si') {
+              isBoolean = true;
+              booleanValue = true;
+              displayValue = getLabel('common.yes', currentLang);
+            } else if (strValue === 'no') {
+              isBoolean = true;
+              booleanValue = false;
+              displayValue = getLabel('common.no', currentLang);
+            } else {
+              displayValue = String(attrValue);
+            }
+          }
+        } else {
+          // Check for Yes/No
+          const strValue = String(attrValue).toLowerCase();
+          if (strValue === 'yes' || strValue === 'sì' || strValue === 'si') {
+            isBoolean = true;
+            booleanValue = true;
+            displayValue = getLabel('common.yes', currentLang);
+          } else if (strValue === 'no') {
+            isBoolean = true;
+            booleanValue = false;
+            displayValue = getLabel('common.no', currentLang);
+          } else {
+            displayValue = String(attrValue);
+          }
+        }
       }
 
       parts.push({ label, value: displayValue, isBoolean, booleanValue });
@@ -444,12 +495,20 @@ export default function ProductDetail({ product, groupProducts }: ProductDetailP
       if (!attrValue) return;
 
       let displayValue = '';
-      if (typeof attrValue === 'object' && 'value' in attrValue) {
-        const rawValue = attrValue.value;
-        if (typeof rawValue === 'object') {
-          displayValue = getTranslatedValue(rawValue, currentLang);
+      if (typeof attrValue === 'boolean') {
+        displayValue = attrValue ? getLabel('common.yes', currentLang) : getLabel('common.no', currentLang);
+      } else if (typeof attrValue === 'object' && attrValue !== null) {
+        if ('value' in attrValue) {
+          // Old structure: {value: ...}
+          const rawValue = attrValue.value;
+          if (typeof rawValue === 'object') {
+            displayValue = getTranslatedValue(rawValue, currentLang);
+          } else {
+            displayValue = String(rawValue);
+          }
         } else {
-          displayValue = String(rawValue);
+          // New structure: multilingual object {it: "...", en: "...", ...}
+          displayValue = getTranslatedValue(attrValue, currentLang);
         }
       } else {
         displayValue = String(attrValue);
@@ -778,15 +837,31 @@ export default function ProductDetail({ product, groupProducts }: ProductDetailP
                               .slice(0, 3)
                               .map(([key, value]) => {
                                 let displayValue = '';
-                                if (typeof value === 'object' && value !== null && 'value' in value) {
-                                  const rawValue = value.value;
-                                  if (typeof rawValue === 'object') {
-                                    displayValue = getTranslatedValue(rawValue, currentLang);
+                                if (typeof value === 'boolean') {
+                                  displayValue = value ? getLabel('common.yes', currentLang) : getLabel('common.no', currentLang);
+                                } else if (typeof value === 'object' && value !== null) {
+                                  if ('value' in value) {
+                                    // Old structure: {value: ...}
+                                    const rawValue = value.value;
+                                    if (typeof rawValue === 'object') {
+                                      displayValue = getTranslatedValue(rawValue, currentLang);
+                                    } else {
+                                      displayValue = String(rawValue);
+                                    }
                                   } else {
-                                    displayValue = String(rawValue);
+                                    // New structure: multilingual object {it: "...", en: "...", ...}
+                                    displayValue = getTranslatedValue(value, currentLang);
                                   }
                                 } else {
-                                  displayValue = String(value);
+                                  // String or number - check for Yes/No
+                                  const strValue = String(value).toLowerCase();
+                                  if (strValue === 'yes' || strValue === 'sì' || strValue === 'si') {
+                                    displayValue = getLabel('common.yes', currentLang);
+                                  } else if (strValue === 'no') {
+                                    displayValue = getLabel('common.no', currentLang);
+                                  } else {
+                                    displayValue = String(value);
+                                  }
                                 }
                                 return `${key}: ${displayValue}`;
                               })
@@ -857,9 +932,18 @@ export default function ProductDetail({ product, groupProducts }: ProductDetailP
                   <dl className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
                   {filteredAttributes.map(([key, value]) => {
                     // Ottieni la label tradotta
-                    let attributeLabel = key;
-                    if (typeof value === 'object' && value !== null && 'label' in value) {
+                    // Prima prova ui-labels per attributi comuni
+                    const normalizedKey = key.toLowerCase();
+                    let attributeLabel = getLabel(`attributes.${normalizedKey}`, currentLang);
+
+                    // Se non trovata in ui-labels, prova dal valore stesso
+                    if (!attributeLabel && typeof value === 'object' && value !== null && 'label' in value) {
                       attributeLabel = getTranslatedValue(value.label, currentLang);
+                    }
+
+                    // Fallback: usa la chiave originale
+                    if (!attributeLabel) {
+                      attributeLabel = key;
                     }
 
                     // Ottieni il valore formattato e determina se è boolean
@@ -871,19 +955,74 @@ export default function ProductDetail({ product, groupProducts }: ProductDetailP
                       isBoolean = true;
                       booleanValue = value;
                       displayValue = value ? getLabel('common.yes', currentLang) : getLabel('common.no', currentLang);
-                    } else if (typeof value === 'object' && value !== null && 'value' in value) {
-                      const rawValue = value.value;
-                      if (typeof rawValue === 'boolean') {
-                        isBoolean = true;
-                        booleanValue = rawValue;
-                        displayValue = rawValue ? getLabel('common.yes', currentLang) : getLabel('common.no', currentLang);
-                      } else if (typeof rawValue === 'object') {
-                        displayValue = getTranslatedValue(rawValue, currentLang);
+                    } else if (typeof value === 'object' && value !== null) {
+                      if ('value' in value) {
+                        // Old structure: {value: ...}
+                        const rawValue = value.value;
+                        if (typeof rawValue === 'boolean') {
+                          isBoolean = true;
+                          booleanValue = rawValue;
+                          displayValue = rawValue ? getLabel('common.yes', currentLang) : getLabel('common.no', currentLang);
+                        } else if (typeof rawValue === 'object') {
+                          // Valore multilingue - traduci
+                          displayValue = getTranslatedValue(rawValue, currentLang);
+                        } else {
+                          // Stringa semplice - controlla se è "Yes"/"No"
+                          const strValue = String(rawValue).toLowerCase();
+                          if (strValue === 'yes' || strValue === 'sì' || strValue === 'si') {
+                            isBoolean = true;
+                            booleanValue = true;
+                            displayValue = getLabel('common.yes', currentLang);
+                          } else if (strValue === 'no') {
+                            isBoolean = true;
+                            booleanValue = false;
+                            displayValue = getLabel('common.no', currentLang);
+                          } else {
+                            displayValue = String(rawValue);
+                          }
+                        }
                       } else {
-                        displayValue = String(rawValue);
+                        // New structure: multilingual object {it: "...", en: "...", ...}
+                        displayValue = getTranslatedValue(value, currentLang);
                       }
                     } else {
-                      displayValue = String(value);
+                      // Valore diretto (stringa o numero)
+                      // Se è una stringa e esiste negli attributi del master come oggetto multilingua, usa quello
+                      if (typeof value === 'string' && product.attributi && product.attributi[key]) {
+                        const masterAttr = product.attributi[key];
+                        if (typeof masterAttr === 'object' && masterAttr !== null && !('value' in masterAttr) && !('label' in masterAttr)) {
+                          // È un oggetto multilingua diretto nel master
+                          displayValue = getTranslatedValue(masterAttr, currentLang);
+                        } else {
+                          // Non è multilingua nel master, usa il valore così com'è
+                          const strValue = value.toLowerCase();
+                          if (strValue === 'yes' || strValue === 'sì' || strValue === 'si') {
+                            isBoolean = true;
+                            booleanValue = true;
+                            displayValue = getLabel('common.yes', currentLang);
+                          } else if (strValue === 'no') {
+                            isBoolean = true;
+                            booleanValue = false;
+                            displayValue = getLabel('common.no', currentLang);
+                          } else {
+                            displayValue = String(value);
+                          }
+                        }
+                      } else {
+                        // Check for Yes/No
+                        const strValue = String(value).toLowerCase();
+                        if (strValue === 'yes' || strValue === 'sì' || strValue === 'si') {
+                          isBoolean = true;
+                          booleanValue = true;
+                          displayValue = getLabel('common.yes', currentLang);
+                        } else if (strValue === 'no') {
+                          isBoolean = true;
+                          booleanValue = false;
+                          displayValue = getLabel('common.no', currentLang);
+                        } else {
+                          displayValue = String(value);
+                        }
+                      }
                     }
 
                     return (
