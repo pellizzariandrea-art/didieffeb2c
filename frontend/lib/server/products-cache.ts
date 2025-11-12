@@ -88,8 +88,14 @@ function readFromCache(): ProductsResponse | null {
 async function downloadAndCache(): Promise<ProductsResponse | null> {
   try {
     console.log('[Cache] Downloading products from remote server...');
-    const response = await fetch(PRODUCTS_URL, {
+    // Add cache-busting timestamp to avoid CDN/HTTP cache
+    const cacheBustUrl = `${PRODUCTS_URL}?_t=${Date.now()}`;
+    const response = await fetch(cacheBustUrl, {
       cache: 'no-store',
+      headers: {
+        'Cache-Control': 'no-cache, no-store, must-revalidate',
+        'Pragma': 'no-cache'
+      }
     });
 
     if (!response.ok) {
@@ -127,8 +133,14 @@ export async function getCachedProducts(): Promise<ProductsResponse> {
   if (isVercel) {
     console.log('[Cache] Running on Vercel, downloading directly without filesystem cache...');
     try {
-      const response = await fetch(PRODUCTS_URL, {
+      // Add cache-busting timestamp to avoid CDN/HTTP cache
+      const cacheBustUrl = `${PRODUCTS_URL}?_t=${Date.now()}`;
+      const response = await fetch(cacheBustUrl, {
         next: { revalidate: 900 }, // Cache Next.js per 15 minuti
+        headers: {
+          'Cache-Control': 'no-cache, no-store, must-revalidate',
+          'Pragma': 'no-cache'
+        }
       });
 
       if (!response.ok) {
