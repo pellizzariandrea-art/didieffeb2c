@@ -1,11 +1,11 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { CheckCircle, XCircle, Loader2 } from 'lucide-react';
 
-export default function VerifyEmailPage() {
+function VerifyEmailContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const { language } = useLanguage();
@@ -192,5 +192,22 @@ export default function VerifyEmailPage() {
         )}
       </div>
     </div>
+  );
+}
+
+export default function VerifyEmailPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
+        <div className="max-w-md w-full bg-white rounded-lg shadow-lg p-8">
+          <div className="text-center">
+            <Loader2 className="w-16 h-16 text-blue-600 animate-spin mx-auto mb-4" />
+            <h1 className="text-2xl font-bold text-gray-900 mb-2">Caricamento...</h1>
+          </div>
+        </div>
+      </div>
+    }>
+      <VerifyEmailContent />
+    </Suspense>
   );
 }
