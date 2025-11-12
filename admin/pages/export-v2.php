@@ -139,10 +139,29 @@ include '../includes/header.php';
         </small>
     </div>
 
+    <div class="form-group" style="margin-top: 20px;">
+        <label style="display: flex; align-items: center; cursor: pointer;">
+            <input type="checkbox" id="skip_translations_v2" name="skip_translations" value="1" checked style="margin-right: 10px; width: 20px; height: 20px;">
+            <span style="font-size: 16px;">
+                ⚡ <strong>Export Veloce</strong> - Salta traduzioni (solo italiano)
+            </span>
+        </label>
+        <small style="color: #a0a0b8; display: block; margin-top: 5px; margin-left: 30px;">
+            ✅ Consigliato: Export veloce senza traduzioni, poi usa il tool "Traduci Prodotti" separato.<br>
+            ⚠️ Se disattivi, l'export includerà traduzioni ma potrebbe essere più lento e soggetto a timeout.
+        </small>
+    </div>
+
     <div style="margin: 30px 0;">
         <button type="button" id="export-btn-v2" class="btn" style="font-size: 18px; padding: 20px 40px;" onclick="startExportV2()">
             🚀 Avvia Export v2.0
         </button>
+        <a href="/admin/pages/translate-client.php" class="btn" style="margin-left: 10px; background: #2196F3;">
+            🌍 Traduci (Client-Side) ⚡
+        </a>
+        <a href="/admin/pages/translate-products.php" class="btn" style="margin-left: 10px; background: #9c27b0;">
+            🌐 Traduci (Server) [Legacy]
+        </a>
         <a href="/admin/pages/export.php" class="btn btn-secondary" style="margin-left: 10px;">
             ← Torna a Export v1
         </a>
@@ -206,11 +225,19 @@ include '../includes/header.php';
 let exportStartTime = null;
 let timerInterval = null;
 let eventSource = null;
+let retryCount = 0;
+const MAX_RETRIES = 3;
+let exportCompleted = false; // Flag per sapere se export è completato
 
 function startExportV2() {
     const exportBtn = document.getElementById('export-btn-v2');
     const progressContainer = document.getElementById('progress-container-v2');
     const productLimit = document.getElementById('product_limit_v2').value;
+    const skipTranslations = document.getElementById('skip_translations_v2').checked;
+
+    // Reset flag
+    exportCompleted = false;
+    retryCount = 0;
 
     // Disabilita bottone
     exportBtn.disabled = true;
@@ -226,8 +253,15 @@ function startExportV2() {
 
     // Costruisci URL
     let url = '/admin/pages/export-stream-v2.php';
+    const params = [];
     if (productLimit) {
-        url += '?limit=' + encodeURIComponent(productLimit);
+        params.push('limit=' + encodeURIComponent(productLimit));
+    }
+    if (skipTranslations) {
+        params.push('skip_translations=1');
+    }
+    if (params.length > 0) {
+        url += '?' + params.join('&');
     }
 
     // Connetti a SSE endpoint
@@ -242,6 +276,11 @@ function startExportV2() {
         const data = JSON.parse(e.data);
         addLog('💾 Chunk salvato: ' + data.chunk_number + ' (' + data.products_in_chunk + ' prodotti)');
         document.getElementById('stat-chunks-v2').textContent = data.chunk_number;
+    });
+
+    eventSource.addEventListener('translation', function(e) {
+        const data = JSON.parse(e.data);
+        addLog(data.message, data.type); // 'error', 'warning', o null
     });
 
     eventSource.addEventListener('complete', function(e) {
@@ -301,9 +340,29 @@ function updateProgressV2(data) {
     }
 
     addLog(data.message || 'Progresso...');
+
+    // Se vediamo il messaggio finale, sappiamo che export sta per completare
+    if (data.message && data.message.includes('File pubblico aggiornato con successo')) {
+        addLog('⏳ Attendo evento di completamento...');
+        // Dopo 2 secondi, se non abbiamo ricevuto 'complete', assumiamo completamento
+        setTimeout(() => {
+            if (!exportCompleted) {
+                addLog('✅ Export completato (verificato da progress)');
+                exportCompleted = true;
+                // Simula completeExportV2 per stats finali
+                if (timerInterval) {
+                    clearInterval(timerInterval);
+                }
+                document.getElementById('progress-bar-v2').style.background = 'linear-gradient(90deg, #4caf50 0%, #45a049 100%)';
+                setTimeout(() => location.reload(), 2000);
+            }
+        }, 2000);
+    }
 }
 
 function completeExportV2(data) {
+    exportCompleted = true; // Setta flag per ignorare errori di chiusura
+
     if (timerInterval) {
         clearInterval(timerInterval);
     }
@@ -313,18 +372,62 @@ function completeExportV2(data) {
     addLog('📊 Totale prodotti: ' + data.stats.total_products);
     addLog('⏱️ Tempo totale: ' + data.stats.execution_time + 's');
     addLog('📦 File size: ' + (data.stats.file_size / 1024).toFixed(2) + ' KB');
+    addLog('');
+    addLog('🔄 Puoi riavviare un nuovo export quando vuoi, o chiudere questa pagina.');
 
-    setTimeout(() => location.reload(), 3000);
+    // Riabilita il pulsante export dopo completamento
+    document.getElementById('export-btn-v2').disabled = false;
+    document.getElementById('export-btn-v2').style.opacity = '1';
+    document.getElementById('export-btn-v2').textContent = '🚀 Avvia Nuovo Export';
 }
 
 function handleErrorV2(error) {
-    if (timerInterval) {
-        clearInterval(timerInterval);
+    // Se export è completato, ignora errori di chiusura connessione
+    if (exportCompleted) {
+        addLog('🔌 Connessione chiusa dopo completamento (normale)');
+        return;
     }
-    addLog('❌ Errore: ' + (error.message || 'Errore di connessione'));
-    document.getElementById('export-btn-v2').disabled = false;
-    document.getElementById('export-btn-v2').style.opacity = '1';
-    document.getElementById('export-btn-v2').textContent = '🚀 Riprova Export';
+
+    // Log dettagliato dell'errore
+    const errorDetails = {
+        type: error.type || 'unknown',
+        target_readyState: eventSource ? eventSource.readyState : 'no eventSource',
+        message: error.message || 'Nessun messaggio',
+        timeStamp: error.timeStamp || Date.now()
+    };
+
+    const readyStates = {
+        0: 'CONNECTING',
+        1: 'OPEN',
+        2: 'CLOSED'
+    };
+
+    const stateText = readyStates[errorDetails.target_readyState] || errorDetails.target_readyState;
+
+    addLog('❌ Errore SSE: ' + JSON.stringify(errorDetails));
+    addLog('📡 Stato connessione: ' + stateText);
+
+    // Verifica se possiamo fare retry automatico
+    if (retryCount < MAX_RETRIES) {
+        retryCount++;
+        const retryDelay = 3; // secondi
+        addLog('🔄 Retry automatico ' + retryCount + '/' + MAX_RETRIES + ' tra ' + retryDelay + ' secondi...');
+
+        setTimeout(function() {
+            addLog('▶️ Riconnessione automatica in corso...');
+            resumeExport();
+        }, retryDelay * 1000);
+    } else {
+        // Max retry raggiunto
+        if (timerInterval) {
+            clearInterval(timerInterval);
+        }
+        addLog('⚠️ Raggiunto limite di retry (' + MAX_RETRIES + ')');
+        addLog('💡 Clicca "Riprendi" per continuare manualmente');
+        document.getElementById('export-btn-v2').disabled = false;
+        document.getElementById('export-btn-v2').style.opacity = '1';
+        document.getElementById('export-btn-v2').textContent = '▶️ Riprendi Export';
+    }
 }
 
 function updateTimer() {
@@ -336,11 +439,21 @@ function updateTimer() {
         (minutes > 0 ? minutes + 'm ' : '') + seconds + 's';
 }
 
-function addLog(message) {
+function addLog(message, type) {
     const log = document.getElementById('progress-log-v2');
     const timestamp = new Date().toLocaleTimeString('it-IT');
     const entry = document.createElement('div');
     entry.textContent = '[' + timestamp + '] ' + message;
+
+    // Colora in base al tipo
+    if (type === 'error') {
+        entry.style.color = '#ff6b6b'; // Rosso per errori
+        entry.style.fontWeight = 'bold';
+    } else if (type === 'warning') {
+        entry.style.color = '#ffa726'; // Arancione per warning (API lente)
+        entry.style.fontWeight = 'bold';
+    }
+
     log.appendChild(entry);
     log.scrollTop = log.scrollHeight;
 }

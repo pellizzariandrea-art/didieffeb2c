@@ -89,25 +89,58 @@ function getTableColumns($config, $table = null) {
 }
 
 // Fetch prodotti (con supporto JOIN)
-function fetchProducts($config, $limit = null) {
+function fetchProducts($config, $limit = null, $excludeCodes = []) {
     $pdo = connectDB($config);
 
     // Prova a caricare la configurazione tabelle con JOIN
     $tableConfig = loadTableConfig();
 
+    // Costruisci WHERE clause per escludere codici già processati
+    $whereClause = '';
+    $params = [];
+
+    if (!empty($excludeCodes)) {
+        // Crea named parameters per excludeCodes
+        $excludePlaceholders = [];
+        foreach ($excludeCodes as $idx => $code) {
+            $paramName = ":exclude_code_$idx";
+            $excludePlaceholders[] = $paramName;
+            $params[$paramName] = $code;
+        }
+
+        if ($tableConfig) {
+            // Con JOIN, specifica la tabella principale
+            $mainTable = $tableConfig['mainTable'];
+            $whereClause = " WHERE `$mainTable`.`codice` NOT IN (" . implode(',', $excludePlaceholders) . ")";
+        } else {
+            // Senza JOIN
+            $whereClause = " WHERE `codice` NOT IN (" . implode(',', $excludePlaceholders) . ")";
+        }
+    }
+
     if ($tableConfig) {
         // Usa la nuova modalità con JOIN
-        $sql = buildSelectQuery($tableConfig, '', $limit);
+        $sql = buildSelectQuery($tableConfig, $whereClause, $limit);
     } else {
         // Fallback: modalità legacy senza JOIN
         $table = $config['table'];
-        $sql = "SELECT * FROM `$table`";
+        $sql = "SELECT * FROM `$table`" . $whereClause;
         if ($limit) {
             $sql .= " LIMIT " . intval($limit);
         }
     }
 
-    $stmt = $pdo->query($sql);
+    // Esegui query
+    if (!empty($params)) {
+        $stmt = $pdo->prepare($sql);
+        foreach ($params as $key => $value) {
+            $stmt->bindValue($key, $value);
+        }
+        $stmt->execute();
+    } else {
+        $stmt = $pdo->query($sql);
+    }
+
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
@@ -344,14 +377,36 @@ function savePublicJSON($jsonData) {
         throw new Exception("La directory non è scrivibile: $dir. Verifica i permessi (deve essere 755 o 777)");
     }
 
-    // Salva il file con controllo errori
-    $result = file_put_contents(PUBLIC_JSON_PATH, $json);
+    // SICUREZZA: Scrivi prima in un file temporaneo
+    // In questo modo se l'export si interrompe, il file pubblico rimane intatto
+    $tempPath = PUBLIC_JSON_PATH . '.tmp';
+
+    error_log("[SAVE] Scrittura file temporaneo: " . $tempPath);
+    $result = file_put_contents($tempPath, $json);
 
     if ($result === false) {
-        throw new Exception("Impossibile scrivere il file: " . PUBLIC_JSON_PATH . ". Verifica i permessi.");
+        throw new Exception("Impossibile scrivere il file temporaneo: " . $tempPath . ". Verifica i permessi.");
     }
 
-    error_log("[SAVE SUCCESS] File salvato: " . PUBLIC_JSON_PATH . " (" . strlen($json) . " bytes)");
+    error_log("[SAVE] File temporaneo scritto con successo (" . strlen($json) . " bytes)");
+
+    // Verifica integrità del file temporaneo
+    $writtenSize = filesize($tempPath);
+    $expectedSize = strlen($json);
+
+    if ($writtenSize !== $expectedSize) {
+        unlink($tempPath); // Elimina il file corrotto
+        throw new Exception("Errore di integrità: scritti $writtenSize bytes invece di $expectedSize bytes");
+    }
+
+    // Rename atomico: sostituisce il file pubblico solo se tutto è andato a buon fine
+    error_log("[SAVE] Rename atomico: $tempPath -> " . PUBLIC_JSON_PATH);
+    if (!rename($tempPath, PUBLIC_JSON_PATH)) {
+        unlink($tempPath); // Pulisci il file temporaneo
+        throw new Exception("Impossibile sostituire il file pubblico. Verifica i permessi.");
+    }
+
+    error_log("[SAVE SUCCESS] File pubblico aggiornato: " . PUBLIC_JSON_PATH . " (" . strlen($json) . " bytes)");
 
     // Crea .htaccess per CORS
     $htaccess = dirname(PUBLIC_JSON_PATH) . '/.htaccess';
@@ -690,23 +745,51 @@ function buildFilterSQL($filters, &$params) {
 }
 
 // Fetch prodotti con filtri (con supporto JOIN)
-function fetchProductsWithFilters($config, $filters = [], $limit = null) {
+function fetchProductsWithFilters($config, $filters = [], $limit = null, $excludeCodes = []) {
     $pdo = connectDB($config);
     $params = [];
 
     // Prova a caricare la configurazione tabelle con JOIN
     $tableConfig = loadTableConfig();
 
+    // Costruisci WHERE clause per filtri
+    $whereClause = buildFilterSQL($filters, $params);
+
+    // Aggiungi esclusione codici già processati
+    if (!empty($excludeCodes)) {
+        // Crea named parameters per excludeCodes per evitare mixing con filtri
+        $excludePlaceholders = [];
+        foreach ($excludeCodes as $idx => $code) {
+            $paramName = ":exclude_code_$idx";
+            $excludePlaceholders[] = $paramName;
+            $params[$paramName] = $code;
+        }
+
+        $excludeCondition = '';
+        if ($tableConfig) {
+            // Con JOIN, specifica la tabella principale
+            $mainTable = $tableConfig['mainTable'];
+            $excludeCondition = "`$mainTable`.`codice` NOT IN (" . implode(',', $excludePlaceholders) . ")";
+        } else {
+            // Senza JOIN
+            $excludeCondition = "`codice` NOT IN (" . implode(',', $excludePlaceholders) . ")";
+        }
+
+        // Combina con WHERE clause esistente
+        if (empty($whereClause)) {
+            $whereClause = " WHERE $excludeCondition";
+        } else {
+            $whereClause .= " AND $excludeCondition";
+        }
+    }
+
     if ($tableConfig) {
         // Usa la nuova modalità con JOIN
-        $whereClause = buildFilterSQL($filters, $params);
         $sql = buildSelectQuery($tableConfig, $whereClause, $limit);
     } else {
         // Fallback: modalità legacy senza JOIN
         $table = $config['table'];
-        $sql = "SELECT * FROM `$table`";
-        $whereClause = buildFilterSQL($filters, $params);
-        $sql .= $whereClause;
+        $sql = "SELECT * FROM `$table`" . $whereClause;
 
         if ($limit) {
             $sql .= " LIMIT " . intval($limit);
@@ -715,7 +798,7 @@ function fetchProductsWithFilters($config, $filters = [], $limit = null) {
 
     $stmt = $pdo->prepare($sql);
 
-    // Bind parametri
+    // Bind parametri (tutti named parameters)
     foreach ($params as $key => $value) {
         $stmt->bindValue($key, $value);
     }
@@ -774,6 +857,58 @@ function countProductsWithFilters($config, $filters = []) {
 
 // ==================== TRADUZIONI ====================
 
+// Log traduzioni dedicato (con SSE opzionale per UI real-time)
+function logTranslation($message, $data = null, $sendSSE = true) {
+    $logFile = DATA_PATH . '/translation-debug.log';
+    $timestamp = date('Y-m-d H:i:s');
+    $logLine = "[{$timestamp}] {$message}";
+    if ($data !== null) {
+        $logLine .= " | " . json_encode($data, JSON_UNESCAPED_UNICODE);
+    }
+    $logLine .= "\n";
+    file_put_contents($logFile, $logLine, FILE_APPEND);
+
+    // Invia evento SSE SOLO per errori e slow API calls (per non intasare UI)
+    if ($sendSSE && function_exists('sendSSE')) {
+        $isError = false;
+        $isSlowAPI = false;
+
+        // Identifica errori
+        if (strpos($message, 'ERROR') !== false || (isset($data['error']) && !empty($data['error']))) {
+            $isError = true;
+        }
+
+        // Identifica API lente (> 2 secondi)
+        if (isset($data['duration_ms']) && $data['duration_ms'] > 2000) {
+            $isSlowAPI = true;
+        }
+
+        // Invia evento SSE solo se è errore o API lenta
+        // NON invia cache hit e API success normali (troppi eventi, bloccano UI)
+        if ($isError || $isSlowAPI) {
+            $uiMessage = $message;
+
+            if (isset($data['lang'])) {
+                $uiMessage .= " [{$data['lang']}]";
+            }
+            if (isset($data['duration_ms'])) {
+                $uiMessage .= " ({$data['duration_ms']}ms)";
+            }
+            if (isset($data['error'])) {
+                $uiMessage .= " - {$data['error']}";
+            }
+
+            // Icona
+            $icon = $isError ? '❌' : '⚠️';
+
+            sendSSE('translation', [
+                'message' => "$icon $uiMessage",
+                'type' => $isError ? 'error' : 'warning'
+            ]);
+        }
+    }
+}
+
 // Carica impostazioni traduzioni
 function loadTranslationSettings() {
     $settingsFile = DATA_PATH . '/translation-settings.json';
@@ -783,35 +918,81 @@ function loadTranslationSettings() {
     return ['enabled' => false, 'languages' => ['it'], 'api_key' => ''];
 }
 
-// Ottieni/Salva dalla cache traduzioni
-function getTranslationCache($text, $targetLang) {
-    $cacheFile = DATA_PATH . '/translation-cache.json';
-    if (!file_exists($cacheFile)) {
-        return null;
+// ===== CACHE TRADUZIONI IN MEMORIA (ottimizzazione performance) =====
+// Cache globale in memoria - caricata UNA SOLA VOLTA per request
+global $TRANSLATION_CACHE_MEMORY;
+$TRANSLATION_CACHE_MEMORY = null;
+
+// Carica la cache in memoria (chiamata automaticamente al primo accesso)
+function loadTranslationCacheInMemory() {
+    global $TRANSLATION_CACHE_MEMORY;
+
+    // Se già caricata, return
+    if ($TRANSLATION_CACHE_MEMORY !== null) {
+        return $TRANSLATION_CACHE_MEMORY;
     }
 
-    $cache = json_decode(file_get_contents($cacheFile), true);
+    $cacheFile = DATA_PATH . '/translation-cache.json';
+
+    if (!file_exists($cacheFile)) {
+        $TRANSLATION_CACHE_MEMORY = [];
+        return $TRANSLATION_CACHE_MEMORY;
+    }
+
+    // Carica UNA SOLA VOLTA dal disco
+    $TRANSLATION_CACHE_MEMORY = json_decode(file_get_contents($cacheFile), true) ?: [];
+
+    error_log("[CACHE] Translation cache loaded in memory: " . count($TRANSLATION_CACHE_MEMORY) . " items");
+
+    return $TRANSLATION_CACHE_MEMORY;
+}
+
+// Salva la cache in memoria su disco (chiamata solo quando necessario)
+function flushTranslationCache() {
+    global $TRANSLATION_CACHE_MEMORY;
+
+    if ($TRANSLATION_CACHE_MEMORY === null || empty($TRANSLATION_CACHE_MEMORY)) {
+        return;
+    }
+
+    $cacheFile = DATA_PATH . '/translation-cache.json';
+    file_put_contents($cacheFile, json_encode($TRANSLATION_CACHE_MEMORY, JSON_PRETTY_PRINT));
+
+    error_log("[CACHE] Translation cache flushed to disk: " . count($TRANSLATION_CACHE_MEMORY) . " items");
+}
+
+// Ottieni dalla cache (usa memoria, NON legge da disco ogni volta!)
+function getTranslationCache($text, $targetLang) {
+    global $TRANSLATION_CACHE_MEMORY;
+
+    // Carica cache in memoria se non ancora caricata
+    if ($TRANSLATION_CACHE_MEMORY === null) {
+        loadTranslationCacheInMemory();
+    }
+
     $key = md5($text . '_' . $targetLang);
 
-    if (isset($cache[$key])) {
-        return $cache[$key];
+    if (isset($TRANSLATION_CACHE_MEMORY[$key])) {
+        return $TRANSLATION_CACHE_MEMORY[$key];
     }
 
     return null;
 }
 
+// Salva in cache (solo in memoria, flush su disco fatto periodicamente o a fine export)
 function saveTranslationCache($text, $targetLang, $translation) {
-    $cacheFile = DATA_PATH . '/translation-cache.json';
-    $cache = [];
+    global $TRANSLATION_CACHE_MEMORY;
 
-    if (file_exists($cacheFile)) {
-        $cache = json_decode(file_get_contents($cacheFile), true) ?: [];
+    // Carica cache in memoria se non ancora caricata
+    if ($TRANSLATION_CACHE_MEMORY === null) {
+        loadTranslationCacheInMemory();
     }
 
     $key = md5($text . '_' . $targetLang);
-    $cache[$key] = $translation;
+    $TRANSLATION_CACHE_MEMORY[$key] = $translation;
 
-    file_put_contents($cacheFile, json_encode($cache, JSON_PRETTY_PRINT));
+    // IMPORTANTE: NON salvare su disco ad ogni traduzione!
+    // Il flush viene fatto periodicamente o alla fine dell'export
 }
 
 // Log errori traduzioni
@@ -847,6 +1028,7 @@ function translateText($text, $targetLang, $apiKey, $keepAliveCallback = null) {
     // Controlla cache
     $cached = getTranslationCache($text, $targetLang);
     if ($cached !== null) {
+        logTranslation("CACHE HIT", ['lang' => $targetLang, 'text' => substr($text, 0, 50) . '...']);
         return $cached;
     }
 
@@ -854,12 +1036,17 @@ function translateText($text, $targetLang, $apiKey, $keepAliveCallback = null) {
     $settings = loadTranslationSettings();
     $translationModel = $settings['translation_model'] ?? 'claude-haiku-4-5-20251001';
 
+    logTranslation("API CALL START", ['lang' => $targetLang, 'model' => $translationModel, 'text' => substr($text, 0, 50) . '...']);
+
     $languageNames = [
         'en' => 'English',
         'de' => 'German',
         'fr' => 'French',
         'es' => 'Spanish',
-        'pt' => 'Portuguese'
+        'pt' => 'Portuguese',
+        'hr' => 'Croatian',
+        'sl' => 'Slovenian',
+        'el' => 'Greek'
     ];
 
     $targetLanguageName = $languageNames[$targetLang] ?? $targetLang;
@@ -880,15 +1067,37 @@ Translation:";
     }
 
     try {
+        $apiStartTime = microtime(true);
+
         $ch = curl_init('https://api.anthropic.com/v1/messages');
 
         if ($ch === false) {
+            logTranslation("API ERROR - cURL init failed", ['lang' => $targetLang]);
             logTranslationError('cURL init failed', ['text' => substr($text, 0, 50), 'lang' => $targetLang]);
             return $text;
         }
 
+        // Progress callback per keep-alive durante cURL
+        $lastKeepAlive = time();
+        $progressCallback = function($downloadSize, $downloaded, $uploadSize, $uploaded) use (&$lastKeepAlive, $keepAliveCallback) {
+            // Invia keep-alive ogni 5 secondi durante download
+            if (time() - $lastKeepAlive >= 5) {
+                if ($keepAliveCallback && is_callable($keepAliveCallback)) {
+                    call_user_func($keepAliveCallback);
+                } elseif (isset($GLOBALS['keepAliveCallback']) && is_callable($GLOBALS['keepAliveCallback'])) {
+                    call_user_func($GLOBALS['keepAliveCallback']);
+                }
+                $lastKeepAlive = time();
+            }
+            return 0; // Continue
+        };
+
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 60); // 60 secondi timeout (aumentato)
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10); // 10 secondi per connessione
+        curl_setopt($ch, CURLOPT_NOPROGRESS, false);
+        curl_setopt($ch, CURLOPT_PROGRESSFUNCTION, $progressCallback);
         curl_setopt($ch, CURLOPT_HTTPHEADER, [
             'Content-Type: application/json',
             'x-api-key: ' . $apiKey,
@@ -905,23 +1114,53 @@ Translation:";
         $response = curl_exec($ch);
         $curlError = curl_error($ch);
         $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        $totalTime = curl_getinfo($ch, CURLINFO_TOTAL_TIME);
         curl_close($ch);
 
+        $apiEndTime = microtime(true);
+        $apiDuration = round(($apiEndTime - $apiStartTime) * 1000); // milliseconds
+
         if ($response === false) {
+            logTranslation("API ERROR - cURL execution failed", [
+                'lang' => $targetLang,
+                'error' => $curlError,
+                'duration_ms' => $apiDuration
+            ]);
             logTranslationError('cURL execution failed', [
                 'error' => $curlError,
                 'text' => substr($text, 0, 50),
-                'lang' => $targetLang
+                'lang' => $targetLang,
+                'duration_ms' => $apiDuration
             ]);
             return $text;
         }
 
+        logTranslation("API RESPONSE", ['http' => $httpCode, 'lang' => $targetLang, 'duration_ms' => $apiDuration]);
+
         if ($httpCode !== 200) {
+            // Gestione speciale per rate limiting (429) e errori temporanei (5xx)
+            $isRetryable = ($httpCode === 429 || $httpCode >= 500);
+
+            logTranslation("API ERROR - Bad HTTP status", [
+                'http' => $httpCode,
+                'lang' => $targetLang,
+                'retryable' => $isRetryable,
+                'response_preview' => substr($response, 0, 200)
+            ]);
+
+            // Se è un errore temporaneo, ritorna null per triggare retry nel chiamante
+            if ($isRetryable) {
+                logTranslation("Retryable error detected", ['http' => $httpCode, 'lang' => $targetLang]);
+                return null; // Segnala al chiamante di fare retry
+            }
+
+            // Errori permanenti (4xx tranne 429): logga e ritorna originale
             logTranslationError("API returned HTTP $httpCode", [
                 'response' => substr($response, 0, 500),
                 'text' => substr($text, 0, 50),
                 'lang' => $targetLang,
-                'api_key_prefix' => substr($apiKey, 0, 10) . '...'
+                'api_key_prefix' => substr($apiKey, 0, 10) . '...',
+                'duration_ms' => $apiDuration
             ]);
             return $text;
         }
@@ -939,20 +1178,37 @@ Translation:";
         if (isset($data['content'][0]['text'])) {
             $translation = trim($data['content'][0]['text']);
 
+            logTranslation("API SUCCESS", [
+                'lang' => $targetLang,
+                'duration_ms' => $apiDuration,
+                'original' => substr($text, 0, 30) . '...',
+                'translation' => substr($translation, 0, 30) . '...'
+            ]);
+
             // Salva in cache
             saveTranslationCache($text, $targetLang, $translation);
+            logTranslation("CACHE SAVED", ['lang' => $targetLang, 'text' => substr($text, 0, 50) . '...']);
+
+            // Piccolo delay solo dopo API calls (non cache) per evitare rate limiting
+            usleep(50000); // 50ms
 
             return $translation;
         }
 
+        logTranslation("API ERROR - Unexpected response format", [
+            'lang' => $targetLang,
+            'response_keys' => implode(', ', array_keys($data ?? []))
+        ]);
         logTranslationError('Unexpected API response format', [
             'response_keys' => array_keys($data ?? []),
-            'text' => substr($text, 0, 50)
+            'text' => substr($text, 0, 50),
+            'duration_ms' => $apiDuration
         ]);
 
         return $text;
 
     } catch (Exception $e) {
+        logTranslation("EXCEPTION", ['lang' => $targetLang, 'error' => $e->getMessage()]);
         logTranslationError('Exception caught', [
             'exception' => $e->getMessage(),
             'text' => substr($text, 0, 50),
@@ -994,7 +1250,10 @@ function translateBatch($texts, $targetLang, $apiKey) {
             'de' => 'German',
             'fr' => 'French',
             'es' => 'Spanish',
-            'pt' => 'Portuguese'
+            'pt' => 'Portuguese',
+            'hr' => 'Croatian',
+            'sl' => 'Slovenian',
+            'el' => 'Greek'
         ];
 
         $targetLanguageName = $languageNames[$targetLang] ?? $targetLang;
@@ -1063,6 +1322,10 @@ Translations:";
 
     // Riordina per indice
     ksort($translations);
+
+    // Flush cache su disco dopo ogni batch (per salvare progressi)
+    flushTranslationCache();
+
     return array_values($translations);
 }
 
@@ -1468,6 +1731,10 @@ function generateProductsJSONMultilang($config, $mappings, $translationSettings,
     // Arrotonda tutti i float a 2 decimali prima di ritornare
     $output = roundFloatsRecursive($output, 2);
 
+    // Flush finale della cache su disco (salva tutte le traduzioni)
+    flushTranslationCache();
+    error_log("[EXPORT] Translation cache flushed at end of export");
+
     return $output;
 }
 
@@ -1770,8 +2037,19 @@ function groupProductsByVariants($products, $rawRows, $variantConfig) {
         // Il primo prodotto diventa master
         $masterProduct = $groupProducts[0]['product'];
 
+        // Raccogli tutti i codici sorgente (per tracking resume)
+        $sourceCodes = [];
+        foreach ($groupProducts as $item) {
+            $code = $item['product']['codice'] ?? null;
+            if ($code !== null && $code !== '') {
+                $sourceCodes[] = $code;
+            }
+        }
+
         // Se c'è un solo prodotto nel gruppo, non serve aggregazione
         if (count($groupProducts) === 1) {
+            // Aggiungi source codes anche per prodotti singoli
+            $masterProduct['_source_codes'] = $sourceCodes;
             $result[] = $masterProduct;
             continue;
         }
@@ -1806,6 +2084,7 @@ function groupProductsByVariants($products, $rawRows, $variantConfig) {
         $masterWithVariants['variantGroupId'] = (string)$groupId;
         $masterWithVariants['isVariantGroup'] = true;
         $masterWithVariants['variants'] = $variants;
+        $masterWithVariants['_source_codes'] = $sourceCodes; // Track source codes
 
         $result[] = $masterWithVariants;
     }
@@ -2014,12 +2293,21 @@ function generateEcommerceMeta($ecommerceConfig, $products, $languages = ['it'],
                                 // Valore semplice (non tradotto) - ma dobbiamo comunque creare struttura multilingua per il frontend
                                 $simpleValue = is_string($attrValue) ? trim($attrValue) : $attrValue;
                                 if ($simpleValue !== '' && !isset($uniqueValues[$simpleValue])) {
-                                    // Crea struttura multilingua anche per valori non tradotti
-                                    // IMPORTANTE: usa solo IT come base, le traduzioni verranno aggiunte dopo nella fase di traduzione batch
-                                    $uniqueValues[$simpleValue] = [
-                                        'label' => ['it' => $filter['label']],
-                                        'value' => ['it' => $simpleValue]
-                                    ];
+                                    // Per booleani/numerici, mantieni valore diretto (come negli attributi prodotto - vedi riga 1440-1492)
+                                    // Per stringhe, usa struttura multilingua
+                                    if (is_bool($simpleValue) || is_numeric($simpleValue)) {
+                                        $uniqueValues[$simpleValue] = [
+                                            'label' => ['it' => $filter['label']],
+                                            'value' => $simpleValue  // Valore diretto, NON multilingua
+                                        ];
+                                    } else {
+                                        // Stringa: crea struttura multilingua
+                                        // IMPORTANTE: usa solo IT come base, le traduzioni verranno aggiunte dopo nella fase di traduzione batch
+                                        $uniqueValues[$simpleValue] = [
+                                            'label' => ['it' => $filter['label']],
+                                            'value' => ['it' => $simpleValue]
+                                        ];
+                                    }
                                 }
                             }
                         }
@@ -2156,15 +2444,28 @@ function generateEcommerceMeta($ecommerceConfig, $products, $languages = ['it'],
  *
  * @param callable $progressCallback Function chiamata dopo ogni chunk: function($current, $total, $productData)
  * @param int $chunkSize Numero di prodotti da processare per chunk (default: 10)
+ * @param int $skipCount Numero di prodotti da skippare (per resume) - DEPRECATED, usa excludeCodes
+ * @param array $excludeCodes Array di codici prodotto da escludere dal database fetch (per resume ottimizzato)
  */
-function generateProductsJSONChunkedWithCallback($config, $mappings, $translationSettings, $productLimit = null, $filters = [], $imageSettings = [], $variantConfig = [], $ecommerceConfig = [], $progressCallback = null, $chunkSize = 10) {
+function generateProductsJSONChunkedWithCallback($config, $mappings, $translationSettings, $productLimit = null, $filters = [], $imageSettings = [], $variantConfig = [], $ecommerceConfig = [], $progressCallback = null, $chunkSize = 10, $skipCount = 0, $excludeCodes = []) {
     $startTime = microtime(true);
 
     // FASE 1: Fetch prodotti (senza trasformazione)
     if (!empty($filters)) {
-        $rows = fetchProductsWithFilters($config, $filters, $productLimit);
+        $rows = fetchProductsWithFilters($config, $filters, $productLimit, $excludeCodes);
     } else {
-        $rows = fetchProducts($config, $productLimit);
+        $rows = fetchProducts($config, $productLimit, $excludeCodes);
+    }
+
+    // Log resume optimization
+    if (!empty($excludeCodes)) {
+        error_log("[RESUME OPTIMIZED] Excluded " . count($excludeCodes) . " already-processed source codes from database query");
+    }
+
+    // Skip prodotti già processati (per resume) - DEPRECATED in favore di excludeCodes
+    if ($skipCount > 0 && $skipCount < count($rows)) {
+        error_log("[RESUME LEGACY] Skipping first $skipCount products already processed");
+        $rows = array_slice($rows, $skipCount);
     }
 
     $totalRows = count($rows);
@@ -2181,6 +2482,7 @@ function generateProductsJSONChunkedWithCallback($config, $mappings, $translatio
     // FASE 2: Trasforma prodotti in chunks
     $chunkedRows = array_chunk($rows, $chunkSize);
     $processedCount = 0;
+    $translationsEnabled = !empty($translationSettings['enabled']) && !empty($translationSettings['api_key']);
 
     foreach ($chunkedRows as $chunkIndex => $chunk) {
         foreach ($chunk as $row) {
@@ -2193,6 +2495,18 @@ function generateProductsJSONChunkedWithCallback($config, $mappings, $translatio
 
             $products[] = $product;
             $processedCount++;
+
+            // CRITICAL: Callback 'complete' SOLO se traduzioni disabilitate
+            // (altrimenti verrà chiamato dopo la traduzione nella FASE 5)
+            if ($progressCallback && !$translationsEnabled) {
+                $percent = round(($processedCount / $totalRows) * 30); // 0-30% per trasformazione
+                $progressCallback($processedCount, $totalRows, [
+                    'phase' => 'complete',
+                    'message' => "Completato prodotto {$processedCount}/{$totalRows}",
+                    'percent' => $percent,
+                    'product' => $product
+                ]);
+            }
 
             // Callback progress dopo ogni prodotto nel chunk
             if ($progressCallback && $processedCount % $chunkSize === 0) {
@@ -2298,37 +2612,62 @@ function generateProductsJSONChunkedWithCallback($config, $mappings, $translatio
     foreach ($products as $prodIndex => $product) {
         $mlProduct = $product;
 
-        // Traduci nome
-        if ($translationSettings['translate_name'] && isset($product['nome'])) {
+        // SEMPRE crea struttura multilingua per nome (anche se skip_translations)
+        if (isset($product['nome'])) {
             $mlProduct['nome'] = ['it' => $product['nome']];
 
+            // Inizializza lingue vuote
             foreach ($languages as $lang) {
                 if ($lang !== 'it') {
-                    if ($progressCallback) {
-                        $progressCallback($translatedCount, $totalProducts, [
-                            'phase' => 'translation',
-                            'message' => "Traduzione nome in {$lang}...",
-                            'percent' => 50 + round(($translatedCount / $totalProducts) * 35),
-                            'product' => [
-                                'codice' => $product['codice'] ?? '-',
-                                'nome' => $product['nome'] ?? '-'
-                            ],
-                            'language' => strtoupper($lang)
-                        ]);
-                    }
+                    $mlProduct['nome'][$lang] = '';
+                }
+            }
 
-                    $mlProduct['nome'][$lang] = translateText($product['nome'], $lang, $apiKey);
+            // Traduci solo se enabled
+            if ($translationSettings['translate_name']) {
+                foreach ($languages as $lang) {
+                    if ($lang !== 'it') {
+                        if ($progressCallback) {
+                            $progressCallback($translatedCount, $totalProducts, [
+                                'phase' => 'translation',
+                                'message' => "Traduzione nome in {$lang}...",
+                                'percent' => 50 + round(($translatedCount / $totalProducts) * 35),
+                                'product' => [
+                                    'codice' => $product['codice'] ?? '-',
+                                    'nome' => $product['nome'] ?? '-'
+                                ],
+                                'language' => strtoupper($lang)
+                            ]);
+                        }
+
+                        $mlProduct['nome'][$lang] = translateText($product['nome'], $lang, $apiKey);
+
+                        // Keep-alive esplicito dopo ogni traduzione per mantenere viva SSE
+                        if (isset($GLOBALS['keepAliveCallback']) && is_callable($GLOBALS['keepAliveCallback'])) {
+                            call_user_func($GLOBALS['keepAliveCallback']);
+                        }
+                    }
                 }
             }
         }
 
-        // Traduci descrizione
-        if ($translationSettings['translate_description'] && isset($product['descrizione'])) {
+        // SEMPRE crea struttura multilingua per descrizione (anche se skip_translations)
+        if (isset($product['descrizione'])) {
             $mlProduct['descrizione'] = ['it' => $product['descrizione']];
 
+            // Inizializza lingue vuote
             foreach ($languages as $lang) {
                 if ($lang !== 'it') {
-                    $mlProduct['descrizione'][$lang] = translateText($product['descrizione'], $lang, $apiKey);
+                    $mlProduct['descrizione'][$lang] = '';
+                }
+            }
+
+            // Traduci solo se enabled
+            if ($translationSettings['translate_description']) {
+                foreach ($languages as $lang) {
+                    if ($lang !== 'it') {
+                        $mlProduct['descrizione'][$lang] = translateText($product['descrizione'], $lang, $apiKey);
+                    }
                 }
             }
         }
@@ -2419,6 +2758,16 @@ function generateProductsJSONChunkedWithCallback($config, $mappings, $translatio
 
         $multilingualProducts[] = $mlProduct;
         $translatedCount++;
+
+        // CRITICAL: Callback 'complete' per salvare il prodotto nel chunk
+        if ($progressCallback) {
+            $progressCallback($translatedCount, $totalProducts, [
+                'phase' => 'complete',
+                'message' => "Completato prodotto {$translatedCount}/{$totalProducts}",
+                'percent' => 50 + round(($translatedCount / $totalProducts) * 35),
+                'product' => $mlProduct
+            ]);
+        }
 
         // Progress callback ogni prodotto tradotto
         if ($progressCallback && $translatedCount % max(1, floor($totalProducts / 20)) === 0) {

@@ -19,8 +19,10 @@ export default function AdminPanelLayout({
   useEffect(() => {
     if (!loading) {
       // Redirect if not logged in or not admin
-      if (!user || user.role !== 'admin') {
-        router.push('/admin/login?redirect=/admin-panel');
+      if (!user) {
+        router.push('/login?redirect=/admin-panel');
+      } else if (user.role !== 'admin') {
+        router.push('/'); // Regular users go to homepage
       }
     }
   }, [user, loading, router]);

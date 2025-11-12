@@ -99,12 +99,19 @@ export default function WizardSearch({
   useEffect(() => {
     const loadConfig = async () => {
       try {
-        // Use Next.js API route proxy for both development and production
-        const apiUrl = '/admin/api/get-wizard-config';
+        // Call backend PHP API directly
+        const backendUrl = process.env.NEXT_PUBLIC_API_URL || 'https://shop.didieffeb2b.com';
+        const apiUrl = `${backendUrl}/admin/api/get-wizard-config.php`;
 
+        console.log('[DEBUG] Loading wizard config from:', apiUrl);
         const response = await fetch(apiUrl);
+
+        if (!response.ok) {
+          console.error('[DEBUG] Wizard config fetch failed:', response.status, response.statusText);
+          return;
+        }
+
         const data = await response.json();
-        console.log('[DEBUG] Loaded wizard config from:', apiUrl);
         console.log('[DEBUG] Loaded wizard config:', data);
         if (data.success && data.config) {
           console.log('[DEBUG] Step 2 before filter:', data.config.steps[1]);
@@ -119,7 +126,8 @@ export default function WizardSearch({
           setWizardConfig(filteredConfig);
         }
       } catch (error) {
-        console.error('Error loading wizard config:', error);
+        console.error('[ERROR] Error loading wizard config:', error);
+        // Silently fail - wizard is optional
       } finally {
         setIsLoadingConfig(false);
       }

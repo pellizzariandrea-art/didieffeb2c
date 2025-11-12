@@ -177,7 +177,7 @@ export default function ProductCatalog({
 
   // Load variant qualifiers configuration
   useEffect(() => {
-    fetch('/admin/api/get-variant-config')
+    fetch('/api/get-variant-config')
       .then(res => res.json())
       .then(config => {
         if (config.qualifiers && Array.isArray(config.qualifiers)) {

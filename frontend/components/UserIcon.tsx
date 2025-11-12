@@ -120,7 +120,7 @@ export default function UserIcon() {
 
           {/* Menu Items */}
           <div className="py-1">
-            {/* Orders */}
+            {/* User Area */}
             {(user.role === 'b2c' || user.role === 'b2b') && (
               <Link
                 href="/orders"
@@ -128,7 +128,7 @@ export default function UserIcon() {
                 className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
               >
                 <Package className="w-4 h-4 mr-3 text-gray-400" />
-                {language === 'it' ? 'I miei ordini' : language === 'en' ? 'My orders' : language === 'de' ? 'Meine Bestellungen' : language === 'fr' ? 'Mes commandes' : language === 'es' ? 'Mis pedidos' : 'Meus pedidos'}
+                {uiLabels.account.page_title[language]}
               </Link>
             )}
 

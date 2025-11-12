@@ -2,7 +2,7 @@
 // Shared types for application settings
 
 // Supported languages for email translations
-export type SupportedLanguage = 'it' | 'en' | 'fr' | 'de' | 'es' | 'pt';
+export type SupportedLanguage = 'it' | 'en' | 'fr' | 'de' | 'es' | 'pt' | 'hr' | 'sl' | 'el';
 
 export const SUPPORTED_LANGUAGES: { code: SupportedLanguage; name: string; flag: string }[] = [
   { code: 'it', name: 'Italiano', flag: '🇮🇹' },
@@ -11,6 +11,9 @@ export const SUPPORTED_LANGUAGES: { code: SupportedLanguage; name: string; flag:
   { code: 'de', name: 'Deutsch', flag: '🇩🇪' },
   { code: 'es', name: 'Español', flag: '🇪🇸' },
   { code: 'pt', name: 'Português', flag: '🇵🇹' },
+  { code: 'hr', name: 'Hrvatski', flag: '🇭🇷' },
+  { code: 'sl', name: 'Slovenščina', flag: '🇸🇮' },
+  { code: 'el', name: 'Ελληνικά', flag: '🇬🇷' },
 ];
 
 // Email content with subject and body

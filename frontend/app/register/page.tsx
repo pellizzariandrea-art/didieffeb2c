@@ -8,9 +8,10 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { useAuth } from '@/contexts/AuthContext';
 import { useLanguage } from '@/contexts/LanguageContext';
-import { registerB2C, registerB2B, loginWithGoogle } from '@/lib/firebase/auth';
+import { registerB2C, registerB2B } from '@/lib/firebase/auth';
 import uiLabels from '@/config/ui-labels.json';
 import type { B2CRegistrationData, B2BRegistrationData } from '@/types/auth';
+import { SUPPORTED_LANGUAGES } from '@/types/settings';
 import { toast } from 'sonner';
 
 type CustomerType = 'b2c' | 'b2b';
@@ -18,13 +19,14 @@ type CustomerType = 'b2c' | 'b2b';
 export default function RegisterPage() {
   const router = useRouter();
   const { user, loading: authLoading } = useAuth();
-  const { currentLang: language } = useLanguage();
+  const { currentLang: language, setLanguage } = useLanguage();
 
   const [customerType, setCustomerType] = useState<CustomerType | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
   const labels = uiLabels.auth;
+  const regLabels = labels.register_form;
 
   // Redirect if already logged in
   useEffect(() => {
@@ -32,27 +34,6 @@ export default function RegisterPage() {
       router.push('/');
     }
   }, [user, authLoading, router]);
-
-  const handleGoogleRegister = async (role: 'b2c' | 'b2b') => {
-    setError('');
-    setLoading(true);
-
-    try {
-      await loginWithGoogle(role);
-      toast.success(labels.registration_success[language]);
-      router.push('/');
-    } catch (err: any) {
-      console.error('Google registration error:', err);
-      if (err.message.includes('non attivo')) {
-        toast.info(labels.account_pending[language]);
-        router.push('/');
-      } else {
-        setError(err.message || 'Errore durante la registrazione con Google');
-      }
-    } finally {
-      setLoading(false);
-    }
-  };
 
   if (authLoading) {
     return (
@@ -66,9 +47,24 @@ export default function RegisterPage() {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4 sm:px-6 lg:px-8">
         <div className="max-w-md w-full space-y-8">
+          {/* Language Selector */}
+          <div className="flex justify-end">
+            <select
+              value={language}
+              onChange={(e) => setLanguage(e.target.value as any)}
+              className="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 text-sm"
+            >
+              {SUPPORTED_LANGUAGES.map((lang) => (
+                <option key={lang.code} value={lang.code}>
+                  {lang.flag} {lang.name}
+                </option>
+              ))}
+            </select>
+          </div>
+
           <div>
             <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-              {labels.register[language]}
+              {regLabels.title[language]}
             </h2>
             <p className="mt-2 text-center text-sm text-gray-600">
               {labels.have_account[language]}{' '}
@@ -83,7 +79,7 @@ export default function RegisterPage() {
 
           <div className="mt-8 space-y-4">
             <p className="text-center text-sm font-medium text-gray-700">
-              {labels.customer_type[language]}
+              {regLabels.account_type[language]}
             </p>
 
             <button
@@ -94,7 +90,7 @@ export default function RegisterPage() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
               </svg>
               <span className="text-lg font-semibold text-gray-900">
-                {labels.b2c_customer[language]}
+                {regLabels.private_customer[language]}
               </span>
             </button>
 
@@ -106,17 +102,20 @@ export default function RegisterPage() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
               </svg>
               <span className="text-lg font-semibold text-gray-900">
-                {labels.b2b_customer[language]}
+                {regLabels.business_customer[language]}
               </span>
             </button>
           </div>
 
-          <div className="text-center">
-            <Link
-              href="/"
-              className="text-sm text-gray-600 hover:text-gray-500"
-            >
-              ← {language === 'it' ? 'Torna al sito' : language === 'en' ? 'Back to site' : language === 'de' ? 'Zurück zur Seite' : language === 'fr' ? 'Retour au site' : language === 'es' ? 'Volver al sitio' : 'Voltar ao site'}
+          <div className="text-center space-y-2">
+            <p className="text-sm text-gray-600">
+              {regLabels.already_have_account[language]}{' '}
+              <Link href="/login" className="font-medium text-blue-600 hover:text-blue-500">
+                {regLabels.login_here[language]}
+              </Link>
+            </p>
+            <Link href="/" className="block text-sm text-gray-600 hover:text-gray-500">
+              ← {language === 'it' ? 'Torna al sito' : language === 'en' ? 'Back to site' : language === 'de' ? 'Zurück zur Seite' : language === 'fr' ? 'Retour au site' : language === 'es' ? 'Volver al sitio' : language === 'pt' ? 'Voltar ao site' : language === 'hr' ? 'Natrag na stranicu' : language === 'sl' ? 'Nazaj na stran' : 'Επιστροφή στον ιστότοπο'}
             </Link>
           </div>
         </div>
@@ -133,7 +132,6 @@ export default function RegisterPage() {
       setLoading={setLoading}
       setError={setError}
       onBack={() => setCustomerType(null)}
-      onGoogleRegister={() => handleGoogleRegister('b2c')}
     />;
   }
 
@@ -145,12 +143,11 @@ export default function RegisterPage() {
     setLoading={setLoading}
     setError={setError}
     onBack={() => setCustomerType(null)}
-    onGoogleRegister={() => handleGoogleRegister('b2b')}
   />;
 }
 
 // B2C Registration Form Component
-function B2CRegistrationForm({ language, labels, loading, error, setLoading, setError, onBack, onGoogleRegister }: any) {
+function B2CRegistrationForm({ language, labels, loading, error, setLoading, setError, onBack }: any) {
   const router = useRouter();
   const [formData, setFormData] = useState({
     email: '',
@@ -166,9 +163,10 @@ function B2CRegistrationForm({ language, labels, loading, error, setLoading, set
     cap: '',
     provincia: '',
     paese: 'Italia',
+    preferredLanguage: language,
   });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
@@ -205,29 +203,48 @@ function B2CRegistrationForm({ language, labels, loading, error, setLoading, set
           paese: formData.paese,
         },
         telefono: formData.telefono,
+        preferredLanguage: formData.preferredLanguage,
       };
 
-      await registerB2C(registrationData, language);
+      const { user } = await registerB2C(registrationData, language);
 
-      // Send welcome email via Brevo
+      // Send verification email via Brevo
       try {
-        await fetch('/api/send-welcome', {
+        await fetch('/api/send-verification', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
+            userId: user.uid,
             email: formData.email,
             name: `${formData.nome} ${formData.cognome}`,
-            type: 'b2c',
-            language: language
+            language: formData.preferredLanguage
           })
         });
       } catch (emailError) {
-        console.error('Failed to send welcome email:', emailError);
+        console.error('Failed to send verification email:', emailError);
         // Don't block registration if email fails
       }
 
-      toast.success(labels.registration_success[language]);
-      setTimeout(() => router.push('/login'), 2000);
+      const verificationMessage = language === 'it'
+        ? 'Registrazione completata! Controlla la tua email per verificare l\'account.'
+        : language === 'en'
+        ? 'Registration completed! Check your email to verify your account.'
+        : language === 'de'
+        ? 'Registrierung abgeschlossen! Überprüfen Sie Ihre E-Mail, um Ihr Konto zu bestätigen.'
+        : language === 'fr'
+        ? 'Inscription terminée ! Vérifiez votre e-mail pour confirmer votre compte.'
+        : language === 'es'
+        ? '¡Registro completado! Revisa tu correo para verificar tu cuenta.'
+        : language === 'pt'
+        ? 'Registro concluído! Verifique seu e-mail para confirmar sua conta.'
+        : language === 'hr'
+        ? 'Registracija dovršena! Provjerite svoju e-poštu da potvrdite račun.'
+        : language === 'sl'
+        ? 'Registracija končana! Preverite svojo e-pošto za potrditev računa.'
+        : 'Εγγραφή ολοκληρώθηκε! Ελέγξτε το email σας για επαλήθευση του λογαριασμού σας.';
+
+      toast.success(verificationMessage);
+      setTimeout(() => router.push('/login'), 3000);
     } catch (err: any) {
       console.error('Registration error:', err);
 
@@ -297,6 +314,25 @@ function B2CRegistrationForm({ language, labels, loading, error, setLoading, set
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
               placeholder={labels.confirm_password[language]}
             />
+
+            <div>
+              <label htmlFor="preferredLanguage" className="block text-sm font-medium text-gray-700 mb-1">
+                {language === 'it' ? 'Lingua preferita per le email' : language === 'en' ? 'Preferred language for emails' : language === 'de' ? 'Bevorzugte Sprache für E-Mails' : language === 'fr' ? 'Langue préférée pour les e-mails' : language === 'es' ? 'Idioma preferido para correos' : 'Idioma preferido para e-mails'}
+              </label>
+              <select
+                name="preferredLanguage"
+                id="preferredLanguage"
+                value={formData.preferredLanguage}
+                onChange={handleChange}
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+              >
+                {SUPPORTED_LANGUAGES.map((lang) => (
+                  <option key={lang.code} value={lang.code}>
+                    {lang.flag} {lang.name}
+                  </option>
+                ))}
+              </select>
+            </div>
           </div>
 
           {/* Personal Info */}
@@ -428,32 +464,6 @@ function B2CRegistrationForm({ language, labels, loading, error, setLoading, set
           >
             {loading ? labels.register[language] + '...' : labels.register[language]}
           </button>
-
-          <div className="relative">
-            <div className="absolute inset-0 flex items-center">
-              <div className="w-full border-t border-gray-300"></div>
-            </div>
-            <div className="relative flex justify-center text-sm">
-              <span className="px-2 bg-gray-50 text-gray-500">
-                {language === 'it' ? 'Oppure registrati rapidamente con' : language === 'en' ? 'Or register quickly with' : language === 'de' ? 'Oder schnell registrieren mit' : language === 'fr' ? 'Ou inscrivez-vous rapidement avec' : language === 'es' ? 'O regístrate rápidamente con' : 'Ou registre-se rapidamente com'}
-              </span>
-            </div>
-          </div>
-
-          <button
-            type="button"
-            onClick={onGoogleRegister}
-            disabled={loading}
-            className="w-full flex items-center justify-center gap-3 py-3 px-4 border-2 border-gray-300 rounded-md shadow-sm bg-white hover:bg-gray-50 hover:border-blue-500 text-sm font-medium text-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
-          >
-            <svg className="w-5 h-5" viewBox="0 0 24 24">
-              <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
-              <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
-              <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
-              <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
-            </svg>
-            {language === 'it' ? 'Registrati con Google' : language === 'en' ? 'Register with Google' : language === 'de' ? 'Mit Google registrieren' : language === 'fr' ? 'S\'inscrire avec Google' : language === 'es' ? 'Registrarse con Google' : 'Registrar com Google'}
-          </button>
         </form>
       </div>
     </div>
@@ -461,7 +471,7 @@ function B2CRegistrationForm({ language, labels, loading, error, setLoading, set
 }
 
 // B2B Registration Form Component
-function B2BRegistrationForm({ language, labels, loading, error, setLoading, setError, onBack, onGoogleRegister }: any) {
+function B2BRegistrationForm({ language, labels, loading, error, setLoading, setError, onBack }: any) {
   const router = useRouter();
   const [formData, setFormData] = useState({
     email: '',
@@ -478,9 +488,10 @@ function B2BRegistrationForm({ language, labels, loading, error, setLoading, set
     referenteNome: '',
     referenteEmail: '',
     referenteTelefono: '',
+    preferredLanguage: language,
   });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
@@ -520,29 +531,48 @@ function B2BRegistrationForm({ language, labels, loading, error, setLoading, set
           email: formData.referenteEmail,
           telefono: formData.referenteTelefono,
         },
+        preferredLanguage: formData.preferredLanguage,
       };
 
-      await registerB2B(registrationData, language);
+      const { user } = await registerB2B(registrationData, language);
 
-      // Send B2B registration confirmation email via Brevo
+      // Send verification email via Brevo
       try {
-        await fetch('/api/send-welcome', {
+        await fetch('/api/send-verification', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
+            userId: user.uid,
             email: formData.email,
             name: formData.ragioneSociale,
-            type: 'b2b',
-            language: language
+            language: formData.preferredLanguage
           })
         });
       } catch (emailError) {
-        console.error('Failed to send B2B confirmation email:', emailError);
+        console.error('Failed to send verification email:', emailError);
         // Don't block registration if email fails
       }
 
-      toast.success(labels.registration_success[language]);
-      setTimeout(() => router.push('/login'), 2000);
+      const verificationMessage = language === 'it'
+        ? 'Registrazione completata! Controlla la tua email per verificare l\'account.'
+        : language === 'en'
+        ? 'Registration completed! Check your email to verify your account.'
+        : language === 'de'
+        ? 'Registrierung abgeschlossen! Überprüfen Sie Ihre E-Mail, um Ihr Konto zu bestätigen.'
+        : language === 'fr'
+        ? 'Inscription terminée ! Vérifiez votre e-mail pour confirmer votre compte.'
+        : language === 'es'
+        ? '¡Registro completado! Revisa tu correo para verificar tu cuenta.'
+        : language === 'pt'
+        ? 'Registro concluído! Verifique seu e-mail para confirmar sua conta.'
+        : language === 'hr'
+        ? 'Registracija dovršena! Provjerite svoju e-poštu da potvrdite račun.'
+        : language === 'sl'
+        ? 'Registracija končana! Preverite svojo e-pošto za potrditev računa.'
+        : 'Εγγραφή ολοκληρώθηκε! Ελέγξτε το email σας για επαλήθευση του λογαριασμού σας.';
+
+      toast.success(verificationMessage);
+      setTimeout(() => router.push('/login'), 3000);
     } catch (err: any) {
       console.error('Registration error:', err);
 
@@ -612,6 +642,25 @@ function B2BRegistrationForm({ language, labels, loading, error, setLoading, set
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
               placeholder={labels.confirm_password[language]}
             />
+
+            <div>
+              <label htmlFor="preferredLanguage" className="block text-sm font-medium text-gray-700 mb-1">
+                {language === 'it' ? 'Lingua preferita per le email' : language === 'en' ? 'Preferred language for emails' : language === 'de' ? 'Bevorzugte Sprache für E-Mails' : language === 'fr' ? 'Langue préférée pour les e-mails' : language === 'es' ? 'Idioma preferido para correos' : 'Idioma preferido para e-mails'}
+              </label>
+              <select
+                name="preferredLanguage"
+                id="preferredLanguage"
+                value={formData.preferredLanguage}
+                onChange={handleChange}
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+              >
+                {SUPPORTED_LANGUAGES.map((lang) => (
+                  <option key={lang.code} value={lang.code}>
+                    {lang.flag} {lang.name}
+                  </option>
+                ))}
+              </select>
+            </div>
           </div>
 
           {/* Company Info */}
@@ -759,32 +808,6 @@ function B2BRegistrationForm({ language, labels, loading, error, setLoading, set
             className="w-full flex justify-center py-3 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {loading ? labels.register[language] + '...' : labels.register[language]}
-          </button>
-
-          <div className="relative">
-            <div className="absolute inset-0 flex items-center">
-              <div className="w-full border-t border-gray-300"></div>
-            </div>
-            <div className="relative flex justify-center text-sm">
-              <span className="px-2 bg-gray-50 text-gray-500">
-                {language === 'it' ? 'Oppure registrati rapidamente con' : language === 'en' ? 'Or register quickly with' : language === 'de' ? 'Oder schnell registrieren mit' : language === 'fr' ? 'Ou inscrivez-vous rapidement avec' : language === 'es' ? 'O regístrate rápidamente con' : 'Ou registre-se rapidamente com'}
-              </span>
-            </div>
-          </div>
-
-          <button
-            type="button"
-            onClick={onGoogleRegister}
-            disabled={loading}
-            className="w-full flex items-center justify-center gap-3 py-3 px-4 border-2 border-gray-300 rounded-md shadow-sm bg-white hover:bg-gray-50 hover:border-blue-500 text-sm font-medium text-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
-          >
-            <svg className="w-5 h-5" viewBox="0 0 24 24">
-              <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
-              <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
-              <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
-              <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
-            </svg>
-            {language === 'it' ? 'Registrati con Google' : language === 'en' ? 'Register with Google' : language === 'de' ? 'Mit Google registrieren' : language === 'fr' ? 'S\'inscrire avec Google' : language === 'es' ? 'Registrarse con Google' : 'Registrar com Google'}
           </button>
         </form>
       </div>

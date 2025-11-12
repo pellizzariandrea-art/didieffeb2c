@@ -186,8 +186,8 @@ export default function EmailTemplatesPage() {
 
               {/* Languages */}
               <div className="mb-4">
-                <div className="flex gap-1">
-                  {(['it', 'en', 'de', 'fr', 'es', 'pt'] as SupportedLanguage[]).map((lang) => {
+                <div className="flex gap-1 flex-wrap">
+                  {(['it', 'en', 'de', 'fr', 'es', 'pt', 'hr', 'sl', 'el'] as SupportedLanguage[]).map((lang) => {
                     const hasTranslation = template.translations[lang]?.subject && template.translations[lang]?.body;
                     return (
                       <span

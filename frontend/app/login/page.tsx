@@ -48,8 +48,6 @@ function LoginContent() {
       await login(email, password);
       // Success - redirect will happen via useEffect
     } catch (err: any) {
-      console.error('Login error:', err);
-
       // Map Firebase errors to user-friendly messages
       if (err.message.includes('user-not-found') || err.message.includes('invalid-credential')) {
         setError(labels.error.invalid_credentials[language]);
@@ -72,10 +70,9 @@ function LoginContent() {
     setLoading(true);
 
     try {
-      await loginWithGoogle('b2c');
+      await loginWithGoogle(); // No role restriction for normal login
       // The useEffect will handle redirect
     } catch (err: any) {
-      console.error('Google login error:', err);
       setError(err.message || 'Errore durante l\'accesso con Google');
     } finally {
       setLoading(false);
@@ -173,15 +170,6 @@ function LoginContent() {
                 className="font-medium text-blue-600 hover:text-blue-500"
               >
                 {labels.forgot_password[language]}
-              </Link>
-            </div>
-
-            <div className="text-sm">
-              <Link
-                href="/admin/login"
-                className="font-medium text-gray-600 hover:text-gray-500"
-              >
-                {labels.admin_login[language]}
               </Link>
             </div>
           </div>

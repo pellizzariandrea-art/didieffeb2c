@@ -65,6 +65,9 @@ try {
         'fr' => 'French (Français)',
         'es' => 'Spanish (Español)',
         'pt' => 'Portuguese (Português)',
+        'hr' => 'Croatian (Hrvatski)',
+        'sl' => 'Slovenian (Slovenščina)',
+        'el' => 'Greek (Ελληνικά)',
     ];
 
     // Traduci per ogni lingua target

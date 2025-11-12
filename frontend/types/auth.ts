@@ -1,19 +1,24 @@
 // types/auth.ts
 // Authentication and User Types
 
-export type UserRole = 'admin' | 'b2c' | 'b2b';
+export type UserRole = 'user' | 'b2c' | 'b2b' | 'admin';
 
 export type UserStatus = 'active' | 'pending' | 'disabled';
+
+export type AccountType = 'private' | 'company';
 
 // Base User Profile (common to all types)
 export interface BaseUserProfile {
   email: string;
   role: UserRole;
   status: UserStatus;
+  accountType?: AccountType;  // Type chosen during registration (private/company)
   clientCode?: string;  // Codice cliente nel gestionale MySQL (opzionale, usato per B2B/B2C)
+  preferredLanguage?: 'it' | 'en' | 'de' | 'fr' | 'es' | 'pt' | 'hr' | 'sl' | 'el';  // Preferred language for emails
   createdAt: Date;
   updatedAt: Date;
   lastLogin?: Date;
+  profileComplete?: boolean;  // Track if user completed their profile (for Google signup)
 }
 
 // Admin Profile
@@ -94,6 +99,7 @@ export interface B2CRegistrationData {
     paese: string;
   };
   telefono: string;
+  preferredLanguage?: 'it' | 'en' | 'de' | 'fr' | 'es' | 'pt' | 'hr' | 'sl' | 'el';
 }
 
 export interface B2BRegistrationData {
@@ -114,6 +120,7 @@ export interface B2BRegistrationData {
     email: string;
     telefono: string;
   };
+  preferredLanguage?: 'it' | 'en' | 'de' | 'fr' | 'es' | 'pt' | 'hr' | 'sl' | 'el';
 }
 
 export type RegistrationData =

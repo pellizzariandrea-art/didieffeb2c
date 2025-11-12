@@ -1,18 +1,15 @@
 // lib/brevo.ts
 // Brevo Email Service Integration with Company Settings
+// Uses PHP proxy on SiteGround (static IP) to avoid Brevo IP whitelist issues
 
-import * as brevo from '@getbrevo/brevo';
-import { getAppSettings } from './firebase/settings';
+import { getAppSettingsServer } from './firebase/settings-server';
 import { AppSettings, SupportedLanguage } from '@/types/settings';
-import { getEmailTemplates } from './firebase/email-templates';
+import { getEmailTemplatesServer } from './firebase/email-templates-server';
 import { replaceVariables } from '@/types/email-template';
+import { createVerificationToken } from './firebase/email-verification';
 
-// Initialize Brevo API
-const apiInstance = new brevo.TransactionalEmailsApi();
-apiInstance.setApiKey(
-  brevo.TransactionalEmailsApiApiKeys.apiKey,
-  process.env.BREVO_API_KEY || ''
-);
+// Brevo proxy endpoint (PHP on SiteGround with whitelisted IP)
+const BREVO_PROXY_URL = process.env.NEXT_PUBLIC_API_URL + '/admin/api/send-brevo-email.php';
 
 interface EmailRecipient {
   email: string;
@@ -27,33 +24,59 @@ interface SendEmailOptions {
 }
 
 /**
- * Send transactional email via Brevo
+ * Send transactional email via Brevo (using PHP proxy)
  */
 export async function sendEmail(options: SendEmailOptions, settings?: AppSettings) {
   try {
     // Get settings if not provided
     if (!settings) {
-      settings = await getAppSettings();
+      settings = await getAppSettingsServer();
     }
 
-    const sendSmtpEmail = new brevo.SendSmtpEmail();
-    sendSmtpEmail.to = [{ email: options.to.email, name: options.to.name }];
-    sendSmtpEmail.sender = {
-      name: settings.brevo.senderName,
-      email: settings.brevo.senderEmail,
+    // Prepare payload for PHP proxy
+    const payload = {
+      to: { email: options.to.email, name: options.to.name },
+      subject: options.subject,
+      htmlContent: options.htmlContent,
+      sender: {
+        name: settings.brevo.senderName,
+        email: settings.brevo.senderEmail,
+      },
+      replyTo: {
+        name: settings.brevo.replyToName,
+        email: settings.brevo.replyToEmail,
+      },
     };
-    sendSmtpEmail.replyTo = {
-      name: settings.brevo.replyToName,
-      email: settings.brevo.replyToEmail,
-    };
-    sendSmtpEmail.subject = options.subject;
-    sendSmtpEmail.htmlContent = options.htmlContent;
+
     if (options.textContent) {
-      sendSmtpEmail.textContent = options.textContent;
+      payload.textContent = options.textContent;
     }
 
-    const result = await apiInstance.sendTransacEmail(sendSmtpEmail);
-    console.log('✅ [Brevo] Email sent successfully:', result.messageId);
+    // Send via PHP proxy
+    console.log('📤 [Brevo] Sending to proxy:', BREVO_PROXY_URL);
+    const response = await fetch(BREVO_PROXY_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
+
+    const responseText = await response.text();
+    console.log('📥 [Brevo] Proxy response status:', response.status);
+    console.log('📥 [Brevo] Proxy response:', responseText.substring(0, 200));
+
+    let result;
+    try {
+      result = JSON.parse(responseText);
+    } catch (parseError) {
+      console.error('❌ [Brevo] Failed to parse response as JSON');
+      throw new Error(`Proxy returned invalid JSON: ${responseText.substring(0, 100)}`);
+    }
+
+    if (!response.ok || !result.success) {
+      throw new Error(result.error || 'Failed to send email via proxy');
+    }
+
+    console.log('✅ [Brevo] Email sent successfully via proxy:', result.messageId);
     return { success: true, messageId: result.messageId };
   } catch (error: any) {
     console.error('❌ [Brevo] Error sending email:', error);
@@ -112,114 +135,6 @@ Hai ricevuto questa email perché sei registrato sul nostro sito
 }
 
 /**
- * Send welcome email to new B2C customer
- */
-export async function sendWelcomeEmailB2C(
-  email: string,
-  name: string,
-  language: SupportedLanguage = 'it'
-) {
-  // Get settings
-  const settings = await getAppSettings();
-
-  // Load all email templates from Firestore
-  const allTemplates = await getEmailTemplates();
-
-  // Find authentication template for B2C
-  const template = allTemplates.find(
-    t => t.category === 'authentication' &&
-         t.enabled &&
-         t.targetAudience?.includes('b2c')
-  );
-
-  if (!template) {
-    console.log('ℹ️ [Brevo] No enabled B2C authentication template found, skipping');
-    return { success: true, skipped: true };
-  }
-
-  const footer = generateEmailFooter(settings);
-
-  // Get email content in specified language
-  const emailContent = template.translations[language];
-
-  if (!emailContent || !emailContent.subject || !emailContent.body) {
-    console.log(`⚠️ [Brevo] B2C template missing translation for ${language}, skipping`);
-    return { success: true, skipped: true };
-  }
-
-  // Variables to replace (based on template.variables)
-  const variables: Record<string, string> = {
-    nome: name,
-    email,
-    company: settings.company.name,
-    address: settings.company.address || '',
-    phone: settings.company.phone || '',
-    firma: settings.emailSignature?.translations?.[language] || settings.emailSignature?.translations?.it || '',
-  };
-
-  // Replace variables in subject and body
-  const subject = replaceVariables(emailContent.subject, variables);
-  const bodyContent = replaceVariables(emailContent.body, variables);
-
-  return sendEmail({
-    to: { email, name },
-    subject,
-    htmlContent: `
-      <!DOCTYPE html>
-      <html>
-      <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <style>
-          body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 20px;
-          }
-          .header {
-            text-align: center;
-            padding: 20px 0;
-            border-bottom: 3px solid #2563eb;
-            margin-bottom: 30px;
-          }
-          .logo {
-            max-width: 200px;
-            height: auto;
-          }
-          .content {
-            padding: 20px 0;
-          }
-          .footer {
-            margin-top: 40px;
-            padding-top: 20px;
-            border-top: 1px solid #e5e7eb;
-            font-size: 14px;
-            color: #6b7280;
-            text-align: center;
-          }
-        </style>
-      </head>
-      <body>
-        <div class="header">
-          <img src="${getLogoBase64(settings)}" alt="${settings.company.name}" class="logo">
-        </div>
-
-        <div class="content">
-          ${bodyContent}
-        </div>
-
-        ${footer.html}
-      </body>
-      </html>
-    `,
-    textContent: bodyContent.replace(/<[^>]*>/g, '').replace(/\s+/g, ' ').trim() + '\n\n' + footer.text,
-  }, settings);
-}
-
-/**
  * Send registration confirmation email to new B2B company (pending approval)
  */
 export async function sendB2BRegistrationConfirmation(
@@ -228,10 +143,10 @@ export async function sendB2BRegistrationConfirmation(
   language: SupportedLanguage = 'it'
 ) {
   // Get settings
-  const settings = await getAppSettings();
+  const settings = await getAppSettingsServer();
 
-  // Load all email templates from Firestore
-  const allTemplates = await getEmailTemplates();
+  // Load all email templates from Firestore (server-side)
+  const allTemplates = await getEmailTemplatesServer();
 
   // Find authentication template for B2B
   const template = allTemplates.find(
@@ -324,5 +239,291 @@ export async function sendB2BRegistrationConfirmation(
       </html>
     `,
     textContent: bodyContent.replace(/<[^>]*>/g, '').replace(/\s+/g, ' ').trim() + '\n\n' + footer.text,
+  }, settings);
+}
+
+/**
+ * Send email verification link to user
+ */
+export async function sendVerificationEmail(
+  userId: string,
+  email: string,
+  name: string,
+  language: SupportedLanguage = 'it'
+) {
+  try {
+    // Get settings
+    const settings = await getAppSettingsServer();
+
+    // Load all email templates from Firestore (server-side)
+    const allTemplates = await getEmailTemplatesServer();
+
+    // Find email verification template
+    const template = allTemplates.find(
+      t => t.slug === 'email-verification' && t.enabled
+    );
+
+    if (!template) {
+      console.log('⚠️ [Brevo] No enabled email verification template found, using fallback');
+      // Use fallback if no template found
+      return sendVerificationEmailFallback(userId, email, name, language, settings);
+    }
+
+    // Create verification token
+    const token = await createVerificationToken(userId, email);
+
+    // Build verification URL
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3002';
+    const verificationUrl = `${baseUrl}/verify-email?token=${token}`;
+
+    const footer = generateEmailFooter(settings);
+
+    // Get email content in specified language
+    const emailContent = template.translations[language];
+
+    if (!emailContent || !emailContent.subject || !emailContent.body) {
+      console.log(`⚠️ [Brevo] Email verification template missing translation for ${language}, using fallback`);
+      return sendVerificationEmailFallback(userId, email, name, language, settings);
+    }
+
+    // Variables to replace
+    const variables: Record<string, string> = {
+      nome: name,
+      email,
+      verificationUrl,
+      company: settings.company.name,
+      address: settings.company.address || '',
+      phone: settings.company.phone || '',
+      firma: settings.emailSignature?.translations?.[language] || settings.emailSignature?.translations?.it || '',
+    };
+
+    // Replace variables in subject and body
+    const subject = replaceVariables(emailContent.subject, variables);
+    const bodyContent = replaceVariables(emailContent.body, variables);
+
+    return sendEmail({
+      to: { email, name },
+      subject,
+      htmlContent: `
+        <!DOCTYPE html>
+        <html>
+        <head>
+          <meta charset="utf-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <style>
+            body {
+              font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+              line-height: 1.6;
+              color: #333;
+              max-width: 600px;
+              margin: 0 auto;
+              padding: 20px;
+            }
+            .header {
+              text-align: center;
+              padding: 20px 0;
+              border-bottom: 3px solid #2563eb;
+              margin-bottom: 30px;
+            }
+            .logo {
+              max-width: 200px;
+              height: auto;
+            }
+            .content {
+              padding: 20px 0;
+            }
+            .button {
+              display: inline-block;
+              padding: 12px 24px;
+              background-color: #2563eb;
+              color: #ffffff !important;
+              text-decoration: none;
+              border-radius: 6px;
+              margin: 20px 0;
+              font-weight: 600;
+            }
+            .footer {
+              margin-top: 40px;
+              padding-top: 20px;
+              border-top: 1px solid #e5e7eb;
+              font-size: 14px;
+              color: #6b7280;
+              text-align: center;
+            }
+          </style>
+        </head>
+        <body>
+          <div class="header">
+            <img src="${getLogoBase64(settings)}" alt="${settings.company.name}" class="logo">
+          </div>
+
+          <div class="content">
+            ${bodyContent}
+          </div>
+
+          ${footer.html}
+        </body>
+        </html>
+      `,
+      textContent: bodyContent.replace(/<[^>]*>/g, '').replace(/\s+/g, ' ').trim() + '\n\n' + verificationUrl + '\n\n' + footer.text,
+    }, settings);
+  } catch (error) {
+    console.error('❌ [Brevo] Error sending verification email:', error);
+    throw error;
+  }
+}
+
+/**
+ * Fallback function to send verification email without template
+ */
+async function sendVerificationEmailFallback(
+  userId: string,
+  email: string,
+  name: string,
+  language: SupportedLanguage,
+  settings: AppSettings
+) {
+  // Create verification token
+  const token = await createVerificationToken(userId, email);
+
+  // Build verification URL
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3002';
+  const verificationUrl = `${baseUrl}/verify-email?token=${token}`;
+
+  const footer = generateEmailFooter(settings);
+
+  // Multilingual content
+  const content: Record<SupportedLanguage, { subject: string; body: string; button: string }> = {
+    it: {
+      subject: 'Verifica il tuo indirizzo email',
+      body: `<p>Ciao ${name},</p><p>Grazie per esserti registrato! Per completare la registrazione, clicca sul pulsante qui sotto per verificare il tuo indirizzo email:</p>`,
+      button: 'Verifica Email'
+    },
+    en: {
+      subject: 'Verify your email address',
+      body: `<p>Hello ${name},</p><p>Thank you for registering! To complete your registration, click the button below to verify your email address:</p>`,
+      button: 'Verify Email'
+    },
+    de: {
+      subject: 'Bestätige deine E-Mail-Adresse',
+      body: `<p>Hallo ${name},</p><p>Vielen Dank für deine Registrierung! Um deine Registrierung abzuschließen, klicke auf die Schaltfläche unten, um deine E-Mail-Adresse zu bestätigen:</p>`,
+      button: 'E-Mail bestätigen'
+    },
+    fr: {
+      subject: 'Vérifiez votre adresse e-mail',
+      body: `<p>Bonjour ${name},</p><p>Merci de vous être inscrit! Pour compléter votre inscription, cliquez sur le bouton ci-dessous pour vérifier votre adresse e-mail:</p>`,
+      button: 'Vérifier l\'e-mail'
+    },
+    es: {
+      subject: 'Verifica tu dirección de correo electrónico',
+      body: `<p>Hola ${name},</p><p>¡Gracias por registrarte! Para completar tu registro, haz clic en el botón de abajo para verificar tu dirección de correo electrónico:</p>`,
+      button: 'Verificar correo'
+    },
+    pt: {
+      subject: 'Verifique seu endereço de e-mail',
+      body: `<p>Olá ${name},</p><p>Obrigado por se registrar! Para completar seu registro, clique no botão abaixo para verificar seu endereço de e-mail:</p>`,
+      button: 'Verificar e-mail'
+    },
+    hr: {
+      subject: 'Potvrdite svoju email adresu',
+      body: `<p>Pozdrav ${name},</p><p>Hvala što ste se registrirali! Da dovršite registraciju, kliknite na gumb ispod kako biste potvrdili svoju email adresu:</p>`,
+      button: 'Potvrdi email'
+    },
+    sl: {
+      subject: 'Potrdite svoj e-poštni naslov',
+      body: `<p>Pozdravljeni ${name},</p><p>Hvala za registracijo! Za dokončanje registracije kliknite spodnji gumb za potrditev vašega e-poštnega naslova:</p>`,
+      button: 'Potrdi e-pošto'
+    },
+    el: {
+      subject: 'Επαληθεύστε τη διεύθυνση email σας',
+      body: `<p>Γεια σου ${name},</p><p>Ευχαριστούμε που εγγραφήκατε! Για να ολοκληρώσετε την εγγραφή σας, κάντε κλικ στο παρακάτω κουμπί για να επαληθεύσετε τη διεύθυνση email σας:</p>`,
+      button: 'Επαλήθευση email'
+    }
+  };
+
+  const { subject, body, button } = content[language];
+
+  return sendEmail({
+    to: { email, name },
+    subject,
+    htmlContent: `
+      <!DOCTYPE html>
+      <html>
+      <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+          body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+          }
+          .header {
+            text-align: center;
+            padding: 20px 0;
+            border-bottom: 3px solid #2563eb;
+            margin-bottom: 30px;
+          }
+          .logo {
+            max-width: 200px;
+            height: auto;
+          }
+          .content {
+            padding: 20px 0;
+          }
+          .button {
+            display: inline-block;
+            padding: 12px 24px;
+            background-color: #2563eb;
+            color: #ffffff !important;
+            text-decoration: none;
+            border-radius: 6px;
+            margin: 20px 0;
+            font-weight: 600;
+          }
+          .footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #e5e7eb;
+            font-size: 14px;
+            color: #6b7280;
+            text-align: center;
+          }
+        </style>
+      </head>
+      <body>
+        <div class="header">
+          <img src="${getLogoBase64(settings)}" alt="${settings.company.name}" class="logo">
+        </div>
+
+        <div class="content">
+          ${body}
+          <div style="text-align: center;">
+            <a href="${verificationUrl}" class="button">${button}</a>
+          </div>
+          <p style="color: #6b7280; font-size: 14px; margin-top: 20px;">
+            ${language === 'it' ? 'Se il pulsante non funziona, copia e incolla questo link nel tuo browser:' :
+              language === 'en' ? 'If the button doesn\'t work, copy and paste this link into your browser:' :
+              language === 'de' ? 'Wenn die Schaltfläche nicht funktioniert, kopieren Sie diesen Link und fügen Sie ihn in Ihren Browser ein:' :
+              language === 'fr' ? 'Si le bouton ne fonctionne pas, copiez et collez ce lien dans votre navigateur:' :
+              language === 'es' ? 'Si el botón no funciona, copia y pega este enlace en tu navegador:' :
+              language === 'pt' ? 'Se o botão não funcionar, copie e cole este link no seu navegador:' :
+              language === 'hr' ? 'Ako gumb ne radi, kopirajte i zalijepite ovu vezu u svoj preglednik:' :
+              language === 'sl' ? 'Če gumb ne deluje, kopirajte in prilepite to povezavo v svoj brskalnik:' :
+              'Εάν το κουμπί δεν λειτουργεί, αντιγράψτε και επικολλήστε αυτόν τον σύνδεσμο στο πρόγραμμα περιήγησής σας:'}
+          </p>
+          <p style="color: #6b7280; font-size: 12px; word-break: break-all;">
+            ${verificationUrl}
+          </p>
+        </div>
+
+        ${footer.html}
+      </body>
+      </html>
+    `,
+    textContent: `${body}\n\n${verificationUrl}\n\n${footer.text}`,
   }, settings);
 }

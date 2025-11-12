@@ -1,7 +1,7 @@
 // types/email-template.ts
 // Email Template Types for Dynamic Template Management
 
-export type SupportedLanguage = 'it' | 'en' | 'de' | 'fr' | 'es' | 'pt';
+export type SupportedLanguage = 'it' | 'en' | 'de' | 'fr' | 'es' | 'pt' | 'hr' | 'sl' | 'el';
 
 export type TemplateCategory =
   | 'authentication'  // Login, registrazione, reset password

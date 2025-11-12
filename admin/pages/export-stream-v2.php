@@ -45,6 +45,58 @@ ob_implicit_flush(true);
 // Increase execution time
 @ini_set('max_execution_time', 1800); // 30 minutes
 
+// ===== ERROR HANDLER GLOBALE =====
+// Cattura TUTTI gli errori PHP inclusi timeout e memory limit
+$fatalErrorLog = DATA_PATH . '/export-v2-fatal-errors.log';
+
+set_error_handler(function($errno, $errstr, $errfile, $errline) use ($fatalErrorLog) {
+    $timestamp = date('Y-m-d H:i:s');
+    $errorTypes = [
+        E_ERROR => 'ERROR',
+        E_WARNING => 'WARNING',
+        E_PARSE => 'PARSE',
+        E_NOTICE => 'NOTICE',
+        E_CORE_ERROR => 'CORE_ERROR',
+        E_CORE_WARNING => 'CORE_WARNING',
+        E_COMPILE_ERROR => 'COMPILE_ERROR',
+        E_COMPILE_WARNING => 'COMPILE_WARNING',
+        E_USER_ERROR => 'USER_ERROR',
+        E_USER_WARNING => 'USER_WARNING',
+        E_USER_NOTICE => 'USER_NOTICE',
+        E_STRICT => 'STRICT',
+        E_RECOVERABLE_ERROR => 'RECOVERABLE_ERROR',
+        E_DEPRECATED => 'DEPRECATED',
+        E_USER_DEPRECATED => 'USER_DEPRECATED'
+    ];
+
+    $errorType = $errorTypes[$errno] ?? 'UNKNOWN';
+    $logEntry = "[$timestamp] PHP $errorType: $errstr in $errfile:$errline\n";
+    file_put_contents($fatalErrorLog, $logEntry, FILE_APPEND);
+
+    // Invia SSE se possibile
+    echo "event: error\n";
+    echo 'data: {"message":"PHP Error: ' . addslashes($errstr) . ' in ' . basename($errfile) . ':' . $errline . '"}' . "\n\n";
+    flush();
+
+    return true; // Non bloccare l'esecuzione
+});
+
+// Cattura errori FATALI (timeout, memory limit, etc.)
+register_shutdown_function(function() use ($fatalErrorLog) {
+    $error = error_get_last();
+    if ($error !== null && in_array($error['type'], [E_ERROR, E_CORE_ERROR, E_COMPILE_ERROR, E_PARSE, E_RECOVERABLE_ERROR])) {
+        $timestamp = date('Y-m-d H:i:s');
+        $logEntry = "[$timestamp] FATAL ERROR: {$error['message']} in {$error['file']}:{$error['line']}\n";
+        file_put_contents($fatalErrorLog, $logEntry, FILE_APPEND);
+
+        // Prova a inviare SSE (potrebbe non arrivare se il buffer è pieno)
+        echo "event: error\n";
+        echo 'data: {"message":"FATAL: ' . addslashes($error['message']) . ' in ' . basename($error['file']) . ':' . $error['line'] . '"}' . "\n\n";
+        flush();
+    }
+});
+// ===== FINE ERROR HANDLER =====
+
 // File paths
 $logFile = DATA_PATH . '/export-v2-debug.log';
 $stateFile = DATA_PATH . '/export-v2-state.json';
@@ -74,6 +126,39 @@ function writeLog($message, $data = null) {
     @flush();
 }
 
+// Helper: Translate with retry logic for rate limiting
+function translateWithRetry($text, $lang, $apiKey, $maxRetries = 3) {
+    $attempt = 0;
+
+    while ($attempt < $maxRetries) {
+        $result = translateText($text, $lang, $apiKey);
+
+        // Se ritorna null = errore retryable (429 o 5xx)
+        if ($result === null) {
+            $attempt++;
+            $waitTime = min(pow(2, $attempt), 8); // Exponential backoff: 2, 4, 8 secondi max
+
+            writeLog("🔄 Retry {$attempt}/{$maxRetries} dopo {$waitTime}s rate limit", [
+                'text' => substr($text, 0, 30),
+                'lang' => $lang
+            ]);
+
+            sleep($waitTime);
+            continue;
+        }
+
+        // Successo o errore permanente: ritorna risultato
+        return $result;
+    }
+
+    // Tutti i retry falliti: ritorna testo originale
+    writeLog("❌ Tutti i retry esauriti, uso testo originale", [
+        'text' => substr($text, 0, 30),
+        'lang' => $lang
+    ]);
+    return $text;
+}
+
 // Initialize log
 file_put_contents($logFile, "\n=== EXPORT V2 START [" . date('Y-m-d H:i:s') . "] ===\n");
 writeLog("Export stream v2 iniziato");
@@ -81,7 +166,19 @@ writeLog("Export stream v2 iniziato");
 // Send SSE event
 function sendSSE($event, $data) {
     if (connection_aborted()) {
-        writeLog("Connection aborted by client");
+        $abortReason = connection_status();
+        $reasons = [
+            0 => 'CONNECTION_NORMAL',
+            1 => 'CONNECTION_ABORTED (client disconnected)',
+            2 => 'CONNECTION_TIMEOUT (script timeout)',
+            3 => 'CONNECTION_ABORTED + CONNECTION_TIMEOUT'
+        ];
+        writeLog("Connection aborted", [
+            'status' => $abortReason,
+            'reason' => $reasons[$abortReason] ?? 'UNKNOWN',
+            'event' => $event,
+            'last_data' => json_encode($data)
+        ]);
         exit;
     }
 
@@ -94,23 +191,36 @@ function sendSSE($event, $data) {
         }
     }
 
-    echo "event: $event\n";
-    echo "data: " . json_encode($data, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . "\n\n";
+    try {
+        echo "event: $event\n";
+        echo "data: " . json_encode($data, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . "\n\n";
 
-    if (ob_get_level()) {
-        @ob_flush();
+        if (ob_get_level()) {
+            @ob_flush();
+        }
+        @flush();
+        usleep(1000);
+    } catch (Exception $e) {
+        writeLog("ERROR sending SSE", [
+            'exception' => $e->getMessage(),
+            'event' => $event
+        ]);
     }
-    @flush();
-    usleep(1000);
 }
 
 // Keep-alive function
 function sendKeepAlive() {
-    echo ": keep-alive\n\n";
+    static $keepAliveCount = 0;
+    $keepAliveCount++;
+
+    echo ": keep-alive #$keepAliveCount at " . date('H:i:s') . "\n\n";
     if (ob_get_level()) {
         @ob_flush();
     }
     @flush();
+
+    // Log anche su file per debug
+    writeLog("Keep-alive sent", ['count' => $keepAliveCount]);
 }
 
 // Setup keep-alive
@@ -143,6 +253,44 @@ function saveChunk($chunkNumber, $products) {
     return $chunkFile;
 }
 
+// Load existing chunks and extract source codes
+function loadExistingChunks() {
+    $pattern = DATA_PATH . '/export-v2-chunk-*.json';
+    $files = glob($pattern);
+    sort($files); // Ordina per numero chunk
+
+    $products = [];
+    $sourceCodes = [];
+
+    foreach ($files as $file) {
+        $chunkData = json_decode(file_get_contents($file), true);
+        if ($chunkData && is_array($chunkData)) {
+            foreach ($chunkData as $product) {
+                $products[] = $product;
+
+                // Estrai source codes per tracking resume
+                if (isset($product['_source_codes']) && is_array($product['_source_codes'])) {
+                    $sourceCodes = array_merge($sourceCodes, $product['_source_codes']);
+                }
+            }
+        }
+    }
+
+    // Rimuovi duplicati dai source codes
+    $sourceCodes = array_unique($sourceCodes);
+
+    writeLog("Existing chunks loaded", [
+        'chunks' => count($files),
+        'products' => count($products),
+        'source_codes' => count($sourceCodes)
+    ]);
+
+    return [
+        'products' => $products,
+        'source_codes' => $sourceCodes
+    ];
+}
+
 // Delete old chunks
 function deleteOldChunks() {
     $pattern = DATA_PATH . '/export-v2-chunk-*.json';
@@ -172,10 +320,11 @@ try {
         exit;
     }
 
-    // Allow disabling translations
-    if (isset($_GET['skip_translations']) && $_GET['skip_translations'] == '1') {
+    // Allow disabling translations (but save original state for metadata translation)
+    $skipTranslations = isset($_GET['skip_translations']) && $_GET['skip_translations'] == '1';
+    if ($skipTranslations) {
         $translationSettings['enabled'] = false;
-        writeLog("Translations DISABLED via parameter");
+        writeLog("Translations DISABLED via parameter (products only - metadata will be translated later)");
     }
 
     // Get product limit
@@ -186,20 +335,55 @@ try {
     $state = loadState();
     $isResume = false;
 
+    // Variabili per tenere i prodotti già completati e i codici sorgente (da chunk esistenti)
+    $preloadedProducts = [];
+    $excludeCodes = [];
+
     if ($state && $state['status'] === 'in_progress') {
-        // Resume export
+        // Resume export - usa il limite salvato nello stato
         $isResume = true;
-        writeLog("RESUMING export from chunk " . $state['current_chunk']);
+        if (isset($state['product_limit'])) {
+            $productLimit = $state['product_limit'];
+            writeLog("Using saved product limit from state", $productLimit);
+        }
+
+        // Carica i chunk già salvati ed estrai source codes
         sendSSE('progress', [
             'phase' => 'resume',
-            'message' => 'Ripresa export dal chunk ' . $state['current_chunk'] . '...',
-            'current' => $state['completed_products'],
+            'message' => 'Caricamento chunk già completati...',
+            'current' => 0,
+            'total' => 0,
+            'percent' => 0
+        ]);
+
+        $chunkData = loadExistingChunks();
+        $preloadedProducts = $chunkData['products'];
+        $excludeCodes = $chunkData['source_codes'];
+        $preloadedCount = count($preloadedProducts);
+
+        writeLog("RESUMING export from chunk " . $state['current_chunk'], [
+            'preloaded_products' => $preloadedCount,
+            'exclude_codes' => count($excludeCodes),
+            'state_completed' => $state['completed_products']
+        ]);
+
+        sendSSE('progress', [
+            'phase' => 'resume',
+            'message' => "Ripresa export: {$preloadedCount} prodotti già completati, escludo " . count($excludeCodes) . " codici dal DB...",
+            'current' => $preloadedCount,
             'total' => $state['total_products'],
-            'percent' => round(($state['completed_products'] / max($state['total_products'], 1)) * 100)
+            'percent' => round(($preloadedCount / max($state['total_products'], 1)) * 100)
         ]);
     } else {
         // New export - delete old chunks
         deleteOldChunks();
+
+        // Delete temporary JSON file if exists from previous interrupted export
+        $tempJsonPath = PUBLIC_JSON_PATH . '.tmp';
+        if (file_exists($tempJsonPath)) {
+            unlink($tempJsonPath);
+            writeLog("Old temporary JSON file deleted", ['path' => $tempJsonPath]);
+        }
 
         $state = [
             'status' => 'in_progress',
@@ -207,10 +391,11 @@ try {
             'total_products' => 0,
             'completed_products' => 0,
             'current_chunk' => 1,
-            'chunk_size' => 50
+            'chunk_size' => 25,  // Ridotto a 25 per salvare più frequentemente
+            'product_limit' => $productLimit  // Salva il limite nello stato
         ];
         saveState($state);
-        writeLog("NEW export started");
+        writeLog("NEW export started", ['limit' => $productLimit ?? 'ALL']);
     }
 
     $startTime = microtime(true);
@@ -238,7 +423,7 @@ try {
                 $errorMessages[] = "Tabella '$tableName' non esiste: " . $result['error'];
                 writeLog("ERROR: Table does not exist", ['table' => $tableName, 'error' => $result['error']]);
             } elseif ($result['count'] === 0) {
-                $errorMessages[] = "⚠️ Tabella '$tableName' è vuota (0 record)";
+                $errorMessages[] = "Tabella '$tableName' è vuota (0 record)";
                 writeLog("WARNING: Table is empty", ['table' => $tableName]);
             }
         }
@@ -274,6 +459,7 @@ try {
             if (!$state['total_products']) {
                 $state['total_products'] = $total;
                 saveState($state);
+                writeLog("Total products set", ['total' => $total]);
             }
         }
 
@@ -293,8 +479,19 @@ try {
             $currentChunkProducts[] = $data['product'];
             $completedProducts++;
 
+            writeLog("Product completed", [
+                'index' => $completedProducts,
+                'code' => $data['product']['codice'] ?? 'unknown',
+                'chunk_count' => count($currentChunkProducts)
+            ]);
+
             // Save chunk every chunkSize products
             if (count($currentChunkProducts) >= $chunkSize) {
+                writeLog("Saving chunk...", [
+                    'chunk' => $currentChunkNumber,
+                    'products' => count($currentChunkProducts)
+                ]);
+
                 saveChunk($currentChunkNumber, $currentChunkProducts);
 
                 // Update state
@@ -309,7 +506,7 @@ try {
                     'total_completed' => $completedProducts
                 ]);
 
-                writeLog("Chunk completed", [
+                writeLog("Chunk saved successfully", [
                     'chunk' => $currentChunkNumber,
                     'products' => count($currentChunkProducts),
                     'total_completed' => $completedProducts
@@ -333,6 +530,7 @@ try {
 
     writeLog("Starting chunked processing with callback");
 
+    // Passa i codici da escludere al fetch del database (resume ottimizzato)
     $jsonData = generateProductsJSONChunkedWithCallback(
         $dbConfig,
         $mappingConfig,
@@ -343,10 +541,15 @@ try {
         $variantConfig,
         $ecommerceConfig,
         $progressCallback,
-        10
+        10,
+        0,  // skipCount (deprecated, non usato più)
+        $excludeCodes  // Escludi codici già processati dal database
     );
 
-    writeLog("Products processing completed", ['count' => $jsonData['total']]);
+    writeLog("Products processing completed", [
+        'count' => $jsonData['total'],
+        'excluded_codes' => count($excludeCodes)
+    ]);
 
     // Save any remaining products in last chunk
     if (count($currentChunkProducts) > 0) {
@@ -368,20 +571,270 @@ try {
         ]);
     }
 
-    // Products are already in $jsonData from generateProductsJSONChunkedWithCallback
-    // No need to merge chunks, just save the final JSON
+    // Se è un resume, unisci prodotti precaricati con i nuovi
+    if ($isResume && count($preloadedProducts) > 0) {
+        sendSSE('progress', [
+            'phase' => 'merging',
+            'message' => 'Unione prodotti precaricati con nuovi...',
+            'current' => 0,
+            'total' => 1,
+            'percent' => 90
+        ]);
+
+        writeLog("Merging preloaded products with new ones", [
+            'preloaded' => count($preloadedProducts),
+            'new' => count($jsonData['prodotti'])
+        ]);
+
+        // Unisci i prodotti: precaricati + nuovi (FIX: usa 'prodotti' non 'products')
+        $jsonData['prodotti'] = array_merge($preloadedProducts, $jsonData['prodotti']);
+        $jsonData['total'] = count($jsonData['prodotti']);
+
+        writeLog("Products merged", ['total' => $jsonData['total']]);
+    }
+
+    // FIX: Assicura struttura multilingua (converte stringhe in oggetti)
+    sendSSE('progress', [
+        'phase' => 'fixing',
+        'message' => 'Normalizzazione struttura multilingua...',
+        'current' => 0,
+        'total' => 1,
+        'percent' => 93
+    ]);
+
+    $languages = $translationSettings['languages'] ?? ['it', 'en', 'de', 'fr', 'es', 'pt', 'hr', 'sl', 'el'];
+
+    // Fix struttura usando array_map per evitare problemi di riferimento
+    $jsonData['prodotti'] = array_map(function($product) use ($languages) {
+        // Fix nome
+        if (isset($product['nome']) && is_string($product['nome'])) {
+            $originalName = $product['nome'];
+            $product['nome'] = ['it' => $originalName];
+            foreach ($languages as $lang) {
+                if ($lang !== 'it' && !isset($product['nome'][$lang])) {
+                    $product['nome'][$lang] = '';
+                }
+            }
+        }
+
+        // Fix descrizione
+        if (isset($product['descrizione']) && is_string($product['descrizione'])) {
+            $originalDesc = $product['descrizione'];
+            $product['descrizione'] = ['it' => $originalDesc];
+            foreach ($languages as $lang) {
+                if ($lang !== 'it' && !isset($product['descrizione'][$lang])) {
+                    $product['descrizione'][$lang] = '';
+                }
+            }
+        }
+
+        // Fix attributi - converti valori stringa in struttura multilingua
+        if (isset($product['attributi']) && is_array($product['attributi'])) {
+            foreach ($product['attributi'] as $attrKey => &$attrValue) {
+                // Solo se il valore è una stringa (non booleano, non già strutturato)
+                if (is_string($attrValue) && $attrValue !== '') {
+                    $originalValue = $attrValue;
+                    $attrValue = ['it' => $originalValue];
+                    foreach ($languages as $lang) {
+                        if ($lang !== 'it') {
+                            $attrValue[$lang] = '';
+                        }
+                    }
+                }
+                // Se è un booleano o un numero, lascialo così com'è
+                // Se è già un array (struttura multilingua), lascialo così
+            }
+        }
+
+        return $product;
+    }, $jsonData['prodotti']);
+
+    writeLog("Multilingual structure normalized", ['products_count' => count($jsonData['prodotti'])]);
+
+    // TRANSLATE METADATA if skip_translations was enabled (fast export)
+    if ($skipTranslations && !empty($translationSettings['api_key'])) {
+        $apiKey = $translationSettings['api_key'];
+        $targetLanguages = $translationSettings['languages'] ?? ['en', 'de', 'fr', 'es', 'pt', 'hr', 'sl', 'el'];
+
+        // Count total items to translate for progress bar
+        $totalCategories = !empty($jsonData['_meta']['categories']) ? count($jsonData['_meta']['categories']) : 0;
+        $totalFilters = 0;
+        $totalFilterOptions = 0;
+
+        if (!empty($jsonData['_meta']['filters'])) {
+            foreach ($jsonData['_meta']['filters'] as $filter) {
+                if ($filter['type'] !== 'range' && !empty($filter['options'])) {
+                    $totalFilters++;
+                    $totalFilterOptions += count($filter['options']);
+                }
+            }
+        }
+
+        $totalItems = $totalCategories + $totalFilterOptions;
+        $currentItem = 0;
+
+        sendSSE('progress', [
+            'phase' => 'translating_metadata',
+            'message' => "Inizio traduzione metadata: {$totalCategories} categorie, {$totalFilters} filtri ({$totalFilterOptions} opzioni)",
+            'current' => 0,
+            'total' => $totalItems,
+            'percent' => 94
+        ]);
+
+        writeLog("Translating metadata: {$totalCategories} categories, {$totalFilters} filters ({$totalFilterOptions} options)");
+
+        // Translate categories
+        if (!empty($jsonData['_meta']['categories'])) {
+            $categoryIndex = 0;
+            foreach ($jsonData['_meta']['categories'] as &$category) {
+                $categoryIndex++;
+                $categoryName = $category['field'] ?? $category['label'] ?? '';
+
+                if ($categoryName && (!isset($category['translations']) || count($category['translations']) <= 1)) {
+                    sendSSE('progress', [
+                        'phase' => 'translating_metadata',
+                        'message' => "Categoria {$categoryIndex}/{$totalCategories}: \"{$categoryName}\"",
+                        'current' => $currentItem,
+                        'total' => $totalItems,
+                        'percent' => 94 + (int)(($currentItem / $totalItems) * 3)
+                    ]);
+
+                    $category['translations'] = $category['translations'] ?? [];
+
+                    if (!isset($category['translations']['it'])) {
+                        $category['translations']['it'] = $categoryName;
+                    }
+
+                    foreach ($targetLanguages as $lang) {
+                        if ($lang === 'it') continue;
+
+                        if (empty($category['translations'][$lang])) {
+                            $category['translations'][$lang] = translateWithRetry($categoryName, $lang, $apiKey);
+                            // Piccolo delay per non sovraccaricare il server
+                            usleep(100000); // 0.1 secondi
+                        }
+                    }
+
+                    $currentItem++;
+                }
+            }
+            unset($category);
+        }
+
+        // Translate filters
+        if (!empty($jsonData['_meta']['filters'])) {
+            $filterIndex = 0;
+            foreach ($jsonData['_meta']['filters'] as &$filter) {
+                $filterName = $filter['field'] ?? $filter['label'] ?? '';
+
+                // Skip range filters
+                if ($filter['type'] === 'range') continue;
+
+                $filterIndex++;
+
+                // Translate filter options
+                if (!empty($filter['options']) && is_array($filter['options'])) {
+                    $optionIndex = 0;
+                    $totalOptionsInFilter = count($filter['options']);
+
+                    foreach ($filter['options'] as &$option) {
+                        $optionIndex++;
+                        $currentItem++;
+
+                        // Get option value for display
+                        $optionValue = '';
+                        if (isset($option['value'])) {
+                            if (is_array($option['value'])) {
+                                $optionValue = $option['value']['it'] ?? '';
+                            } elseif (is_bool($option['value'])) {
+                                $optionValue = $option['value'] ? 'Sì' : 'No';
+                            } else {
+                                $optionValue = $option['value'];
+                            }
+                        }
+
+                        sendSSE('progress', [
+                            'phase' => 'translating_metadata',
+                            'message' => "Filtro {$filterIndex}/{$totalFilters} \"{$filterName}\" - Opzione {$optionIndex}/{$totalOptionsInFilter}: \"{$optionValue}\"",
+                            'current' => $currentItem,
+                            'total' => $totalItems,
+                            'percent' => 94 + (int)(($currentItem / $totalItems) * 3)
+                        ]);
+
+                        // Translate label
+                        if (!is_array($option['label'])) {
+                            $option['label'] = ['it' => $filterName];
+                        }
+
+                        foreach ($targetLanguages as $lang) {
+                            if ($lang === 'it') continue;
+
+                            if (empty($option['label'][$lang])) {
+                                $option['label'][$lang] = translateWithRetry($filterName, $lang, $apiKey);
+                                // Piccolo delay per non sovraccaricare il server
+                                usleep(100000); // 0.1 secondi
+                            }
+                        }
+
+                        // Translate value (only if it's a multilingual object with strings, not booleans!)
+                        if (isset($option['value']) && is_array($option['value'])) {
+                            $italianValue = $option['value']['it'] ?? '';
+
+                            if ($italianValue && is_string($italianValue)) {
+                                foreach ($targetLanguages as $lang) {
+                                    if ($lang === 'it') continue;
+
+                                    if (empty($option['value'][$lang])) {
+                                        $option['value'][$lang] = translateWithRetry($italianValue, $lang, $apiKey);
+                                        // Piccolo delay per non sovraccaricare il server
+                                        usleep(100000); // 0.1 secondi
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    unset($option);
+                }
+            }
+            unset($filter);
+        }
+
+        sendSSE('progress', [
+            'phase' => 'translating_metadata',
+            'message' => "Traduzione metadata completata: {$totalCategories} categorie + {$totalFilterOptions} opzioni filtri",
+            'current' => $totalItems,
+            'total' => $totalItems,
+            'percent' => 97
+        ]);
+
+        writeLog("Metadata translation completed: {$totalCategories} categories + {$totalFilterOptions} filter options");
+    }
 
     // Save final JSON
     sendSSE('progress', [
         'phase' => 'saving',
-        'message' => 'Salvataggio JSON finale...',
+        'message' => 'Salvataggio sicuro in corso (temp -> finale)...',
         'current' => 0,
         'total' => 1,
-        'percent' => 0
+        'percent' => 95
     ]);
 
+    // IMPORTANTE: Flush cache traduzioni su disco PRIMA di salvare il JSON
+    writeLog("Flushing translation cache to disk...");
+    flushTranslationCache();
+    writeLog("Translation cache flushed successfully");
+
+    writeLog("Saving final JSON with atomic write", ['path' => PUBLIC_JSON_PATH]);
     savePublicJSON($jsonData);
-    writeLog("Final JSON saved", ['path' => PUBLIC_JSON_PATH]);
+    writeLog("Final JSON saved successfully", ['path' => PUBLIC_JSON_PATH]);
+
+    sendSSE('progress', [
+        'phase' => 'saving',
+        'message' => 'File pubblico aggiornato con successo!',
+        'current' => 1,
+        'total' => 1,
+        'percent' => 100
+    ]);
 
     // Keep chunks as backup (not deleting them)
 
@@ -401,14 +854,20 @@ try {
     sendSSE('complete', [
         'message' => "Export v2.0 completato con successo!",
         'stats' => [
-            'total_products' => $totalProducts,
+            'total_products' => $jsonData['total'],
             'execution_time' => $executionTime,
             'languages' => $jsonData['_meta']['languages'],
             'file_size' => filesize(PUBLIC_JSON_PATH)
         ]
     ]);
 
-    logActivity("Export v2 completato: {$totalProducts} prodotti in {$executionTime}s");
+    logActivity("Export v2 completato: {$jsonData['total']} prodotti in {$executionTime}s");
+
+    writeLog("=== EXPORT V2 COMPLETED - CLOSING CONNECTION ===");
+
+    // Attendi che il client riceva l'evento 'complete' prima di chiudere
+    sleep(2);
+    exit(0);
 
 } catch (Exception $e) {
     writeLog("EXCEPTION CAUGHT", [
@@ -416,6 +875,14 @@ try {
         'file' => $e->getFile(),
         'line' => $e->getLine()
     ]);
+
+    // Flush cache anche in caso di errore per non perdere traduzioni
+    try {
+        flushTranslationCache();
+        writeLog("Translation cache flushed after exception");
+    } catch (Exception $cacheEx) {
+        writeLog("Failed to flush cache after exception: " . $cacheEx->getMessage());
+    }
 
     $errorLogFile = DATA_PATH . '/export-v2-error.log';
     $timestamp = date('Y-m-d H:i:s');
@@ -433,7 +900,11 @@ try {
     sendSSE('error', [
         'message' => $e->getMessage() . ' | Vedi log: admin/data/export-v2-error.log'
     ]);
+
+    writeLog("=== EXPORT V2 ERROR - CLOSING CONNECTION ===");
+    exit(1); // Chiudi connessione dopo errore
 }
 
-writeLog("=== EXPORT V2 END ===");
+// Questo non dovrebbe mai essere raggiunto
+writeLog("=== EXPORT V2 END (unreachable) ===");
 ?>

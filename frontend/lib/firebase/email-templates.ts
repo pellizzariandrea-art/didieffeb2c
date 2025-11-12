@@ -149,6 +149,9 @@ export async function createEmailTemplate(
       fr: { subject: '', body: '' },
       es: { subject: '', body: '' },
       pt: { subject: '', body: '' },
+      hr: { subject: '', body: '' },
+      sl: { subject: '', body: '' },
+      el: { subject: '', body: '' },
     };
 
     const newTemplate = {

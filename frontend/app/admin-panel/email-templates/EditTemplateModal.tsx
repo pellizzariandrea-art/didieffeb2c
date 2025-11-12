@@ -28,6 +28,9 @@ const LANGUAGES: { code: SupportedLanguage; label: string; flag: string }[] = [
   { code: 'fr', label: 'Français', flag: '🇫🇷' },
   { code: 'es', label: 'Español', flag: '🇪🇸' },
   { code: 'pt', label: 'Português', flag: '🇵🇹' },
+  { code: 'hr', label: 'Hrvatski', flag: '🇭🇷' },
+  { code: 'sl', label: 'Slovenščina', flag: '🇸🇮' },
+  { code: 'el', label: 'Ελληνικά', flag: '🇬🇷' },
 ];
 
 export default function EditTemplateModal({ template, onClose, onSuccess }: EditTemplateModalProps) {
@@ -99,7 +102,7 @@ export default function EditTemplateModal({ template, onClose, onSuccess }: Edit
         body: JSON.stringify({
           sourceSubject: translations.it.subject,
           sourceBody: translations.it.body,
-          targetLanguages: ['en', 'de', 'fr', 'es', 'pt'],
+          targetLanguages: ['en', 'de', 'fr', 'es', 'pt', 'hr', 'sl', 'el'],
         }),
       });
 
@@ -223,7 +226,7 @@ export default function EditTemplateModal({ template, onClose, onSuccess }: Edit
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-      <div className="bg-white rounded-lg max-w-5xl w-full max-h-[90vh] overflow-hidden flex flex-col">
+      <div className="bg-white rounded-lg max-w-7xl w-full max-h-[90vh] overflow-hidden flex flex-col">
         {/* Header */}
         <div className="bg-white border-b px-6 py-4 flex items-center justify-between">
           <div>

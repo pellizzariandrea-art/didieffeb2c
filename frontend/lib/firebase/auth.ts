@@ -8,12 +8,11 @@ import {
   GoogleAuthProvider,
   signOut,
   sendPasswordResetEmail,
-  sendEmailVerification,
   updateProfile,
   User as FirebaseUser,
 } from 'firebase/auth';
 import { getAuthInstance } from './config';
-import { createUserProfile, getUserProfile } from './firestore';
+import { createUserProfile, getUserProfile, updateUserProfile } from './firestore';
 import type {
   AdminRegistrationData,
   B2CRegistrationData,
@@ -26,10 +25,18 @@ export async function login(email: string, password: string) {
   try {
     const auth = getAuthInstance();
     const userCredential = await signInWithEmailAndPassword(auth, email, password);
-    const userProfile = await getUserProfile(userCredential.user.uid);
+    let userProfile = await getUserProfile(userCredential.user.uid);
+
+    if (!userProfile) {
+      await signOut(auth);
+      throw new Error('Profilo utente non trovato.');
+    }
+
+    // Email verification is now handled by our custom system via Firestore status
+    // No need to check Firebase emailVerified
 
     // Check if user is active
-    if (userProfile && userProfile.status !== 'active') {
+    if (userProfile.status !== 'active') {
       await signOut(auth);
       throw new Error('Account non attivo. Contatta l\'amministratore.');
     }
@@ -108,20 +115,21 @@ export async function registerB2C(data: B2CRegistrationData, language?: string) 
       displayName: `${data.nome} ${data.cognome}`,
     });
 
-    // Send email verification
-    await sendEmailVerification(userCredential.user);
-    console.log('✅ [registerB2C] Verification email sent to:', data.email);
+    // Email verification will be sent by API route after profile creation
 
     const profile: UserProfile = {
       email: data.email,
       role: 'b2c',
-      status: 'active', // B2C clients are active by default
+      status: 'pending', // Pending until email is verified
+      accountType: 'private',
+      profileComplete: true,
       nome: data.nome,
       cognome: data.cognome,
       ...(data.codiceFiscale && { codiceFiscale: data.codiceFiscale }),
       ...(data.partitaIva && { partitaIva: data.partitaIva }),
       indirizzoSpedizione: data.indirizzoSpedizione,
       telefono: data.telefono,
+      preferredLanguage: data.preferredLanguage || language || 'it',
       createdAt: new Date(),
       updatedAt: new Date(),
     };
@@ -164,19 +172,20 @@ export async function registerB2B(data: B2BRegistrationData, language?: string) 
       displayName: data.ragioneSociale,
     });
 
-    // Send email verification
-    await sendEmailVerification(userCredential.user);
-    console.log('✅ [registerB2B] Verification email sent to:', data.email);
+    // Email verification will be sent by API route after profile creation
 
     const profile: UserProfile = {
       email: data.email,
-      role: 'b2b',
-      status: 'pending', // B2B requires admin approval
+      role: 'b2c', // Start as b2c, admin can upgrade to b2b later
+      status: 'pending', // Pending until email is verified
+      accountType: 'company',
+      profileComplete: true,
       ragioneSociale: data.ragioneSociale,
       partitaIva: data.partitaIva,
       codiceSDI: data.codiceSDI,
       indirizzoFatturazione: data.indirizzoFatturazione,
       referente: data.referente,
+      preferredLanguage: data.preferredLanguage || language || 'it',
       createdAt: new Date(),
       updatedAt: new Date(),
     };
@@ -254,17 +263,18 @@ export async function loginWithGoogle(requiredRole?: 'admin' | 'b2c' | 'b2b') {
     let userProfile = await getUserProfile(result.user.uid);
 
     if (!userProfile) {
-      console.log('⚠️ [loginWithGoogle] No profile found, creating new one...');
+      console.log('⚠️ [loginWithGoogle] No profile found, creating minimal profile...');
 
-      // For first-time Google login, create a basic profile
-      // The role will be determined by which page they logged in from
+      // For first-time Google login, create a minimal profile
+      // User will need to complete their profile later
       const [firstName, ...lastNameParts] = (result.user.displayName || '').split(' ');
       const lastName = lastNameParts.join(' ');
 
       const newProfile: UserProfile = {
         email: result.user.email!,
-        role: requiredRole || 'b2c', // Default to b2c if not specified
-        status: requiredRole === 'b2b' ? 'pending' : 'active', // B2B pending (needs approval), B2C and admin active
+        role: 'b2c', // Everyone starts as b2c
+        status: 'active', // Google email is already verified
+        profileComplete: false, // Mark as incomplete
         nome: firstName,
         cognome: lastName,
         createdAt: new Date(),
@@ -273,13 +283,20 @@ export async function loginWithGoogle(requiredRole?: 'admin' | 'b2c' | 'b2b') {
 
       await createUserProfile(result.user.uid, newProfile);
       userProfile = newProfile;
-      console.log('✅ [loginWithGoogle] Profile created with role:', newProfile.role);
+      console.log('✅ [loginWithGoogle] Minimal profile created, needs completion');
     }
 
-    // Check if user role matches required role
-    if (requiredRole && userProfile.role !== requiredRole) {
+    // Auto-activate if email is verified and status is pending
+    if (userProfile.status === 'pending' && result.user.emailVerified) {
+      console.log('✅ [loginWithGoogle] Email verified, activating user...');
+      await updateUserProfile(result.user.uid, { status: 'active' });
+      userProfile = { ...userProfile, status: 'active' };
+    }
+
+    // Check if user role matches required role (only for admin login)
+    if (requiredRole === 'admin' && userProfile.role !== 'admin') {
       await signOut(auth);
-      throw new Error(`Accesso negato. Questo account non ha il ruolo di ${requiredRole}.`);
+      throw new Error(`Accesso negato. Questo account non ha i permessi di amministratore.`);
     }
 
     // Check if user is active

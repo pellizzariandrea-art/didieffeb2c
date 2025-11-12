@@ -50,11 +50,20 @@ export async function getUserProfile(userId: string): Promise<UserProfile | null
     }
 
     const data = docSnap.data();
+
+    // Helper to convert timestamp or ISO string to Date
+    const toDate = (value: any): Date | undefined => {
+      if (!value) return undefined;
+      if (typeof value === 'string') return new Date(value);
+      if (value.toDate && typeof value.toDate === 'function') return value.toDate();
+      return undefined;
+    };
+
     return {
       ...data,
-      createdAt: data.createdAt?.toDate(),
-      updatedAt: data.updatedAt?.toDate(),
-      lastLogin: data.lastLogin?.toDate(),
+      createdAt: toDate(data.createdAt),
+      updatedAt: toDate(data.updatedAt),
+      lastLogin: toDate(data.lastLogin),
     } as UserProfile;
   } catch (error: any) {
     throw new Error(`Failed to get user profile: ${error.message}`);
