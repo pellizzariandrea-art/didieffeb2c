@@ -25,7 +25,17 @@ export const getAdminApp = () => {
     // Try to get service account from environment variable (for Vercel/production)
     if (process.env.FIREBASE_SERVICE_ACCOUNT_KEY) {
       console.log('🔑 Loading Firebase Admin SDK from environment variable');
-      serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT_KEY);
+
+      // Try to parse as base64 first, then fall back to direct JSON
+      try {
+        const decoded = Buffer.from(process.env.FIREBASE_SERVICE_ACCOUNT_KEY, 'base64').toString('utf8');
+        serviceAccount = JSON.parse(decoded);
+        console.log('✅ Decoded from base64');
+      } catch {
+        // If base64 fails, try direct JSON parse
+        serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT_KEY);
+        console.log('✅ Parsed directly as JSON');
+      }
     } else {
       // Fallback to reading from file (for local development)
       const serviceAccountPath = path.join(
