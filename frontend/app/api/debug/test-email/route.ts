@@ -1,7 +1,7 @@
 // Debug endpoint to test complete email flow
 import { NextRequest, NextResponse } from 'next/server';
 
-export async function POST(req: NextRequest) {
+async function testEmailFlow(req: NextRequest) {
   const logs: string[] = [];
 
   try {
@@ -127,4 +127,13 @@ export async function POST(req: NextRequest) {
       stack: error.stack
     }, { status: 500 });
   }
+}
+
+// Support both GET and POST
+export async function GET(req: NextRequest) {
+  return testEmailFlow(req);
+}
+
+export async function POST(req: NextRequest) {
+  return testEmailFlow(req);
 }
