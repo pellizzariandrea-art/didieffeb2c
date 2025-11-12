@@ -20,18 +20,26 @@ export const getAdminApp = () => {
 
   // Initialize with service account
   try {
-    // Read service account from file
-    const serviceAccountPath = path.join(
-      process.cwd(),
-      '..',
-      'admin',
-      'didieffeb2b-ecommerce-firebase-adminsdk-fbsvc-fbd636cc08.json'
-    );
+    let serviceAccount: any;
 
-    console.log('🔑 Loading Firebase Admin SDK service account from:', serviceAccountPath);
+    // Try to get service account from environment variable (for Vercel/production)
+    if (process.env.FIREBASE_SERVICE_ACCOUNT_KEY) {
+      console.log('🔑 Loading Firebase Admin SDK from environment variable');
+      serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT_KEY);
+    } else {
+      // Fallback to reading from file (for local development)
+      const serviceAccountPath = path.join(
+        process.cwd(),
+        '..',
+        'admin',
+        'didieffeb2b-ecommerce-firebase-adminsdk-fbsvc-fbd636cc08.json'
+      );
 
-    const serviceAccountJSON = fs.readFileSync(serviceAccountPath, 'utf8');
-    const serviceAccount = JSON.parse(serviceAccountJSON);
+      console.log('🔑 Loading Firebase Admin SDK service account from:', serviceAccountPath);
+
+      const serviceAccountJSON = fs.readFileSync(serviceAccountPath, 'utf8');
+      serviceAccount = JSON.parse(serviceAccountJSON);
+    }
 
     adminApp = admin.initializeApp({
       credential: admin.credential.cert(serviceAccount),
