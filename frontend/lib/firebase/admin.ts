@@ -22,8 +22,18 @@ export const getAdminApp = () => {
   try {
     let serviceAccount: any;
 
-    // Check if using separate environment variables (simpler for Vercel)
-    if (process.env.FIREBASE_PRIVATE_KEY && process.env.FIREBASE_CLIENT_EMAIL) {
+    // Option 1: Check for FIREBASE_SERVICE_ACCOUNT_KEY (single JSON variable)
+    if (process.env.FIREBASE_SERVICE_ACCOUNT_KEY) {
+      console.log('🔑 Loading Firebase Admin SDK from FIREBASE_SERVICE_ACCOUNT_KEY');
+      try {
+        serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT_KEY);
+      } catch (parseError) {
+        console.error('❌ Failed to parse FIREBASE_SERVICE_ACCOUNT_KEY:', parseError);
+        throw new Error('Invalid JSON in FIREBASE_SERVICE_ACCOUNT_KEY');
+      }
+    }
+    // Option 2: Check if using separate environment variables
+    else if (process.env.FIREBASE_PRIVATE_KEY && process.env.FIREBASE_CLIENT_EMAIL) {
       console.log('🔑 Loading Firebase Admin SDK from separate environment variables');
       serviceAccount = {
         type: 'service_account',
@@ -37,8 +47,9 @@ export const getAdminApp = () => {
         auth_provider_x509_cert_url: 'https://www.googleapis.com/oauth2/v1/certs',
         client_x509_cert_url: process.env.FIREBASE_CLIENT_CERT_URL,
       };
-    } else {
-      // Fallback to reading from file (for local development)
+    }
+    // Option 3: Fallback to reading from file (for local development)
+    else {
       const serviceAccountPath = path.join(
         process.cwd(),
         '..',
