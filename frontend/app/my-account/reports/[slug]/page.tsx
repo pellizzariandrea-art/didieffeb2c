@@ -200,7 +200,7 @@ export default function ReportDetailPage() {
         <ReportBuilder
           reportSlug={slug}
           clientCode={effectiveClientCode || ''}
-          language="it"
+          language={language}
         />
       </ReportErrorBoundary>
 

@@ -1,12 +1,14 @@
 'use client';
 
 import { useAuth } from '@/contexts/AuthContext';
+import { useLanguage } from '@/contexts/LanguageContext';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 import ReportBuilder from '@/components/reports/ReportBuilder';
 
 export default function DocumentiPage() {
   const { user, firebaseUser, loading } = useAuth();
+  const { currentLang: language } = useLanguage();
   const router = useRouter();
 
   // Redirect if not authenticated
@@ -50,7 +52,7 @@ export default function DocumentiPage() {
       <ReportBuilder
         reportSlug="customer_documents_summary"
         clientCode={user.clientCode}
-        language="it"
+        language={language}
       />
     </div>
   );
