@@ -129,9 +129,10 @@ try {
         'to' => [$data['to']],
         'subject' => $data['subject'],
         'htmlContent' => $data['htmlContent'],
-        // Disable link tracking to preserve query parameters
-        'headers' => [
-            'X-Mailin-custom' => 'disable-tracking:true'
+        // Disable click tracking to preserve query parameters
+        'tags' => ['transactional'],
+        'params' => [
+            'DISABLE_CLICK_TRACKING' => true
         ]
     ];
 
