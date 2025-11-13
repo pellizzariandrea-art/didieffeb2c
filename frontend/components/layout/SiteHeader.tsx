@@ -72,8 +72,6 @@ export default function SiteHeader() {
         : `data:${settings.settings.logo.type};base64,${settings.settings.logo.base64}`)
     : null;
 
-  const companyName = settings?.settings?.company?.name || brandConfig.name;
-
   return (
     <>
       <header className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-300 ${
@@ -86,27 +84,20 @@ export default function SiteHeader() {
           {/* Logo */}
           <Link
             href="/"
-            className={`flex items-center gap-3 font-bold text-xl transition-colors ${
+            className={`flex items-center gap-3 transition-colors ${
               isTransparent ? 'text-white' : 'text-gray-900'
             }`}
           >
             {logoSrc ? (
               <img
                 src={logoSrc}
-                alt={companyName}
+                alt={settings?.settings?.company?.name || 'Logo'}
                 className="h-12 w-auto object-contain max-w-[200px]"
               />
             ) : (
-              <>
-                <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${
-                  isTransparent
-                    ? 'bg-white/10 backdrop-blur-sm'
-                    : 'bg-gradient-to-br from-green-500 to-emerald-600'
-                }`}>
-                  <Package className="w-6 h-6 text-white" />
-                </div>
-                <span className="hidden md:block">{companyName}</span>
-              </>
+              <span className="text-xl font-bold">
+                {settings?.settings?.company?.name || 'Company'}
+              </span>
             )}
           </Link>
 
