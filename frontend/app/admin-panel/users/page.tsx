@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { collection, getDocs, doc, updateDoc, deleteDoc } from 'firebase/firestore';
+import { collection, getDocs, doc, updateDoc } from 'firebase/firestore';
 import { useAuth } from '@/contexts/AuthContext';
 import { useRouter } from 'next/navigation';
 import { getDbInstance } from '@/lib/firebase/config';
@@ -183,21 +183,30 @@ export default function UsersManagementPage() {
   };
 
   const handleDeleteUser = async (userId: string, userEmail: string) => {
-    if (!confirm(`Sei sicuro di voler eliminare l'utente ${userEmail}?\n\nQuesta azione è irreversibile!`)) {
+    if (!confirm(`Sei sicuro di voler eliminare l'utente ${userEmail}?\n\nQuesta azione è irreversibile e eliminerà l'utente sia da Firebase Auth che da Firestore!`)) {
       return;
     }
 
     try {
-      const db = getDbInstance();
-      const userRef = doc(db, 'users', userId);
-      await deleteDoc(userRef);
+      // Call API to delete from both Auth and Firestore
+      const response = await fetch('/api/users/delete', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ userId }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Errore durante l\'eliminazione');
+      }
 
       // Update local state
       setUsers(users.filter(u => u.id !== userId));
-      alert('Utente eliminato con successo');
-    } catch (error) {
+      alert('Utente eliminato con successo da Firebase Auth e Firestore!');
+    } catch (error: any) {
       console.error('Error deleting user:', error);
-      alert('Errore durante l\'eliminazione dell\'utente');
+      alert('Errore: ' + error.message);
     }
   };
 
