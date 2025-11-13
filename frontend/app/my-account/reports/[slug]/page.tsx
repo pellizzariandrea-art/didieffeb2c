@@ -1,6 +1,7 @@
 'use client';
 
 import { useAuth } from '@/contexts/AuthContext';
+import { useLanguage } from '@/contexts/LanguageContext';
 import { useRouter, useParams, useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { ReportConfig } from '@/types/report';
@@ -9,13 +10,17 @@ import ComponentCustomizer from '@/components/reports/ComponentCustomizer';
 import ReportErrorBoundary from '@/components/reports/ReportErrorBoundary';
 import Link from 'next/link';
 import { ArrowLeft, Eye, Palette } from 'lucide-react';
+import uiLabels from '@/config/ui-labels.json';
 
 export default function ReportDetailPage() {
   const { user, firebaseUser, loading: authLoading } = useAuth();
+  const { currentLang: language } = useLanguage();
   const router = useRouter();
   const params = useParams();
   const searchParams = useSearchParams();
   const slug = params?.slug as string;
+
+  const labels = uiLabels.reports;
 
   // Preview mode from URL params
   const isPreviewMode = searchParams?.get('preview') === 'true';
@@ -110,7 +115,7 @@ export default function ReportDetailPage() {
             className="inline-flex items-center text-blue-600 hover:text-blue-700"
           >
             <ArrowLeft className="w-4 h-4 mr-2" />
-            Torna ai report
+            {labels.back_to_reports[language]}
           </Link>
         </div>
         <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-6">
@@ -135,7 +140,7 @@ export default function ReportDetailPage() {
             className="inline-flex items-center text-blue-600 hover:text-blue-700"
           >
             <ArrowLeft className="w-4 h-4 mr-2" />
-            Torna ai report
+            {labels.back_to_reports[language]}
           </Link>
         </div>
         <div className="bg-red-50 border border-red-200 rounded-lg p-6">

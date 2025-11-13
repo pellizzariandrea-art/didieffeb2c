@@ -3160,6 +3160,28 @@
         "hr": "Pogledaj izvještaj →",
         "sl": "Ogled poročila →",
         "el": "Προβολή αναφοράς →"
+      },
+      "back_to_user_area": {
+        "it": "Torna all'area utente",
+        "en": "Back to user area",
+        "de": "Zurück zum Benutzerbereich",
+        "fr": "Retour à l'espace utilisateur",
+        "es": "Volver al área de usuario",
+        "pt": "Voltar à área do utilizador",
+        "hr": "Natrag na korisnički prostor",
+        "sl": "Nazaj na uporabniško območje",
+        "el": "Επιστροφή στην περιοχή χρήστη"
+      },
+      "back_to_reports": {
+        "it": "Torna ai report",
+        "en": "Back to reports",
+        "de": "Zurück zu Berichten",
+        "fr": "Retour aux rapports",
+        "es": "Volver a informes",
+        "pt": "Voltar aos relatórios",
+        "hr": "Natrag na izvještaje",
+        "sl": "Nazaj na poročila",
+        "el": "Επιστροφή στις αναφορές"
       }
     },
     "profile": {

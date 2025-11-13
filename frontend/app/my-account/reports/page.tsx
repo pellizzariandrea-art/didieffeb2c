@@ -1,19 +1,24 @@
 'use client';
 
 import { useAuth } from '@/contexts/AuthContext';
+import { useLanguage } from '@/contexts/LanguageContext';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { ReportConfig } from '@/types/report';
-import { FileText, BarChart3, TrendingUp } from 'lucide-react';
+import { FileText, BarChart3, TrendingUp, ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
+import uiLabels from '@/config/ui-labels.json';
 
 type ReportWithSlug = ReportConfig & { slug: string };
 
 export default function ReportsPage() {
   const { user, firebaseUser, loading } = useAuth();
+  const { currentLang: language } = useLanguage();
   const router = useRouter();
   const [reports, setReports] = useState<ReportWithSlug[]>([]);
   const [loadingReports, setLoadingReports] = useState(true);
+
+  const labels = uiLabels.reports;
 
   // Redirect if not authenticated
   useEffect(() => {
@@ -95,6 +100,17 @@ export default function ReportsPage() {
 
   return (
     <div className="container mx-auto px-4 py-8">
+      {/* Back Button */}
+      <div className="mb-6">
+        <Link
+          href="/orders"
+          className="inline-flex items-center text-blue-600 hover:text-blue-700 text-sm font-medium"
+        >
+          <ArrowLeft className="w-4 h-4 mr-2" />
+          {labels.back_to_user_area[language]}
+        </Link>
+      </div>
+
       {/* Header */}
       <div className="mb-8">
         <h1 className="text-3xl font-bold text-gray-900">I Miei Report</h1>
