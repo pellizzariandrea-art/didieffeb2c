@@ -2967,29 +2967,51 @@
         "hr": "Prijavite se ovdje",
         "sl": "Prijavite se tukaj",
         "el": "Συνδεθείτε εδώ"
-      },
-      "admin_panel": {
-        "it": "Pannello Admin",
-        "en": "Admin Panel",
-        "de": "Admin-Panel",
-        "fr": "Panneau Admin",
-        "es": "Panel Admin",
-        "pt": "Painel Admin",
-        "hr": "Admin Panel",
-        "sl": "Admin Panel",
-        "el": "Πίνακας Διαχείρισης"
-      },
-      "user_panel": {
-        "it": "Area Utente",
-        "en": "User Area",
-        "de": "Benutzerbereich",
-        "fr": "Espace Utilisateur",
-        "es": "Área de Usuario",
-        "pt": "Área do Usuário",
-        "hr": "Korisnički Prostor",
-        "sl": "Uporabniški Prostor",
-        "el": "Περιοχή Χρήστη"
       }
+    },
+    "admin_panel": {
+      "it": "Pannello Admin",
+      "en": "Admin Panel",
+      "de": "Admin-Panel",
+      "fr": "Panneau Admin",
+      "es": "Panel Admin",
+      "pt": "Painel Admin",
+      "hr": "Admin Panel",
+      "sl": "Admin Panel",
+      "el": "Πίνακας Διαχείρισης"
+    },
+    "user_panel": {
+      "it": "Area Utente",
+      "en": "User Area",
+      "de": "Benutzerbereich",
+      "fr": "Espace Utilisateur",
+      "es": "Área de Usuario",
+      "pt": "Área do Usuário",
+      "hr": "Korisnički Prostor",
+      "sl": "Uporabniški Prostor",
+      "el": "Περιοχή Χρήστη"
+    },
+    "b2c_customer": {
+      "it": "Cliente B2C",
+      "en": "B2C Customer",
+      "de": "B2C-Kunde",
+      "fr": "Client B2C",
+      "es": "Cliente B2C",
+      "pt": "Cliente B2C",
+      "hr": "B2C Kupac",
+      "sl": "B2C Stranka",
+      "el": "Πελάτης B2C"
+    },
+    "b2b_customer": {
+      "it": "Cliente B2B",
+      "en": "B2B Customer",
+      "de": "B2B-Kunde",
+      "fr": "Client B2B",
+      "es": "Cliente B2B",
+      "pt": "Cliente B2B",
+      "hr": "B2B Kupac",
+      "sl": "B2B Stranka",
+      "el": "Πελάτης B2B"
     }
   },
   "account": {
