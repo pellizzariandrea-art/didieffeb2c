@@ -13,8 +13,35 @@ import uiLabels from '@/config/ui-labels.json';
 import type { B2CRegistrationData, B2BRegistrationData } from '@/types/auth';
 import { SUPPORTED_LANGUAGES } from '@/types/settings';
 import { toast } from 'sonner';
+import { useFormValidation } from '@/hooks/useFormValidation';
+import ValidatedInput from '@/components/ValidatedInput';
 
 type CustomerType = 'b2c' | 'b2b';
+
+// Common countries list
+const COMMON_COUNTRIES = [
+  'Italia',
+  'Germany',
+  'France',
+  'Spain',
+  'Portugal',
+  'Croatia',
+  'Slovenia',
+  'Greece',
+  'Austria',
+  'Switzerland',
+  'Netherlands',
+  'Belgium',
+  'United Kingdom',
+  'Poland',
+  'Czech Republic',
+  'Hungary',
+  'Romania',
+  'Bulgaria',
+  'United States',
+  'Canada',
+  'Other'
+];
 
 export default function RegisterPage() {
   const router = useRouter();
@@ -149,6 +176,9 @@ export default function RegisterPage() {
 // B2C Registration Form Component
 function B2CRegistrationForm({ language, labels, loading, error, setLoading, setError, onBack }: any) {
   const router = useRouter();
+  const { errors, validateField, setFieldError, clearFieldError, validateForm } = useFormValidation();
+  const [touched, setTouched] = useState<Record<string, boolean>>({});
+
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -167,7 +197,28 @@ function B2CRegistrationForm({ language, labels, loading, error, setLoading, set
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    const newFormData = { ...formData, [name]: value };
+    setFormData(newFormData);
+
+    // Validate field if it's been touched
+    if (touched[name]) {
+      const result = validateField(name, value, newFormData.paese);
+      if (!result.valid) {
+        setFieldError(name, result.error);
+      } else {
+        clearFieldError(name);
+      }
+    }
+  };
+
+  const handleBlur = (name: string) => {
+    setTouched({ ...touched, [name]: true });
+    const value = formData[name as keyof typeof formData] as string;
+    const result = validateField(name, value, formData.paese);
+    if (!result.valid) {
+      setFieldError(name, result.error);
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -362,21 +413,25 @@ function B2CRegistrationForm({ language, labels, loading, error, setLoading, set
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <input
+              <ValidatedInput
                 name="codiceFiscale"
                 type="text"
                 value={formData.codiceFiscale}
                 onChange={handleChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                onBlur={() => handleBlur('codiceFiscale')}
+                error={errors.codiceFiscale}
+                touched={touched.codiceFiscale}
                 placeholder={labels.fiscal_code[language] + ' (' + (language === 'it' ? 'opzionale' : 'optional') + ')'}
               />
 
-              <input
+              <ValidatedInput
                 name="partitaIva"
                 type="text"
                 value={formData.partitaIva}
                 onChange={handleChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                onBlur={() => handleBlur('partitaIva')}
+                error={errors.partitaIva}
+                touched={touched.partitaIva}
                 placeholder={labels.vat_number[language] + ' (' + (language === 'it' ? 'opzionale' : 'optional') + ')'}
               />
             </div>
@@ -396,58 +451,70 @@ function B2CRegistrationForm({ language, labels, loading, error, setLoading, set
           <div className="bg-white shadow px-6 py-6 rounded-lg space-y-4">
             <h3 className="text-lg font-medium text-gray-900">{labels.shipping_address[language]}</h3>
 
-            <input
+            <ValidatedInput
               name="via"
               type="text"
               required
               value={formData.via}
               onChange={handleChange}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+              onBlur={() => handleBlur('via')}
+              error={errors.via}
+              touched={touched.via}
               placeholder={labels.street[language]}
             />
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <input
+              <ValidatedInput
                 name="citta"
                 type="text"
                 required
                 value={formData.citta}
                 onChange={handleChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                onBlur={() => handleBlur('citta')}
+                error={errors.citta}
+                touched={touched.citta}
                 placeholder={labels.city[language]}
               />
 
-              <input
+              <ValidatedInput
                 name="cap"
                 type="text"
                 required
                 value={formData.cap}
                 onChange={handleChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                onBlur={() => handleBlur('cap')}
+                error={errors.cap}
+                touched={touched.cap}
                 placeholder={labels.zip[language]}
               />
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <input
+              <ValidatedInput
                 name="provincia"
                 type="text"
                 required
                 value={formData.provincia}
                 onChange={handleChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                onBlur={() => handleBlur('provincia')}
+                error={errors.provincia}
+                touched={touched.provincia}
                 placeholder={labels.province[language]}
               />
 
-              <input
+              <select
                 name="paese"
-                type="text"
                 required
                 value={formData.paese}
                 onChange={handleChange}
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-                placeholder={labels.country[language]}
-              />
+              >
+                {COMMON_COUNTRIES.map((country) => (
+                  <option key={country} value={country}>
+                    {country}
+                  </option>
+                ))}
+              </select>
             </div>
           </div>
 
@@ -473,6 +540,9 @@ function B2CRegistrationForm({ language, labels, loading, error, setLoading, set
 // B2B Registration Form Component
 function B2BRegistrationForm({ language, labels, loading, error, setLoading, setError, onBack }: any) {
   const router = useRouter();
+  const { errors, validateField, setFieldError, clearFieldError, validateForm } = useFormValidation();
+  const [touched, setTouched] = useState<Record<string, boolean>>({});
+
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -492,7 +562,28 @@ function B2BRegistrationForm({ language, labels, loading, error, setLoading, set
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    const newFormData = { ...formData, [name]: value };
+    setFormData(newFormData);
+
+    // Validate field if it's been touched
+    if (touched[name]) {
+      const result = validateField(name, value, newFormData.paese);
+      if (!result.valid) {
+        setFieldError(name, result.error);
+      } else {
+        clearFieldError(name);
+      }
+    }
+  };
+
+  const handleBlur = (name: string) => {
+    setTouched({ ...touched, [name]: true });
+    const value = formData[name as keyof typeof formData] as string;
+    const result = validateField(name, value, formData.paese);
+    if (!result.valid) {
+      setFieldError(name, result.error);
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -678,13 +769,15 @@ function B2BRegistrationForm({ language, labels, loading, error, setLoading, set
             />
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <input
+              <ValidatedInput
                 name="partitaIva"
                 type="text"
                 required
                 value={formData.partitaIva}
                 onChange={handleChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                onBlur={() => handleBlur('partitaIva')}
+                error={errors.partitaIva}
+                touched={touched.partitaIva}
                 placeholder={labels.vat_number[language]}
               />
 
@@ -704,58 +797,70 @@ function B2BRegistrationForm({ language, labels, loading, error, setLoading, set
           <div className="bg-white shadow px-6 py-6 rounded-lg space-y-4">
             <h3 className="text-lg font-medium text-gray-900">{labels.billing_address[language]}</h3>
 
-            <input
+            <ValidatedInput
               name="via"
               type="text"
               required
               value={formData.via}
               onChange={handleChange}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+              onBlur={() => handleBlur('via')}
+              error={errors.via}
+              touched={touched.via}
               placeholder={labels.street[language]}
             />
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <input
+              <ValidatedInput
                 name="citta"
                 type="text"
                 required
                 value={formData.citta}
                 onChange={handleChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                onBlur={() => handleBlur('citta')}
+                error={errors.citta}
+                touched={touched.citta}
                 placeholder={labels.city[language]}
               />
 
-              <input
+              <ValidatedInput
                 name="cap"
                 type="text"
                 required
                 value={formData.cap}
                 onChange={handleChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                onBlur={() => handleBlur('cap')}
+                error={errors.cap}
+                touched={touched.cap}
                 placeholder={labels.zip[language]}
               />
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <input
+              <ValidatedInput
                 name="provincia"
                 type="text"
                 required
                 value={formData.provincia}
                 onChange={handleChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                onBlur={() => handleBlur('provincia')}
+                error={errors.provincia}
+                touched={touched.provincia}
                 placeholder={labels.province[language]}
               />
 
-              <input
+              <select
                 name="paese"
-                type="text"
                 required
                 value={formData.paese}
                 onChange={handleChange}
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-                placeholder={labels.country[language]}
-              />
+              >
+                {COMMON_COUNTRIES.map((country) => (
+                  <option key={country} value={country}>
+                    {country}
+                  </option>
+                ))}
+              </select>
             </div>
           </div>
 
