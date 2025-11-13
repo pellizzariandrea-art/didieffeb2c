@@ -585,18 +585,18 @@ export default function AccountPage() {
                   {/* Company Info for B2B */}
                   {isB2B && (
                     <>
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div>
-                          <label className="block text-sm font-medium text-gray-700 mb-2">
-                            {labels.profile.company_name[language]}
-                          </label>
-                          <input
-                            type="text"
-                            value={profileData.ragioneSociale}
-                            onChange={(e) => setProfileData({ ...profileData, ragioneSociale: e.target.value })}
-                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                          />
-                        </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                          {labels.profile.company_name[language]}
+                        </label>
+                        <input
+                          type="text"
+                          value={profileData.ragioneSociale}
+                          onChange={(e) => setProfileData({ ...profileData, ragioneSociale: e.target.value })}
+                          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        />
+                      </div>
+                      {profileData.paese === 'Italia' && (
                         <div>
                           <label className="block text-sm font-medium text-gray-700 mb-2">
                             {labels.profile.sdi_code[language]}
@@ -608,7 +608,7 @@ export default function AccountPage() {
                             className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                           />
                         </div>
-                      </div>
+                      )}
                     </>
                   )}
 
@@ -618,10 +618,31 @@ export default function AccountPage() {
                       <label className="block text-sm font-medium text-gray-700 mb-2">
                         {labels.profile.vat_number[language]}
                       </label>
-                      <input
+                      <ValidatedInput
                         type="text"
+                        name="partitaIVA"
                         value={profileData.partitaIVA}
-                        onChange={(e) => setProfileData({ ...profileData, partitaIVA: e.target.value })}
+                        onChange={(e) => {
+                          const newData = { ...profileData, partitaIVA: e.target.value };
+                          setProfileData(newData);
+                          if (touched.partitaIVA) {
+                            const result = validateField('partitaIva', e.target.value, profileData.paese);
+                            if (!result.valid) {
+                              setFieldError('partitaIVA', result.error);
+                            } else {
+                              clearFieldError('partitaIVA');
+                            }
+                          }
+                        }}
+                        onBlur={() => {
+                          setTouched({ ...touched, partitaIVA: true });
+                          const result = validateField('partitaIva', profileData.partitaIVA || '', profileData.paese);
+                          if (!result.valid && profileData.partitaIVA) {
+                            setFieldError('partitaIVA', result.error);
+                          }
+                        }}
+                        error={errors.partitaIVA}
+                        touched={touched.partitaIVA}
                         className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                       />
                     </div>
@@ -630,10 +651,31 @@ export default function AccountPage() {
                         <label className="block text-sm font-medium text-gray-700 mb-2">
                           {labels.profile.tax_code[language]}
                         </label>
-                        <input
+                        <ValidatedInput
                           type="text"
+                          name="codiceFiscale"
                           value={profileData.codiceFiscale}
-                          onChange={(e) => setProfileData({ ...profileData, codiceFiscale: e.target.value })}
+                          onChange={(e) => {
+                            const newData = { ...profileData, codiceFiscale: e.target.value };
+                            setProfileData(newData);
+                            if (touched.codiceFiscale) {
+                              const result = validateField('codiceFiscale', e.target.value, profileData.paese);
+                              if (!result.valid) {
+                                setFieldError('codiceFiscale', result.error);
+                              } else {
+                                clearFieldError('codiceFiscale');
+                              }
+                            }
+                          }}
+                          onBlur={() => {
+                            setTouched({ ...touched, codiceFiscale: true });
+                            const result = validateField('codiceFiscale', profileData.codiceFiscale || '', profileData.paese);
+                            if (!result.valid && profileData.codiceFiscale) {
+                              setFieldError('codiceFiscale', result.error);
+                            }
+                          }}
+                          error={errors.codiceFiscale}
+                          touched={touched.codiceFiscale}
                           className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                         />
                       </div>
@@ -667,10 +709,31 @@ export default function AccountPage() {
                         <label className="block text-sm font-medium text-gray-700 mb-2">
                           {labels.profile.city[language]}
                         </label>
-                        <input
+                        <ValidatedInput
                           type="text"
+                          name="citta"
                           value={profileData.citta}
-                          onChange={(e) => setProfileData({ ...profileData, citta: e.target.value })}
+                          onChange={(e) => {
+                            const newData = { ...profileData, citta: e.target.value };
+                            setProfileData(newData);
+                            if (touched.citta) {
+                              const result = validateField('citta', e.target.value, profileData.paese);
+                              if (!result.valid) {
+                                setFieldError('citta', result.error);
+                              } else {
+                                clearFieldError('citta');
+                              }
+                            }
+                          }}
+                          onBlur={() => {
+                            setTouched({ ...touched, citta: true });
+                            const result = validateField('citta', profileData.citta || '', profileData.paese);
+                            if (!result.valid && profileData.citta) {
+                              setFieldError('citta', result.error);
+                            }
+                          }}
+                          error={errors.citta}
+                          touched={touched.citta}
                           className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                         />
                       </div>
@@ -678,10 +741,31 @@ export default function AccountPage() {
                         <label className="block text-sm font-medium text-gray-700 mb-2">
                           {labels.profile.postal_code[language]}
                         </label>
-                        <input
+                        <ValidatedInput
                           type="text"
+                          name="cap"
                           value={profileData.cap}
-                          onChange={(e) => setProfileData({ ...profileData, cap: e.target.value })}
+                          onChange={(e) => {
+                            const newData = { ...profileData, cap: e.target.value };
+                            setProfileData(newData);
+                            if (touched.cap) {
+                              const result = validateField('cap', e.target.value, profileData.paese);
+                              if (!result.valid) {
+                                setFieldError('cap', result.error);
+                              } else {
+                                clearFieldError('cap');
+                              }
+                            }
+                          }}
+                          onBlur={() => {
+                            setTouched({ ...touched, cap: true });
+                            const result = validateField('cap', profileData.cap || '', profileData.paese);
+                            if (!result.valid && profileData.cap) {
+                              setFieldError('cap', result.error);
+                            }
+                          }}
+                          error={errors.cap}
+                          touched={touched.cap}
                           className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                         />
                       </div>
@@ -689,24 +773,59 @@ export default function AccountPage() {
                         <label className="block text-sm font-medium text-gray-700 mb-2">
                           {labels.profile.province[language]}
                         </label>
-                        <input
+                        <ValidatedInput
                           type="text"
+                          name="provincia"
                           value={profileData.provincia}
-                          onChange={(e) => setProfileData({ ...profileData, provincia: e.target.value })}
+                          onChange={(e) => {
+                            const newData = { ...profileData, provincia: e.target.value };
+                            setProfileData(newData);
+                            if (touched.provincia) {
+                              const result = validateField('provincia', e.target.value, profileData.paese);
+                              if (!result.valid) {
+                                setFieldError('provincia', result.error);
+                              } else {
+                                clearFieldError('provincia');
+                              }
+                            }
+                          }}
+                          onBlur={() => {
+                            setTouched({ ...touched, provincia: true });
+                            const result = validateField('provincia', profileData.provincia || '', profileData.paese);
+                            if (!result.valid && profileData.provincia) {
+                              setFieldError('provincia', result.error);
+                            }
+                          }}
+                          error={errors.provincia}
+                          touched={touched.provincia}
+                          placeholder="ES: VI, PD"
                           className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                          placeholder="ES: MI, RM"
                         />
                       </div>
                       <div>
                         <label className="block text-sm font-medium text-gray-700 mb-2">
                           {labels.profile.country[language]}
                         </label>
-                        <input
-                          type="text"
+                        <select
                           value={profileData.paese}
-                          onChange={(e) => setProfileData({ ...profileData, paese: e.target.value })}
+                          onChange={(e) => {
+                            setProfileData({ ...profileData, paese: e.target.value });
+                            // Clear validations when country changes
+                            setTouched({});
+                            clearFieldError('cap');
+                            clearFieldError('provincia');
+                            clearFieldError('citta');
+                            clearFieldError('partitaIVA');
+                            clearFieldError('codiceFiscale');
+                          }}
                           className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                        />
+                        >
+                          {COMMON_COUNTRIES.map((country) => (
+                            <option key={country} value={country}>
+                              {country}
+                            </option>
+                          ))}
+                        </select>
                       </div>
                     </div>
                   </div>
