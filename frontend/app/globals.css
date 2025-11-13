@@ -75,6 +75,16 @@ body > * {
   background: #64748b;
 }
 
+/* Utility to hide scrollbar while keeping functionality */
+.scrollbar-hide {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;  /* Chrome, Safari, Opera */
+}
+
 /* Stili per descrizioni AI generate in HTML */
 .ai-html-content {
   @apply text-gray-700 leading-relaxed;
