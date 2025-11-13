@@ -20,11 +20,13 @@ import WizardSearch from './WizardSearch';
 import { getLabel } from '@/lib/ui-labels';
 import { formatAttributeValue, getTranslatedValue } from '@/lib/product-utils';
 import { useLanguage } from '@/contexts/LanguageContext';
+import { useAuth } from '@/contexts/AuthContext';
 import { useProductNavigation } from '@/contexts/ProductNavigationContext';
 import { useAnalyticsStore } from '@/stores/analyticsStore';
 import { getCatalogText, getCatalogTextFn, Language } from '@/lib/catalog-translations';
 import { motion, AnimatePresence } from 'framer-motion';
-import { RefreshCw, ArrowUp, ChevronDown, Sparkles } from 'lucide-react';
+import { RefreshCw, ArrowUp, ChevronDown, Sparkles, Settings, LogOut } from 'lucide-react';
+import uiLabels from '@/config/ui-labels.json';
 
 // Helper per tradurre valori booleani
 const translateBooleanValue = (value: string, lang: string): string => {
@@ -76,8 +78,10 @@ export default function ProductCatalog({
   const router = useRouter();
   const searchParams = useSearchParams();
   const { currentLang } = useLanguage();
+  const { user, logout } = useAuth();
   const { setNavigationProducts, saveCatalogState, getCatalogState, clearCatalogState } = useProductNavigation();
   const { trackSearch, trackFilter } = useAnalyticsStore();
+  const labels = uiLabels.auth;
 
   // Settings per logo
   const [settings, setSettings] = useState<SettingsResponse | null>(null);
@@ -96,6 +100,16 @@ export default function ProductCatalog({
         setIsLoadingSettings(false);
       });
   }, []);
+
+  // Handle logout
+  const handleLogout = async () => {
+    try {
+      await logout();
+      router.push('/');
+    } catch (error) {
+      console.error('Logout error:', error);
+    }
+  };
 
   // Load More function with analytics
   const loadMore = () => {
@@ -984,9 +998,46 @@ export default function ProductCatalog({
 
               {/* Icons - Destra */}
               <div className="flex items-center gap-2 flex-shrink-0">
+                <UserIcon />
+
+                {/* User Menu Links (when logged in) */}
+                {user && (
+                  <>
+                    {/* User Panel (B2C/B2B) */}
+                    {(user.role === 'b2c' || user.role === 'b2b') && (
+                      <Link
+                        href="/orders"
+                        className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-md text-sm font-medium transition-colors hover:bg-gray-100 text-gray-700"
+                      >
+                        <Settings className="w-4 h-4" />
+                        <span>{labels.user_panel[currentLang as Language]}</span>
+                      </Link>
+                    )}
+
+                    {/* Admin Panel */}
+                    {user.role === 'admin' && (
+                      <Link
+                        href="/admin-panel"
+                        className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-md text-sm font-medium transition-colors hover:bg-gray-100 text-gray-700"
+                      >
+                        <Settings className="w-4 h-4" />
+                        <span>{labels.admin_panel[currentLang as Language]}</span>
+                      </Link>
+                    )}
+
+                    {/* Logout Button */}
+                    <button
+                      onClick={handleLogout}
+                      className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-md text-sm font-medium transition-colors hover:bg-red-50 text-red-600"
+                    >
+                      <LogOut className="w-4 h-4" />
+                      <span>{labels.logout[currentLang as Language]}</span>
+                    </button>
+                  </>
+                )}
+
                 <WishlistIcon />
                 <CartIcon />
-                <UserIcon />
                 <LanguageSelector />
               </div>
             </div>

@@ -1,13 +1,50 @@
 # Note e TODO - Progetto E-Commerce
 
 **Data ultimo aggiornamento**: 2025-11-13
-**Sessione corrente**: Header e Footer Aziendali + Logo Fix
+**Sessione corrente**: User Menu Links in Header
 
 ---
 
 ## 📋 Stato Corrente del Progetto
 
-### ✅ Completato nella sessione corrente (13 Nov 2025)
+### ✅ Completato nella sessione corrente (13 Nov 2025 - pomeriggio)
+
+#### 1. **User Menu Links in Header**
+**File modificati**:
+- `frontend/components/ProductCatalog.tsx` - Aggiunto menu utente inline nell'header homepage
+- `frontend/components/layout/SiteHeader.tsx` - Aggiunto menu utente inline per altre pagine
+
+**Funzionalità implementate**:
+1. ✅ Menu links visibili solo quando utente è loggato
+2. ✅ Posizionamento: UserIcon → User Panel/Admin Panel → Logout → Wishlist → Cart → Lingua
+3. ✅ Role-based display: "Area Utente" per B2C/B2B, "Admin Panel" per admin
+4. ✅ Link funzionali: /orders per utenti, /admin-panel per admin
+5. ✅ Logout button con redirect a homepage
+6. ✅ Stile consistente con header design
+
+**Sequenza finale elementi header**:
+```
+1. Logo
+2. Search bar (desktop)
+3. UserIcon ("Ciao [nome]")
+4. Area Utente / Admin Panel (se loggato)
+5. Esci (se loggato)
+6. Wishlist
+7. Cart
+8. Lingua
+```
+
+**Fix applicati durante sviluppo**:
+- Inizialmente modificato file sbagliato (SiteHeader.tsx non usato in homepage)
+- Identificato che ProductCatalog.tsx contiene l'header homepage
+- Corretta sequenza elementi (UserIcon prima dei link)
+- Spostato selettore lingua alla fine (convenzione standard)
+
+**Risultato**: ✅ Menu utente accessibile rapidamente dall'header, UX migliorata
+
+---
+
+### ✅ Completato nella sessione corrente (13 Nov 2025 - mattina)
 
 #### 1. **Sistema Header e Footer con Dati Aziendali**
 **File creati**:
@@ -626,8 +663,23 @@ frontend/
 
 ## 📚 File Modificati Oggi (13 Nov 2025)
 
+### Pomeriggio - User Menu Links
+1. **`frontend/components/ProductCatalog.tsx`** (MODIFICATO)
+   - Aggiunto import useAuth, LogOut, Settings icons
+   - Aggiunto handleLogout function
+   - Inseriti menu links inline nell'header desktop (righe 1001-1041)
+   - Sequenza: UserIcon → User Panel/Admin Panel → Logout → Wishlist → Cart → Lingua
+
+2. **`frontend/components/layout/SiteHeader.tsx`** (MODIFICATO)
+   - Aggiunto import useAuth, useRouter, LogOut, Settings icons
+   - Aggiunto handleLogout function
+   - Inseriti menu links inline nell'header (righe 226-274)
+   - Applicato stesso pattern di ProductCatalog per consistenza
+
+### Mattina - Header e Footer Aziendali
+
 ### Frontend Components
-1. **`frontend/components/layout/UserAreaHeader.tsx`** (NUOVO)
+3. **`frontend/components/layout/UserAreaHeader.tsx`** (NUOVO)
    - Header semplificato con logo e 2 pulsanti
    - Carica settings via API `/api/settings/public`
    - Supporto base64 logo con/senza prefix
@@ -665,10 +717,12 @@ frontend/
    - Aggiunto label "back_to_catalog"
    - Traduzioni per 9 lingue
 
-### Git Commits
+### Git Commits - Pomeriggio
+- ✅ `Add user menu links in header before language selector`
+
+### Git Commits - Mattina
 - ✅ `Remove brandConfig fallback to match UserAreaHeader logo behavior`
 - ✅ `Fix white space above user area header`
-- ⏸️ Push bloccato da errore GitHub (Internal Server Error)
 
 ---
 
@@ -676,10 +730,10 @@ frontend/
 
 ### 🔴 PRIORITÀ ALTA (Git & Deployment)
 
-#### 1. **Riprovare push su GitHub**
-- [ ] Retry `git push origin main` quando GitHub riprende
-- [ ] Verificare che i 2 commit vengano pushati correttamente
-- [ ] Controllare deploy automatico su Vercel
+#### 1. **Push su GitHub/Vercel**
+- [ ] Push ultimo commit (user menu links) su GitHub
+- [ ] Verificare deploy automatico su Vercel
+- [ ] Testare menu links in produzione
 
 ### 🔴 PRIORITÀ ALTA (User Management)
 
@@ -893,6 +947,15 @@ http://localhost:3003/?lang=el
 
 ## 🎯 Obiettivi Sessione Completati (13 Nov 2025)
 
+### Pomeriggio - User Menu Links
+- [x] Aggiungere menu links utente inline nell'header
+- [x] Posizionare correttamente: UserIcon → Menu → Logout → Icons → Lingua
+- [x] Implementare logic role-based (B2C/B2B vs Admin)
+- [x] Applicare a ProductCatalog (homepage) e SiteHeader (altre pagine)
+- [x] Testare funzionamento login/logout
+- [x] Commit e documentare in note_e_todo.md
+
+### Mattina - Header e Footer Aziendali
 - [x] Creare header semplificato per area utente (logo + 2 pulsanti)
 - [x] Creare footer con dati aziendali completi
 - [x] Applicare footer globalmente a tutto il sito

@@ -2,15 +2,17 @@
 
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useBrand } from '@/contexts/BrandContext';
+import { useAuth } from '@/contexts/AuthContext';
 import { getCommonText, Language } from '@/lib/common-translations';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import LanguageSelector from '../LanguageSelector';
 import CartIcon from '../CartIcon';
 import WishlistIcon from '../WishlistIcon';
 import UserIcon from '../UserIcon';
-import { Package } from 'lucide-react';
+import { Package, Settings, LogOut } from 'lucide-react';
+import uiLabels from '@/config/ui-labels.json';
 
 interface SettingsResponse {
   success: boolean;
@@ -38,12 +40,25 @@ interface SettingsResponse {
 export default function SiteHeader() {
   const { currentLang } = useLanguage();
   const { currentBrand, setBrand, brandConfig } = useBrand();
+  const { user, logout } = useAuth();
   const pathname = usePathname();
+  const router = useRouter();
   const [scrolled, setScrolled] = useState(false);
   const [settings, setSettings] = useState<SettingsResponse | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
   const isHome = pathname === '/';
+  const labels = uiLabels.auth;
+
+  // Handle logout
+  const handleLogout = async () => {
+    try {
+      await logout();
+      router.push('/');
+    } catch (error) {
+      console.error('Logout error:', error);
+    }
+  };
 
   // Load company settings
   useEffect(() => {
@@ -206,7 +221,59 @@ export default function SiteHeader() {
           </div>
 
           {/* Right Actions */}
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2">
+            {/* User Menu Links (when logged in) */}
+            {user && (
+              <>
+                {/* User Panel (B2C/B2B) */}
+                {(user.role === 'b2c' || user.role === 'b2b') && (
+                  <Link
+                    href="/orders"
+                    className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-md text-sm font-medium transition-colors hover:bg-gray-100 ${
+                      isTransparent
+                        ? 'text-white hover:bg-white/10'
+                        : pathname === '/orders'
+                          ? 'text-green-600'
+                          : 'text-gray-700'
+                    }`}
+                  >
+                    <Settings className="w-4 h-4" />
+                    <span>{labels.user_panel[currentLang as Language]}</span>
+                  </Link>
+                )}
+
+                {/* Admin Panel */}
+                {user.role === 'admin' && (
+                  <Link
+                    href="/admin-panel"
+                    className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-md text-sm font-medium transition-colors hover:bg-gray-100 ${
+                      isTransparent
+                        ? 'text-white hover:bg-white/10'
+                        : pathname === '/admin-panel'
+                          ? 'text-green-600'
+                          : 'text-gray-700'
+                    }`}
+                  >
+                    <Settings className="w-4 h-4" />
+                    <span>{labels.admin_panel[currentLang as Language]}</span>
+                  </Link>
+                )}
+
+                {/* Logout Button */}
+                <button
+                  onClick={handleLogout}
+                  className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-md text-sm font-medium transition-colors hover:bg-red-50 ${
+                    isTransparent
+                      ? 'text-white hover:bg-white/10'
+                      : 'text-red-600'
+                  }`}
+                >
+                  <LogOut className="w-4 h-4" />
+                  <span>{labels.logout[currentLang as Language]}</span>
+                </button>
+              </>
+            )}
+
             <LanguageSelector />
             <WishlistIcon />
             <CartIcon />
