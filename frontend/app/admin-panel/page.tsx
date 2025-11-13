@@ -1,202 +1,257 @@
+'use client';
+
 // app/admin-panel/page.tsx
-// Admin Dashboard
+// Admin Dashboard - Premium Design
+
+import { useState, useEffect } from 'react';
+import Link from 'next/link';
+import Image from 'next/image';
+import {
+  Settings,
+  Users,
+  Mail,
+  BarChart3,
+  LayoutDashboard,
+  Languages,
+  ArrowRight,
+  Sparkles
+} from 'lucide-react';
 
 export default function AdminDashboard() {
+  const [logoUrl, setLogoUrl] = useState<string>('');
+
+  // Load logo from settings
+  useEffect(() => {
+    async function loadLogo() {
+      try {
+        const response = await fetch('/api/settings/public');
+        if (response.ok) {
+          const data = await response.json();
+          if (data.settings?.logo?.base64) {
+            setLogoUrl(data.settings.logo.base64);
+          }
+        }
+      } catch (error) {
+        console.error('Error loading logo:', error);
+      }
+    }
+    loadLogo();
+  }, []);
+  const cards = [
+    {
+      title: 'Gestione Utenti',
+      description: 'Approva, modifica ed elimina utenti',
+      icon: Users,
+      href: '/admin-panel/users',
+      gradient: 'from-blue-500 to-indigo-600',
+      color: 'blue'
+    },
+    {
+      title: 'Traduzione UI',
+      description: 'Interfaccia multilingua e localizzazione',
+      icon: Languages,
+      href: '/admin-panel/translations',
+      gradient: 'from-purple-500 to-pink-600',
+      color: 'purple'
+    },
+    {
+      title: 'Report Clienti',
+      description: 'Gestione dinamica report B2B',
+      icon: BarChart3,
+      href: '/admin-panel/reports',
+      gradient: 'from-orange-500 to-red-600',
+      color: 'orange'
+    },
+    {
+      title: 'Email Templates',
+      description: 'Template email transazionali',
+      icon: Mail,
+      href: '/admin-panel/email-templates',
+      gradient: 'from-green-500 to-emerald-600',
+      color: 'green'
+    },
+    {
+      title: 'Dashboard KPI',
+      description: 'Metriche area utente B2B',
+      icon: LayoutDashboard,
+      href: '/admin-panel/dashboard-config',
+      gradient: 'from-cyan-500 to-blue-600',
+      color: 'cyan'
+    },
+    {
+      title: 'Impostazioni',
+      description: 'Configurazione azienda e sistema',
+      icon: Settings,
+      href: '/admin-panel/settings',
+      gradient: 'from-slate-500 to-gray-600',
+      color: 'slate'
+    },
+  ];
+
   return (
-    <div className="px-4 py-6 sm:px-0">
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900">Dashboard</h1>
-        <p className="mt-2 text-sm text-gray-600">
-          Benvenuto nel pannello di amministrazione
+    <div className="space-y-8">
+      {/* Hero Header */}
+      <div className="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 rounded-3xl shadow-2xl p-8 lg:p-12 text-white">
+        <div className="flex items-center gap-4 mb-4">
+          <div className="rounded-2xl bg-white backdrop-blur-sm flex items-center justify-center px-4 py-3 shadow-lg">
+            {logoUrl ? (
+              <Image
+                src={logoUrl}
+                alt="Logo"
+                width={180}
+                height={40}
+                className="h-10 w-auto object-contain max-w-[180px]"
+              />
+            ) : (
+              <Sparkles className="w-8 h-8 text-blue-600" />
+            )}
+          </div>
+          <div>
+            <h1 className="text-4xl font-bold mb-2">Dashboard Admin</h1>
+            <p className="text-blue-100 text-lg">
+              Benvenuto nel pannello di gestione
+            </p>
+          </div>
+        </div>
+        <p className="text-blue-50 max-w-2xl">
+          Da qui puoi gestire tutti gli aspetti del sistema: utenti, traduzioni,
+          email, report e configurazioni generali.
         </p>
       </div>
 
-      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {/* Settings Card */}
-        <div className="bg-white overflow-hidden shadow rounded-lg">
-          <div className="p-6">
-            <div className="flex items-center">
-              <div className="flex-shrink-0">
-                <svg className="h-8 w-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                </svg>
-              </div>
-              <div className="ml-5 w-0 flex-1">
-                <dl>
-                  <dt className="text-sm font-medium text-gray-500 truncate">
-                    Impostazioni
-                  </dt>
-                  <dd className="text-lg font-semibold text-gray-900">
-                    Azienda & Email
-                  </dd>
-                </dl>
-              </div>
+      {/* Quick Stats */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
+          <div className="flex items-center justify-between mb-4">
+            <div className="w-12 h-12 rounded-xl bg-blue-100 flex items-center justify-center">
+              <Users className="w-6 h-6 text-blue-600" />
             </div>
-            <div className="mt-4">
-              <a
-                href="/admin-panel/settings"
-                className="text-sm font-medium text-blue-600 hover:text-blue-500"
-              >
-                Vai alle impostazioni →
-              </a>
-            </div>
+            <span className="text-sm font-medium text-gray-500">Oggi</span>
           </div>
+          <h3 className="text-2xl font-bold text-gray-900 mb-1">Sistema Attivo</h3>
+          <p className="text-sm text-gray-600">Tutti i servizi operativi</p>
         </div>
 
-        {/* Users Management Card */}
-        <div className="bg-white overflow-hidden shadow rounded-lg">
-          <div className="p-6">
-            <div className="flex items-center">
-              <div className="flex-shrink-0">
-                <svg className="h-8 w-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
-                </svg>
-              </div>
-              <div className="ml-5 w-0 flex-1">
-                <dl>
-                  <dt className="text-sm font-medium text-gray-500 truncate">
-                    Gestione Utenti
-                  </dt>
-                  <dd className="text-lg font-semibold text-gray-900">
-                    Approva & Gestisci
-                  </dd>
-                </dl>
-              </div>
+        <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
+          <div className="flex items-center justify-between mb-4">
+            <div className="w-12 h-12 rounded-xl bg-green-100 flex items-center justify-center">
+              <Mail className="w-6 h-6 text-green-600" />
             </div>
-            <div className="mt-4">
-              <a
-                href="/admin-panel/users"
-                className="text-sm font-medium text-green-600 hover:text-green-500"
-              >
-                Gestisci utenti →
-              </a>
-            </div>
+            <span className="text-sm font-medium text-gray-500">Brevo</span>
           </div>
+          <h3 className="text-2xl font-bold text-gray-900 mb-1">Email Attive</h3>
+          <p className="text-sm text-gray-600">Servizio configurato</p>
         </div>
 
-        {/* Email Templates Card */}
-        <div className="bg-white overflow-hidden shadow rounded-lg">
-          <div className="p-6">
-            <div className="flex items-center">
-              <div className="flex-shrink-0">
-                <svg className="h-8 w-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                </svg>
-              </div>
-              <div className="ml-5 w-0 flex-1">
-                <dl>
-                  <dt className="text-sm font-medium text-gray-500 truncate">
-                    Template Email
-                  </dt>
-                  <dd className="text-lg font-semibold text-gray-900">
-                    Messaggi Clienti
-                  </dd>
-                </dl>
-              </div>
+        <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
+          <div className="flex items-center justify-between mb-4">
+            <div className="w-12 h-12 rounded-xl bg-purple-100 flex items-center justify-center">
+              <Languages className="w-6 h-6 text-purple-600" />
             </div>
-            <div className="mt-4">
-              <a
-                href="/admin-panel/email-templates"
-                className="text-sm font-medium text-purple-600 hover:text-purple-500"
-              >
-                Gestisci template →
-              </a>
-            </div>
+            <span className="text-sm font-medium text-gray-500">Lingue</span>
           </div>
+          <h3 className="text-2xl font-bold text-gray-900 mb-1">9 Lingue</h3>
+          <p className="text-sm text-gray-600">Sistema multilingua</p>
         </div>
+      </div>
 
-        {/* Reports Card */}
-        <div className="bg-white overflow-hidden shadow rounded-lg">
-          <div className="p-6">
-            <div className="flex items-center">
-              <div className="flex-shrink-0">
-                <svg className="h-8 w-8 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-                </svg>
-              </div>
-              <div className="ml-5 w-0 flex-1">
-                <dl>
-                  <dt className="text-sm font-medium text-gray-500 truncate">
-                    Report Clienti
-                  </dt>
-                  <dd className="text-lg font-semibold text-gray-900">
-                    Gestione Dinamica
-                  </dd>
-                </dl>
-              </div>
-            </div>
-            <div className="mt-4">
-              <a
-                href="/admin-panel/reports"
-                className="text-sm font-medium text-orange-600 hover:text-orange-500"
+      {/* Main Cards Grid */}
+      <div>
+        <h2 className="text-2xl font-bold text-gray-900 mb-6">Gestione Sistema</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {cards.map((card) => {
+            const Icon = card.icon;
+            return (
+              <Link
+                key={card.href}
+                href={card.href}
+                className="group bg-white rounded-2xl shadow-sm border-2 border-gray-100 hover:border-transparent hover:shadow-2xl transition-all duration-300 overflow-hidden"
               >
-                Gestisci report →
-              </a>
-            </div>
-          </div>
+                <div className="p-6">
+                  {/* Icon with gradient background */}
+                  <div className={`w-14 h-14 rounded-xl bg-gradient-to-br ${card.gradient} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300 shadow-lg`}>
+                    <Icon className="w-7 h-7 text-white" />
+                  </div>
+
+                  {/* Content */}
+                  <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-gray-700">
+                    {card.title}
+                  </h3>
+                  <p className="text-sm text-gray-600 mb-4 line-clamp-2">
+                    {card.description}
+                  </p>
+
+                  {/* Action */}
+                  <div className="flex items-center gap-2 text-sm font-medium text-gray-500 group-hover:text-blue-600 transition-colors">
+                    <span>Gestisci</span>
+                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  </div>
+                </div>
+
+                {/* Decorative gradient bottom */}
+                <div className={`h-1 bg-gradient-to-r ${card.gradient} transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300`}></div>
+              </Link>
+            );
+          })}
         </div>
+      </div>
 
-        {/* Dashboard Configuration Card */}
-        <div className="bg-white overflow-hidden shadow rounded-lg">
-          <div className="p-6">
-            <div className="flex items-center">
-              <div className="flex-shrink-0">
-                <svg className="h-8 w-8 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-                </svg>
-              </div>
-              <div className="ml-5 w-0 flex-1">
-                <dl>
-                  <dt className="text-sm font-medium text-gray-500 truncate">
-                    Dashboard KPI
-                  </dt>
-                  <dd className="text-lg font-semibold text-gray-900">
-                    Metriche Area Utente
-                  </dd>
-                </dl>
-              </div>
+      {/* Quick Links */}
+      <div className="bg-gray-50 rounded-2xl border border-gray-200 p-8">
+        <h2 className="text-xl font-bold text-gray-900 mb-6">Link Rapidi</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          <Link
+            href="/admin-panel/email-logs"
+            className="flex items-center gap-3 p-4 bg-white rounded-xl border border-gray-200 hover:border-blue-300 hover:shadow-md transition-all"
+          >
+            <div className="w-10 h-10 rounded-lg bg-blue-100 flex items-center justify-center">
+              <Mail className="w-5 h-5 text-blue-600" />
             </div>
-            <div className="mt-4">
-              <a
-                href="/admin-panel/dashboard-config"
-                className="text-sm font-medium text-teal-600 hover:text-teal-500"
-              >
-                Configura dashboard →
-              </a>
+            <div>
+              <div className="font-medium text-gray-900">Email Logs</div>
+              <div className="text-xs text-gray-500">Cronologia invii</div>
             </div>
-          </div>
-        </div>
+          </Link>
 
-        {/* Translations Card */}
-        <div className="bg-white overflow-hidden shadow rounded-lg">
-          <div className="p-6">
-            <div className="flex items-center">
-              <div className="flex-shrink-0">
-                <svg className="h-8 w-8 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129" />
-                </svg>
-              </div>
-              <div className="ml-5 w-0 flex-1">
-                <dl>
-                  <dt className="text-sm font-medium text-gray-500 truncate">
-                    Traduzioni UI
-                  </dt>
-                  <dd className="text-lg font-semibold text-gray-900">
-                    Interfaccia Multilingua
-                  </dd>
-                </dl>
-              </div>
+          <Link
+            href="/admin-panel/users"
+            className="flex items-center gap-3 p-4 bg-white rounded-xl border border-gray-200 hover:border-green-300 hover:shadow-md transition-all"
+          >
+            <div className="w-10 h-10 rounded-lg bg-green-100 flex items-center justify-center">
+              <Users className="w-5 h-5 text-green-600" />
             </div>
-            <div className="mt-4">
-              <a
-                href="/admin-panel/translations"
-                className="text-sm font-medium text-indigo-600 hover:text-indigo-500"
-              >
-                Gestisci traduzioni →
-              </a>
+            <div>
+              <div className="font-medium text-gray-900">Utenti Attivi</div>
+              <div className="text-xs text-gray-500">Gestisci accessi</div>
             </div>
-          </div>
+          </Link>
+
+          <Link
+            href="/admin-panel/settings"
+            className="flex items-center gap-3 p-4 bg-white rounded-xl border border-gray-200 hover:border-purple-300 hover:shadow-md transition-all"
+          >
+            <div className="w-10 h-10 rounded-lg bg-purple-100 flex items-center justify-center">
+              <Settings className="w-5 h-5 text-purple-600" />
+            </div>
+            <div>
+              <div className="font-medium text-gray-900">Configurazione</div>
+              <div className="text-xs text-gray-500">Impostazioni base</div>
+            </div>
+          </Link>
+
+          <Link
+            href="/"
+            target="_blank"
+            className="flex items-center gap-3 p-4 bg-white rounded-xl border border-gray-200 hover:border-orange-300 hover:shadow-md transition-all"
+          >
+            <div className="w-10 h-10 rounded-lg bg-orange-100 flex items-center justify-center">
+              <Sparkles className="w-5 h-5 text-orange-600" />
+            </div>
+            <div>
+              <div className="font-medium text-gray-900">Vai al Sito</div>
+              <div className="text-xs text-gray-500">Frontend pubblico</div>
+            </div>
+          </Link>
         </div>
       </div>
     </div>

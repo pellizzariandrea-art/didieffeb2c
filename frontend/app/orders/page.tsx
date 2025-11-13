@@ -4,7 +4,7 @@
 // User Account Area - Profile, Security, Orders
 
 import { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { useAuth } from '@/contexts/AuthContext';
 import { useLanguage } from '@/contexts/LanguageContext';
@@ -16,7 +16,7 @@ import { getAuthInstance } from '@/lib/firebase/config';
 import { useFormValidation } from '@/hooks/useFormValidation';
 import ValidatedInput from '@/components/ValidatedInput';
 import { getReportTitle, getReportDescription } from '@/components/reports/ReportBuilder';
-import UserAreaHeader from '@/components/layout/UserAreaHeader';
+// UserAreaHeader removed - now using layout sidebar
 
 // Common countries list
 const COMMON_COUNTRIES = [
@@ -67,8 +67,16 @@ export default function AccountPage() {
   const { user, loading: authLoading, logout, refreshProfile } = useAuth();
   const { currentLang: language } = useLanguage();
   const router = useRouter();
+  const searchParams = useSearchParams();
 
+  // Get tab from URL search params on client side
   const [activeTab, setActiveTab] = useState<Tab>('dashboard');
+
+  // Update tab when URL changes
+  useEffect(() => {
+    const tab = searchParams.get('tab') as Tab;
+    setActiveTab(tab || 'dashboard');
+  }, [searchParams]);
   const [profileData, setProfileData] = useState<ProfileData>({
     nome: '',
     cognome: '',
@@ -131,6 +139,24 @@ export default function AccountPage() {
       router.push('/');
     }
   }, [user, authLoading, router]);
+
+  // Update active tab when URL changes
+  useEffect(() => {
+    const handleRouteChange = () => {
+      const params = new URLSearchParams(window.location.search);
+      const tab = params.get('tab');
+      if (tab) {
+        setActiveTab(tab as Tab);
+      } else {
+        setActiveTab('dashboard');
+      }
+    };
+
+    window.addEventListener('popstate', handleRouteChange);
+    handleRouteChange();
+
+    return () => window.removeEventListener('popstate', handleRouteChange);
+  }, []);
 
   // Load user data
   useEffect(() => {
@@ -572,7 +598,7 @@ export default function AccountPage() {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-50">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-green-600 mx-auto mb-4"></div>
           <p className="text-gray-600">Caricamento...</p>
         </div>
       </div>
@@ -586,117 +612,32 @@ export default function AccountPage() {
   const isB2B = user.role === 'b2b';
 
   return (
-    <>
-      <UserAreaHeader />
-      <div className="min-h-screen bg-gray-50 pt-20 pb-12">
-        <div className="container mx-auto px-4 max-w-6xl">
-          {/* Header */}
-          <div className="bg-white rounded-lg shadow-sm p-4 sm:p-6 mb-6">
-            <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">
-              {labels.page_title[language]}
-            </h1>
-            <p className="text-sm sm:text-base text-gray-600 break-words">
-              {isB2B ? user.ragioneSociale : `${user.nome} ${user.cognome}`} • {user.email}
-            </p>
-          </div>
-
+    <div className="min-h-screen p-6">
+      <div className="max-w-7xl mx-auto">
         {/* Message */}
         {message && (
           <div
-            className={`mb-6 p-4 rounded-lg ${
+            className={`mb-6 p-4 rounded-2xl border-2 font-medium ${
               message.type === 'success'
-                ? 'bg-green-50 text-green-800 border border-green-200'
-                : 'bg-red-50 text-red-800 border border-red-200'
+                ? 'bg-green-50 text-green-800 border-green-200'
+                : 'bg-red-50 text-red-800 border-red-200'
             }`}
           >
             {message.text}
           </div>
         )}
 
-        {/* Tabs */}
-        <div className="bg-white rounded-lg shadow-sm overflow-hidden">
-          <div className="flex overflow-x-auto border-b border-gray-200 scrollbar-hide">
-            <button
-              onClick={() => setActiveTab('dashboard')}
-              className={`flex-1 flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2 px-2 sm:px-6 py-3 sm:py-4 font-medium transition-colors min-w-[70px] ${
-                activeTab === 'dashboard'
-                  ? 'text-blue-600 border-b-2 border-blue-600 bg-blue-50'
-                  : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
-              }`}
-            >
-              <Home className="w-5 h-5" />
-              <span className="text-xs sm:text-base">Dashboard</span>
-            </button>
-            <button
-              onClick={() => setActiveTab('profile')}
-              className={`flex-1 flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2 px-2 sm:px-6 py-3 sm:py-4 font-medium transition-colors min-w-[70px] ${
-                activeTab === 'profile'
-                  ? 'text-blue-600 border-b-2 border-blue-600 bg-blue-50'
-                  : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
-              }`}
-            >
-              <User className="w-5 h-5" />
-              <span className="text-xs sm:text-base">{labels.tabs.profile[language]}</span>
-            </button>
-            <button
-              onClick={() => setActiveTab('addresses')}
-              className={`flex-1 flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2 px-2 sm:px-6 py-3 sm:py-4 font-medium transition-colors min-w-[70px] ${
-                activeTab === 'addresses'
-                  ? 'text-blue-600 border-b-2 border-blue-600 bg-blue-50'
-                  : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
-              }`}
-            >
-              <MapPin className="w-5 h-5" />
-              <span className="text-xs sm:text-base">{labels.tabs.addresses[language]}</span>
-            </button>
-            <button
-              onClick={() => setActiveTab('security')}
-              className={`flex-1 flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2 px-2 sm:px-6 py-3 sm:py-4 font-medium transition-colors min-w-[70px] ${
-                activeTab === 'security'
-                  ? 'text-blue-600 border-b-2 border-blue-600 bg-blue-50'
-                  : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
-              }`}
-            >
-              <Shield className="w-5 h-5" />
-              <span className="text-xs sm:text-base">{labels.tabs.security[language]}</span>
-            </button>
-            <button
-              onClick={() => setActiveTab('orders')}
-              className={`flex-1 flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2 px-2 sm:px-6 py-3 sm:py-4 font-medium transition-colors min-w-[70px] ${
-                activeTab === 'orders'
-                  ? 'text-blue-600 border-b-2 border-blue-600 bg-blue-50'
-                  : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
-              }`}
-            >
-              <Package className="w-5 h-5" />
-              <span className="text-xs sm:text-base">{labels.tabs.orders[language]}</span>
-            </button>
-            {user?.clientCode && (
-              <button
-                onClick={() => setActiveTab('reports')}
-                className={`flex-1 flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2 px-2 sm:px-6 py-3 sm:py-4 font-medium transition-colors min-w-[70px] ${
-                  activeTab === 'reports'
-                    ? 'text-blue-600 border-b-2 border-blue-600 bg-blue-50'
-                    : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
-                }`}
-              >
-                <BarChart3 className="w-5 h-5" />
-                <span className="text-xs sm:text-base">{labels.tabs.reports[language]}</span>
-              </button>
-            )}
-          </div>
+        {/* Content - Navigation via sidebar */}
+        <div className="space-y-6">
+          {/* Dashboard Tab */}
+          {activeTab === 'dashboard' && (
+            <div>
+              <h2 className="text-2xl font-bold text-gray-900 mb-6">
+                Dashboard
+              </h2>
 
-          {/* Tab Content */}
-          <div className="p-4 sm:p-6">
-            {/* Dashboard Tab */}
-            {activeTab === 'dashboard' && (
-              <div>
-                <h2 className="text-2xl font-bold text-gray-900 mb-6">
-                  Dashboard
-                </h2>
-
-                {/* Stats Cards */}
-                {loadingKpis ? (
+              {/* Stats Cards */}
+              {loadingKpis ? (
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
                     {[1, 2, 3, 4].map((i) => (
                       <div key={i} className="bg-white rounded-lg p-6 border border-gray-200 animate-pulse">
@@ -716,7 +657,7 @@ export default function AccountPage() {
                       return (
                         <div
                           key={index}
-                          className={`bg-gradient-to-br ${colors.bg} rounded-lg p-6 border ${colors.border}`}
+                          className={`bg-gradient-to-br ${colors.bg} rounded-2xl p-6 border-2 ${colors.border} shadow-sm`}
                         >
                           <div className="flex items-center justify-between mb-2">
                             <h3 className={`text-sm font-medium ${colors.text}`}>{kpi.title}</h3>
@@ -733,7 +674,7 @@ export default function AccountPage() {
                     })}
 
                     {/* Addresses Card - Always visible */}
-                    <div className="bg-gradient-to-br from-green-50 to-green-100 rounded-lg p-6 border border-green-200">
+                    <div className="bg-gradient-to-br from-green-50 to-green-100 rounded-2xl p-6 border-2 border-green-200 shadow-sm">
                       <div className="flex items-center justify-between mb-2">
                         <h3 className="text-sm font-medium text-green-900">Indirizzi</h3>
                         <MapPin className="w-5 h-5 text-green-600" />
@@ -744,7 +685,7 @@ export default function AccountPage() {
 
                     {/* Reports Card - Only for B2B users */}
                     {user?.clientCode && (
-                      <div className="bg-gradient-to-br from-purple-50 to-purple-100 rounded-lg p-6 border border-purple-200">
+                      <div className="bg-gradient-to-br from-purple-50 to-purple-100 rounded-2xl p-6 border-2 border-purple-200 shadow-sm">
                         <div className="flex items-center justify-between mb-2">
                           <h3 className="text-sm font-medium text-purple-900">Report</h3>
                           <BarChart3 className="w-5 h-5 text-purple-600" />
@@ -757,14 +698,14 @@ export default function AccountPage() {
                 )}
 
                 {/* Quick Actions */}
-                <div className="bg-white rounded-lg border border-gray-200 p-6">
+                <div className="bg-white rounded-2xl border-2 border-gray-200 p-6 shadow-sm">
                   <h3 className="text-lg font-semibold text-gray-900 mb-4">Quick Actions</h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                     <button
                       onClick={() => setActiveTab('profile')}
-                      className="flex items-center gap-3 p-4 rounded-lg border border-gray-300 hover:border-blue-500 hover:bg-blue-50 transition-all text-left"
+                      className="flex items-center gap-3 p-4 rounded-xl border-2 border-gray-200 hover:border-green-500 hover:bg-green-50 transition-all text-left"
                     >
-                      <User className="w-6 h-6 text-blue-600" />
+                      <User className="w-6 h-6 text-green-600" />
                       <div>
                         <p className="font-medium text-gray-900">Edit Profile</p>
                         <p className="text-sm text-gray-600">Update your information</p>
@@ -773,7 +714,7 @@ export default function AccountPage() {
 
                     <button
                       onClick={() => setActiveTab('addresses')}
-                      className="flex items-center gap-3 p-4 rounded-lg border border-gray-300 hover:border-green-500 hover:bg-green-50 transition-all text-left"
+                      className="flex items-center gap-3 p-4 rounded-xl border-2 border-gray-200 hover:border-green-500 hover:bg-green-50 transition-all text-left"
                     >
                       <MapPin className="w-6 h-6 text-green-600" />
                       <div>
@@ -784,7 +725,7 @@ export default function AccountPage() {
 
                     <button
                       onClick={() => setActiveTab('security')}
-                      className="flex items-center gap-3 p-4 rounded-lg border border-gray-300 hover:border-orange-500 hover:bg-orange-50 transition-all text-left"
+                      className="flex items-center gap-3 p-4 rounded-xl border-2 border-gray-200 hover:border-orange-500 hover:bg-orange-50 transition-all text-left"
                     >
                       <Shield className="w-6 h-6 text-orange-600" />
                       <div>
@@ -796,7 +737,7 @@ export default function AccountPage() {
                     {user?.clientCode && (
                       <button
                         onClick={() => setActiveTab('reports')}
-                        className="flex items-center gap-3 p-4 rounded-lg border border-gray-300 hover:border-purple-500 hover:bg-purple-50 transition-all text-left"
+                        className="flex items-center gap-3 p-4 rounded-xl border-2 border-gray-200 hover:border-purple-500 hover:bg-purple-50 transition-all text-left"
                       >
                         <BarChart3 className="w-6 h-6 text-purple-600" />
                         <div>
@@ -831,7 +772,7 @@ export default function AccountPage() {
                         type="text"
                         value={profileData.nome}
                         onChange={(e) => setProfileData({ ...profileData, nome: e.target.value })}
-                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        className="w-full px-4 py-2 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
                       />
                     </div>
                     <div>
@@ -842,7 +783,7 @@ export default function AccountPage() {
                         type="text"
                         value={profileData.cognome}
                         onChange={(e) => setProfileData({ ...profileData, cognome: e.target.value })}
-                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        className="w-full px-4 py-2 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
                       />
                     </div>
                   </div>
@@ -870,7 +811,7 @@ export default function AccountPage() {
                       type="tel"
                       value={profileData.telefono}
                       onChange={(e) => setProfileData({ ...profileData, telefono: e.target.value })}
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      className="w-full px-4 py-2 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
                     />
                   </div>
 
@@ -885,7 +826,7 @@ export default function AccountPage() {
                           type="text"
                           value={profileData.ragioneSociale}
                           onChange={(e) => setProfileData({ ...profileData, ragioneSociale: e.target.value })}
-                          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                          className="w-full px-4 py-2 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
                         />
                       </div>
                       {profileData.paese === 'Italia' && (
@@ -897,7 +838,7 @@ export default function AccountPage() {
                             type="text"
                             value={profileData.codiceSDI}
                             onChange={(e) => setProfileData({ ...profileData, codiceSDI: e.target.value })}
-                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                            className="w-full px-4 py-2 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
                           />
                         </div>
                       )}
@@ -935,7 +876,7 @@ export default function AccountPage() {
                         }}
                         error={errors.partitaIVA}
                         touched={touched.partitaIVA}
-                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        className="w-full px-4 py-2 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
                       />
                     </div>
                     {!isB2B && (
@@ -968,7 +909,7 @@ export default function AccountPage() {
                           }}
                           error={errors.codiceFiscale}
                           touched={touched.codiceFiscale}
-                          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                          className="w-full px-4 py-2 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
                         />
                       </div>
                     )}
@@ -991,7 +932,7 @@ export default function AccountPage() {
                         type="text"
                         value={profileData.indirizzo}
                         onChange={(e) => setProfileData({ ...profileData, indirizzo: e.target.value })}
-                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        className="w-full px-4 py-2 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
                         placeholder={labels.profile.address_placeholder[language]}
                       />
                     </div>
@@ -1026,7 +967,7 @@ export default function AccountPage() {
                           }}
                           error={errors.citta}
                           touched={touched.citta}
-                          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                          className="w-full px-4 py-2 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
                         />
                       </div>
                       <div>
@@ -1058,7 +999,7 @@ export default function AccountPage() {
                           }}
                           error={errors.cap}
                           touched={touched.cap}
-                          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                          className="w-full px-4 py-2 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
                         />
                       </div>
                       <div>
@@ -1091,7 +1032,7 @@ export default function AccountPage() {
                           error={errors.provincia}
                           touched={touched.provincia}
                           placeholder="ES: VI, PD"
-                          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                          className="w-full px-4 py-2 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
                         />
                       </div>
                       <div>
@@ -1110,7 +1051,7 @@ export default function AccountPage() {
                             clearFieldError('partitaIVA');
                             clearFieldError('codiceFiscale');
                           }}
-                          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                          className="w-full px-4 py-2 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
                         >
                           {COMMON_COUNTRIES.map((country) => (
                             <option key={country} value={country}>
@@ -1126,7 +1067,7 @@ export default function AccountPage() {
                     <button
                       onClick={handleProfileSave}
                       disabled={saving}
-                      className="flex items-center gap-2 px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors"
+                      className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-green-600 to-emerald-600 text-white font-bold rounded-xl hover:from-green-700 hover:to-emerald-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-lg shadow-green-500/30"
                     >
                       <Save className="w-5 h-5" />
                       {saving ? labels.profile.saving[language] : labels.profile.save_button[language]}
@@ -1151,7 +1092,7 @@ export default function AccountPage() {
                   {!showAddressForm && (
                     <button
                       onClick={handleAddAddress}
-                      className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                      className="flex items-center gap-2 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
                     >
                       <Plus className="w-5 h-5" />
                       {labels.addresses.add_new[language]}
@@ -1174,7 +1115,7 @@ export default function AccountPage() {
                           type="text"
                           value={addressFormData.recipientName}
                           onChange={(e) => setAddressFormData({ ...addressFormData, recipientName: e.target.value })}
-                          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                          className="w-full px-4 py-2 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
                         />
                       </div>
 
@@ -1186,7 +1127,7 @@ export default function AccountPage() {
                           type="text"
                           value={addressFormData.addressLine}
                           onChange={(e) => setAddressFormData({ ...addressFormData, addressLine: e.target.value })}
-                          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                          className="w-full px-4 py-2 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
                         />
                       </div>
 
@@ -1199,7 +1140,7 @@ export default function AccountPage() {
                             type="text"
                             value={addressFormData.city}
                             onChange={(e) => setAddressFormData({ ...addressFormData, city: e.target.value })}
-                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                            className="w-full px-4 py-2 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
                           />
                         </div>
                         <div>
@@ -1210,7 +1151,7 @@ export default function AccountPage() {
                             type="text"
                             value={addressFormData.postalCode}
                             onChange={(e) => setAddressFormData({ ...addressFormData, postalCode: e.target.value })}
-                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                            className="w-full px-4 py-2 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
                           />
                         </div>
                         <div>
@@ -1221,7 +1162,7 @@ export default function AccountPage() {
                             type="text"
                             value={addressFormData.province}
                             onChange={(e) => setAddressFormData({ ...addressFormData, province: e.target.value })}
-                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                            className="w-full px-4 py-2 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
                           />
                         </div>
                       </div>
@@ -1234,7 +1175,7 @@ export default function AccountPage() {
                           type="text"
                           value={addressFormData.country}
                           onChange={(e) => setAddressFormData({ ...addressFormData, country: e.target.value })}
-                          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                          className="w-full px-4 py-2 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
                         />
                       </div>
 
@@ -1246,7 +1187,7 @@ export default function AccountPage() {
                           type="tel"
                           value={addressFormData.phone}
                           onChange={(e) => setAddressFormData({ ...addressFormData, phone: e.target.value })}
-                          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                          className="w-full px-4 py-2 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
                         />
                       </div>
 
@@ -1258,7 +1199,7 @@ export default function AccountPage() {
                           value={addressFormData.notes}
                           onChange={(e) => setAddressFormData({ ...addressFormData, notes: e.target.value })}
                           rows={3}
-                          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                          className="w-full px-4 py-2 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
                         />
                       </div>
 
@@ -1268,7 +1209,7 @@ export default function AccountPage() {
                           id="isDefault"
                           checked={addressFormData.isDefault}
                           onChange={(e) => setAddressFormData({ ...addressFormData, isDefault: e.target.checked })}
-                          className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+                          className="w-4 h-4 text-green-600 border-gray-300 rounded focus:ring-green-500"
                         />
                         <label htmlFor="isDefault" className="ml-2 text-sm text-gray-700">
                           {labels.addresses.set_default[language]}
@@ -1279,7 +1220,7 @@ export default function AccountPage() {
                         <button
                           onClick={handleSaveAddress}
                           disabled={saving}
-                          className="px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors"
+                          className="px-6 py-3 bg-green-600 text-white font-medium rounded-lg hover:bg-green-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors"
                         >
                           {saving ? labels.addresses.saving[language] : labels.addresses.save_button[language]}
                         </button>
@@ -1297,7 +1238,7 @@ export default function AccountPage() {
                   </div>
                 ) : loadingAddresses ? (
                   <div className="text-center py-12">
-                    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+                    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-green-600 mx-auto mb-4"></div>
                     <p className="text-gray-600">Caricamento...</p>
                   </div>
                 ) : addresses.length === 0 ? (
@@ -1312,7 +1253,7 @@ export default function AccountPage() {
                     {addresses.map((address) => (
                       <div
                         key={address.id}
-                        className="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow"
+                        className="border-2 border-gray-200 rounded-2xl p-4 hover:shadow-lg hover:border-green-200 transition-all"
                       >
                         <div className="flex items-start justify-between mb-3">
                           <div className="flex items-center gap-2">
@@ -1322,7 +1263,7 @@ export default function AccountPage() {
                             </h4>
                           </div>
                           {address.isDefault && (
-                            <span className="inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-blue-100 text-blue-800">
+                            <span className="inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-green-100 text-green-800">
                               <Star className="w-3 h-3 mr-1" />
                               {labels.addresses.is_default[language]}
                             </span>
@@ -1344,7 +1285,7 @@ export default function AccountPage() {
                         <div className="flex gap-2 pt-3 border-t border-gray-100">
                           <button
                             onClick={() => handleEditAddress(address)}
-                            className="flex items-center gap-1 px-3 py-1 text-sm text-blue-600 hover:bg-blue-50 rounded transition-colors"
+                            className="flex items-center gap-1 px-3 py-1 text-sm text-green-600 hover:bg-green-50 rounded transition-colors"
                           >
                             <Edit className="w-4 h-4" />
                             {language === 'it' ? 'Modifica' : language === 'en' ? 'Edit' : 'Editar'}
@@ -1376,7 +1317,7 @@ export default function AccountPage() {
 
                 <div className="space-y-6">
                   {/* Change Password Section */}
-                  <div className="border border-gray-200 rounded-lg p-6">
+                  <div className="border-2 border-gray-200 rounded-2xl p-6 shadow-sm">
                     <h3 className="text-lg font-medium text-gray-900 mb-4">
                       {labels.security.change_password[language]}
                     </h3>
@@ -1456,7 +1397,7 @@ export default function AccountPage() {
                   </div>
 
                   {/* Logout Section */}
-                  <div className="border border-red-200 rounded-lg p-6 bg-red-50">
+                  <div className="border-2 border-red-200 rounded-2xl p-6 bg-red-50">
                     <h3 className="text-lg font-medium text-gray-900 mb-2">
                       {labels.security.logout_button[language]}
                     </h3>
@@ -1465,7 +1406,7 @@ export default function AccountPage() {
                     </p>
                     <button
                       onClick={handleLogout}
-                      className="flex items-center gap-2 px-6 py-3 bg-red-600 text-white font-medium rounded-lg hover:bg-red-700 transition-colors"
+                      className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-red-600 to-rose-600 text-white font-bold rounded-xl hover:from-red-700 hover:to-rose-700 transition-all shadow-lg shadow-red-500/30"
                     >
                       <LogOut className="w-5 h-5" />
                       {labels.security.logout_button[language]}
@@ -1508,14 +1449,14 @@ export default function AccountPage() {
                 </p>
 
                 {!user?.clientCode ? (
-                  <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-6">
+                  <div className="bg-yellow-50 border-2 border-yellow-200 rounded-2xl p-6">
                     <p className="text-yellow-800">
                       {labels.reports.no_client_code[language]}
                     </p>
                   </div>
                 ) : loadingReports ? (
                   <div className="text-center py-12">
-                    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+                    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-green-600 mx-auto mb-4"></div>
                     <p className="text-gray-600">Caricamento...</p>
                   </div>
                 ) : reports.length === 0 ? (
@@ -1531,10 +1472,10 @@ export default function AccountPage() {
                       <Link
                         key={report.slug}
                         href={`/my-account/reports/${report.slug}`}
-                        className="bg-white border border-gray-200 rounded-lg p-5 hover:border-blue-500 hover:shadow-md transition-all"
+                        className="bg-white border-2 border-gray-200 rounded-2xl p-5 hover:border-green-500 hover:shadow-xl transition-all"
                       >
                         <div className="flex items-start gap-4">
-                          <div className="flex-shrink-0 p-3 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg">
+                          <div className="flex-shrink-0 p-3 bg-gradient-to-br from-green-500 to-emerald-600 rounded-xl shadow-lg">
                             <BarChart3 className="w-6 h-6 text-white" />
                           </div>
                           <div className="flex-1 min-w-0">
@@ -1546,7 +1487,7 @@ export default function AccountPage() {
                                 {getReportDescription(report.slug, language, report.description)}
                               </p>
                             )}
-                            <div className="text-sm text-blue-600 font-medium">
+                            <div className="text-sm text-green-600 font-medium">
                               {labels.reports.view_report[language]}
                             </div>
                           </div>
@@ -1557,10 +1498,8 @@ export default function AccountPage() {
                 )}
               </div>
             )}
-          </div>
         </div>
       </div>
     </div>
-    </>
   );
 }

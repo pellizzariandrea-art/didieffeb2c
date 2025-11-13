@@ -8,8 +8,7 @@ import { ReportConfig } from '@/types/report';
 import ReportBuilder from '@/components/reports/ReportBuilder';
 import ComponentCustomizer from '@/components/reports/ComponentCustomizer';
 import ReportErrorBoundary from '@/components/reports/ReportErrorBoundary';
-import Link from 'next/link';
-import { ArrowLeft, Eye, Palette } from 'lucide-react';
+import { Eye, Palette } from 'lucide-react';
 import uiLabels from '@/config/ui-labels.json';
 
 export default function ReportDetailPage() {
@@ -93,7 +92,7 @@ export default function ReportDetailPage() {
   if (authLoading || loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-green-600"></div>
       </div>
     );
   }
@@ -108,16 +107,7 @@ export default function ReportDetailPage() {
   // Check if user has clientCode assigned (skip in preview mode)
   if (!isPreviewMode && !user.clientCode) {
     return (
-      <div className="container mx-auto px-4 py-8">
-        <div className="mb-6">
-          <Link
-            href="/orders"
-            className="inline-flex items-center text-blue-600 hover:text-blue-700"
-          >
-            <ArrowLeft className="w-4 h-4 mr-2" />
-            {labels.back_to_user_area[language]}
-          </Link>
-        </div>
+      <div className="w-full px-4 py-8">
         <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-6">
           <h2 className="text-xl font-bold text-yellow-900 mb-2">
             Codice Cliente Non Configurato
@@ -133,16 +123,7 @@ export default function ReportDetailPage() {
 
   if (error) {
     return (
-      <div className="container mx-auto px-4 py-8">
-        <div className="mb-6">
-          <Link
-            href="/orders"
-            className="inline-flex items-center text-blue-600 hover:text-blue-700"
-          >
-            <ArrowLeft className="w-4 h-4 mr-2" />
-            {labels.back_to_user_area[language]}
-          </Link>
-        </div>
+      <div className="w-full px-4 py-8">
         <div className="bg-red-50 border border-red-200 rounded-lg p-6">
           <h2 className="text-xl font-bold text-red-900 mb-2">Errore</h2>
           <p className="text-red-800">{error}</p>
@@ -156,30 +137,19 @@ export default function ReportDetailPage() {
   }
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      {/* Back Button */}
-      <div className="mb-6">
-        <Link
-          href="/orders"
-          className="inline-flex items-center text-blue-600 hover:text-blue-700 text-sm font-medium"
-        >
-          <ArrowLeft className="w-4 h-4 mr-2" />
-          {labels.back_to_user_area[language]}
-        </Link>
-      </div>
-
+    <div className="w-full px-4 py-8">
       {/* Preview Mode Banner */}
       {isPreviewMode && (
-        <div className="mb-6 bg-blue-50 border border-blue-200 rounded-lg p-4">
+        <div className="mb-6 bg-green-50 border border-green-200 rounded-lg p-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center">
-              <Eye className="w-5 h-5 text-blue-600 mr-2" />
+              <Eye className="w-5 h-5 text-green-600 mr-2" />
               <div>
-                <p className="text-sm font-medium text-blue-900">
+                <p className="text-sm font-medium text-green-900">
                   Modalità Anteprima
                 </p>
-                <p className="text-xs text-blue-700">
-                  Stai visualizzando il report con dati del cliente: <code className="bg-blue-100 px-2 py-0.5 rounded font-mono">{previewClientCode}</code>
+                <p className="text-xs text-green-700">
+                  Stai visualizzando il report con dati del cliente: <code className="bg-green-100 px-2 py-0.5 rounded font-mono">{previewClientCode}</code>
                 </p>
               </div>
             </div>

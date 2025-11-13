@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { collection, getDocs, doc, updateDoc } from 'firebase/firestore';
+import { collection, getDocs, doc, updateDoc, deleteDoc } from 'firebase/firestore';
 import { useAuth } from '@/contexts/AuthContext';
 import { useRouter } from 'next/navigation';
 import { getDbInstance } from '@/lib/firebase/config';
@@ -325,145 +325,173 @@ export default function UsersManagementPage() {
   }
 
   return (
-    <div className="px-4 py-6 sm:px-0">
-      <div className="mb-8 flex items-center justify-between">
-        <div>
-          <h1 className="text-3xl font-bold text-gray-900">Gestione Utenti</h1>
-          <p className="mt-2 text-sm text-gray-600">
-            Approva, modifica o elimina gli utenti registrati
-          </p>
+    <div className="space-y-6">
+      {/* Page Header */}
+      <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
+        <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+          <div>
+            <h1 className="text-3xl font-bold text-gray-900 mb-2">Gestione Utenti</h1>
+            <p className="text-gray-600 flex items-center gap-2">
+              <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-blue-100 text-blue-600 text-xs font-bold">
+                {users.length}
+              </span>
+              utenti registrati nel sistema
+            </p>
+          </div>
+          <button
+            onClick={() => setShowCreateModal(true)}
+            className="px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl hover:from-blue-700 hover:to-indigo-700 transition-all shadow-lg shadow-blue-500/30 flex items-center gap-2 font-medium"
+          >
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+            </svg>
+            Aggiungi Utente
+          </button>
         </div>
-        <button
-          onClick={() => setShowCreateModal(true)}
-          className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center gap-2"
-        >
-          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
-          </svg>
-          Aggiungi Utente
-        </button>
       </div>
 
       {/* Filters */}
-      <div className="mb-6 flex flex-wrap gap-4">
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">Status</label>
-          <div className="flex gap-2">
-            <button
-              onClick={() => setFilter('all')}
-              className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-                filter === 'all'
-                  ? 'bg-blue-600 text-white'
-                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-              }`}
-            >
-              Tutti ({users.length})
-            </button>
-            <button
-              onClick={() => setFilter('pending')}
-              className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-                filter === 'pending'
-                  ? 'bg-yellow-600 text-white'
-                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-              }`}
-            >
-              Pendenti ({pendingCount})
-            </button>
-            <button
-              onClick={() => setFilter('active')}
-              className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-                filter === 'active'
-                  ? 'bg-green-600 text-white'
-                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-              }`}
-            >
-              Attivi ({users.filter(u => u.status === 'active').length})
-            </button>
-            <button
-              onClick={() => setFilter('inactive')}
-              className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-                filter === 'inactive'
-                  ? 'bg-red-600 text-white'
-                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-              }`}
-            >
-              Disattivi ({users.filter(u => u.status === 'inactive').length})
-            </button>
+      <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div>
+            <label className="block text-sm font-semibold text-gray-900 mb-3">Filtra per Status</label>
+            <div className="flex flex-wrap gap-2">
+              <button
+                onClick={() => setFilter('all')}
+                className={`px-4 py-2.5 rounded-xl text-sm font-medium transition-all ${
+                  filter === 'all'
+                    ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg shadow-blue-500/30'
+                    : 'bg-gray-50 text-gray-700 hover:bg-gray-100 border border-gray-200'
+                }`}
+              >
+                Tutti
+                <span className={`ml-2 px-2 py-0.5 rounded-full text-xs font-bold ${
+                  filter === 'all' ? 'bg-white/20 text-white' : 'bg-gray-200 text-gray-700'
+                }`}>
+                  {users.length}
+                </span>
+              </button>
+              <button
+                onClick={() => setFilter('pending')}
+                className={`px-4 py-2.5 rounded-xl text-sm font-medium transition-all ${
+                  filter === 'pending'
+                    ? 'bg-gradient-to-r from-yellow-500 to-orange-500 text-white shadow-lg shadow-yellow-500/30'
+                    : 'bg-gray-50 text-gray-700 hover:bg-gray-100 border border-gray-200'
+                }`}
+              >
+                Pendenti
+                <span className={`ml-2 px-2 py-0.5 rounded-full text-xs font-bold ${
+                  filter === 'pending' ? 'bg-white/20 text-white' : 'bg-yellow-100 text-yellow-700'
+                }`}>
+                  {pendingCount}
+                </span>
+              </button>
+              <button
+                onClick={() => setFilter('active')}
+                className={`px-4 py-2.5 rounded-xl text-sm font-medium transition-all ${
+                  filter === 'active'
+                    ? 'bg-gradient-to-r from-green-600 to-emerald-600 text-white shadow-lg shadow-green-500/30'
+                    : 'bg-gray-50 text-gray-700 hover:bg-gray-100 border border-gray-200'
+                }`}
+              >
+                Attivi
+                <span className={`ml-2 px-2 py-0.5 rounded-full text-xs font-bold ${
+                  filter === 'active' ? 'bg-white/20 text-white' : 'bg-green-100 text-green-700'
+                }`}>
+                  {users.filter(u => u.status === 'active').length}
+                </span>
+              </button>
+              <button
+                onClick={() => setFilter('inactive')}
+                className={`px-4 py-2.5 rounded-xl text-sm font-medium transition-all ${
+                  filter === 'inactive'
+                    ? 'bg-gradient-to-r from-red-600 to-rose-600 text-white shadow-lg shadow-red-500/30'
+                    : 'bg-gray-50 text-gray-700 hover:bg-gray-100 border border-gray-200'
+                }`}
+              >
+                Disattivi
+                <span className={`ml-2 px-2 py-0.5 rounded-full text-xs font-bold ${
+                  filter === 'inactive' ? 'bg-white/20 text-white' : 'bg-red-100 text-red-700'
+                }`}>
+                  {users.filter(u => u.status === 'inactive').length}
+                </span>
+              </button>
+            </div>
           </div>
-        </div>
 
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">Ruolo</label>
-          <div className="flex gap-2">
-            <button
-              onClick={() => setRoleFilter('all')}
-              className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-                roleFilter === 'all'
-                  ? 'bg-blue-600 text-white'
-                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-              }`}
-            >
-              Tutti
-            </button>
-            <button
-              onClick={() => setRoleFilter('admin')}
-              className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-                roleFilter === 'admin'
-                  ? 'bg-purple-600 text-white'
-                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-              }`}
-            >
-              Admin
-            </button>
-            <button
-              onClick={() => setRoleFilter('b2b')}
-              className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-                roleFilter === 'b2b'
-                  ? 'bg-green-600 text-white'
-                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-              }`}
-            >
-              B2B
-            </button>
-            <button
-              onClick={() => setRoleFilter('b2c')}
-              className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-                roleFilter === 'b2c'
-                  ? 'bg-blue-600 text-white'
-                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-              }`}
-            >
-              B2C
-            </button>
+          <div>
+            <label className="block text-sm font-semibold text-gray-900 mb-3">Filtra per Ruolo</label>
+            <div className="flex flex-wrap gap-2">
+              <button
+                onClick={() => setRoleFilter('all')}
+                className={`px-4 py-2.5 rounded-xl text-sm font-medium transition-all ${
+                  roleFilter === 'all'
+                    ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg shadow-blue-500/30'
+                    : 'bg-gray-50 text-gray-700 hover:bg-gray-100 border border-gray-200'
+                }`}
+              >
+                Tutti i Ruoli
+              </button>
+              <button
+                onClick={() => setRoleFilter('admin')}
+                className={`px-4 py-2.5 rounded-xl text-sm font-medium transition-all ${
+                  roleFilter === 'admin'
+                    ? 'bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-lg shadow-purple-500/30'
+                    : 'bg-gray-50 text-gray-700 hover:bg-gray-100 border border-gray-200'
+                }`}
+              >
+                👑 Admin
+              </button>
+              <button
+                onClick={() => setRoleFilter('b2b')}
+                className={`px-4 py-2.5 rounded-xl text-sm font-medium transition-all ${
+                  roleFilter === 'b2b'
+                    ? 'bg-gradient-to-r from-cyan-600 to-blue-600 text-white shadow-lg shadow-cyan-500/30'
+                    : 'bg-gray-50 text-gray-700 hover:bg-gray-100 border border-gray-200'
+                }`}
+              >
+                🏢 B2B
+              </button>
+              <button
+                onClick={() => setRoleFilter('b2c')}
+                className={`px-4 py-2.5 rounded-xl text-sm font-medium transition-all ${
+                  roleFilter === 'b2c'
+                    ? 'bg-gradient-to-r from-teal-600 to-green-600 text-white shadow-lg shadow-teal-500/30'
+                    : 'bg-gray-50 text-gray-700 hover:bg-gray-100 border border-gray-200'
+                }`}
+              >
+                👤 B2C
+              </button>
+            </div>
           </div>
         </div>
       </div>
 
       {/* Users Table */}
-      <div className="bg-white shadow-md rounded-lg overflow-hidden">
+      <div className="bg-white shadow-lg rounded-2xl border border-gray-200 overflow-hidden">
         <div className="overflow-x-auto">
           <table className="min-w-full divide-y divide-gray-200">
-            <thead className="bg-gray-50">
+            <thead className="bg-gradient-to-r from-gray-50 to-gray-100">
               <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">
                   Utente
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">
                   Email
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">
                   Ruolo
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">
                   Codice Cliente
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">
                   Status
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">
                   Registrato
                 </th>
-                <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-4 text-right text-xs font-bold text-gray-700 uppercase tracking-wider">
                   Azioni
                 </th>
               </tr>
@@ -477,84 +505,111 @@ export default function UsersManagementPage() {
                 </tr>
               ) : (
                 filteredUsers.map((u) => (
-                  <tr key={u.id} className="hover:bg-gray-50">
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm font-medium text-gray-900">
-                        {u.role === 'b2b' ? u.ragioneSociale : `${u.nome || ''} ${u.cognome || ''}`}
+                  <tr key={u.id} className="hover:bg-blue-50/30 transition-colors border-b border-gray-100 last:border-0">
+                    <td className="px-6 py-5 whitespace-nowrap">
+                      <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-white font-bold text-sm">
+                          {u.role === 'b2b'
+                            ? (u.ragioneSociale?.[0] || 'B').toUpperCase()
+                            : ((u.nome?.[0] || '') + (u.cognome?.[0] || '')).toUpperCase() || 'U'
+                          }
+                        </div>
+                        <div>
+                          <div className="text-sm font-semibold text-gray-900">
+                            {u.role === 'b2b' ? u.ragioneSociale : `${u.nome || ''} ${u.cognome || ''}`}
+                          </div>
+                          <div className="text-xs text-gray-500">
+                            {u.role === 'admin' ? '👑 Amministratore' : u.role === 'b2b' ? '🏢 Business' : '👤 Privato'}
+                          </div>
+                        </div>
                       </div>
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm text-gray-500">{u.email}</div>
+                    <td className="px-6 py-5 whitespace-nowrap">
+                      <div className="text-sm text-gray-700">{u.email}</div>
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
+                    <td className="px-6 py-5 whitespace-nowrap">
                       <select
                         value={u.role}
                         onChange={(e) => handleUpdateRole(u.id, e.target.value as any)}
-                        className="text-xs font-medium px-2 py-1 rounded-full border"
+                        className={`text-xs font-bold px-3 py-2 rounded-lg border-2 focus:outline-none focus:ring-2 focus:ring-offset-2 transition-all cursor-pointer ${
+                          u.role === 'admin'
+                            ? 'bg-purple-50 text-purple-700 border-purple-200 hover:bg-purple-100 focus:ring-purple-500'
+                            : u.role === 'b2b'
+                            ? 'bg-cyan-50 text-cyan-700 border-cyan-200 hover:bg-cyan-100 focus:ring-cyan-500'
+                            : 'bg-teal-50 text-teal-700 border-teal-200 hover:bg-teal-100 focus:ring-teal-500'
+                        }`}
                       >
-                        <option value="admin">Admin</option>
-                        <option value="b2b">B2B</option>
-                        <option value="b2c">B2C</option>
+                        <option value="admin">👑 Admin</option>
+                        <option value="b2b">🏢 B2B</option>
+                        <option value="b2c">👤 B2C</option>
                       </select>
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
+                    <td className="px-6 py-5 whitespace-nowrap">
                       <input
                         type="text"
                         value={u.clientCode || ''}
                         onChange={(e) => handleUpdateClientCode(u.id, e.target.value)}
                         placeholder="es. CLI001"
-                        className="text-xs px-2 py-1 border rounded w-24 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        className="text-sm px-3 py-2 border-2 border-gray-200 rounded-lg w-32 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent hover:border-gray-300 transition-colors"
                         title="Codice cliente nel gestionale MySQL"
                       />
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
+                    <td className="px-6 py-5 whitespace-nowrap">
                       <select
                         value={u.status}
                         onChange={(e) => handleUpdateStatus(u.id, e.target.value as any)}
-                        className={`px-2 py-1 text-xs font-semibold rounded-full border-0 focus:ring-2 focus:ring-blue-500 ${
+                        className={`px-3 py-2 text-xs font-bold rounded-lg border-2 focus:outline-none focus:ring-2 focus:ring-offset-2 transition-all cursor-pointer ${
                           u.status === 'active'
-                            ? 'bg-green-100 text-green-800'
+                            ? 'bg-green-50 text-green-700 border-green-200 hover:bg-green-100 focus:ring-green-500'
                             : u.status === 'pending'
-                            ? 'bg-yellow-100 text-yellow-800'
-                            : 'bg-red-100 text-red-800'
+                            ? 'bg-yellow-50 text-yellow-700 border-yellow-200 hover:bg-yellow-100 focus:ring-yellow-500'
+                            : 'bg-red-50 text-red-700 border-red-200 hover:bg-red-100 focus:ring-red-500'
                         }`}
                       >
-                        <option value="pending">Pendente</option>
-                        <option value="active">Attivo</option>
-                        <option value="inactive">Disattivo</option>
+                        <option value="pending">⏳ Pendente</option>
+                        <option value="active">✅ Attivo</option>
+                        <option value="inactive">🚫 Disattivo</option>
                       </select>
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                      {u.createdAt?.toDate?.()?.toLocaleDateString('it-IT') || 'N/A'}
+                    <td className="px-6 py-5 whitespace-nowrap">
+                      <div className="text-sm text-gray-600">
+                        {u.createdAt?.toDate?.()?.toLocaleDateString('it-IT') || 'N/A'}
+                      </div>
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium space-x-2">
-                      <button
-                        onClick={() => handleEditUser(u)}
-                        className="text-blue-600 hover:text-blue-900"
-                      >
-                        Modifica
-                      </button>
-                      <button
-                        onClick={() => setAddressesModalUser({
-                          id: u.id,
-                          name: u.ragioneSociale || `${u.nome || ''} ${u.cognome || ''}`.trim() || u.email
-                        })}
-                        className="text-green-600 hover:text-green-900"
-                      >
-                        Indirizzi
-                      </button>
-                      <button
-                        onClick={() => handleResetPassword(u.email)}
-                        className="text-purple-600 hover:text-purple-900"
-                      >
-                        Reset Pass
-                      </button>
-                      <button
-                        onClick={() => handleDeleteUser(u.id, u.email)}
-                        className="text-red-600 hover:text-red-900"
-                      >
-                        Elimina
-                      </button>
+                    <td className="px-6 py-5 whitespace-nowrap text-right">
+                      <div className="flex items-center justify-end gap-2">
+                        <button
+                          onClick={() => handleEditUser(u)}
+                          className="px-3 py-1.5 text-xs font-medium text-blue-700 bg-blue-50 hover:bg-blue-100 rounded-lg transition-colors border border-blue-200"
+                          title="Modifica utente"
+                        >
+                          ✏️ Modifica
+                        </button>
+                        <button
+                          onClick={() => setAddressesModalUser({
+                            id: u.id,
+                            name: u.ragioneSociale || `${u.nome || ''} ${u.cognome || ''}`.trim() || u.email
+                          })}
+                          className="px-3 py-1.5 text-xs font-medium text-green-700 bg-green-50 hover:bg-green-100 rounded-lg transition-colors border border-green-200"
+                          title="Gestisci indirizzi"
+                        >
+                          📍 Indirizzi
+                        </button>
+                        <button
+                          onClick={() => handleResetPassword(u.email)}
+                          className="px-3 py-1.5 text-xs font-medium text-purple-700 bg-purple-50 hover:bg-purple-100 rounded-lg transition-colors border border-purple-200"
+                          title="Reset password"
+                        >
+                          🔑 Reset
+                        </button>
+                        <button
+                          onClick={() => handleDeleteUser(u.id, u.email)}
+                          className="px-3 py-1.5 text-xs font-medium text-red-700 bg-red-50 hover:bg-red-100 rounded-lg transition-colors border border-red-200"
+                          title="Elimina utente"
+                        >
+                          🗑️ Elimina
+                        </button>
+                      </div>
                     </td>
                   </tr>
                 ))

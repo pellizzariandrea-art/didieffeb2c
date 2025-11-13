@@ -63,19 +63,21 @@ export default function UserAreaHeader() {
     : null;
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-white border-b border-gray-200 shadow-sm">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 border-b border-slate-700 shadow-2xl">
       <div className="container mx-auto px-4 max-w-6xl">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <div className="flex items-center gap-3">
             {logoSrc ? (
-              <img
-                src={logoSrc}
-                alt={settings?.settings?.company?.name || 'Logo'}
-                className="h-12 w-auto object-contain max-w-[200px]"
-              />
+              <div className="bg-white rounded-lg px-3 py-2 shadow-md">
+                <img
+                  src={logoSrc}
+                  alt={settings?.settings?.company?.name || 'Logo'}
+                  className="h-8 w-auto object-contain max-w-[140px]"
+                />
+              </div>
             ) : (
-              <span className="text-xl font-bold text-gray-900">
+              <span className="text-xl font-bold text-white">
                 {settings?.settings?.company?.name || 'Company'}
               </span>
             )}
@@ -85,17 +87,17 @@ export default function UserAreaHeader() {
           <div className="flex items-center gap-3">
             <Link
               href="/products"
-              className="flex items-center gap-2 px-4 py-2 rounded-lg border border-gray-300 bg-white text-gray-700 hover:bg-gray-50 hover:border-gray-400 transition-all shadow-sm"
+              className="flex items-center gap-2 px-4 py-2.5 rounded-xl border-2 border-slate-600 bg-slate-800 text-slate-100 hover:bg-slate-700 hover:border-slate-500 transition-all shadow-lg font-medium"
             >
               <ArrowLeft className="w-4 h-4" />
-              <span className="hidden sm:inline font-medium">{labels.back_to_catalog?.[language] || 'Back to catalog'}</span>
+              <span className="hidden sm:inline">{labels.back_to_catalog?.[language] || 'Back to catalog'}</span>
             </Link>
             <button
               onClick={handleLogout}
-              className="flex items-center gap-2 px-4 py-2 rounded-lg border border-red-200 bg-red-50 text-red-600 hover:bg-red-100 hover:border-red-300 transition-all shadow-sm"
+              className="flex items-center gap-2 px-4 py-2.5 rounded-xl border-2 border-red-500 bg-red-600 text-white hover:bg-red-700 hover:border-red-600 transition-all shadow-lg font-medium"
             >
               <LogOut className="w-4 h-4" />
-              <span className="hidden sm:inline font-medium">{labels.logout[language]}</span>
+              <span className="hidden sm:inline">{labels.logout[language]}</span>
             </button>
           </div>
         </div>
