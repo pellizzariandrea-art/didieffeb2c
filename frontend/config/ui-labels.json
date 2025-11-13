@@ -2967,6 +2967,28 @@
         "hr": "Prijavite se ovdje",
         "sl": "Prijavite se tukaj",
         "el": "Συνδεθείτε εδώ"
+      },
+      "admin_panel": {
+        "it": "Pannello Admin",
+        "en": "Admin Panel",
+        "de": "Admin-Panel",
+        "fr": "Panneau Admin",
+        "es": "Panel Admin",
+        "pt": "Painel Admin",
+        "hr": "Admin Panel",
+        "sl": "Admin Panel",
+        "el": "Πίνακας Διαχείρισης"
+      },
+      "user_panel": {
+        "it": "Area Utente",
+        "en": "User Area",
+        "de": "Benutzerbereich",
+        "fr": "Espace Utilisateur",
+        "es": "Área de Usuario",
+        "pt": "Área do Usuário",
+        "hr": "Korisnički Prostor",
+        "sl": "Uporabniški Prostor",
+        "el": "Περιοχή Χρήστη"
       }
     }
   },

@@ -1,21 +1,26 @@
 'use client';
 
 // components/UserIcon.tsx
-// User Authentication Icon with Dropdown Menu
+// User Authentication Icon with Inline Login Form
 
 import { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/contexts/AuthContext';
 import { useLanguage } from '@/contexts/LanguageContext';
-import { User, LogOut, Package, Settings } from 'lucide-react';
+import { User, LogOut, Settings, AlertCircle } from 'lucide-react';
 import uiLabels from '@/config/ui-labels.json';
+import { login } from '@/lib/firebase/auth';
 
 export default function UserIcon() {
   const { user, logout, loading } = useAuth();
   const { currentLang: language } = useLanguage();
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [loginLoading, setLoginLoading] = useState(false);
+  const [loginError, setLoginError] = useState('');
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   const labels = uiLabels.auth;
@@ -33,6 +38,25 @@ export default function UserIcon() {
       return () => document.removeEventListener('mousedown', handleClickOutside);
     }
   }, [isOpen]);
+
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoginError('');
+    setLoginLoading(true);
+
+    try {
+      await login(email, password);
+      setIsOpen(false);
+      setEmail('');
+      setPassword('');
+      router.push('/');
+    } catch (error: any) {
+      console.error('Login error:', error);
+      setLoginError(error.message || 'Errore durante il login');
+    } finally {
+      setLoginLoading(false);
+    }
+  };
 
   const handleLogout = async () => {
     try {
@@ -58,16 +82,96 @@ export default function UserIcon() {
     );
   }
 
-  // Not logged in - show login link
+  // Not logged in - show login form dropdown
   if (!user) {
     return (
-      <Link
-        href="/login"
-        className="p-2 rounded-full hover:bg-gray-100 transition-colors group"
-        title={labels.login[language]}
-      >
-        <User className="w-5 h-5 text-gray-600 group-hover:text-blue-600" />
-      </Link>
+      <div className="relative" ref={dropdownRef}>
+        <button
+          onClick={() => setIsOpen(!isOpen)}
+          className="p-2 rounded-full hover:bg-gray-100 transition-colors group"
+          title={labels.login[language]}
+        >
+          <User className="w-5 h-5 text-gray-600 group-hover:text-blue-600" />
+        </button>
+
+        {/* Login Form Dropdown */}
+        {isOpen && (
+          <div className="absolute right-0 mt-2 w-80 bg-white rounded-lg shadow-lg border border-gray-200 p-4 z-50">
+            <form onSubmit={handleLogin} className="space-y-3">
+              <h3 className="text-sm font-semibold text-gray-900 mb-3">
+                {labels.login[language]}
+              </h3>
+
+              {/* Email Input */}
+              <div>
+                <label htmlFor="email" className="block text-xs font-medium text-gray-700 mb-1">
+                  {labels.email[language]}
+                </label>
+                <input
+                  id="email"
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                  className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  placeholder={labels.email[language]}
+                />
+              </div>
+
+              {/* Password Input */}
+              <div>
+                <label htmlFor="password" className="block text-xs font-medium text-gray-700 mb-1">
+                  {labels.password[language]}
+                </label>
+                <input
+                  id="password"
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                  className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  placeholder={labels.password[language]}
+                />
+              </div>
+
+              {/* Error Message */}
+              {loginError && (
+                <div className="flex items-start gap-2 p-2 bg-red-50 border border-red-200 rounded-md">
+                  <AlertCircle className="w-4 h-4 text-red-600 flex-shrink-0 mt-0.5" />
+                  <p className="text-xs text-red-600">{loginError}</p>
+                </div>
+              )}
+
+              {/* Login Button */}
+              <button
+                type="submit"
+                disabled={loginLoading}
+                className="w-full py-2 px-4 bg-blue-600 text-white text-sm font-medium rounded-md hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+              >
+                {loginLoading ? '...' : labels.login[language]}
+              </button>
+
+              {/* Register Link */}
+              <Link
+                href="/register"
+                onClick={() => setIsOpen(false)}
+                className="block w-full py-2 px-4 bg-gray-100 text-gray-700 text-sm font-medium text-center rounded-md hover:bg-gray-200 transition-colors"
+              >
+                {labels.register[language]}
+              </Link>
+
+              {/* Forgot Password */}
+              <Link
+                href="/auth/forgot-password"
+                onClick={() => setIsOpen(false)}
+                className="block text-xs text-blue-600 hover:text-blue-700 text-center"
+              >
+                {labels.forgot_password[language]}
+              </Link>
+            </form>
+          </div>
+        )}
+      </div>
     );
   }
 
@@ -120,15 +224,15 @@ export default function UserIcon() {
 
           {/* Menu Items */}
           <div className="py-1">
-            {/* User Area */}
+            {/* User Panel (B2C/B2B) */}
             {(user.role === 'b2c' || user.role === 'b2b') && (
               <Link
                 href="/orders"
                 onClick={() => setIsOpen(false)}
                 className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
               >
-                <Package className="w-4 h-4 mr-3 text-gray-400" />
-                {uiLabels.account.page_title[language]}
+                <Settings className="w-4 h-4 mr-3 text-gray-400" />
+                {labels.user_panel[language]}
               </Link>
             )}
 
@@ -140,7 +244,7 @@ export default function UserIcon() {
                 className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
               >
                 <Settings className="w-4 h-4 mr-3 text-gray-400" />
-                {language === 'it' ? 'Pannello Admin' : language === 'en' ? 'Admin Panel' : language === 'de' ? 'Admin-Panel' : language === 'fr' ? 'Panneau Admin' : language === 'es' ? 'Panel Admin' : 'Painel Admin'}
+                {labels.admin_panel[language]}
               </Link>
             )}
 
