@@ -181,13 +181,21 @@ export default function UserIcon() {
     ? `${user.nome} ${user.cognome}`
     : user.ragioneSociale;
 
+  // Get first name for greeting
+  const firstName = user.role === 'admin' || user.role === 'b2c'
+    ? user.nome
+    : user.ragioneSociale?.split(' ')[0] || user.ragioneSociale;
+
   return (
     <div className="relative" ref={dropdownRef}>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="p-2 rounded-full hover:bg-gray-100 transition-colors group"
+        className="flex items-center gap-2 px-3 py-2 rounded-full hover:bg-gray-100 transition-colors group"
         title={displayName}
       >
+        <span className="text-sm text-gray-700 hidden sm:block">
+          {labels.hello[language]} {firstName}
+        </span>
         <User className="w-5 h-5 text-blue-600 group-hover:text-blue-700" />
       </button>
 

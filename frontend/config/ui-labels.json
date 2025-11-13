@@ -2228,6 +2228,17 @@
       "sl": "Odjavite se",
       "el": "Αποσυνδεθείτε"
     },
+    "hello": {
+      "it": "Ciao",
+      "en": "Hi",
+      "de": "Hallo",
+      "fr": "Bonjour",
+      "es": "Hola",
+      "pt": "Olá",
+      "hr": "Bok",
+      "sl": "Pozdravljeni",
+      "el": "Γεια"
+    },
     "register": {
       "it": "Registrati",
       "en": "Register",
