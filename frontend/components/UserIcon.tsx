@@ -10,10 +10,9 @@ import { useAuth } from '@/contexts/AuthContext';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { User, LogOut, Settings, AlertCircle } from 'lucide-react';
 import uiLabels from '@/config/ui-labels.json';
-import { login } from '@/lib/firebase/auth';
 
 export default function UserIcon() {
-  const { user, logout, loading } = useAuth();
+  const { user, login, logout, loading } = useAuth();
   const { currentLang: language } = useLanguage();
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
@@ -162,7 +161,7 @@ export default function UserIcon() {
 
               {/* Forgot Password */}
               <Link
-                href="/auth/forgot-password"
+                href="/forgot-password"
                 onClick={() => setIsOpen(false)}
                 className="block text-xs text-blue-600 hover:text-blue-700 text-center"
               >
