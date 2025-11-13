@@ -29,7 +29,7 @@ export default function ReportDetailPage() {
   // Redirect if not authenticated
   useEffect(() => {
     if (!authLoading && !firebaseUser) {
-      router.push('/login');
+      router.push('/');
     }
   }, [authLoading, firebaseUser, router]);
 

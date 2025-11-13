@@ -130,7 +130,7 @@ function VerifyEmailContent() {
           setStatus('success');
           // Redirect to login after 3 seconds
           setTimeout(() => {
-            router.push('/login');
+            router.push('/');
           }, 3000);
         } else {
           setStatus('error');
@@ -169,7 +169,7 @@ function VerifyEmailContent() {
             <h1 className="text-2xl font-bold text-gray-900 mb-2">{labels.success}</h1>
             <p className="text-gray-600 mb-6">{labels.successDesc}</p>
             <button
-              onClick={() => router.push('/login')}
+              onClick={() => router.push('/')}
               className="w-full px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
             >
               {labels.goToLogin}
@@ -183,7 +183,7 @@ function VerifyEmailContent() {
             <h1 className="text-2xl font-bold text-gray-900 mb-2">{labels.error}</h1>
             <p className="text-gray-600 mb-6">{errorMessage}</p>
             <button
-              onClick={() => router.push('/login')}
+              onClick={() => router.push('/')}
               className="w-full px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
             >
               {labels.goToLogin}

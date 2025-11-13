@@ -20,7 +20,7 @@ export default function AdminPanelLayout({
     if (!loading) {
       // Redirect if not logged in or not admin
       if (!user) {
-        router.push('/login?redirect=/admin-panel');
+        router.push('/?redirect=/admin-panel');
       } else if (user.role !== 'admin') {
         router.push('/'); // Regular users go to homepage
       }

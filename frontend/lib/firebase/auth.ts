@@ -4,8 +4,6 @@
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
-  signInWithPopup,
-  GoogleAuthProvider,
   signOut,
   updateProfile,
   User as FirebaseUser,
@@ -253,79 +251,3 @@ export async function isAdmin(): Promise<boolean> {
   return profile?.role === 'admin';
 }
 
-// Login with Google
-export async function loginWithGoogle(requiredRole?: 'admin' | 'b2c' | 'b2b') {
-  try {
-    console.log('🔥 [loginWithGoogle] Starting Google login...');
-
-    const auth = getAuthInstance();
-    const provider = new GoogleAuthProvider();
-
-    // Force account selection
-    provider.setCustomParameters({
-      prompt: 'select_account'
-    });
-
-    console.log('🔐 [loginWithGoogle] Opening Google popup...');
-    const result = await signInWithPopup(auth, provider);
-    console.log('✅ [loginWithGoogle] User signed in:', result.user.uid);
-
-    // Check if user profile exists
-    let userProfile = await getUserProfile(result.user.uid);
-
-    if (!userProfile) {
-      console.log('⚠️ [loginWithGoogle] No profile found, creating minimal profile...');
-
-      // For first-time Google login, create a minimal profile
-      // User will need to complete their profile later
-      const [firstName, ...lastNameParts] = (result.user.displayName || '').split(' ');
-      const lastName = lastNameParts.join(' ');
-
-      const newProfile: UserProfile = {
-        email: result.user.email!,
-        role: 'b2c', // Everyone starts as b2c
-        status: 'active', // Google email is already verified
-        profileComplete: false, // Mark as incomplete
-        nome: firstName,
-        cognome: lastName,
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      };
-
-      await createUserProfile(result.user.uid, newProfile);
-      userProfile = newProfile;
-      console.log('✅ [loginWithGoogle] Minimal profile created, needs completion');
-    }
-
-    // Auto-activate if email is verified and status is pending
-    if (userProfile.status === 'pending' && result.user.emailVerified) {
-      console.log('✅ [loginWithGoogle] Email verified, activating user...');
-      await updateUserProfile(result.user.uid, { status: 'active' });
-      userProfile = { ...userProfile, status: 'active' };
-    }
-
-    // Check if user role matches required role (only for admin login)
-    if (requiredRole === 'admin' && userProfile.role !== 'admin') {
-      await signOut(auth);
-      throw new Error(`Accesso negato. Questo account non ha i permessi di amministratore.`);
-    }
-
-    // Check if user is active
-    if (userProfile.status !== 'active') {
-      await signOut(auth);
-      throw new Error('Account non attivo. Contatta l\'amministratore.');
-    }
-
-    console.log('✅ [loginWithGoogle] Login successful');
-    return { user: result.user, profile: userProfile };
-  } catch (error: any) {
-    console.error('❌ [loginWithGoogle] Error:', error);
-
-    // Handle popup closed
-    if (error.code === 'auth/popup-closed-by-user') {
-      throw new Error('Accesso annullato');
-    }
-
-    throw new Error(error.message || 'Errore durante l\'accesso con Google');
-  }
-}

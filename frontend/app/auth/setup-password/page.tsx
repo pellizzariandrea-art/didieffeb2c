@@ -105,7 +105,7 @@ function SetupPasswordForm() {
 
         // Redirect to login after 2 seconds
         setTimeout(() => {
-          router.push('/login');
+          router.push('/');
         }, 2000);
       } else {
         setError(result.error || 'Errore durante l\'impostazione della password');
@@ -150,7 +150,7 @@ function SetupPasswordForm() {
               Il link potrebbe essere scaduto (validità 24 ore) o già utilizzato.
             </p>
             <button
-              onClick={() => router.push('/login')}
+              onClick={() => router.push('/')}
               className="mt-6 w-full bg-green-600 text-white py-2 px-4 rounded-md hover:bg-green-700"
             >
               Vai al Login

@@ -103,7 +103,7 @@ export default function ForgotPasswordPage() {
 
           <div className="space-y-4">
             <Link
-              href="/login"
+              href="/"
               className="w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700"
             >
               {labels.login[language]}
@@ -212,7 +212,7 @@ export default function ForgotPasswordPage() {
 
         <div className="text-center space-y-2">
           <Link
-            href="/login"
+            href="/"
             className="text-sm text-blue-600 hover:text-blue-500 block"
           >
             ← {language === 'it' ? 'Torna al login' : language === 'en' ? 'Back to login' : language === 'de' ? 'Zurück zum Login' : language === 'fr' ? 'Retour à la connexion' : language === 'es' ? 'Volver al inicio de sesión' : 'Voltar ao login'}

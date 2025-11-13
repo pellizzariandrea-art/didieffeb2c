@@ -27,7 +27,7 @@ export default function EmailLogsPage() {
 
   useEffect(() => {
     if (!authLoading && (!user || user.role !== 'admin')) {
-      router.push('/login');
+      router.push('/');
     }
   }, [user, authLoading, router]);
 

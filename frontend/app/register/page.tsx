@@ -241,7 +241,7 @@ function UnifiedRegistrationForm({ language, setLanguage }: any) {
         : 'Εγγραφή ολοκληρώθηκε! Ελέγξτε το email σας για επαλήθευση του λογαριασμού σας.';
 
       toast.success(verificationMessage);
-      setTimeout(() => router.push('/login'), 3000);
+      setTimeout(() => router.push('/'), 3000);
     } catch (err: any) {
       console.error('Registration error:', err);
 
@@ -270,7 +270,7 @@ function UnifiedRegistrationForm({ language, setLanguage }: any) {
             </h2>
             <p className="mt-2 text-sm text-gray-600">
               {labels.have_account[language]}{' '}
-              <Link href="/login" className="font-medium text-blue-600 hover:text-blue-500">
+              <Link href="/" className="font-medium text-blue-600 hover:text-blue-500">
                 {labels.login[language]}
               </Link>
             </p>
@@ -749,7 +749,7 @@ function B2CRegistrationForm({ language, labels, loading, error, setLoading, set
         : 'Εγγραφή ολοκληρώθηκε! Ελέγξτε το email σας για επαλήθευση του λογαριασμού σας.';
 
       toast.success(verificationMessage);
-      setTimeout(() => router.push('/login'), 3000);
+      setTimeout(() => router.push('/'), 3000);
     } catch (err: any) {
       console.error('Registration error:', err);
 
@@ -1117,7 +1117,7 @@ function B2BRegistrationForm({ language, labels, loading, error, setLoading, set
         : 'Εγγραφή ολοκληρώθηκε! Ελέγξτε το email σας για επαλήθευση του λογαριασμού σας.';
 
       toast.success(verificationMessage);
-      setTimeout(() => router.push('/login'), 3000);
+      setTimeout(() => router.push('/'), 3000);
     } catch (err: any) {
       console.error('Registration error:', err);
 

@@ -12,7 +12,7 @@ export default function DocumentiPage() {
   // Redirect if not authenticated
   useEffect(() => {
     if (!loading && !firebaseUser) {
-      router.push('/login');
+      router.push('/');
     }
   }, [loading, firebaseUser, router]);
 

@@ -167,7 +167,7 @@ export function useAuth() {
 }
 
 // Hook to require authentication
-export function useRequireAuth(redirectTo = '/login') {
+export function useRequireAuth(redirectTo = '/') {
   const { user, loading } = useAuth();
   const [shouldRedirect, setShouldRedirect] = useState(false);
 
