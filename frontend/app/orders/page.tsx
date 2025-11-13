@@ -8,7 +8,7 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { useAuth } from '@/contexts/AuthContext';
 import { useLanguage } from '@/contexts/LanguageContext';
-import { User, Shield, Package, Save, LogOut, Eye, EyeOff, MapPin, Plus, Edit, Trash2, Star, Home, BarChart3, FileText } from 'lucide-react';
+import { User, Shield, Package, Save, LogOut, Eye, EyeOff, MapPin, Plus, Edit, Trash2, Star, Home, BarChart3, FileText, Menu, X, Clock, Euro, TrendingUp, Box } from 'lucide-react';
 import uiLabels from '@/config/ui-labels.json';
 import type { ShippingAddress } from '@/types/shipping-address';
 import type { ReportConfig } from '@/types/report';
@@ -43,7 +43,7 @@ const COMMON_COUNTRIES = [
   'Other'
 ];
 
-type Tab = 'profile' | 'addresses' | 'security' | 'orders' | 'reports';
+type Tab = 'dashboard' | 'profile' | 'addresses' | 'security' | 'orders' | 'reports';
 
 type ReportWithSlug = ReportConfig & { slug: string };
 
@@ -68,7 +68,7 @@ export default function AccountPage() {
   const { currentLang: language } = useLanguage();
   const router = useRouter();
 
-  const [activeTab, setActiveTab] = useState<Tab>('profile');
+  const [activeTab, setActiveTab] = useState<Tab>('dashboard');
   const [profileData, setProfileData] = useState<ProfileData>({
     nome: '',
     cognome: '',
@@ -118,6 +118,10 @@ export default function AccountPage() {
   // Reports state
   const [reports, setReports] = useState<ReportWithSlug[]>([]);
   const [loadingReports, setLoadingReports] = useState(false);
+
+  // Dashboard KPI state
+  const [dashboardKpis, setDashboardKpis] = useState<any[]>([]);
+  const [loadingKpis, setLoadingKpis] = useState(false);
 
   const labels = uiLabels.account;
 
@@ -303,6 +307,13 @@ export default function AccountPage() {
     }
   }, [activeTab, user]);
 
+  // Load dashboard KPIs when dashboard tab is selected
+  useEffect(() => {
+    if (activeTab === 'dashboard' && dashboardKpis.length === 0 && user) {
+      loadDashboardKpis();
+    }
+  }, [activeTab, user]);
+
   const loadReports = async () => {
     try {
       setLoadingReports(true);
@@ -336,6 +347,81 @@ export default function AccountPage() {
     } finally {
       setLoadingReports(false);
     }
+  };
+
+  const loadDashboardKpis = async () => {
+    try {
+      setLoadingKpis(true);
+
+      // Only load for B2B users with client code (for now)
+      // B2C users will see a limited dashboard with addresses count only
+      if (!user?.clientCode) {
+        setDashboardKpis([]);
+        return;
+      }
+
+      const response = await fetch(`/api/dashboard/data?clientCode=${user.clientCode}`);
+      const data = await response.json();
+
+      if (data.success) {
+        setDashboardKpis(data.kpis || []);
+      } else {
+        console.error('Error loading dashboard KPIs:', data.error);
+        setDashboardKpis([]);
+      }
+    } catch (error) {
+      console.error('Error loading dashboard KPIs:', error);
+      setDashboardKpis([]);
+    } finally {
+      setLoadingKpis(false);
+    }
+  };
+
+  // Helper function to get icon component
+  const getIconComponent = (iconName: string) => {
+    const icons: Record<string, any> = {
+      package: Package,
+      clock: Clock,
+      euro: Euro,
+      'trending-up': TrendingUp,
+      box: Box,
+      'bar-chart': BarChart3,
+    };
+    return icons[iconName] || Package;
+  };
+
+  // Helper function to get color classes
+  const getColorClasses = (color: string) => {
+    const colorMap: Record<string, { bg: string; text: string; border: string }> = {
+      blue: { bg: 'from-blue-50 to-blue-100', text: 'text-blue-900', border: 'border-blue-200' },
+      orange: { bg: 'from-orange-50 to-orange-100', text: 'text-orange-900', border: 'border-orange-200' },
+      green: { bg: 'from-green-50 to-green-100', text: 'text-green-900', border: 'border-green-200' },
+      purple: { bg: 'from-purple-50 to-purple-100', text: 'text-purple-900', border: 'border-purple-200' },
+      indigo: { bg: 'from-indigo-50 to-indigo-100', text: 'text-indigo-900', border: 'border-indigo-200' },
+      teal: { bg: 'from-teal-50 to-teal-100', text: 'text-teal-900', border: 'border-teal-200' },
+      red: { bg: 'from-red-50 to-red-100', text: 'text-red-900', border: 'border-red-200' },
+      yellow: { bg: 'from-yellow-50 to-yellow-100', text: 'text-yellow-900', border: 'border-yellow-200' },
+    };
+    return colorMap[color] || colorMap.blue;
+  };
+
+  // Helper function to format KPI value
+  const formatKpiValue = (value: number | null, valueType: string, format: string) => {
+    if (value === null) return 'N/A';
+
+    if (valueType === 'currency') {
+      return new Intl.NumberFormat('it-IT', {
+        style: 'currency',
+        currency: 'EUR',
+      }).format(value);
+    }
+
+    if (valueType === 'percentage') {
+      return `${value.toFixed(1)}%`;
+    }
+
+    // Number
+    return new Intl.NumberFormat('it-IT').format(value);
   };
 
   const loadAddresses = async () => {
@@ -531,6 +617,17 @@ export default function AccountPage() {
         <div className="bg-white rounded-lg shadow-sm overflow-hidden">
           <div className="flex overflow-x-auto border-b border-gray-200 scrollbar-hide">
             <button
+              onClick={() => setActiveTab('dashboard')}
+              className={`flex-1 flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2 px-2 sm:px-6 py-3 sm:py-4 font-medium transition-colors min-w-[70px] ${
+                activeTab === 'dashboard'
+                  ? 'text-blue-600 border-b-2 border-blue-600 bg-blue-50'
+                  : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
+              }`}
+            >
+              <Home className="w-5 h-5" />
+              <span className="text-xs sm:text-base">Dashboard</span>
+            </button>
+            <button
               onClick={() => setActiveTab('profile')}
               className={`flex-1 flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2 px-2 sm:px-6 py-3 sm:py-4 font-medium transition-colors min-w-[70px] ${
                 activeTab === 'profile'
@@ -591,6 +688,128 @@ export default function AccountPage() {
 
           {/* Tab Content */}
           <div className="p-4 sm:p-6">
+            {/* Dashboard Tab */}
+            {activeTab === 'dashboard' && (
+              <div>
+                <h2 className="text-2xl font-bold text-gray-900 mb-6">
+                  Dashboard
+                </h2>
+
+                {/* Stats Cards */}
+                {loadingKpis ? (
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+                    {[1, 2, 3, 4].map((i) => (
+                      <div key={i} className="bg-white rounded-lg p-6 border border-gray-200 animate-pulse">
+                        <div className="h-4 bg-gray-200 rounded w-3/4 mb-4"></div>
+                        <div className="h-8 bg-gray-200 rounded w-1/2 mb-2"></div>
+                        <div className="h-3 bg-gray-200 rounded w-2/3"></div>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+                    {/* Dynamic KPI Cards from configuration */}
+                    {dashboardKpis.map((kpi, index) => {
+                      const IconComponent = getIconComponent(kpi.icon);
+                      const colors = getColorClasses(kpi.color);
+
+                      return (
+                        <div
+                          key={index}
+                          className={`bg-gradient-to-br ${colors.bg} rounded-lg p-6 border ${colors.border}`}
+                        >
+                          <div className="flex items-center justify-between mb-2">
+                            <h3 className={`text-sm font-medium ${colors.text}`}>{kpi.title}</h3>
+                            <IconComponent className={`w-5 h-5 ${colors.text.replace('900', '600')}`} />
+                          </div>
+                          <p className={`text-3xl font-bold ${colors.text}`}>
+                            {formatKpiValue(kpi.value, kpi.valueType, kpi.format)}
+                          </p>
+                          <p className={`text-xs ${colors.text.replace('900', '700')} mt-1`}>
+                            {kpi.description}
+                          </p>
+                        </div>
+                      );
+                    })}
+
+                    {/* Addresses Card - Always visible */}
+                    <div className="bg-gradient-to-br from-green-50 to-green-100 rounded-lg p-6 border border-green-200">
+                      <div className="flex items-center justify-between mb-2">
+                        <h3 className="text-sm font-medium text-green-900">Indirizzi</h3>
+                        <MapPin className="w-5 h-5 text-green-600" />
+                      </div>
+                      <p className="text-3xl font-bold text-green-900">{addresses.length}</p>
+                      <p className="text-xs text-green-700 mt-1">Indirizzi salvati</p>
+                    </div>
+
+                    {/* Reports Card - Only for B2B users */}
+                    {user?.clientCode && (
+                      <div className="bg-gradient-to-br from-purple-50 to-purple-100 rounded-lg p-6 border border-purple-200">
+                        <div className="flex items-center justify-between mb-2">
+                          <h3 className="text-sm font-medium text-purple-900">Report</h3>
+                          <BarChart3 className="w-5 h-5 text-purple-600" />
+                        </div>
+                        <p className="text-3xl font-bold text-purple-900">{reports.length}</p>
+                        <p className="text-xs text-purple-700 mt-1">Report disponibili</p>
+                      </div>
+                    )}
+                  </div>
+                )}
+
+                {/* Quick Actions */}
+                <div className="bg-white rounded-lg border border-gray-200 p-6">
+                  <h3 className="text-lg font-semibold text-gray-900 mb-4">Quick Actions</h3>
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <button
+                      onClick={() => setActiveTab('profile')}
+                      className="flex items-center gap-3 p-4 rounded-lg border border-gray-300 hover:border-blue-500 hover:bg-blue-50 transition-all text-left"
+                    >
+                      <User className="w-6 h-6 text-blue-600" />
+                      <div>
+                        <p className="font-medium text-gray-900">Edit Profile</p>
+                        <p className="text-sm text-gray-600">Update your information</p>
+                      </div>
+                    </button>
+
+                    <button
+                      onClick={() => setActiveTab('addresses')}
+                      className="flex items-center gap-3 p-4 rounded-lg border border-gray-300 hover:border-green-500 hover:bg-green-50 transition-all text-left"
+                    >
+                      <MapPin className="w-6 h-6 text-green-600" />
+                      <div>
+                        <p className="font-medium text-gray-900">Manage Addresses</p>
+                        <p className="text-sm text-gray-600">Add or edit addresses</p>
+                      </div>
+                    </button>
+
+                    <button
+                      onClick={() => setActiveTab('security')}
+                      className="flex items-center gap-3 p-4 rounded-lg border border-gray-300 hover:border-orange-500 hover:bg-orange-50 transition-all text-left"
+                    >
+                      <Shield className="w-6 h-6 text-orange-600" />
+                      <div>
+                        <p className="font-medium text-gray-900">Security</p>
+                        <p className="text-sm text-gray-600">Change your password</p>
+                      </div>
+                    </button>
+
+                    {user?.clientCode && (
+                      <button
+                        onClick={() => setActiveTab('reports')}
+                        className="flex items-center gap-3 p-4 rounded-lg border border-gray-300 hover:border-purple-500 hover:bg-purple-50 transition-all text-left"
+                      >
+                        <BarChart3 className="w-6 h-6 text-purple-600" />
+                        <div>
+                          <p className="font-medium text-gray-900">View Reports</p>
+                          <p className="text-sm text-gray-600">Access your analytics</p>
+                        </div>
+                      </button>
+                    )}
+                  </div>
+                </div>
+              </div>
+            )}
+
             {/* Profile Tab */}
             {activeTab === 'profile' && (
               <div>

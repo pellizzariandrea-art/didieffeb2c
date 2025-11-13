@@ -75,7 +75,7 @@ export async function GET(req: NextRequest) {
     // 6. Environment variables
     diagnostics.env = {
       NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL || 'not set (using fallback)',
-      VERCEL_URL: process.env.VERCEL_URL || 'not set',
+      NEXT_PUBLIC_BASE_URL: process.env.NEXT_PUBLIC_BASE_URL || 'not set (using fallback)',
       NODE_ENV: process.env.NODE_ENV,
     };
 

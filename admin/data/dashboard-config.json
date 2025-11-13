@@ -1,0 +1,74 @@
+{
+  "total_orders": {
+    "title": "Totale Ordini",
+    "description": "Numero totale di ordini effettuati",
+    "query": "SELECT COUNT(*) as value FROM orders WHERE codice_cliente = :client_code",
+    "clientCodeField": "codice_cliente",
+    "valueType": "number",
+    "format": "#,##0",
+    "icon": "package",
+    "color": "blue",
+    "enabled": true,
+    "order": 1
+  },
+  "pending_orders": {
+    "title": "Ordini da Evadere",
+    "description": "Numero di ordini in attesa di evasione",
+    "query": "SELECT COUNT(*) as value FROM orders WHERE codice_cliente = :client_code AND stato IN ('pending', 'processing')",
+    "clientCodeField": "codice_cliente",
+    "valueType": "number",
+    "format": "#,##0",
+    "icon": "clock",
+    "color": "orange",
+    "enabled": true,
+    "order": 2
+  },
+  "monthly_purchases": {
+    "title": "Acquistato Questo Mese",
+    "description": "Totale acquisti del mese corrente",
+    "query": "SELECT SUM(totale) as value FROM orders WHERE codice_cliente = :client_code AND MONTH(data_ordine) = MONTH(CURRENT_DATE()) AND YEAR(data_ordine) = YEAR(CURRENT_DATE())",
+    "clientCodeField": "codice_cliente",
+    "valueType": "currency",
+    "format": "€ #,##0.00",
+    "icon": "euro",
+    "color": "green",
+    "enabled": true,
+    "order": 3
+  },
+  "total_revenue": {
+    "title": "Fatturato Totale",
+    "description": "Somma di tutti gli ordini completati",
+    "query": "SELECT SUM(totale) as value FROM orders WHERE codice_cliente = :client_code AND stato = 'completed'",
+    "clientCodeField": "codice_cliente",
+    "valueType": "currency",
+    "format": "€ #,##0.00",
+    "icon": "trending-up",
+    "color": "purple",
+    "enabled": true,
+    "order": 4
+  },
+  "avg_order_value": {
+    "title": "Valore Medio Ordine",
+    "description": "Media del valore degli ordini",
+    "query": "SELECT AVG(totale) as value FROM orders WHERE codice_cliente = :client_code",
+    "clientCodeField": "codice_cliente",
+    "valueType": "currency",
+    "format": "€ #,##0.00",
+    "icon": "bar-chart",
+    "color": "indigo",
+    "enabled": false,
+    "order": 5
+  },
+  "products_ordered": {
+    "title": "Prodotti Ordinati",
+    "description": "Numero totale di prodotti ordinati",
+    "query": "SELECT SUM(quantita) as value FROM order_items oi JOIN orders o ON oi.order_id = o.id WHERE o.codice_cliente = :client_code",
+    "clientCodeField": "codice_cliente",
+    "valueType": "number",
+    "format": "#,##0",
+    "icon": "box",
+    "color": "teal",
+    "enabled": false,
+    "order": 6
+  }
+}
