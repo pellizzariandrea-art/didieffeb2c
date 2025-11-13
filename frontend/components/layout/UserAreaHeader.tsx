@@ -55,8 +55,11 @@ export default function UserAreaHeader() {
     }
   };
 
+  // Check if base64 already includes the data URI prefix
   const logoSrc = settings?.settings?.logo
-    ? `data:${settings.settings.logo.type};base64,${settings.settings.logo.base64}`
+    ? (settings.settings.logo.base64.startsWith('data:')
+        ? settings.settings.logo.base64
+        : `data:${settings.settings.logo.type};base64,${settings.settings.logo.base64}`)
     : null;
 
   return (
