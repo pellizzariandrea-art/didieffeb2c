@@ -7,7 +7,6 @@ import {
   signInWithPopup,
   GoogleAuthProvider,
   signOut,
-  sendPasswordResetEmail,
   updateProfile,
   User as FirebaseUser,
 } from 'firebase/auth';
@@ -220,8 +219,20 @@ export async function logout() {
 // Reset Password
 export async function resetPassword(email: string) {
   try {
-    const auth = getAuthInstance();
-    await sendPasswordResetEmail(auth, email);
+    // Use our custom API with branded email template
+    const response = await fetch('/api/users/reset-password', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email }),
+    });
+
+    const result = await response.json();
+
+    if (!response.ok) {
+      throw new Error(result.error || 'Errore durante il reset password');
+    }
+
+    return result;
   } catch (error: any) {
     throw new Error(error.message || 'Errore durante il reset password');
   }
