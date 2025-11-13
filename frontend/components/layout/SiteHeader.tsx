@@ -17,6 +17,16 @@ interface SettingsResponse {
   settings: {
     company: {
       name: string;
+      address?: string;
+      city?: string;
+      postalCode?: string;
+      province?: string;
+      country?: string;
+      website?: string;
+      email?: string;
+      phone?: string;
+      vatNumber?: string;
+      taxCode?: string;
     };
     logo?: {
       base64: string;
@@ -38,10 +48,7 @@ export default function SiteHeader() {
   useEffect(() => {
     fetch('/api/settings/public')
       .then(res => res.json())
-      .then(data => {
-        console.log('Settings loaded:', data);
-        setSettings(data);
-      })
+      .then(data => setSettings(data))
       .catch(err => console.error('Error loading settings:', err));
   }, []);
 
