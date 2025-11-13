@@ -1682,17 +1682,6 @@ export default function ProductCatalog({
         </div>
       </main>
 
-      {/* Footer Moderno */}
-      <footer className="bg-white border-t border-gray-100 mt-20">
-        <div className="container mx-auto px-4 lg:px-8 py-8">
-          <div className="text-center">
-            <p className="text-gray-600 text-sm font-medium">
-              {getLabel('home.footer', currentLang)}
-            </p>
-          </div>
-        </div>
-      </footer>
-
       {/* Recently Viewed Section */}
       <RecentlyViewedCarousel />
 

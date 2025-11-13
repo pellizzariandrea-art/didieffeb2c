@@ -38,7 +38,10 @@ export default function SiteHeader() {
   useEffect(() => {
     fetch('/api/settings/public')
       .then(res => res.json())
-      .then(data => setSettings(data))
+      .then(data => {
+        console.log('Settings loaded:', data);
+        setSettings(data);
+      })
       .catch(err => console.error('Error loading settings:', err));
   }, []);
 
