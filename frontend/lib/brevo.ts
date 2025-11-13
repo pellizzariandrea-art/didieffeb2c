@@ -292,6 +292,7 @@ export async function sendVerificationEmail(
       nome: name,
       email,
       verificationUrl,
+      link: verificationUrl,  // Alias for template compatibility
       company: settings.company.name,
       address: settings.company.address || '',
       phone: settings.company.phone || '',
