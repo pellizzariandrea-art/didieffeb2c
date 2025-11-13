@@ -11,6 +11,33 @@ import { User, Shield, Package, Save, LogOut, Eye, EyeOff, MapPin, Plus, Edit, T
 import uiLabels from '@/config/ui-labels.json';
 import type { ShippingAddress } from '@/types/shipping-address';
 import { getAuthInstance } from '@/lib/firebase/config';
+import { useFormValidation } from '@/hooks/useFormValidation';
+import ValidatedInput from '@/components/ValidatedInput';
+
+// Common countries list
+const COMMON_COUNTRIES = [
+  'Italia',
+  'Germany',
+  'France',
+  'Spain',
+  'Portugal',
+  'Croatia',
+  'Slovenia',
+  'Greece',
+  'Austria',
+  'Switzerland',
+  'Netherlands',
+  'Belgium',
+  'United Kingdom',
+  'Poland',
+  'Czech Republic',
+  'Hungary',
+  'Romania',
+  'Bulgaria',
+  'United States',
+  'Canada',
+  'Other'
+];
 
 type Tab = 'profile' | 'addresses' | 'security' | 'orders';
 
@@ -62,6 +89,8 @@ export default function AccountPage() {
   const [saving, setSaving] = useState(false);
   const [updating, setUpdating] = useState(false);
   const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
+  const { errors, validateField, setFieldError, clearFieldError } = useFormValidation();
+  const [touched, setTouched] = useState<Record<string, boolean>>({});
 
   // Addresses state
   const [addresses, setAddresses] = useState<ShippingAddress[]>([]);

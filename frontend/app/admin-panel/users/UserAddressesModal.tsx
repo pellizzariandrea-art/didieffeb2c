@@ -7,6 +7,33 @@ import { useState, useEffect } from 'react';
 import { X, MapPin, Plus, Edit, Trash2, Star, Save } from 'lucide-react';
 import type { ShippingAddress } from '@/types/shipping-address';
 import { getAuthInstance } from '@/lib/firebase/config';
+import { useFormValidation } from '@/hooks/useFormValidation';
+import ValidatedInput from '@/components/ValidatedInput';
+
+// Common countries list
+const COMMON_COUNTRIES = [
+  'Italia',
+  'Germany',
+  'France',
+  'Spain',
+  'Portugal',
+  'Croatia',
+  'Slovenia',
+  'Greece',
+  'Austria',
+  'Switzerland',
+  'Netherlands',
+  'Belgium',
+  'United Kingdom',
+  'Poland',
+  'Czech Republic',
+  'Hungary',
+  'Romania',
+  'Bulgaria',
+  'United States',
+  'Canada',
+  'Other'
+];
 
 interface UserAddressesModalProps {
   userId: string;
@@ -38,6 +65,8 @@ export default function UserAddressesModal({
   });
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
+  const { errors, validateField, setFieldError, clearFieldError } = useFormValidation();
+  const [touched, setTouched] = useState<Record<string, boolean>>({});
 
   useEffect(() => {
     if (isOpen) {
@@ -272,10 +301,31 @@ export default function UserAddressesModal({
                     <label className="block text-sm font-medium text-gray-700 mb-2">
                       Città
                     </label>
-                    <input
+                    <ValidatedInput
                       type="text"
+                      name="city"
                       value={formData.city}
-                      onChange={(e) => setFormData({ ...formData, city: e.target.value })}
+                      onChange={(e) => {
+                        const newFormData = { ...formData, city: e.target.value };
+                        setFormData(newFormData);
+                        if (touched.city) {
+                          const result = validateField('citta', e.target.value, formData.country);
+                          if (!result.valid) {
+                            setFieldError('city', result.error);
+                          } else {
+                            clearFieldError('city');
+                          }
+                        }
+                      }}
+                      onBlur={() => {
+                        setTouched({ ...touched, city: true });
+                        const result = validateField('citta', formData.city, formData.country);
+                        if (!result.valid) {
+                          setFieldError('city', result.error);
+                        }
+                      }}
+                      error={errors.city}
+                      touched={touched.city}
                       className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     />
                   </div>
@@ -283,10 +333,31 @@ export default function UserAddressesModal({
                     <label className="block text-sm font-medium text-gray-700 mb-2">
                       CAP
                     </label>
-                    <input
+                    <ValidatedInput
                       type="text"
+                      name="postalCode"
                       value={formData.postalCode}
-                      onChange={(e) => setFormData({ ...formData, postalCode: e.target.value })}
+                      onChange={(e) => {
+                        const newFormData = { ...formData, postalCode: e.target.value };
+                        setFormData(newFormData);
+                        if (touched.postalCode) {
+                          const result = validateField('cap', e.target.value, formData.country);
+                          if (!result.valid) {
+                            setFieldError('postalCode', result.error);
+                          } else {
+                            clearFieldError('postalCode');
+                          }
+                        }
+                      }}
+                      onBlur={() => {
+                        setTouched({ ...touched, postalCode: true });
+                        const result = validateField('cap', formData.postalCode, formData.country);
+                        if (!result.valid) {
+                          setFieldError('postalCode', result.error);
+                        }
+                      }}
+                      error={errors.postalCode}
+                      touched={touched.postalCode}
                       className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     />
                   </div>
@@ -294,10 +365,31 @@ export default function UserAddressesModal({
                     <label className="block text-sm font-medium text-gray-700 mb-2">
                       Provincia
                     </label>
-                    <input
+                    <ValidatedInput
                       type="text"
+                      name="province"
                       value={formData.province}
-                      onChange={(e) => setFormData({ ...formData, province: e.target.value })}
+                      onChange={(e) => {
+                        const newFormData = { ...formData, province: e.target.value };
+                        setFormData(newFormData);
+                        if (touched.province) {
+                          const result = validateField('provincia', e.target.value, formData.country);
+                          if (!result.valid) {
+                            setFieldError('province', result.error);
+                          } else {
+                            clearFieldError('province');
+                          }
+                        }
+                      }}
+                      onBlur={() => {
+                        setTouched({ ...touched, province: true });
+                        const result = validateField('provincia', formData.province, formData.country);
+                        if (!result.valid) {
+                          setFieldError('province', result.error);
+                        }
+                      }}
+                      error={errors.province}
+                      touched={touched.province}
                       className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     />
                   </div>
@@ -307,12 +399,24 @@ export default function UserAddressesModal({
                   <label className="block text-sm font-medium text-gray-700 mb-2">
                     Paese
                   </label>
-                  <input
-                    type="text"
+                  <select
                     value={formData.country}
-                    onChange={(e) => setFormData({ ...formData, country: e.target.value })}
+                    onChange={(e) => {
+                      setFormData({ ...formData, country: e.target.value });
+                      // Re-validate all fields with new country
+                      setTouched({});
+                      clearFieldError('postalCode');
+                      clearFieldError('province');
+                      clearFieldError('city');
+                    }}
                     className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                  />
+                  >
+                    {COMMON_COUNTRIES.map((country) => (
+                      <option key={country} value={country}>
+                        {country}
+                      </option>
+                    ))}
+                  </select>
                 </div>
 
                 <div>
