@@ -4,14 +4,16 @@
 // URL: /verify-email/[token]
 
 import { redirect } from 'next/navigation';
-import { useEffect } from 'react';
+import { use, useEffect } from 'react';
 
-export default function VerifyEmailTokenPage({ params }: { params: { token: string } }) {
+export default function VerifyEmailTokenPage({ params }: { params: Promise<{ token: string }> }) {
+  const { token } = use(params);
+
   useEffect(() => {
     // Redirect to verify-email with token as query param
     // This way we reuse the existing verify-email page
-    redirect(`/verify-email?token=${params.token}`);
-  }, [params.token]);
+    redirect(`/verify-email?token=${token}`);
+  }, [token]);
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50">

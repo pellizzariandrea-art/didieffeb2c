@@ -4,14 +4,16 @@
 // URL: /auth/reset/[token]
 
 import { redirect } from 'next/navigation';
-import { useEffect } from 'react';
+import { use, useEffect } from 'react';
 
-export default function ResetPasswordPage({ params }: { params: { token: string } }) {
+export default function ResetPasswordPage({ params }: { params: Promise<{ token: string }> }) {
+  const { token } = use(params);
+
   useEffect(() => {
     // Redirect to setup-password with token as query param
     // This way we reuse the existing setup-password page
-    redirect(`/auth/setup-password?token=${params.token}`);
-  }, [params.token]);
+    redirect(`/auth/setup-password?token=${token}`);
+  }, [token]);
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50">
