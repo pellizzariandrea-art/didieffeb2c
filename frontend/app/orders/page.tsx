@@ -502,7 +502,7 @@ export default function AccountPage() {
   return (
     <>
       <UserAreaHeader />
-      <div className="min-h-screen bg-gray-50 pt-24 pb-12">
+      <div className="min-h-screen bg-gray-50 pt-20 pb-12">
         <div className="container mx-auto px-4 max-w-6xl">
           {/* Header */}
           <div className="bg-white rounded-lg shadow-sm p-4 sm:p-6 mb-6">
