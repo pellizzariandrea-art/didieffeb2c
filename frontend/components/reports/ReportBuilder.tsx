@@ -94,14 +94,14 @@ const TEXTS_REPORTS: Record<
   },
 };
 
-function getReportTitle(slug: string, lang: string, fallback: string) {
+export function getReportTitle(slug: string, lang: string, fallback: string) {
   const r = TEXTS_REPORTS[slug];
   if (r && r.title[lang]) return r.title[lang];
   if (r && r.title.it) return r.title.it;
   return fallback;
 }
 
-function getReportDescription(slug: string, lang: string, fallback: string | undefined) {
+export function getReportDescription(slug: string, lang: string, fallback: string | undefined) {
   const r = TEXTS_REPORTS[slug];
   if (r && r.description[lang]) return r.description[lang];
   if (r && r.description.it) return r.description.it;

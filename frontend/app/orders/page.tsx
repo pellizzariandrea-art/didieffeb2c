@@ -15,6 +15,7 @@ import type { ReportConfig } from '@/types/report';
 import { getAuthInstance } from '@/lib/firebase/config';
 import { useFormValidation } from '@/hooks/useFormValidation';
 import ValidatedInput from '@/components/ValidatedInput';
+import { getReportTitle, getReportDescription } from '@/components/reports/ReportBuilder';
 
 // Common countries list
 const COMMON_COUNTRIES = [
@@ -1334,11 +1335,11 @@ export default function AccountPage() {
                           </div>
                           <div className="flex-1 min-w-0">
                             <h3 className="text-lg font-semibold text-gray-900 mb-1">
-                              {report.title}
+                              {getReportTitle(report.slug, language, report.title)}
                             </h3>
                             {report.description && (
                               <p className="text-sm text-gray-600 mb-3">
-                                {report.description}
+                                {getReportDescription(report.slug, language, report.description)}
                               </p>
                             )}
                             <div className="text-sm text-blue-600 font-medium">
