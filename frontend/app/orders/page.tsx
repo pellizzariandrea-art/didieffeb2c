@@ -16,6 +16,7 @@ import { getAuthInstance } from '@/lib/firebase/config';
 import { useFormValidation } from '@/hooks/useFormValidation';
 import ValidatedInput from '@/components/ValidatedInput';
 import { getReportTitle, getReportDescription } from '@/components/reports/ReportBuilder';
+import SiteHeader from '@/components/layout/SiteHeader';
 
 // Common countries list
 const COMMON_COUNTRIES = [
@@ -499,35 +500,19 @@ export default function AccountPage() {
   const isB2B = user.role === 'b2b';
 
   return (
-    <div className="min-h-screen bg-gray-50 pt-24 pb-12">
-      <div className="container mx-auto px-4 max-w-5xl">
-        {/* Top Buttons */}
-        <div className="flex justify-between items-center mb-4">
-          <button
-            onClick={() => router.push('/')}
-            className="flex items-center gap-2 px-4 py-2 text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors shadow-sm"
-          >
-            <Home className="w-5 h-5" />
-            {labels.back_to_site[language]}
-          </button>
-          <button
-            onClick={handleLogout}
-            className="flex items-center gap-2 px-4 py-2 text-white bg-red-600 rounded-lg hover:bg-red-700 transition-colors shadow-sm"
-          >
-            <LogOut className="w-5 h-5" />
-            {labels.security.logout_button[language]}
-          </button>
-        </div>
-
-        {/* Header */}
-        <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">
-            {labels.page_title[language]}
-          </h1>
-          <p className="text-gray-600">
-            {isB2B ? user.ragioneSociale : `${user.nome} ${user.cognome}`} • {user.email}
-          </p>
-        </div>
+    <>
+      <SiteHeader />
+      <div className="min-h-screen bg-gray-50 pt-24 pb-12">
+        <div className="container mx-auto px-4 max-w-6xl">
+          {/* Header */}
+          <div className="bg-white rounded-lg shadow-sm p-4 sm:p-6 mb-6">
+            <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">
+              {labels.page_title[language]}
+            </h1>
+            <p className="text-sm sm:text-base text-gray-600 break-words">
+              {isB2B ? user.ragioneSociale : `${user.nome} ${user.cognome}`} • {user.email}
+            </p>
+          </div>
 
         {/* Message */}
         {message && (
@@ -544,68 +529,68 @@ export default function AccountPage() {
 
         {/* Tabs */}
         <div className="bg-white rounded-lg shadow-sm overflow-hidden">
-          <div className="flex border-b border-gray-200">
+          <div className="flex overflow-x-auto border-b border-gray-200 scrollbar-hide">
             <button
               onClick={() => setActiveTab('profile')}
-              className={`flex-1 flex items-center justify-center gap-2 px-6 py-4 font-medium transition-colors ${
+              className={`flex-1 flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2 px-2 sm:px-6 py-3 sm:py-4 font-medium transition-colors min-w-[70px] ${
                 activeTab === 'profile'
                   ? 'text-blue-600 border-b-2 border-blue-600 bg-blue-50'
                   : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
               }`}
             >
               <User className="w-5 h-5" />
-              {labels.tabs.profile[language]}
+              <span className="text-xs sm:text-base">{labels.tabs.profile[language]}</span>
             </button>
             <button
               onClick={() => setActiveTab('addresses')}
-              className={`flex-1 flex items-center justify-center gap-2 px-6 py-4 font-medium transition-colors ${
+              className={`flex-1 flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2 px-2 sm:px-6 py-3 sm:py-4 font-medium transition-colors min-w-[70px] ${
                 activeTab === 'addresses'
                   ? 'text-blue-600 border-b-2 border-blue-600 bg-blue-50'
                   : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
               }`}
             >
               <MapPin className="w-5 h-5" />
-              {labels.tabs.addresses[language]}
+              <span className="text-xs sm:text-base">{labels.tabs.addresses[language]}</span>
             </button>
             <button
               onClick={() => setActiveTab('security')}
-              className={`flex-1 flex items-center justify-center gap-2 px-6 py-4 font-medium transition-colors ${
+              className={`flex-1 flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2 px-2 sm:px-6 py-3 sm:py-4 font-medium transition-colors min-w-[70px] ${
                 activeTab === 'security'
                   ? 'text-blue-600 border-b-2 border-blue-600 bg-blue-50'
                   : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
               }`}
             >
               <Shield className="w-5 h-5" />
-              {labels.tabs.security[language]}
+              <span className="text-xs sm:text-base">{labels.tabs.security[language]}</span>
             </button>
             <button
               onClick={() => setActiveTab('orders')}
-              className={`flex-1 flex items-center justify-center gap-2 px-6 py-4 font-medium transition-colors ${
+              className={`flex-1 flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2 px-2 sm:px-6 py-3 sm:py-4 font-medium transition-colors min-w-[70px] ${
                 activeTab === 'orders'
                   ? 'text-blue-600 border-b-2 border-blue-600 bg-blue-50'
                   : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
               }`}
             >
               <Package className="w-5 h-5" />
-              {labels.tabs.orders[language]}
+              <span className="text-xs sm:text-base">{labels.tabs.orders[language]}</span>
             </button>
             {user?.clientCode && (
               <button
                 onClick={() => setActiveTab('reports')}
-                className={`flex-1 flex items-center justify-center gap-2 px-6 py-4 font-medium transition-colors ${
+                className={`flex-1 flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2 px-2 sm:px-6 py-3 sm:py-4 font-medium transition-colors min-w-[70px] ${
                   activeTab === 'reports'
                     ? 'text-blue-600 border-b-2 border-blue-600 bg-blue-50'
                     : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
                 }`}
               >
                 <BarChart3 className="w-5 h-5" />
-                {labels.tabs.reports[language]}
+                <span className="text-xs sm:text-base">{labels.tabs.reports[language]}</span>
               </button>
             )}
           </div>
 
           {/* Tab Content */}
-          <div className="p-6">
+          <div className="p-4 sm:p-6">
             {/* Profile Tab */}
             {activeTab === 'profile' && (
               <div>
@@ -1356,6 +1341,6 @@ export default function AccountPage() {
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
