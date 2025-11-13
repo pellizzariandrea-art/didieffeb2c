@@ -111,11 +111,11 @@ export default function ReportDetailPage() {
       <div className="container mx-auto px-4 py-8">
         <div className="mb-6">
           <Link
-            href="/my-account/reports"
+            href="/orders"
             className="inline-flex items-center text-blue-600 hover:text-blue-700"
           >
             <ArrowLeft className="w-4 h-4 mr-2" />
-            {labels.back_to_reports[language]}
+            {labels.back_to_user_area[language]}
           </Link>
         </div>
         <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-6">
@@ -136,11 +136,11 @@ export default function ReportDetailPage() {
       <div className="container mx-auto px-4 py-8">
         <div className="mb-6">
           <Link
-            href="/my-account/reports"
+            href="/orders"
             className="inline-flex items-center text-blue-600 hover:text-blue-700"
           >
             <ArrowLeft className="w-4 h-4 mr-2" />
-            {labels.back_to_reports[language]}
+            {labels.back_to_user_area[language]}
           </Link>
         </div>
         <div className="bg-red-50 border border-red-200 rounded-lg p-6">
@@ -160,11 +160,11 @@ export default function ReportDetailPage() {
       {/* Back Button */}
       <div className="mb-6">
         <Link
-          href="/my-account/reports"
+          href="/orders"
           className="inline-flex items-center text-blue-600 hover:text-blue-700 text-sm font-medium"
         >
           <ArrowLeft className="w-4 h-4 mr-2" />
-          Torna ai report
+          {labels.back_to_user_area[language]}
         </Link>
       </div>
 
