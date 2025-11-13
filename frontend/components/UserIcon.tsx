@@ -95,7 +95,7 @@ export default function UserIcon() {
 
         {/* Login Form Dropdown */}
         {isOpen && (
-          <div className="absolute right-0 mt-2 w-80 bg-white rounded-lg shadow-lg border border-gray-200 p-4 z-50">
+          <div className="fixed sm:absolute right-2 sm:right-0 mt-2 w-[calc(100vw-16px)] sm:w-80 max-w-sm bg-white rounded-lg shadow-lg border border-gray-200 p-4 z-50">
             <form onSubmit={handleLogin} className="space-y-3">
               <h3 className="text-sm font-semibold text-gray-900 mb-3">
                 {labels.login[language]}
