@@ -15,6 +15,7 @@ import { SUPPORTED_LANGUAGES } from '@/types/settings';
 import { toast } from 'sonner';
 import { useFormValidation } from '@/hooks/useFormValidation';
 import ValidatedInput from '@/components/ValidatedInput';
+import { validatePassword, getPasswordStrengthInfo } from '@/lib/password-validation';
 
 type CustomerType = 'private' | 'business';
 
@@ -129,14 +130,16 @@ function UnifiedRegistrationForm({ language, setLanguage }: any) {
     e.preventDefault();
     setError('');
 
-    // Validation
-    if (formData.password !== formData.confirmPassword) {
-      setError(labels.error.passwords_dont_match[language]);
+    // Validate password strength
+    const passwordValidation = validatePassword(formData.password);
+    if (!passwordValidation.valid) {
+      setError(passwordValidation.errors[0]);
       return;
     }
 
-    if (formData.password.length < 6) {
-      setError(labels.error.weak_password[language]);
+    // Validation
+    if (formData.password !== formData.confirmPassword) {
+      setError(labels.error.passwords_dont_match[language]);
       return;
     }
 
@@ -343,15 +346,53 @@ function UnifiedRegistrationForm({ language, setLanguage }: any) {
               placeholder={labels.email[language]}
             />
 
-            <input
-              name="password"
-              type="password"
-              required
-              value={formData.password}
-              onChange={handleChange}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-              placeholder={labels.password[language]}
-            />
+            <div>
+              <input
+                name="password"
+                type="password"
+                required
+                value={formData.password}
+                onChange={handleChange}
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                placeholder={labels.password[language]}
+              />
+              {formData.password && (
+                <div className="mt-2">
+                  <div className="flex items-center gap-2 text-sm">
+                    <span className="text-gray-600">
+                      {language === 'it' ? 'Forza password:' : language === 'en' ? 'Password strength:' : 'Stärke:'}
+                    </span>
+                    <span className={`font-medium px-2 py-0.5 rounded ${getPasswordStrengthInfo(formData.password).bgColor} ${getPasswordStrengthInfo(formData.password).color}`}>
+                      {getPasswordStrengthInfo(formData.password).label}
+                    </span>
+                  </div>
+                  <div className="mt-2 text-xs space-y-1">
+                    {(() => {
+                      const validation = validatePassword(formData.password);
+                      return (
+                        <>
+                          <div className={validation.checks.minLength ? 'text-green-600' : 'text-gray-500'}>
+                            {validation.checks.minLength ? '✓' : '○'} {language === 'it' ? 'Almeno 8 caratteri' : 'At least 8 characters'}
+                          </div>
+                          <div className={validation.checks.hasUpperCase ? 'text-green-600' : 'text-gray-500'}>
+                            {validation.checks.hasUpperCase ? '✓' : '○'} {language === 'it' ? 'Una lettera maiuscola' : 'One uppercase letter'}
+                          </div>
+                          <div className={validation.checks.hasLowerCase ? 'text-green-600' : 'text-gray-500'}>
+                            {validation.checks.hasLowerCase ? '✓' : '○'} {language === 'it' ? 'Una lettera minuscola' : 'One lowercase letter'}
+                          </div>
+                          <div className={validation.checks.hasNumber ? 'text-green-600' : 'text-gray-500'}>
+                            {validation.checks.hasNumber ? '✓' : '○'} {language === 'it' ? 'Un numero' : 'One number'}
+                          </div>
+                          <div className={validation.checks.hasSpecialChar ? 'text-green-600' : 'text-gray-500'}>
+                            {validation.checks.hasSpecialChar ? '✓' : '○'} {language === 'it' ? 'Un carattere speciale (opzionale)' : 'Special character (optional)'}
+                          </div>
+                        </>
+                      );
+                    })()}
+                  </div>
+                </div>
+              )}
+            </div>
 
             <input
               name="confirmPassword"
