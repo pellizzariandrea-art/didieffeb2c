@@ -2228,6 +2228,17 @@
       "sl": "Odjavite se",
       "el": "Αποσυνδεθείτε"
     },
+    "back_to_catalog": {
+      "it": "Torna al catalogo",
+      "en": "Back to catalog",
+      "de": "Zurück zum Katalog",
+      "fr": "Retour au catalogue",
+      "es": "Volver al catálogo",
+      "pt": "Voltar ao catálogo",
+      "hr": "Natrag na katalog",
+      "sl": "Nazaj na katalog",
+      "el": "Επιστροφή στον κατάλογο"
+    },
     "hello": {
       "it": "Ciao",
       "en": "Hi",

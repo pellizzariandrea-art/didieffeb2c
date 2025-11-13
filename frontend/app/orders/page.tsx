@@ -16,7 +16,8 @@ import { getAuthInstance } from '@/lib/firebase/config';
 import { useFormValidation } from '@/hooks/useFormValidation';
 import ValidatedInput from '@/components/ValidatedInput';
 import { getReportTitle, getReportDescription } from '@/components/reports/ReportBuilder';
-import SiteHeader from '@/components/layout/SiteHeader';
+import UserAreaHeader from '@/components/layout/UserAreaHeader';
+import UserAreaFooter from '@/components/layout/UserAreaFooter';
 
 // Common countries list
 const COMMON_COUNTRIES = [
@@ -501,7 +502,7 @@ export default function AccountPage() {
 
   return (
     <>
-      <SiteHeader />
+      <UserAreaHeader />
       <div className="min-h-screen bg-gray-50 pt-24 pb-12">
         <div className="container mx-auto px-4 max-w-6xl">
           {/* Header */}
@@ -1342,6 +1343,7 @@ export default function AccountPage() {
         </div>
       </div>
     </div>
+    <UserAreaFooter />
     </>
   );
 }

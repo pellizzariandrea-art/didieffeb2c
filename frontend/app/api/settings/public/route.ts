@@ -14,9 +14,16 @@ export async function GET() {
       settings: {
         company: {
           name: settings.company.name,
+          address: settings.company.address,
+          city: settings.company.city,
+          postalCode: settings.company.postalCode,
+          province: settings.company.province,
+          country: settings.company.country,
           website: settings.company.website,
           email: settings.company.email,
           phone: settings.company.phone,
+          vatNumber: settings.company.vatNumber,
+          taxCode: settings.company.taxCode,
         },
         logo: settings.logo ? {
           base64: settings.logo.base64,
