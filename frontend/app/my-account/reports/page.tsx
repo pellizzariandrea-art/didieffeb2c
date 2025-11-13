@@ -18,7 +18,7 @@ export default function ReportsPage() {
   const [reports, setReports] = useState<ReportWithSlug[]>([]);
   const [loadingReports, setLoadingReports] = useState(true);
 
-  const labels = uiLabels.reports;
+  const labels = uiLabels.account.reports;
 
   // Redirect if not authenticated
   useEffect(() => {

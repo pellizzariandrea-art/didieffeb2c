@@ -20,7 +20,7 @@ export default function ReportDetailPage() {
   const searchParams = useSearchParams();
   const slug = params?.slug as string;
 
-  const labels = uiLabels.reports;
+  const labels = uiLabels.account.reports;
 
   // Preview mode from URL params
   const isPreviewMode = searchParams?.get('preview') === 'true';
