@@ -75,10 +75,15 @@ export default function VariantSelector({
             const italianValue = getTranslatedValue(attr.value, 'it').trim();
             if (italianValue.toLowerCase() === valueTrimmed.toLowerCase()) {
               // Ritorna la traduzione nella lingua corrente
-              const translated = getTranslatedValue(attr.value, lang);
-              console.log(`[VariantSelector] Translated "${valueTrimmed}" (${key}) to "${translated}" (${lang})`);
-              return translated;
+              return getTranslatedValue(attr.value, lang);
             }
+          }
+        }
+        // CRITICAL: Support DIRECT multilingual objects {it: "...", en: "..."}
+        else if (typeof attr === 'object' && attr !== null && 'it' in attr) {
+          const italianValue = getTranslatedValue(attr, 'it').trim();
+          if (italianValue.toLowerCase() === valueTrimmed.toLowerCase()) {
+            return getTranslatedValue(attr, lang);
           }
         }
       }
@@ -95,6 +100,13 @@ export default function VariantSelector({
             if (italianValue.toLowerCase() === valueTrimmed.toLowerCase()) {
               return getTranslatedValue(attr.value, lang);
             }
+          }
+        }
+        // CRITICAL: Support DIRECT multilingual objects {it: "...", en: "..."}
+        else if (typeof attr === 'object' && attr !== null && 'it' in attr) {
+          const italianValue = getTranslatedValue(attr, 'it').trim();
+          if (italianValue.toLowerCase() === valueTrimmed.toLowerCase()) {
+            return getTranslatedValue(attr, lang);
           }
         }
       }

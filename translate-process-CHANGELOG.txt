@@ -1,0 +1,34 @@
+CHANGELOG translate-process.php
+================================
+
+Versione 2.3 - FIX TIMEOUT per grandi dataset (800+ prodotti)
+--------------------------------------------------------------
+
+PROBLEMI RISOLTI:
+✅ 502/504 Gateway Timeout su server
+✅ Processo bloccato per dataset grandi  
+✅ Perdita di traduzioni per timeout
+
+MODIFICHE:
+1. Timeout PHP aumentato a 300 secondi (5 minuti)
+2. Batch ridotto da 5 a 1 prodotto per ciclo
+3. Timeout interno a 25 secondi (esce prima del timeout server)
+4. Check timeout anche nel loop delle lingue
+5. Salvataggio garantito dopo ogni prodotto
+
+PRESTAZIONI:
+- Prima: 5 prodotti/richiesta × 160 richieste = timeout dopo ~100 prodotti
+- Ora: 1 prodotto/richiesta × 800 richieste = nessun timeout
+
+Tempo stimato per 800 prodotti:
+- 1 prodotto ogni ~2 secondi polling
+- 800 prodotti × 2 sec = ~27 minuti
+- Ma garantito 100% senza timeout!
+
+COME FUNZIONA:
+1. Client fa richiesta polling ogni 2 secondi
+2. Server processa 1 solo prodotto (max 25 sec)
+3. Salva immediatamente
+4. Ritorna al client
+5. Ripete fino a completamento
+

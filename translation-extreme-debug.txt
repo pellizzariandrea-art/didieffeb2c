@@ -1,0 +1,56 @@
+[2025-10-20 11:10:21] === SCRIPT STARTED ===
+[2025-10-20 11:10:21] PHP Version: 8.2.29
+[2025-10-20 11:10:21] Memory limit: 768M
+[2025-10-20 11:10:21] Step 1: Setting error handler
+[2025-10-20 11:10:21] Step 2: Starting output buffer
+[2025-10-20 11:10:21] Step 3: Setting headers
+[2025-10-20 11:10:21] Step 4: Including config.php
+[2025-10-20 11:10:21] Step 4: Config loaded OK
+[2025-10-20 11:10:21] Step 5: Including functions.php
+[2025-10-20 11:10:21] Step 5: Functions loaded OK
+[2025-10-20 11:10:21] Step 6: Getting parameters
+[2025-10-20 11:10:21] Step 6: offset=0, batchSize=10
+[2025-10-20 11:10:21] Step 7: Setting paths
+[2025-10-20 11:10:21] Step 7: jsonFile=/home/customer/www/shop.didieffeb2b.com/public_html/data/products.json
+[2025-10-20 11:10:21] Step 8: Checking if file exists
+[2025-10-20 11:10:21] Step 8: file exists = YES
+[2025-10-20 11:10:21] Step 9: Reading file
+[2025-10-20 11:10:21] Step 9: Read 97655 bytes
+[2025-10-20 11:10:21] Step 10: Parsing JSON
+[2025-10-20 11:10:21] Step 10: JSON parse result: No error (code: 0)
+[2025-10-20 11:10:21] Step 10: Data is array
+[2025-10-20 11:10:21] Step 10b: JSON decode successful, data type: array
+[2025-10-20 11:10:21] Step 11: Finding products key
+[2025-10-20 11:10:21] Step 11: Using key: prodotti
+[2025-10-20 11:10:21] Step 12: Found 41 products
+[2025-10-20 11:10:21] Step 13: SUCCESS - sending response
+[2025-10-20 11:10:21] === SCRIPT COMPLETED ===
+[2025-10-20 11:11:41] === SCRIPT STARTED ===
+[2025-10-20 11:11:41] PHP Version: 8.2.29
+[2025-10-20 11:11:41] Memory limit: 768M
+[2025-10-20 11:11:41] Step 1: Setting error handler
+[2025-10-20 11:11:41] Step 2: Starting output buffer
+[2025-10-20 11:11:41] Step 3: Setting headers
+[2025-10-20 11:11:41] Step 4: Including config.php
+[2025-10-20 11:11:41] Step 4: Config loaded OK
+[2025-10-20 11:11:41] Step 5: Including functions.php
+[2025-10-20 11:11:41] Step 5: Functions loaded OK
+[2025-10-20 11:11:41] Step 6: Getting parameters
+[2025-10-20 11:11:41] Step 6: offset=0, batchSize=10
+[2025-10-20 11:11:41] Step 7: Setting paths
+[2025-10-20 11:11:41] Step 7: jsonFile=/home/customer/www/shop.didieffeb2b.com/public_html/data/products.json
+[2025-10-20 11:11:41] Step 8: Checking if file exists
+[2025-10-20 11:11:41] Step 8: file exists = YES
+[2025-10-20 11:11:41] Step 9: Reading file
+[2025-10-20 11:11:41] Step 9: Read 97655 bytes
+[2025-10-20 11:11:41] Step 10a: About to parse JSON
+[2025-10-20 11:11:41] Step 10b: JSON decode done
+[2025-10-20 11:11:41] Step 10c: Got error code
+[2025-10-20 11:11:41] Step 10d: Error message is: XXX
+[2025-10-20 11:11:41] Step 10e: Error code is: 0
+[2025-10-20 11:11:41] Step 10f: Data is valid
+[2025-10-20 11:11:41] Step 11: Finding products key
+[2025-10-20 11:11:41] Step 11: Using key: prodotti
+[2025-10-20 11:11:41] Step 12: Found 41 products
+[2025-10-20 11:11:41] Step 13: SUCCESS - sending response
+[2025-10-20 11:11:41] === SCRIPT COMPLETED ===

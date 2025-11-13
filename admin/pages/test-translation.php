@@ -1,268 +1,143 @@
 <?php
+// Test traduzione singolo prodotto
 require_once '../config.php';
 require_once '../includes/functions.php';
 
+header('Content-Type: text/html; charset=utf-8');
+?>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Traduzioni</title>
+    <style>
+        body { font-family: monospace; padding: 20px; background: #1e1e1e; color: #00ff00; }
+        .success { color: #00ff00; }
+        .error { color: #ff6b6b; }
+        .warning { color: #ffa726; }
+        .info { color: #64b5f6; }
+        .timing { color: #ffeb3b; }
+        pre { background: #2d2d2d; padding: 10px; border-radius: 5px; overflow-x: auto; }
+    </style>
+</head>
+<body>
+    <h1>🧪 Test Traduzioni Prodotto</h1>
+    <hr>
+
+<?php
+
+$startTime = microtime(true);
+
+echo "<div class='info'>📋 Caricamento configurazioni...</div>\n";
+flush();
+
 $translationSettings = loadTranslationSettings();
-$testResult = null;
-$logContent = '';
+$dbConfig = loadDBConfig();
+$mappingConfig = loadMappingConfig();
 
-// Carica log errori se esiste
-$logFile = DATA_PATH . '/translation-errors.log';
-if (file_exists($logFile)) {
-    $logContent = file_get_contents($logFile);
-    // Mostra solo le ultime 50 righe
-    $lines = explode("\n", $logContent);
-    $logContent = implode("\n", array_slice($lines, -50));
+if (empty($translationSettings['api_key'])) {
+    echo "<div class='error'>❌ API Key non configurata!</div>\n";
+    exit;
 }
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
-    if ($_POST['action'] === 'test_translation') {
-        $testText = $_POST['test_text'] ?? 'Ciao mondo';
-        $testLang = $_POST['test_lang'] ?? 'en';
+echo "<div class='success'>✅ API Key trovata: " . substr($translationSettings['api_key'], 0, 10) . "...</div>\n";
+echo "<div class='info'>🌍 Lingue configurate: " . implode(', ', $translationSettings['languages']) . "</div>\n";
+echo "<div class='info'>🤖 Modello: " . ($translationSettings['translation_model'] ?? 'claude-haiku-4-5-20251001') . "</div>\n";
+flush();
 
-        $startTime = microtime(true);
-        $translation = translateText($testText, $testLang, $translationSettings['api_key']);
-        $endTime = microtime(true);
-        $duration = round(($endTime - $startTime) * 1000, 2);
+echo "<hr>\n";
+echo "<div class='info'>📦 Fetch prodotto di test dal database...</div>\n";
+flush();
 
-        $testResult = [
-            'original' => $testText,
-            'translation' => $translation,
-            'lang' => $testLang,
-            'duration' => $duration,
-            'success' => $translation !== $testText
-        ];
-    } elseif ($_POST['action'] === 'clear_log') {
-        if (file_exists($logFile)) {
-            unlink($logFile);
-            $logContent = '';
+// Fetch un singolo prodotto
+$rows = fetchProducts($dbConfig, 1);
+
+if (empty($rows)) {
+    echo "<div class='error'>❌ Nessun prodotto trovato nel database!</div>\n";
+    exit;
+}
+
+$row = $rows[0];
+$product = transformRow($row, $mappingConfig);
+
+echo "<div class='success'>✅ Prodotto caricato:</div>\n";
+echo "<pre>";
+echo "Codice: " . ($product['codice'] ?? 'N/A') . "\n";
+echo "Nome: " . ($product['nome'] ?? 'N/A') . "\n";
+echo "Descrizione: " . substr($product['descrizione'] ?? 'N/A', 0, 100) . "...\n";
+echo "</pre>\n";
+flush();
+
+echo "<hr>\n";
+echo "<h2>🌐 Test Traduzioni</h2>\n";
+
+$languages = $translationSettings['languages'];
+$apiKey = $translationSettings['api_key'];
+
+$testText = $product['nome'] ?? 'Prodotto di test';
+
+echo "<div class='info'>📝 Testo da tradurre: <strong>" . htmlspecialchars($testText) . "</strong></div>\n";
+echo "<br>\n";
+flush();
+
+$totalTime = 0;
+$successCount = 0;
+$errorCount = 0;
+
+foreach ($languages as $lang) {
+    if ($lang === 'it') continue; // Skip italiano
+
+    echo "<div class='info'>🔄 Traduzione in <strong>" . strtoupper($lang) . "</strong>...</div>\n";
+    flush();
+
+    $langStartTime = microtime(true);
+
+    try {
+        $translation = translateText($testText, $lang, $apiKey);
+        $langDuration = round((microtime(true) - $langStartTime) * 1000);
+        $totalTime += $langDuration;
+
+        if ($translation === $testText) {
+            echo "<div class='warning'>⚠️ Traduzione fallita (testo invariato)</div>\n";
+            $errorCount++;
+        } else {
+            echo "<div class='success'>✅ Successo (" . $langDuration . "ms): " . htmlspecialchars($translation) . "</div>\n";
+            $successCount++;
         }
-        $message = 'Log svuotato con successo';
-    } elseif ($_POST['action'] === 'clear_cache') {
-        $cacheFile = DATA_PATH . '/translation-cache.json';
-        if (file_exists($cacheFile)) {
-            unlink($cacheFile);
-        }
-        $message = 'Cache traduzioni svuotata con successo';
+    } catch (Exception $e) {
+        $langDuration = round((microtime(true) - $langStartTime) * 1000);
+        $totalTime += $langDuration;
+        echo "<div class='error'>❌ Errore (" . $langDuration . "ms): " . htmlspecialchars($e->getMessage()) . "</div>\n";
+        $errorCount++;
     }
+
+    echo "<br>\n";
+    flush();
 }
 
-include '../includes/header.php';
+$totalDuration = round((microtime(true) - $startTime) * 1000);
+
+echo "<hr>\n";
+echo "<h2>📊 Risultati</h2>\n";
+echo "<div class='timing'>⏱️ Tempo totale: " . $totalDuration . "ms</div>\n";
+echo "<div class='timing'>⏱️ Tempo API: " . $totalTime . "ms</div>\n";
+echo "<div class='success'>✅ Traduzioni riuscite: " . $successCount . "</div>\n";
+echo "<div class='error'>❌ Traduzioni fallite: " . $errorCount . "</div>\n";
+
+if ($successCount > 0) {
+    echo "<br><div class='success'>🎉 Test superato! Le traduzioni funzionano correttamente.</div>\n";
+} else {
+    echo "<br><div class='error'>💥 Test fallito! Tutte le traduzioni hanno problemi.</div>\n";
+}
+
+echo "<hr>\n";
+echo "<div class='info'>🔍 Per vedere i log dettagliati:</div>\n";
+echo "<div class='info'>- <a href='fatal-errors-log.php' style='color: #64b5f6;'>Fatal Errors Log</a></div>\n";
+echo "<div class='info'>- File: admin/data/translation-debug.log</div>\n";
+
 ?>
 
-<style>
-.diagnostic-box {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 10px;
-    padding: 20px;
-    margin-bottom: 20px;
-}
+<hr>
+<a href="export-v2.php" style="color: #64b5f6;">← Torna all'export</a>
 
-.diagnostic-row {
-    display: flex;
-    justify-content: space-between;
-    padding: 10px 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.diagnostic-label {
-    color: #a0a0b8;
-    font-weight: 600;
-}
-
-.diagnostic-value {
-    color: #fff;
-}
-
-.status-ok {
-    color: #4caf50;
-    font-weight: bold;
-}
-
-.status-error {
-    color: #f44336;
-    font-weight: bold;
-}
-
-.log-viewer {
-    background: rgba(0, 0, 0, 0.3);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 10px;
-    padding: 15px;
-    font-family: 'Courier New', monospace;
-    font-size: 12px;
-    max-height: 400px;
-    overflow-y: auto;
-    white-space: pre-wrap;
-    word-wrap: break-word;
-}
-</style>
-
-<?php if (isset($message)): ?>
-    <div class="alert alert-success">
-        <?php echo htmlspecialchars($message); ?>
-    </div>
-<?php endif; ?>
-
-<div class="card">
-    <h2>🔧 Diagnostica Traduzioni</h2>
-    <p style="color: #a0a0b8;">Testa la connessione API e verifica gli errori di traduzione.</p>
-</div>
-
-<div class="card">
-    <h3>📊 Stato Configurazione</h3>
-    <div class="diagnostic-box">
-        <div class="diagnostic-row">
-            <div class="diagnostic-label">Traduzioni Abilitate</div>
-            <div class="diagnostic-value">
-                <?php if ($translationSettings['enabled']): ?>
-                    <span class="status-ok">✓ SÌ</span>
-                <?php else: ?>
-                    <span class="status-error">✗ NO</span>
-                <?php endif; ?>
-            </div>
-        </div>
-
-        <div class="diagnostic-row">
-            <div class="diagnostic-label">API Key Configurata</div>
-            <div class="diagnostic-value">
-                <?php if (!empty($translationSettings['api_key'])): ?>
-                    <span class="status-ok">✓ SÌ</span>
-                    <code>(<?php echo substr($translationSettings['api_key'], 0, 12); ?>...)</code>
-                <?php else: ?>
-                    <span class="status-error">✗ NO - <a href="/admin/pages/settings.php" style="color: #667eea;">Configura qui</a></span>
-                <?php endif; ?>
-            </div>
-        </div>
-
-        <div class="diagnostic-row">
-            <div class="diagnostic-label">Lingue Configurate</div>
-            <div class="diagnostic-value">
-                <?php foreach ($translationSettings['languages'] as $lang): ?>
-                    <span class="lang-badge"><?php echo strtoupper($lang); ?></span>
-                <?php endforeach; ?>
-            </div>
-        </div>
-
-        <div class="diagnostic-row">
-            <div class="diagnostic-label">Cache Traduzioni</div>
-            <div class="diagnostic-value">
-                <?php
-                $cacheFile = DATA_PATH . '/translation-cache.json';
-                if (file_exists($cacheFile)) {
-                    $cacheSize = filesize($cacheFile);
-                    $cache = json_decode(file_get_contents($cacheFile), true);
-                    $cacheCount = count($cache ?? []);
-                    echo "<span class=\"status-ok\">{$cacheCount} traduzioni in cache</span> ";
-                    echo "(" . round($cacheSize / 1024, 2) . " KB)";
-                } else {
-                    echo "<span style=\"color: #a0a0b8;\">Nessuna cache</span>";
-                }
-                ?>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="card">
-    <h3>🧪 Test Traduzione</h3>
-    <form method="POST">
-        <input type="hidden" name="action" value="test_translation">
-
-        <div class="form-group">
-            <label>Testo da Tradurre (Italiano)</label>
-            <input type="text" name="test_text" value="<?php echo isset($_POST['test_text']) ? htmlspecialchars($_POST['test_text']) : 'Ciao mondo'; ?>" required>
-        </div>
-
-        <div class="form-group">
-            <label>Lingua Target</label>
-            <select name="test_lang">
-                <option value="en" <?php echo (isset($_POST['test_lang']) && $_POST['test_lang'] === 'en') ? 'selected' : ''; ?>>English</option>
-                <option value="de" <?php echo (isset($_POST['test_lang']) && $_POST['test_lang'] === 'de') ? 'selected' : ''; ?>>Deutsch</option>
-                <option value="fr" <?php echo (isset($_POST['test_lang']) && $_POST['test_lang'] === 'fr') ? 'selected' : ''; ?>>Français</option>
-                <option value="es" <?php echo (isset($_POST['test_lang']) && $_POST['test_lang'] === 'es') ? 'selected' : ''; ?>>Español</option>
-                <option value="pt" <?php echo (isset($_POST['test_lang']) && $_POST['test_lang'] === 'pt') ? 'selected' : ''; ?>>Português</option>
-            </select>
-        </div>
-
-        <button type="submit" class="btn">🚀 Testa Traduzione</button>
-    </form>
-
-    <?php if ($testResult): ?>
-        <div style="margin-top: 30px;">
-            <h4>Risultato Test:</h4>
-            <div class="diagnostic-box">
-                <div class="diagnostic-row">
-                    <div class="diagnostic-label">Testo Originale</div>
-                    <div class="diagnostic-value"><?php echo htmlspecialchars($testResult['original']); ?></div>
-                </div>
-
-                <div class="diagnostic-row">
-                    <div class="diagnostic-label">Traduzione</div>
-                    <div class="diagnostic-value">
-                        <?php if ($testResult['success']): ?>
-                            <span class="status-ok"><?php echo htmlspecialchars($testResult['translation']); ?></span>
-                        <?php else: ?>
-                            <span class="status-error"><?php echo htmlspecialchars($testResult['translation']); ?></span>
-                            <br><small>⚠️ La traduzione è identica all'originale - verifica il log errori sotto</small>
-                        <?php endif; ?>
-                    </div>
-                </div>
-
-                <div class="diagnostic-row">
-                    <div class="diagnostic-label">Lingua Target</div>
-                    <div class="diagnostic-value"><?php echo strtoupper($testResult['lang']); ?></div>
-                </div>
-
-                <div class="diagnostic-row">
-                    <div class="diagnostic-label">Tempo Esecuzione</div>
-                    <div class="diagnostic-value"><?php echo $testResult['duration']; ?> ms</div>
-                </div>
-
-                <div class="diagnostic-row">
-                    <div class="diagnostic-label">Esito</div>
-                    <div class="diagnostic-value">
-                        <?php if ($testResult['success']): ?>
-                            <span class="status-ok">✓ SUCCESSO</span>
-                        <?php else: ?>
-                            <span class="status-error">✗ FALLITO</span>
-                        <?php endif; ?>
-                    </div>
-                </div>
-            </div>
-        </div>
-    <?php endif; ?>
-</div>
-
-<div class="card">
-    <h3>📋 Log Errori (ultimi 50 record)</h3>
-
-    <?php if (!empty($logContent)): ?>
-        <div class="log-viewer"><?php echo htmlspecialchars($logContent); ?></div>
-
-        <div style="margin-top: 20px;">
-            <form method="POST" style="display: inline;">
-                <input type="hidden" name="action" value="clear_log">
-                <button type="submit" class="btn btn-secondary">🗑️ Svuota Log</button>
-            </form>
-        </div>
-    <?php else: ?>
-        <div class="alert alert-success">
-            ✓ Nessun errore registrato
-        </div>
-    <?php endif; ?>
-</div>
-
-<div class="card">
-    <h3>⚙️ Azioni</h3>
-    <form method="POST" style="display: inline-block; margin-right: 10px;">
-        <input type="hidden" name="action" value="clear_cache">
-        <button type="submit" class="btn btn-secondary">🔄 Svuota Cache Traduzioni</button>
-    </form>
-
-    <a href="/admin/pages/settings.php" class="btn btn-secondary">⚙️ Impostazioni Traduzioni</a>
-    <a href="/admin/pages/export.php" class="btn">← Torna all'Export</a>
-</div>
-
-<?php include '../includes/footer.php'; ?>
+</body>
+</html>

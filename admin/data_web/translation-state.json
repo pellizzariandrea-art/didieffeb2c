@@ -1,0 +1,216 @@
+{
+    "status": "completed",
+    "started_at": 1762791596,
+    "total_products": 41,
+    "completed_products": 41,
+    "api_calls": 320,
+    "current_product_index": 41,
+    "current_product": {
+        "codice": "FAM0003000BB",
+        "nome": "Anello"
+    },
+    "error": null,
+    "force_retranslate": false,
+    "log": [
+        {
+            "message": "\u2705 FAA0039950IS - 16 traduzioni completate",
+            "type": "success"
+        },
+        {
+            "message": "\ud83d\udd04 Traduzione FAA00400C0BB - Lettera civica c",
+            "type": "info"
+        },
+        {
+            "message": "\u2705 FAA00400C0BB - 16 traduzioni completate",
+            "type": "success"
+        },
+        {
+            "message": "\ud83d\udd04 Traduzione FAA00400C0IS - Lettera civica c",
+            "type": "info"
+        },
+        {
+            "message": "\u2705 FAA00400C0IS - 16 traduzioni completate",
+            "type": "success"
+        },
+        {
+            "message": "\ud83d\udd04 Traduzione FAA00400D0BB - Lettera civica d",
+            "type": "info"
+        },
+        {
+            "message": "\u2705 FAA00400D0BB - 16 traduzioni completate",
+            "type": "success"
+        },
+        {
+            "message": "\ud83d\udd04 Traduzione FAA0053700IS - Appendiabiti con gancio doppio",
+            "type": "info"
+        },
+        {
+            "message": "\u2705 FAA0053700IS - 16 traduzioni completate",
+            "type": "success"
+        },
+        {
+            "message": "\u2713 FAA00537H0IR - Gi\u00e0 tradotto (cache)",
+            "type": "success"
+        },
+        {
+            "message": "\u2713 FAA007050AIH - Gi\u00e0 tradotto (cache)",
+            "type": "success"
+        },
+        {
+            "message": "\u2713 FAA00367H0IS - Gi\u00e0 tradotto (cache)",
+            "type": "success"
+        },
+        {
+            "message": "\u2713 FAA0039930BB - Gi\u00e0 tradotto (cache)",
+            "type": "success"
+        },
+        {
+            "message": "\u2713 FAA0039960BB - Gi\u00e0 tradotto (cache)",
+            "type": "success"
+        },
+        {
+            "message": "\ud83d\udcbe Salvato checkpoint: 20 prodotti",
+            "type": "info"
+        },
+        {
+            "message": "\ud83d\udd04 Traduzione FAA0039990BB - Numero civico 9",
+            "type": "info"
+        },
+        {
+            "message": "\u2705 FAA0039990BB - 16 traduzioni completate",
+            "type": "success"
+        },
+        {
+            "message": "\ud83d\udd04 Traduzione FAA0039990IS - Numero civico 9",
+            "type": "info"
+        },
+        {
+            "message": "\u2705 FAA0039990IS - 16 traduzioni completate",
+            "type": "success"
+        },
+        {
+            "message": "\ud83d\udd04 Traduzione FAA00400A0IS - Lettera civica a",
+            "type": "info"
+        },
+        {
+            "message": "\u2705 FAA00400A0IS - 16 traduzioni completate",
+            "type": "success"
+        },
+        {
+            "message": "\ud83d\udd04 Traduzione FAA00400B0IS - Lettera civica b",
+            "type": "info"
+        },
+        {
+            "message": "\u2705 FAA00400B0IS - 16 traduzioni completate",
+            "type": "success"
+        },
+        {
+            "message": "\ud83d\udd04 Traduzione FAA00400D0IS - Lettera civica d",
+            "type": "info"
+        },
+        {
+            "message": "\u2705 FAA00400D0IS - 16 traduzioni completate",
+            "type": "success"
+        },
+        {
+            "message": "\u2713 FAA0099200IS - Gi\u00e0 tradotto (cache)",
+            "type": "success"
+        },
+        {
+            "message": "\u2713 FAA0705SP0IH - Gi\u00e0 tradotto (cache)",
+            "type": "success"
+        },
+        {
+            "message": "\u2713 FAM0001300BB - Gi\u00e0 tradotto (cache)",
+            "type": "success"
+        },
+        {
+            "message": "\u2713 FAM00021L0BB - Gi\u00e0 tradotto (cache)",
+            "type": "success"
+        },
+        {
+            "message": "\u2713 FAM00022V0BB - Gi\u00e0 tradotto (cache)",
+            "type": "success"
+        },
+        {
+            "message": "\ud83d\udcbe Salvato checkpoint: 30 prodotti",
+            "type": "info"
+        },
+        {
+            "message": "\ud83d\udd04 Traduzione FAA005910XIZ - Borchia a 2 punte",
+            "type": "info"
+        },
+        {
+            "message": "\u2705 FAA005910XIZ - 16 traduzioni completate",
+            "type": "success"
+        },
+        {
+            "message": "\ud83d\udd04 Traduzione FAA0120500BL - Appendiabiti",
+            "type": "info"
+        },
+        {
+            "message": "\u2705 FAA0120500BL - 16 traduzioni completate",
+            "type": "success"
+        },
+        {
+            "message": "\ud83d\udd04 Traduzione FAA01205M0BB - Appendiabiti maggiorato",
+            "type": "info"
+        },
+        {
+            "message": "\u2705 FAA01205M0BB - 16 traduzioni completate",
+            "type": "success"
+        },
+        {
+            "message": "\ud83d\udd04 Traduzione FAA0705TR0IN - Terminale a riccio per corrimano",
+            "type": "info"
+        },
+        {
+            "message": "\u2705 FAA0705TR0IN - 16 traduzioni completate",
+            "type": "success"
+        },
+        {
+            "message": "\ud83d\udd04 Traduzione FAM00016L0BB - Pendente orizzontale",
+            "type": "info"
+        },
+        {
+            "message": "\u2705 FAM00016L0BB - 16 traduzioni completate",
+            "type": "success"
+        },
+        {
+            "message": "\u2713 FAM0001700BB - Gi\u00e0 tradotto (cache)",
+            "type": "success"
+        },
+        {
+            "message": "\u2713 FAM00084VLIS - Gi\u00e0 tradotto (cache)",
+            "type": "success"
+        },
+        {
+            "message": "\u2713 FAM00085L0IS - Gi\u00e0 tradotto (cache)",
+            "type": "success"
+        },
+        {
+            "message": "\u2713 FAM00089L0IS - Gi\u00e0 tradotto (cache)",
+            "type": "success"
+        },
+        {
+            "message": "\u2713 FAM00089V0IR - Gi\u00e0 tradotto (cache)",
+            "type": "success"
+        },
+        {
+            "message": "\ud83d\udcbe Salvato checkpoint: 40 prodotti",
+            "type": "info"
+        },
+        {
+            "message": "\u2713 FAM0003000BB - Gi\u00e0 tradotto (cache)",
+            "type": "success"
+        },
+        {
+            "message": "\ud83d\udcbe Salvato checkpoint: 41 prodotti",
+            "type": "info"
+        },
+        {
+            "message": "\ud83c\udf89 Traduzione completata con successo!",
+            "type": "success"
+        }
+    ]
+}

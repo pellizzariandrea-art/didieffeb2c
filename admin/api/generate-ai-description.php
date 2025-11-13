@@ -1,5 +1,7 @@
 <?php
-// Versione standalone per testing - senza dipendenze da config.php e functions.php
+// Use config.php for consistent paths
+require_once __DIR__ . '/../config.php';
+
 error_reporting(E_ALL);
 ini_set('display_errors', 0);
 ini_set('log_errors', 1);
@@ -42,12 +44,11 @@ try {
         exit;
     }
 
-    // Definisci path manualmente
-    $dataPath = dirname(dirname(__DIR__)) . '/admin/data';
-    $aiDescriptionsDir = $dataPath . '/ai-descriptions';
+    // Use DATA_PATH from config.php
+    $aiDescriptionsDir = DATA_PATH . '/ai-descriptions';
 
     // Carica settings
-    $settingsFile = $dataPath . '/translation-settings.json';
+    $settingsFile = DATA_PATH . '/translation-settings.json';
     if (!file_exists($settingsFile)) {
         http_response_code(500);
         echo json_encode([

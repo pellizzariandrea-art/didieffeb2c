@@ -1,0 +1,1407 @@
+[10-Nov-2025 16:48:43 UTC] [SAVE] Scrittura file temporaneo: /home/customer/www/shop.didieffeb2b.com/public_html/data/products.json.tmp
+[10-Nov-2025 16:48:43 UTC] [SAVE] File temporaneo scritto con successo (117283 bytes)
+[10-Nov-2025 16:48:43 UTC] [SAVE] Rename atomico: /home/customer/www/shop.didieffeb2b.com/public_html/data/products.json.tmp -> /home/customer/www/shop.didieffeb2b.com/public_html/data/products.json
+[10-Nov-2025 16:48:43 UTC] [SAVE SUCCESS] File pubblico aggiornato: /home/customer/www/shop.didieffeb2b.com/public_html/data/products.json (117283 bytes)
+[10-Nov-2025 16:57:01 UTC] [SAVE] Scrittura file temporaneo: /home/customer/www/shop.didieffeb2b.com/public_html/data/products.json.tmp
+[10-Nov-2025 16:57:01 UTC] [SAVE] File temporaneo scritto con successo (117283 bytes)
+[10-Nov-2025 16:57:01 UTC] [SAVE] Rename atomico: /home/customer/www/shop.didieffeb2b.com/public_html/data/products.json.tmp -> /home/customer/www/shop.didieffeb2b.com/public_html/data/products.json
+[10-Nov-2025 16:57:01 UTC] [SAVE SUCCESS] File pubblico aggiornato: /home/customer/www/shop.didieffeb2b.com/public_html/data/products.json (117283 bytes)
+[10-Nov-2025 17:16:11 UTC] [SAVE] Scrittura file temporaneo: /home/customer/www/shop.didieffeb2b.com/public_html/data/products.json.tmp
+[10-Nov-2025 17:16:11 UTC] [SAVE] File temporaneo scritto con successo (116353 bytes)
+[10-Nov-2025 17:16:11 UTC] [SAVE] Rename atomico: /home/customer/www/shop.didieffeb2b.com/public_html/data/products.json.tmp -> /home/customer/www/shop.didieffeb2b.com/public_html/data/products.json
+[10-Nov-2025 17:16:11 UTC] [SAVE SUCCESS] File pubblico aggiornato: /home/customer/www/shop.didieffeb2b.com/public_html/data/products.json (116353 bytes)
+[10-Nov-2025 17:23:01 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php:552
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php on line 552
+[10-Nov-2025 17:23:09 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php:552
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php on line 552
+[10-Nov-2025 17:23:18 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php:552
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php on line 552
+[10-Nov-2025 17:23:28 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php:552
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php on line 552
+[10-Nov-2025 17:23:37 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php:552
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php on line 552
+[10-Nov-2025 17:23:45 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php:552
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php on line 552
+[10-Nov-2025 17:23:53 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php:552
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php on line 552
+[10-Nov-2025 17:24:03 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php:552
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php on line 552
+[10-Nov-2025 17:24:11 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php:552
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php on line 552
+[10-Nov-2025 17:24:21 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php:552
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php on line 552
+[10-Nov-2025 17:24:31 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php:552
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php on line 552
+[10-Nov-2025 17:24:41 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php:552
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php on line 552
+[10-Nov-2025 17:24:52 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php:552
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php on line 552
+[10-Nov-2025 17:25:00 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php:552
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php on line 552
+[10-Nov-2025 17:25:09 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php:552
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php on line 552
+[10-Nov-2025 17:25:19 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php:552
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php on line 552
+[10-Nov-2025 17:25:29 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php:552
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php on line 552
+[10-Nov-2025 17:25:40 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php:552
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php on line 552
+[10-Nov-2025 17:25:49 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php:552
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php on line 552
+[10-Nov-2025 17:25:58 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php:552
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php on line 552
+[10-Nov-2025 17:26:06 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php:552
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php on line 552
+[10-Nov-2025 17:26:14 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php:552
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php on line 552
+[10-Nov-2025 17:26:22 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php:552
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php on line 552
+[10-Nov-2025 17:26:31 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php:552
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php on line 552
+[10-Nov-2025 17:26:41 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php:552
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php on line 552
+[10-Nov-2025 17:26:50 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php:552
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php on line 552
+[10-Nov-2025 17:27:00 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php:552
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php on line 552
+[10-Nov-2025 17:27:08 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php:552
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php on line 552
+[10-Nov-2025 17:27:19 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php:552
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php on line 552
+[10-Nov-2025 17:27:29 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php:552
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php on line 552
+[10-Nov-2025 17:27:39 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php:552
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php on line 552
+[10-Nov-2025 17:27:49 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php:552
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php on line 552
+[10-Nov-2025 17:27:57 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php:552
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php on line 552
+[10-Nov-2025 17:28:05 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php:552
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php on line 552
+[10-Nov-2025 17:28:13 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php:552
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php on line 552
+[10-Nov-2025 17:28:22 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php:552
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php on line 552
+[10-Nov-2025 17:28:30 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php:552
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php on line 552
+[10-Nov-2025 17:28:38 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php:552
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php on line 552
+[10-Nov-2025 17:28:47 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php:552
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php on line 552
+[10-Nov-2025 17:28:55 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php:552
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php on line 552
+[10-Nov-2025 17:29:04 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php:552
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php on line 552
+[10-Nov-2025 17:29:12 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php:552
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php on line 552
+[10-Nov-2025 17:29:21 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php:552
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php on line 552
+[10-Nov-2025 17:29:31 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php:552
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php on line 552
+[10-Nov-2025 17:29:38 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php:552
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php on line 552
+[10-Nov-2025 17:29:47 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php:552
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php on line 552
+[10-Nov-2025 17:29:54 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php:552
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php on line 552
+[10-Nov-2025 17:30:03 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php:552
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php on line 552
+[10-Nov-2025 17:30:11 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php:552
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php on line 552
+[10-Nov-2025 17:30:21 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php:552
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php on line 552
+[10-Nov-2025 17:30:29 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php:552
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php on line 552
+[10-Nov-2025 17:30:37 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php:552
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php on line 552
+[10-Nov-2025 17:30:46 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php:552
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php on line 552
+[10-Nov-2025 17:30:54 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php:552
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php on line 552
+[10-Nov-2025 17:31:02 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php:552
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php on line 552
+[10-Nov-2025 17:31:10 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php:552
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php on line 552
+[10-Nov-2025 17:31:21 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php:552
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php on line 552
+[10-Nov-2025 17:31:29 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php:552
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php on line 552
+[10-Nov-2025 17:31:39 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php:552
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php on line 552
+[10-Nov-2025 17:31:48 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php:552
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php on line 552
+[10-Nov-2025 17:31:57 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php:552
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php on line 552
+[10-Nov-2025 17:32:08 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php:552
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php on line 552
+[10-Nov-2025 17:32:17 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php:552
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php on line 552
+[10-Nov-2025 17:32:25 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php:552
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php on line 552
+[10-Nov-2025 17:32:35 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php:552
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php on line 552
+[10-Nov-2025 17:32:43 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php:552
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php on line 552
+[10-Nov-2025 17:32:52 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php:552
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php on line 552
+[10-Nov-2025 17:33:00 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php:552
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php on line 552
+[10-Nov-2025 17:33:09 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php:552
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php on line 552
+[10-Nov-2025 17:33:18 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php:552
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php on line 552
+[10-Nov-2025 17:33:26 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php:552
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php on line 552
+[10-Nov-2025 17:33:34 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php:552
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php on line 552
+[10-Nov-2025 17:33:43 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php:552
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php on line 552
+[10-Nov-2025 17:33:52 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php:552
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php on line 552
+[10-Nov-2025 17:34:00 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php:552
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php on line 552
+[10-Nov-2025 17:34:08 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php:552
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php on line 552
+[10-Nov-2025 17:34:18 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php:552
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php on line 552
+[10-Nov-2025 17:34:27 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php:552
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php on line 552
+[10-Nov-2025 17:34:37 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php:552
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php on line 552
+[10-Nov-2025 17:34:45 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php:552
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php on line 552
+[10-Nov-2025 17:34:54 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php:552
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php on line 552
+[10-Nov-2025 17:35:02 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php:552
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php on line 552
+[10-Nov-2025 17:35:11 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php:552
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php on line 552
+[10-Nov-2025 17:35:21 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php:552
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php on line 552
+[10-Nov-2025 17:35:29 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php:552
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php on line 552
+[10-Nov-2025 17:35:38 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php:552
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php on line 552
+[10-Nov-2025 17:35:46 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php:552
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php on line 552
+[10-Nov-2025 17:35:54 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php:552
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php on line 552
+[10-Nov-2025 17:36:03 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php:552
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php on line 552
+[10-Nov-2025 17:36:11 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php:552
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php on line 552
+[10-Nov-2025 17:36:21 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php:552
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php on line 552
+[10-Nov-2025 17:36:31 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php:552
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php on line 552
+[10-Nov-2025 17:36:40 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php:552
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php on line 552
+[10-Nov-2025 17:36:48 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php:552
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php on line 552
+[10-Nov-2025 17:36:57 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php:552
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php on line 552
+[10-Nov-2025 17:37:05 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php:552
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php on line 552
+[10-Nov-2025 17:37:14 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php:552
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php on line 552
+[10-Nov-2025 17:37:22 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php:552
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php on line 552
+[10-Nov-2025 17:37:32 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php:552
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php on line 552
+[10-Nov-2025 17:37:40 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php:552
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php on line 552
+[10-Nov-2025 17:37:48 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php:552
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php on line 552
+[10-Nov-2025 17:37:57 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php:552
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php on line 552
+[10-Nov-2025 17:38:05 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php:552
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php on line 552
+[10-Nov-2025 17:38:13 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php:552
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php on line 552
+[10-Nov-2025 17:38:22 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php:552
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php on line 552
+[10-Nov-2025 17:38:31 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php:552
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php on line 552
+[10-Nov-2025 17:38:40 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php:552
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php on line 552
+[10-Nov-2025 17:38:48 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php:552
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php on line 552
+[10-Nov-2025 17:38:57 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php:552
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php on line 552
+[10-Nov-2025 17:39:05 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php:552
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php on line 552
+[10-Nov-2025 17:39:13 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php:552
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php on line 552
+[10-Nov-2025 17:39:22 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php:552
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php on line 552
+[10-Nov-2025 17:39:31 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php:552
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php on line 552
+[10-Nov-2025 17:39:40 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php:552
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php on line 552
+[10-Nov-2025 17:39:48 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php:552
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php on line 552
+[10-Nov-2025 17:39:57 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php:552
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php on line 552
+[10-Nov-2025 17:40:05 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php:552
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php on line 552
+[10-Nov-2025 17:40:14 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php:552
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php on line 552
+[10-Nov-2025 17:40:23 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php:552
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php on line 552
+[10-Nov-2025 17:40:31 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php:552
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php on line 552
+[10-Nov-2025 17:40:40 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php:552
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php on line 552
+[10-Nov-2025 17:40:48 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php:552
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php on line 552
+[10-Nov-2025 17:40:58 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php:552
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php on line 552
+[10-Nov-2025 17:41:06 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php:552
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php on line 552
+[10-Nov-2025 17:41:15 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php:552
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php on line 552
+[10-Nov-2025 17:41:23 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php:553
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php on line 553
+[10-Nov-2025 17:41:33 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php:553
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php on line 553
+[10-Nov-2025 17:41:41 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php:553
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php on line 553
+[10-Nov-2025 17:41:50 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php:553
+Stack trace:
+#0 {main}
+  thrown in /home/customer/www/shop.didieffeb2b.com/public_html/admin/pages/export-stream-v2.php on line 553
+[10-Nov-2025 17:44:28 UTC] [SAVE] Scrittura file temporaneo: /home/customer/www/shop.didieffeb2b.com/public_html/data/products.json.tmp
+[10-Nov-2025 17:44:28 UTC] [SAVE] File temporaneo scritto con successo (162946 bytes)
+[10-Nov-2025 17:44:28 UTC] [SAVE] Rename atomico: /home/customer/www/shop.didieffeb2b.com/public_html/data/products.json.tmp -> /home/customer/www/shop.didieffeb2b.com/public_html/data/products.json
+[10-Nov-2025 17:44:28 UTC] [SAVE SUCCESS] File pubblico aggiornato: /home/customer/www/shop.didieffeb2b.com/public_html/data/products.json (162946 bytes)
+[11-Nov-2025 07:30:10 UTC] [SAVE] Scrittura file temporaneo: /home/customer/www/shop.didieffeb2b.com/public_html/data/products.json.tmp
+[11-Nov-2025 07:30:10 UTC] [SAVE] File temporaneo scritto con successo (297111 bytes)
+[11-Nov-2025 07:30:10 UTC] [SAVE] Rename atomico: /home/customer/www/shop.didieffeb2b.com/public_html/data/products.json.tmp -> /home/customer/www/shop.didieffeb2b.com/public_html/data/products.json
+[11-Nov-2025 07:30:10 UTC] [SAVE SUCCESS] File pubblico aggiornato: /home/customer/www/shop.didieffeb2b.com/public_html/data/products.json (297111 bytes)
+[11-Nov-2025 08:11:47 UTC] [SAVE] Scrittura file temporaneo: /home/customer/www/shop.didieffeb2b.com/public_html/data/products.json.tmp
+[11-Nov-2025 08:11:47 UTC] [SAVE] File temporaneo scritto con successo (2034238 bytes)
+[11-Nov-2025 08:11:47 UTC] [SAVE] Rename atomico: /home/customer/www/shop.didieffeb2b.com/public_html/data/products.json.tmp -> /home/customer/www/shop.didieffeb2b.com/public_html/data/products.json
+[11-Nov-2025 08:11:47 UTC] [SAVE SUCCESS] File pubblico aggiornato: /home/customer/www/shop.didieffeb2b.com/public_html/data/products.json (2034238 bytes)
+[11-Nov-2025 09:48:15 UTC] [CACHE] Translation cache loaded in memory: 11343 items
+[11-Nov-2025 09:48:17 UTC] [SAVE] Scrittura file temporaneo: /home/customer/www/shop.didieffeb2b.com/public_html/data/products.json.tmp
+[11-Nov-2025 09:48:17 UTC] [SAVE] File temporaneo scritto con successo (5135 bytes)
+[11-Nov-2025 09:48:17 UTC] [SAVE] Rename atomico: /home/customer/www/shop.didieffeb2b.com/public_html/data/products.json.tmp -> /home/customer/www/shop.didieffeb2b.com/public_html/data/products.json
+[11-Nov-2025 09:48:17 UTC] [SAVE SUCCESS] File pubblico aggiornato: /home/customer/www/shop.didieffeb2b.com/public_html/data/products.json (5135 bytes)
+[11-Nov-2025 09:48:28 UTC] [CACHE] Translation cache loaded in memory: 11343 items
+[11-Nov-2025 09:48:31 UTC] [SAVE] Scrittura file temporaneo: /home/customer/www/shop.didieffeb2b.com/public_html/data/products.json.tmp
+[11-Nov-2025 09:48:31 UTC] [SAVE] File temporaneo scritto con successo (5135 bytes)
+[11-Nov-2025 09:48:31 UTC] [SAVE] Rename atomico: /home/customer/www/shop.didieffeb2b.com/public_html/data/products.json.tmp -> /home/customer/www/shop.didieffeb2b.com/public_html/data/products.json
+[11-Nov-2025 09:48:31 UTC] [SAVE SUCCESS] File pubblico aggiornato: /home/customer/www/shop.didieffeb2b.com/public_html/data/products.json (5135 bytes)
+[11-Nov-2025 09:52:06 UTC] [CACHE] Translation cache loaded in memory: 11343 items
+[11-Nov-2025 09:52:09 UTC] [SAVE] Scrittura file temporaneo: /home/customer/www/shop.didieffeb2b.com/public_html/data/products.json.tmp
+[11-Nov-2025 09:52:09 UTC] [SAVE] File temporaneo scritto con successo (5135 bytes)
+[11-Nov-2025 09:52:09 UTC] [SAVE] Rename atomico: /home/customer/www/shop.didieffeb2b.com/public_html/data/products.json.tmp -> /home/customer/www/shop.didieffeb2b.com/public_html/data/products.json
+[11-Nov-2025 09:52:09 UTC] [SAVE SUCCESS] File pubblico aggiornato: /home/customer/www/shop.didieffeb2b.com/public_html/data/products.json (5135 bytes)
+[11-Nov-2025 09:56:07 UTC] [CACHE] Translation cache loaded in memory: 11343 items
+[11-Nov-2025 09:56:09 UTC] [SAVE] Scrittura file temporaneo: /home/customer/www/shop.didieffeb2b.com/public_html/data/products.json.tmp
+[11-Nov-2025 09:56:09 UTC] [SAVE] File temporaneo scritto con successo (5135 bytes)
+[11-Nov-2025 09:56:09 UTC] [SAVE] Rename atomico: /home/customer/www/shop.didieffeb2b.com/public_html/data/products.json.tmp -> /home/customer/www/shop.didieffeb2b.com/public_html/data/products.json
+[11-Nov-2025 09:56:09 UTC] [SAVE SUCCESS] File pubblico aggiornato: /home/customer/www/shop.didieffeb2b.com/public_html/data/products.json (5135 bytes)
+[11-Nov-2025 09:59:38 UTC] [CACHE] Translation cache loaded in memory: 11343 items
+[11-Nov-2025 09:59:40 UTC] [CACHE] Translation cache flushed to disk: 11343 items
+[11-Nov-2025 09:59:40 UTC] [SAVE] Scrittura file temporaneo: /home/customer/www/shop.didieffeb2b.com/public_html/data/products.json.tmp
+[11-Nov-2025 09:59:40 UTC] [SAVE] File temporaneo scritto con successo (5135 bytes)
+[11-Nov-2025 09:59:40 UTC] [SAVE] Rename atomico: /home/customer/www/shop.didieffeb2b.com/public_html/data/products.json.tmp -> /home/customer/www/shop.didieffeb2b.com/public_html/data/products.json
+[11-Nov-2025 09:59:40 UTC] [SAVE SUCCESS] File pubblico aggiornato: /home/customer/www/shop.didieffeb2b.com/public_html/data/products.json (5135 bytes)
+[11-Nov-2025 10:01:54 UTC] [CACHE] Translation cache loaded in memory: 11343 items
+[11-Nov-2025 10:07:31 UTC] [CACHE] Translation cache loaded in memory: 11343 items
+[11-Nov-2025 10:24:29 UTC] [CACHE] Translation cache flushed to disk: 12192 items
+[11-Nov-2025 10:24:29 UTC] [SAVE] Scrittura file temporaneo: /home/customer/www/shop.didieffeb2b.com/public_html/data/products.json.tmp
+[11-Nov-2025 10:24:29 UTC] [SAVE] File temporaneo scritto con successo (2559056 bytes)
+[11-Nov-2025 10:24:29 UTC] [SAVE] Rename atomico: /home/customer/www/shop.didieffeb2b.com/public_html/data/products.json.tmp -> /home/customer/www/shop.didieffeb2b.com/public_html/data/products.json
+[11-Nov-2025 10:24:29 UTC] [SAVE SUCCESS] File pubblico aggiornato: /home/customer/www/shop.didieffeb2b.com/public_html/data/products.json (2559056 bytes)
+[11-Nov-2025 10:25:07 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:25:08 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:25:08 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:25:09 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:25:09 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:25:10 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:25:10 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:25:11 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:25:11 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:25:12 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:25:12 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:25:13 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:25:13 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:25:14 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:25:14 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:25:15 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:25:15 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:25:16 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:25:16 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:25:17 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:25:17 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:25:18 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:25:18 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:25:19 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:25:19 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:25:20 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:25:20 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:25:21 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:25:21 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:25:22 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:25:22 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:25:23 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:25:23 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:25:24 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:25:24 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:25:25 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:25:25 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:25:26 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:25:26 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:25:27 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:25:27 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:25:28 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:25:28 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:25:29 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:25:29 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:25:30 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:25:30 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:25:31 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:25:31 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:25:32 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:25:32 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:25:33 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:25:33 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:25:34 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:25:34 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:25:35 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:25:35 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:25:36 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:25:36 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:25:37 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:25:37 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:25:38 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:25:38 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:25:39 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:25:39 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:25:40 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:25:40 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:25:41 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:25:41 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:25:42 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:25:42 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:25:43 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:25:43 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:25:44 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:25:44 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:25:45 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:25:45 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:25:46 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:25:46 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:25:47 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:25:47 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:25:48 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:25:48 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:25:49 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:25:49 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:25:50 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:25:50 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:25:51 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:25:51 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:25:52 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:25:52 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:25:53 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:25:54 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:25:54 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:25:54 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:25:55 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:25:55 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:25:56 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:25:56 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:25:57 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:25:57 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:25:58 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:25:58 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:25:59 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:25:59 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:26:00 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:26:00 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:26:01 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:26:01 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:26:02 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:26:02 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:26:03 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:26:03 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:26:04 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:26:05 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:26:06 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:26:07 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:26:08 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:26:10 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:26:10 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:26:11 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:26:12 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:26:13 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:26:14 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:26:15 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:26:16 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:26:17 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:26:18 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:26:19 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:26:20 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:26:21 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:26:22 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:26:23 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:26:24 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:26:25 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:26:26 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:26:27 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:26:28 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:26:29 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:26:30 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:26:31 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:26:32 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:26:33 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:26:34 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:26:35 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:26:36 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:26:37 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:26:38 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:26:39 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:26:40 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:26:41 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:26:42 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:26:43 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:26:44 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:26:45 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:26:46 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:26:47 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:26:48 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:26:49 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:26:50 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:26:51 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:26:52 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:26:53 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:26:54 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:26:55 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:26:56 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:26:57 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:26:58 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:26:59 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:27:00 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:27:01 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:27:02 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:27:03 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:28:00 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:28:32 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:28:32 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:28:32 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:28:33 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:28:33 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:28:34 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:28:34 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:28:35 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:28:35 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:28:36 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:28:36 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:28:37 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:28:37 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:28:38 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:28:38 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:28:39 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:28:39 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:28:40 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:28:40 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:28:41 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:28:41 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:28:42 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:28:42 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:28:43 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:28:43 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:28:44 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:28:44 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:28:45 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:28:45 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:28:46 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:28:46 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:28:47 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:28:47 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:28:48 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:28:48 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:28:49 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:28:49 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:28:50 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:28:50 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:28:51 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:28:51 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:28:52 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:28:52 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:28:53 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:28:53 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:28:54 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:28:54 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:28:55 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:28:55 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:28:56 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:28:56 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:28:57 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:28:57 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:28:58 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:28:58 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:28:59 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:28:59 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:29:00 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:29:00 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:29:01 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:29:01 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:29:02 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:29:02 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:29:03 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:29:03 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:29:04 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:29:04 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:29:05 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:29:05 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:29:06 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:29:06 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:29:13 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:29:20 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:29:26 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:29:33 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:29:34 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:29:34 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:29:34 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:29:34 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:29:34 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:29:34 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:29:34 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:29:34 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:29:34 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:29:34 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:29:34 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:29:42 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:29:49 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:29:49 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:29:50 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:29:50 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:29:50 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:29:55 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:30:03 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:30:03 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:30:03 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:30:03 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:30:03 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:30:03 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:30:04 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:30:10 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:30:17 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:30:23 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:30:30 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:30:38 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:30:44 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:30:44 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:30:44 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:30:44 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:30:45 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:30:50 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:30:50 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:30:51 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:30:51 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:30:51 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:30:51 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:30:51 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:30:56 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:31:03 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:31:03 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:31:03 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:31:03 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:31:10 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:31:10 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:31:10 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:31:16 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:31:23 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:31:23 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:31:31 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:31:31 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:31:39 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:31:39 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:31:46 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:31:54 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:31:54 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:32:01 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:32:09 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:32:17 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:32:17 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:32:22 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:32:22 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:32:23 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:32:29 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:32:29 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:32:36 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:32:42 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:32:49 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:32:49 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:32:56 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:33:02 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:33:07 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:33:13 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:33:18 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:33:26 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:33:32 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:33:40 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:33:46 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:33:52 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:33:59 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:34:05 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:34:10 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:34:17 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:34:22 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:34:28 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:34:34 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:34:40 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:34:45 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:34:51 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:34:58 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:35:03 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:35:10 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:35:16 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:35:22 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:35:28 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:35:34 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:35:39 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:59:54 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 10:59:55 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 11:00:08 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 11:00:26 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 11:00:28 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 11:00:41 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 11:01:33 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 11:01:47 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 11:01:57 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 11:02:07 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 11:02:18 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 11:02:21 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 11:02:22 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 11:02:33 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 11:02:42 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 11:02:54 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 11:03:15 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 11:03:37 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 11:04:01 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 11:04:08 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 11:04:32 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 11:04:41 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 11:05:04 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 11:05:18 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 11:05:31 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 11:05:47 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 11:06:05 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 11:06:27 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 11:06:45 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 11:06:59 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 11:07:14 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 11:07:24 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 11:07:35 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 11:07:54 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 11:08:06 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 11:08:24 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 11:08:43 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 11:08:52 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 11:09:05 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 11:09:14 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 11:09:34 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 11:09:44 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 11:12:36 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 11:12:36 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 11:12:50 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 11:13:08 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 11:13:09 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 11:13:23 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 11:14:23 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 11:17:06 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 11:17:06 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 11:17:20 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 11:17:38 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 11:17:39 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 11:17:53 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 11:18:53 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 11:26:00 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 11:26:00 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 11:26:14 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 11:26:32 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 11:26:33 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 11:26:47 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 11:38:51 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 11:38:52 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 11:38:52 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 11:38:53 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 11:38:53 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 11:38:53 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 11:38:54 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 11:38:55 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 11:38:55 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 11:38:55 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 11:38:56 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 11:38:56 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 11:38:57 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 11:38:57 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 11:38:58 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 11:38:59 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 11:38:59 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 11:39:00 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 11:39:00 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 11:39:01 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 11:39:01 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 11:39:01 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 11:39:02 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 11:39:02 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 11:39:03 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 11:39:04 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 11:39:04 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 11:39:05 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 11:39:05 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 11:39:06 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 11:39:06 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 11:39:07 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 11:39:07 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 11:39:08 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 11:39:08 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 11:39:09 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 11:39:09 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 11:39:10 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 11:39:10 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 11:39:11 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 11:39:11 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 11:39:12 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 11:39:12 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 11:39:13 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 11:39:13 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 11:39:14 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 11:39:14 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 11:39:14 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 11:39:15 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 11:39:16 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 11:39:16 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 11:39:16 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 11:39:17 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 11:39:18 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 11:39:18 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 11:39:19 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 11:39:19 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 11:39:20 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 11:39:20 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 11:39:20 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 11:39:21 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 11:39:22 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 11:39:22 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 11:39:22 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 11:39:23 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 11:39:23 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 11:46:38 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 11:46:39 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 11:46:52 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 11:47:10 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 11:47:12 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 11:47:26 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 11:48:26 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 11:54:15 UTC] [CACHE] Translation cache loaded in memory: 12192 items
+[11-Nov-2025 12:12:05 UTC] [CACHE] Translation cache flushed to disk: 13085 items
+[11-Nov-2025 12:12:05 UTC] [SAVE] Scrittura file temporaneo: /home/customer/www/shop.didieffeb2b.com/public_html/data/products.json.tmp
+[11-Nov-2025 12:12:05 UTC] [SAVE] File temporaneo scritto con successo (3085026 bytes)
+[11-Nov-2025 12:12:05 UTC] [SAVE] Rename atomico: /home/customer/www/shop.didieffeb2b.com/public_html/data/products.json.tmp -> /home/customer/www/shop.didieffeb2b.com/public_html/data/products.json
+[11-Nov-2025 12:12:05 UTC] [SAVE SUCCESS] File pubblico aggiornato: /home/customer/www/shop.didieffeb2b.com/public_html/data/products.json (3085026 bytes)
+[11-Nov-2025 12:12:49 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:12:50 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:12:50 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:12:51 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:12:51 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:12:52 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:12:52 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:12:53 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:12:53 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:12:54 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:12:54 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:12:55 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:12:55 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:12:56 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:12:56 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:12:57 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:12:57 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:12:58 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:12:58 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:12:59 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:12:59 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:13:00 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:13:00 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:13:01 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:13:01 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:13:02 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:13:02 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:13:03 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:13:03 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:13:04 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:13:04 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:13:05 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:13:05 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:13:06 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:13:06 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:13:07 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:13:07 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:13:08 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:13:08 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:13:09 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:13:09 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:13:10 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:13:10 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:13:11 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:13:11 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:13:12 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:13:12 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:13:13 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:13:13 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:13:14 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:13:14 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:13:15 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:13:15 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:13:16 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:13:16 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:13:17 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:13:17 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:13:18 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:13:18 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:13:19 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:13:19 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:13:20 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:13:20 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:13:21 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:13:21 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:13:22 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:13:22 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:13:23 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:13:23 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:13:24 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:13:24 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:13:25 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:13:25 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:13:26 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:13:27 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:13:27 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:13:27 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:13:28 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:13:28 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:13:29 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:13:29 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:13:30 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:13:30 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:13:31 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:13:31 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:13:32 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:13:32 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:13:33 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:13:33 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:13:34 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:13:34 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:13:35 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:13:35 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:13:36 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:13:36 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:13:37 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:13:37 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:13:38 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:13:38 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:13:39 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:13:39 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:13:40 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:13:40 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:13:41 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:13:41 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:13:42 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:13:42 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:13:43 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:13:43 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:13:44 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:13:44 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:13:45 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:13:45 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:13:46 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:13:46 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:13:47 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:13:47 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:13:48 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:13:48 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:13:49 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:13:49 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:13:50 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:13:50 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:13:51 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:13:51 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:13:52 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:13:52 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:13:53 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:13:53 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:13:54 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:13:54 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:13:55 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:13:55 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:13:56 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:13:56 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:13:57 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:13:57 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:13:58 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:13:58 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:13:59 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:13:59 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:14:00 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:14:00 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:14:01 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:14:01 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:14:02 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:14:02 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:14:03 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:14:03 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:14:04 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:14:04 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:14:05 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:14:05 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:14:06 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:14:06 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:14:07 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:14:07 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:14:08 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:14:08 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:14:09 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:14:09 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:14:10 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:14:10 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:14:11 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:14:11 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:14:12 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:14:12 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:14:13 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:14:13 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:14:14 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:14:14 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:14:15 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:14:15 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:14:16 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:14:16 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:14:17 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:14:17 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:14:18 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:14:18 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:14:19 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:14:19 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:14:20 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:14:20 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:14:21 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:14:21 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:14:22 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:14:22 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:14:23 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:14:23 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:14:24 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:14:24 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:14:25 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:14:25 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:14:26 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:14:26 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:14:27 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:14:27 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:14:28 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:14:28 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:14:29 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:14:29 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:14:30 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:14:30 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:14:31 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:14:31 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:14:32 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:14:32 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:14:33 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:14:33 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:14:34 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:14:34 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:14:35 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:14:35 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:14:36 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:14:36 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:14:37 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:14:37 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:14:38 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:14:38 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:14:39 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:14:39 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:14:40 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:14:40 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:14:41 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:14:41 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:14:42 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:14:42 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:14:43 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:14:43 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:14:44 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:14:44 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:14:45 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:14:45 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:14:46 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:14:46 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:14:47 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:14:47 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:14:48 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:14:48 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:14:49 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:14:49 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:14:50 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:14:50 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:14:51 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:14:52 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:14:58 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:15:05 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:15:12 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:15:22 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:15:30 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:15:30 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:15:30 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:15:30 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:15:30 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:15:31 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:15:31 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:15:31 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:15:31 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:15:31 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:15:31 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:15:39 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:15:47 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:15:47 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:15:47 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:15:47 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:15:48 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:16:04 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:16:11 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:16:11 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:16:11 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:16:11 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:16:11 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:16:11 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:16:12 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:16:19 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:16:26 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:16:34 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:16:42 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:16:51 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:16:58 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:16:58 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:16:58 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:16:58 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:16:59 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:17:17 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:17:17 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:17:18 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:17:18 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:17:18 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:17:18 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:17:18 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:17:25 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:17:32 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:17:33 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:17:33 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:17:33 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:17:39 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:17:47 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:17:55 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:18:02 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:18:10 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:18:10 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:18:18 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:18:26 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:18:34 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:18:34 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:18:41 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:18:50 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:18:50 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:19:08 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:19:16 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:19:23 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:19:31 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:19:45 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:19:45 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:19:45 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:19:52 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:19:52 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:20:14 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:20:19 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:20:39 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:20:44 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:21:04 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:21:13 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:21:13 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:21:22 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:21:36 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:21:58 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:22:03 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:22:11 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:22:18 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:22:25 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:22:47 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:22:55 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:23:16 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:23:28 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:23:39 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:23:46 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:24:08 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:24:28 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:24:37 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:24:44 UTC] [CACHE] Translation cache loaded in memory: 13085 items
+[11-Nov-2025 12:24:57 UTC] [CACHE] Translation cache loaded in memory: 13085 items

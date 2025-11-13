@@ -1,0 +1,831 @@
+{
+  "product.price_suffix": {
+    "hr": "bez PDV-a",
+    "sl": "brez DDV",
+    "el": "χωρίς ΦΠΑ"
+  },
+  "product.availability.pieces": {
+    "fr": "pcs",
+    "pt": "pcs",
+    "hr": "kom",
+    "sl": "kos",
+    "el": "τεμ"
+  },
+  "product.specifications_title": {
+    "hr": "Tehnič specs",
+    "sl": "Tehnične specifikacije",
+    "el": "Τεχνικές προδιαγραφές"
+  },
+  "product.resources_title": {
+    "hr": "Dostupni dokumenti",
+    "sl": "Razpoložljivi dokumenti",
+    "el": "Διαθέσιμα έγγραφα"
+  },
+  "product.same_series_title": {
+    "hr": "Proizvodi iz serije",
+    "sl": "Izdelki iz serije",
+    "el": "Προϊόντα της σειράς"
+  },
+  "product.other": {
+    "hr": "Ostali",
+    "sl": "Drugi",
+    "el": "Άλλα"
+  },
+  "product.same_category_title": {
+    "hr": "Drugi slični proizvodi",
+    "sl": "Drugi podobni izdelki",
+    "el": "Άλλα παρόμοια προϊόντα"
+  },
+  "product.also_viewed_title": {
+    "hr": "Drugi su također pogledali",
+    "sl": "Drugi so si ogledali tudi",
+    "el": "Άλλοι είδαν επίσης"
+  },
+  "product.view_all": {
+    "hr": "Pogledaj sve",
+    "sl": "Prikaži vse",
+    "el": "Προβολή όλων"
+  },
+  "product.back_to_catalog": {
+    "hr": "Natrag na katalog",
+    "sl": "Nazaj na katalog",
+    "el": "Επιστροφή στον κατάλογο"
+  },
+  "product.no_image": {
+    "hr": "Slika nije dostupna",
+    "sl": "Slika ni na voljo",
+    "el": "Δεν υπάρχει εικόνα"
+  },
+  "product.add_to_cart": {
+    "hr": "Dodaj u košaricu",
+    "sl": "Dodaj v košarico",
+    "el": "Προσθήκη στο καλάθι"
+  },
+  "product.click_to_zoom": {
+    "hr": "Kliknite za uvećanje",
+    "sl": "Kliknite za povečavo",
+    "el": "Κλικ για μεγέθυνση"
+  },
+  "product.quick_view": {
+    "hr": "Brzi pregled",
+    "sl": "Hiter pregled",
+    "el": "Γρήγορη προβολή"
+  },
+  "product.view_details": {
+    "hr": "Pogledaj sve detalje",
+    "sl": "Prikaži vse podrobnosti",
+    "el": "Προβολή πλήρων λεπτομερειών"
+  },
+  "product.select_variant": {
+    "hr": "Odaberi varijantu",
+    "sl": "Izberi varianto",
+    "el": "Επιλέξτε παραλλαγή"
+  },
+  "product.add_to_wishlist": {
+    "hr": "Dodaj na listu želja",
+    "sl": "Dodaj na seznam želja",
+    "el": "Προσθήκη στη λίστα επιθυμιών"
+  },
+  "product.in_wishlist": {
+    "hr": "Na listi želja",
+    "sl": "Na seznamu želja",
+    "el": "Στη λίστα επιθυμιών"
+  },
+  "product.remove_from_wishlist": {
+    "hr": "Ukloni s liste želja",
+    "sl": "Odstrani s seznama želja",
+    "el": "Αφαίρεση από τη λίστα επιθυμιών"
+  },
+  "product.downloads_title": {
+    "de": "Downloads",
+    "pt": "Downloads",
+    "hr": "Preuzimanja",
+    "sl": "Prenosi",
+    "el": "Λήψεις"
+  },
+  "product.actions_title": {
+    "fr": "Actions",
+    "hr": "Radnje",
+    "sl": "Dejanja",
+    "el": "Ενέργειες"
+  },
+  "common.loading": {
+    "hr": "Učitavanje...",
+    "sl": "Nalaganje...",
+    "el": "Φόρτωση..."
+  },
+  "variants.title": {
+    "hr": "Dostupne varijante",
+    "sl": "Razpoložljive variante",
+    "el": "Διαθέσιμες παραλλαγές"
+  },
+  "variants.badge_long": {
+    "hr": "Varijanta",
+    "sl": "Varianta",
+    "el": "Παραλλαγή"
+  },
+  "variants.select": {
+    "hr": "Odaberi varijantu",
+    "sl": "Izberi varianto",
+    "el": "Επιλέξτε παραλλαγή"
+  },
+  "variants.selected_config": {
+    "hr": "Odabrana konfiguracija",
+    "sl": "Izbrana konfiguracija",
+    "el": "Επιλεγμένη διαμόρφωση"
+  },
+  "variants.view_full_table": {
+    "hr": "Prikaz cijele tablice",
+    "sl": "Prikaži celotno tabelo",
+    "el": "Προβολή πλήρους πίνακα"
+  },
+  "variants.click_to_select": {
+    "hr": "Kliknite na ćeliju da odaberete željenu varijantu",
+    "sl": "Kliknite na celico za izbiro želene variante",
+    "el": "Κάντε κλικ σε ένα κελί για επιλογή της επιθυμητής παραλλαγής"
+  },
+  "variants.selected": {
+    "hr": "Odabrano",
+    "sl": "Izbrano",
+    "el": "Επιλεγμένο"
+  },
+  "variants.not_available": {
+    "hr": "Kombinacija nije dostupna",
+    "sl": "Kombinacija ni na voljo",
+    "el": "Ο συνδυασμός δεν είναι διαθέσιμος"
+  },
+  "gallery.image_of": {
+    "fr": "Image",
+    "hr": "Slika",
+    "sl": "Slika",
+    "el": "Εικόνα"
+  },
+  "gallery.thumbnail": {
+    "hr": "Sličica",
+    "sl": "Sličica",
+    "el": "Μικρογραφία"
+  },
+  "home.products_count": {
+    "hr": "Katalog proizvoda - {count} dostupnih artikala",
+    "sl": "Katalog izdelkov - {count} razpoložljivih artiklov",
+    "el": "Κατάλογος προϊόντων - {count} διαθέσιμα στοιχεία"
+  },
+  "home.no_products": {
+    "hr": "Nijedan proizvod nije pronađen",
+    "sl": "Ni najdenih izdelkov",
+    "el": "Δεν βρέθηκαν προϊόντα"
+  },
+  "home.no_products_message": {
+    "hr": "Pokušajte prilagoditi filtere ili pretragu za pronalaženje onoga što tražite",
+    "sl": "Poskusite prilagoditi filtre ali iskanje za iskanje tega, kar iščete",
+    "el": "Δοκιμάστε να προσαρμόσετε τα φίλτρα ή την αναζήτηση για να βρείτε αυτό που ψάχνετε"
+  },
+  "home.no_exact_results": {
+    "hr": "Nema točnih rezultata",
+    "sl": "Ni natančnih rezultatov",
+    "el": "Δεν υπάρχουν ακριβή αποτελέσματα"
+  },
+  "home.check_suggestions": {
+    "hr": "Ali pogledajte prijedloge u nastavku",
+    "sl": "A poglejte predloge spodaj",
+    "el": "Αλλά ελέγξτε τις προτάσεις παρακάτω"
+  },
+  "home.suggested_products": {
+    "hr": "Možda vas zanima",
+    "sl": "Morda vas zanima",
+    "el": "Μπορεί να σας ενδιαφέρουν"
+  },
+  "home.footer": {
+    "hr": "© 2025 Didieffeb2b - E-Commerce pokrenuto AI-jem",
+    "sl": "© 2025 Didieffeb2b - E-trgovina, ki jo poganja AI",
+    "el": "© 2025 Didieffeb2b - Ηλεκτρονικό εμπόριο με τεχνητή νοημοσύνη"
+  },
+  "home.active_filters": {
+    "hr": "Aktivni filteri:",
+    "sl": "Aktivni filtri:",
+    "el": "Ενεργά φίλτρα:"
+  },
+  "home.search": {
+    "hr": "Traži proizvode...",
+    "sl": "Iskanje izdelkov...",
+    "el": "Αναζήτηση προϊόντων..."
+  },
+  "home.sort_by": {
+    "hr": "Sortiraj po",
+    "sl": "Razvrsti po",
+    "el": "Ταξινόμηση κατά"
+  },
+  "home.show_results": {
+    "hr": "Prikaži {count} proizvoda",
+    "sl": "Prikaži {count} izdelkov",
+    "el": "Εμφάνιση {count} προϊόντων"
+  },
+  "home.showing": {
+    "hr": "Prikazivanje",
+    "sl": "Prikaz",
+    "el": "Εμφάνιση"
+  },
+  "home.load_more": {
+    "hr": "Učitaj više proizvoda",
+    "sl": "Naloži več izdelkov",
+    "el": "Φόρτωση περισσότερων προϊόντων"
+  },
+  "home.remaining": {
+    "hr": "preostali proizvodi",
+    "sl": "preostali izdelki",
+    "el": "υπόλοιπα προϊόντα"
+  },
+  "home.show_all": {
+    "hr": "Prikaži sve proizvode",
+    "sl": "Prikaži vse izdelke",
+    "el": "Εμφάνιση όλων των προϊόντων"
+  },
+  "home.sort.price_asc": {
+    "hr": "Cijena: niska → visoka",
+    "sl": "Cena: nizka → visoka",
+    "el": "Τιμή: χαμηλή → υψηλή"
+  },
+  "home.sort.price_desc": {
+    "hr": "Cijena: visoka → niska",
+    "sl": "Cena: visoka → nizka",
+    "el": "Τιμή: υψηλή → χαμηλή"
+  },
+  "wizard.title": {
+    "hr": "Pronađi pravi proizvod",
+    "sl": "Poiščite pravi izdelek",
+    "el": "Βρείτε το σωστό προϊόν"
+  },
+  "wizard.button": {
+    "hr": "Pomozite mi da odaberem",
+    "sl": "Pomagajte mi izbrati",
+    "el": "Βοηθήστε με να επιλέξω"
+  },
+  "wizard.button_short": {
+    "fr": "Guide",
+    "hr": "Vodič",
+    "sl": "Vodnik",
+    "el": "Οδηγός"
+  },
+  "wizard.welcome.greeting": {
+    "hr": "Pozdrav! 👋",
+    "sl": "Pozdravljeni! 👋",
+    "el": "Γεια σας! 👋"
+  },
+  "wizard.welcome.message": {
+    "hr": "Pomoći ću vam pronaći savršen proizvod za vaše potrebe. Odgovorite na nekoliko jednostavnih pitanja i zajedno ćemo pronaći idealno rješenje.",
+    "sl": "Pomagal vam bom najti popoln izdelek za vaše potrebe. Odgovorite na nekaj preprostih vprašanj in skupaj bomo našli idealno rešitev.",
+    "el": "Θα σας βοηθήσω να βρείτε το τέλειο προϊόν για τις ανάγκες σας. Απαντήστε σε μερικές απλές ερωτήσεις και θα βρούμε μαζί την ιδανική λύση."
+  },
+  "wizard.steps.welcome": {
+    "hr": "Dobrodošli",
+    "sl": "Dobrodošli",
+    "el": "Καλώς ήρθατε"
+  },
+  "wizard.steps.category": {
+    "hr": "Korak 1: Tipologija",
+    "sl": "Korak 1: Tipologija",
+    "el": "Βήμα 1: Κατηγορία"
+  },
+  "wizard.steps.application": {
+    "hr": "Korak 2: Primjena",
+    "sl": "Korak 2: Aplikacija",
+    "el": "Βήμα 2: Εφαρμογή"
+  },
+  "wizard.steps.characteristics": {
+    "hr": "Korak 3: Karakteristike",
+    "sl": "Korak 3: Lastnosti",
+    "el": "Βήμα 3: Χαρακτηριστικά"
+  },
+  "wizard.steps.results": {
+    "hr": "Rezultati",
+    "sl": "Rezultati",
+    "el": "Αποτελέσματα"
+  },
+  "wizard.category_question": {
+    "hr": "Što tražite?",
+    "sl": "Kaj iščete?",
+    "el": "Τι ψάχνετε;"
+  },
+  "wizard.category_subtitle": {
+    "hr": "Odaberite tip proizvoda",
+    "sl": "Izberite vrsto izdelka",
+    "el": "Επιλέξτε τον τύπο προϊόντος"
+  },
+  "wizard.application_question": {
+    "hr": "Gdje ćete ga koristiti?",
+    "sl": "Kje ga boste uporabili?",
+    "el": "Πού θα το χρησιμοποιήσετε;"
+  },
+  "wizard.application_subtitle": {
+    "hr": "Možete odabrati više opcija",
+    "sl": "Lahko izberete več možnosti",
+    "el": "Μπορείτε να επιλέξετε πολλαπλές επιλογές"
+  },
+  "wizard.characteristics_question": {
+    "hr": "Prilagodite pretragu",
+    "sl": "Prilagodite iskanje",
+    "el": "Προσαρμόστε την αναζήτησή σας"
+  },
+  "wizard.characteristics_subtitle": {
+    "hr": "Odaberite željene karakteristike (neobavezno)",
+    "sl": "Izberite želene lastnosti (neobvezno)",
+    "el": "Επιλέξτε τα επιθυμητά χαρακτηριστικά (προαιρετικό)"
+  },
+  "wizard.results_message": {
+    "hr": "Savršeno! Evo što smo pronašli za vas",
+    "sl": "Popolno! Tu je, kar smo našli za vas",
+    "el": "Τέλειο! Να τι βρήκαμε για εσάς"
+  },
+  "wizard.products_found": {
+    "hr": "{count} pronađenih proizvoda!",
+    "sl": "{count} najdenih izdelkov!",
+    "el": "{count} προϊόντα βρέθηκαν!"
+  },
+  "wizard.products_count": {
+    "hr": "{count} proizvoda",
+    "sl": "{count} izdelkov",
+    "el": "{count} προϊόντα"
+  },
+  "wizard.reset": {
+    "hr": "Počni iznova",
+    "sl": "Začni znova",
+    "el": "Ξεκινήστε από την αρχή"
+  },
+  "wizard.view_all": {
+    "hr": "Pogledaj sve proizvode",
+    "sl": "Prikaži vse izdelke",
+    "el": "Προβολή όλων των προϊόντων"
+  },
+  "search.suggestions": {
+    "fr": "suggestions",
+    "hr": "prijedlozi",
+    "sl": "predlogi",
+    "el": "προτάσεις"
+  },
+  "search.keyboard_hint": {
+    "hr": "Koristite ↑↓ za navigaciju, Enter za odabir, Esc za zatvaranje",
+    "sl": "Uporabite ↑↓ za krmarjenje, Enter za izbiro, Esc za zapiranje",
+    "el": "Χρησιμοποιήστε ↑↓ για πλοήγηση, Enter για επιλογή, Esc για κλείσιμο"
+  },
+  "search.recent_searches": {
+    "hr": "Nedavne pretrage",
+    "sl": "Nedavna iskanja",
+    "el": "Πρόσφατες αναζητήσεις"
+  },
+  "search.clear_all": {
+    "hr": "Obriši sve",
+    "sl": "Počisti vse",
+    "el": "Διαγραφή όλων"
+  },
+  "search.no_results": {
+    "hr": "Nema rezultata",
+    "sl": "Ni rezultatov",
+    "el": "Δεν βρέθηκαν αποτελέσματα"
+  },
+  "search.try_different": {
+    "hr": "Pokušajte s različitim pojmovima pretrage",
+    "sl": "Poskusite z drugimi iskalnimi izrazi",
+    "el": "Δοκιμάστε διαφορετικούς όρους αναζήτησης"
+  },
+  "not_found.title": {
+    "hr": "Proizvod nije pronađen",
+    "sl": "Izdelek ni najden",
+    "el": "Το προϊόν δεν βρέθηκε"
+  },
+  "not_found.message": {
+    "hr": "Proizvod koji tražite ne postoji ili nije dostupan.",
+    "sl": "Izdelek, ki ga iščete, ne obstaja ali ni na voljo.",
+    "el": "Το προϊόν που ψάχνετε δεν υπάρχει ή δεν είναι διαθέσιμο."
+  },
+  "recently_viewed.title": {
+    "hr": "Nedavno pogledano",
+    "sl": "Nedavno ogledano",
+    "el": "Πρόσφατα προβολή"
+  },
+  "recently_viewed.subtitle": {
+    "hr": "Nastavite tamo gdje ste stali",
+    "sl": "Nadaljujte, kjer ste končali",
+    "el": "Συνεχίστε από εκεί που σταματήσατε"
+  },
+  "cart.title": {
+    "hr": "Vaša košarica",
+    "sl": "Vaša košarica",
+    "el": "Το καλάθι σας"
+  },
+  "cart.item": {
+    "hr": "proizvod",
+    "sl": "izdelek",
+    "el": "προϊόν"
+  },
+  "cart.empty_title": {
+    "hr": "Košarica je prazna",
+    "sl": "Košarica je prazna",
+    "el": "Το καλάθι είναι άδειο"
+  },
+  "cart.empty_message": {
+    "hr": "Dodajte neke proizvode za početak",
+    "sl": "Dodajte nekaj izdelkov za začetek",
+    "el": "Προσθέστε μερικά προϊόντα για να ξεκινήσετε"
+  },
+  "cart.continue_shopping": {
+    "hr": "Nastavi kupnju",
+    "sl": "Nadaljuj z nakupovanjem",
+    "el": "Συνεχίστε τα ψώνια"
+  },
+  "cart.checkout": {
+    "hr": "Nastavite s narudžbom",
+    "sl": "Nadaljujte s naročilom",
+    "el": "Προχωρήστε στο ταμείο"
+  },
+  "cart.added_to_cart": {
+    "hr": "Dodano u košaricu!",
+    "sl": "Dodano v košarico!",
+    "el": "Προστέθηκε στο καλάθι!"
+  },
+  "cart.view_cart": {
+    "hr": "Pogledaj košaricu",
+    "sl": "Prikaži košarico",
+    "el": "Προβολή καλαθιού"
+  },
+  "cart.removed_from_cart": {
+    "hr": "Uklonjeno iz košarice",
+    "sl": "Odstranjeno iz košarice",
+    "el": "Αφαιρέθηκε από το καλάθι"
+  },
+  "cart.save_for_later": {
+    "hr": "Spremi za kasnije",
+    "sl": "Shrani za kasneje",
+    "el": "Αποθήκευση για αργότερα"
+  },
+  "cart.saved_for_later": {
+    "hr": "Spremljeno za kasnije",
+    "sl": "Shranjeno za kasneje",
+    "el": "Αποθηκεύτηκε για αργότερα"
+  },
+  "cart.in_cart": {
+    "hr": "U košarici",
+    "sl": "V košarici",
+    "el": "Στο καλάθι"
+  },
+  "wishlist.title": {
+    "hr": "Moja lista želja",
+    "sl": "Moj seznam želja",
+    "el": "Η λίστα επιθυμιών μου"
+  },
+  "wishlist.empty_title": {
+    "hr": "Vaša lista želja je prazna",
+    "sl": "Vaš seznam želja je prazen",
+    "el": "Η λίστα επιθυμιών σας είναι άδεια"
+  },
+  "wishlist.empty_message": {
+    "hr": "Dodajte proizvode klikom na srce",
+    "sl": "Dodajte izdelke s klikom na srce",
+    "el": "Προσθέστε προϊόντα κάνοντας κλικ στην καρδιά"
+  },
+  "wishlist.items_count": {
+    "hr": "{{count}} proizvoda",
+    "sl": "{{count}} izdelkov",
+    "el": "{{count}} προϊόντα"
+  },
+  "wishlist.clear_all": {
+    "hr": "Isprazni listu",
+    "sl": "Počisti seznam",
+    "el": "Καθαρισμός λίστας"
+  },
+  "wishlist.cleared": {
+    "hr": "Lista ispražnjena",
+    "sl": "Seznam počiščen",
+    "el": "Η λίστα καθαρίστηκε"
+  },
+  "filters.clear": {
+    "hr": "Obriši filtere",
+    "sl": "Počisti filtre",
+    "el": "Καθαρισμός φίλτρων"
+  },
+  "filters.results": {
+    "hr": "{count} pronađenih proizvoda",
+    "sl": "{count} najdenih izdelkov",
+    "el": "{count} προϊόντα βρέθηκαν"
+  },
+  "filters.features": {
+    "hr": "Karakteristike",
+    "sl": "Lastnosti",
+    "el": "Χαρακτηριστικά"
+  },
+  "filters.show_more": {
+    "hr": "Prikaži još {count}",
+    "sl": "Prikaži še {count}",
+    "el": "Εμφάνιση {count} ακόμα"
+  },
+  "filters.show_less": {
+    "hr": "Prikaži manje",
+    "sl": "Prikaži manj",
+    "el": "Εμφάνιση λιγότερων"
+  },
+  "filters.range.price_min": {
+    "hr": "Minimalna cijena",
+    "sl": "Minimalna cena",
+    "el": "Ελάχιστη τιμή"
+  },
+  "filters.range.price_max": {
+    "hr": "Maksimalna cijena",
+    "sl": "Maksimalna cena",
+    "el": "Μέγιστη τιμή"
+  },
+  "navigation.collapse_gallery": {
+    "hr": "Smanji galeriju",
+    "sl": "Skrči galerijo",
+    "el": "Σύμπτυξη γκαλερί"
+  },
+  "navigation.expand_gallery": {
+    "hr": "Prikaži galeriju ({count} proizvoda)",
+    "sl": "Prikaži galerijo ({count} izdelkov)",
+    "el": "Εμφάνιση γκαλερί ({count} προϊόντα)"
+  },
+  "navigation.product_of": {
+    "hr": "Proizvod {current} od {total}",
+    "sl": "Izdelek {current} od {total}",
+    "el": "Προϊόν {current} από {total}"
+  },
+  "compare.add": {
+    "hr": "Dodaj u usporedbu",
+    "sl": "Dodaj v primerjavo",
+    "el": "Προσθήκη στη σύγκριση"
+  },
+  "compare.remove": {
+    "hr": "Ukloni iz usporedbe",
+    "sl": "Odstrani iz primerjave",
+    "el": "Αφαίρεση από τη σύγκριση"
+  },
+  "compare.added": {
+    "hr": "U usporedbi",
+    "sl": "V primerjavi",
+    "el": "Στη σύγκριση"
+  },
+  "compare.selected_for_comparison": {
+    "hr": "odabrano za usporedbu",
+    "sl": "izbrano za primerjavo",
+    "el": "επιλεγμένα για σύγκριση"
+  },
+  "compare.clear_all": {
+    "hr": "Isprazni",
+    "sl": "Počisti",
+    "el": "Καθαρισμός"
+  },
+  "compare.compare_now": {
+    "hr": "Usporedi sada",
+    "sl": "Primerjaj zdaj",
+    "el": "Σύγκριση τώρα"
+  },
+  "compare.add_more_products": {
+    "hr": "Dodajte najmanje 2 proizvoda",
+    "sl": "Dodajte vsaj 2 izdelka",
+    "el": "Προσθέστε τουλάχιστον 2 προϊόντα"
+  },
+  "compare.title": {
+    "hr": "Usporedba proizvoda",
+    "sl": "Primerjava izdelkov",
+    "el": "Σύγκριση προϊόντων"
+  },
+  "compare.differences_only": {
+    "hr": "Prikaži samo razlike",
+    "sl": "Prikaži samo razlike",
+    "el": "Εμφάνιση μόνο διαφορών"
+  },
+  "compare.back_to_catalog": {
+    "hr": "Natrag na katalog",
+    "sl": "Nazaj na katalog",
+    "el": "Επιστροφή στον κατάλογο"
+  },
+  "compare.max_products_alert.title": {
+    "hr": "Dosegnuto ograničenje",
+    "sl": "Dosežena omejitev",
+    "el": "Έφτασε το όριο"
+  },
+  "compare.max_products_alert.message": {
+    "hr": "Možete usporediti najviše {max} proizvoda odjednom.",
+    "sl": "Lahko primerjate največ {max} izdelkov naenkrat.",
+    "el": "Μπορείτε να συγκρίνετε έως {max} προϊόντα κάθε φορά."
+  },
+  "compare.show_compare_bar": {
+    "hr": "Prikaži traku usporedbe",
+    "sl": "Prikaži vrstico za primerjavo",
+    "el": "Εμφάνιση γραμμής σύγκρισης"
+  },
+  "compare.hide_compare_bar": {
+    "hr": "Sakrij traku usporedbe",
+    "sl": "Skrij vrstico za primerjavo",
+    "el": "Απόκρυψη γραμμής σύγκρισης"
+  },
+  "compare.clear_all_short": {
+    "hr": "Isprazni",
+    "sl": "Počisti",
+    "el": "Καθαρισμός"
+  },
+  "compare.add_more_short": {
+    "hr": "Min. 2 proizvoda",
+    "sl": "Min. 2 izdelka",
+    "el": "Ελάχ. 2 προϊόντα"
+  },
+  "compare.differences_only_short": {
+    "hr": "Samo razlike",
+    "sl": "Samo razlike",
+    "el": "Μόνο διαφορές"
+  },
+  "compare.characteristic": {
+    "hr": "Karakteristika",
+    "sl": "Lastnost",
+    "el": "Χαρακτηριστικό"
+  },
+  "auth.login": {
+    "hr": "Prijavite se",
+    "sl": "Prijavite se",
+    "el": "Συνδεθείτε"
+  },
+  "auth.logout": {
+    "hr": "Odjavite se",
+    "sl": "Odjavite se",
+    "el": "Αποσυνδεθείτε"
+  },
+  "auth.forgot_password": {
+    "hr": "Zaboravili ste lozinku?",
+    "sl": "Pozabili geslo?",
+    "el": "Ξεχάσατε τον κωδικό;"
+  },
+  "auth.reset_password": {
+    "hr": "Resetirajte lozinku",
+    "sl": "Ponastavite geslo",
+    "el": "Επαναφορά κωδικού"
+  },
+  "auth.no_account": {
+    "hr": "Nemate račun?",
+    "sl": "Nimate računa?",
+    "el": "Δεν έχετε λογαριασμό;"
+  },
+  "auth.have_account": {
+    "hr": "Već imate račun?",
+    "sl": "Že imate račun?",
+    "el": "Έχετε ήδη λογαριασμό;"
+  },
+  "auth.admin_login": {
+    "hr": "Prijava administratora",
+    "sl": "Prijava skrbnika",
+    "el": "Σύνδεση διαχειριστή"
+  },
+  "auth.customer_type": {
+    "hr": "Vrsta klijenta",
+    "sl": "Vrsta stranke",
+    "el": "Τύπος πελάτη"
+  },
+  "auth.b2c_customer": {
+    "hr": "Privatni klijent",
+    "sl": "Zasebna stranka",
+    "el": "Ιδιωτικός πελάτης"
+  },
+  "auth.b2b_customer": {
+    "hr": "Tvrtka",
+    "sl": "Podjetje",
+    "el": "Επιχείρηση"
+  },
+  "auth.personal_info": {
+    "hr": "Osobni podaci",
+    "sl": "Osebni podatki",
+    "el": "Προσωπικές πληροφορίες"
+  },
+  "auth.company_info": {
+    "hr": "Podaci o tvrtki",
+    "sl": "Podatki o podjetju",
+    "el": "Πληροφορίες εταιρείας"
+  },
+  "auth.first_name": {
+    "hr": "Ime",
+    "sl": "Ime",
+    "el": "Όνομα"
+  },
+  "auth.last_name": {
+    "hr": "Prezime",
+    "sl": "Priimek",
+    "el": "Επώνυμο"
+  },
+  "auth.company_name": {
+    "hr": "Naziv tvrtke",
+    "sl": "Naziv podjetja",
+    "el": "Όνομα εταιρείας"
+  },
+  "auth.vat_number": {
+    "hr": "PDV broj",
+    "sl": "Davčna številka",
+    "el": "Αριθμός ΦΠΑ"
+  },
+  "auth.fiscal_code": {
+    "hr": "Fiskalni kod",
+    "sl": "Davčna številka",
+    "el": "Κωδικός φορολογίας"
+  },
+  "auth.sdi_code": {
+    "hr": "SDI kod",
+    "sl": "SDI koda",
+    "el": "Κωδικός SDI"
+  },
+  "auth.street": {
+    "hr": "Ulica",
+    "sl": "Ulica",
+    "el": "Οδός"
+  },
+  "auth.city": {
+    "hr": "Grad",
+    "sl": "Mesto",
+    "el": "Πόλη"
+  },
+  "auth.zip": {
+    "hr": "Poštanski broj",
+    "sl": "Poštna številka",
+    "el": "Ταχυδρομικός κώδικας"
+  },
+  "auth.province": {
+    "fr": "Province",
+    "hr": "Pokrajina",
+    "sl": "Pokrajina",
+    "el": "Επαρχία"
+  },
+  "auth.country": {
+    "hr": "Država",
+    "sl": "Država",
+    "el": "Χώρα"
+  },
+  "auth.shipping_address": {
+    "hr": "Adresa dostave",
+    "sl": "Naslov za dostavo",
+    "el": "Διεύθυνση αποστολής"
+  },
+  "auth.billing_address": {
+    "hr": "Adresa za naplatu",
+    "sl": "Naslov za obračun",
+    "el": "Διεύθυνση χρέωσης"
+  },
+  "auth.reference_person": {
+    "hr": "Kontakt osoba",
+    "sl": "Kontaktna oseba",
+    "el": "Υπεύθυνο άτομο"
+  },
+  "auth.account_pending": {
+    "hr": "Vaš račun čeka odobrenje",
+    "sl": "Vaš račun čaka na odobritev",
+    "el": "Ο λογαριασμός σας είναι σε αναμονή έγκρισης"
+  },
+  "auth.account_disabled": {
+    "hr": "Vaš račun je onemogućen",
+    "sl": "Vaš račun je onemogočen",
+    "el": "Ο λογαριασμός σας έχει απενεργοποιηθεί"
+  },
+  "auth.registration_success": {
+    "hr": "Registracija dovršena! Poslat ćemo vam e-poštu kada vaš račun bude aktiviran.",
+    "sl": "Registracija zaključena! Poslali vam bomo e-pošto, ko bo vaš račun aktiviran.",
+    "el": "Η εγγραφή ολοκληρώθηκε! Θα σας στείλουμε email όταν ενεργοποιηθεί ο λογαριασμός σας."
+  },
+  "auth.login_success": {
+    "hr": "Prijava uspješna!",
+    "sl": "Prijava uspešna!",
+    "el": "Επιτυχής σύνδεση!"
+  },
+  "auth.error.invalid_credentials": {
+    "hr": "Nevažeća e-pošta ili lozinka",
+    "sl": "Neveljavna e-pošta ali geslo",
+    "el": "Μη έγκυρο email ή κωδικός"
+  },
+  "auth.error.email_already_exists": {
+    "hr": "Ova e-pošta je već registrirana",
+    "sl": "Ta e-pošta je že registrirana",
+    "el": "Αυτό το email είναι ήδη εγγεγραμμένο"
+  },
+  "auth.error.weak_password": {
+    "hr": "Lozinka mora imati najmanje 6 znakova",
+    "sl": "Geslo mora imeti najmanj 6 znakov",
+    "el": "Ο κωδικός πρέπει να είναι τουλάχιστον 6 χαρακτήρες"
+  },
+  "auth.error.passwords_dont_match": {
+    "hr": "Lozinke se ne podudaraju",
+    "sl": "Gesla se ne ujemajo",
+    "el": "Οι κωδικοί δεν ταιριάζουν"
+  },
+  "auth.error.required_field": {
+    "hr": "Obavezno polje",
+    "sl": "Obvezno polje",
+    "el": "Υποχρεωτικό πεδίο"
+  },
+  "auth.error.invalid_email": {
+    "hr": "Nevažeća e-pošta",
+    "sl": "Neveljavna e-pošta",
+    "el": "Μη έγκυρο email"
+  },
+  "auth.error.user_not_found": {
+    "hr": "Korisnik nije pronađen",
+    "sl": "Uporabnik ni najden",
+    "el": "Ο χρήστης δεν βρέθηκε"
+  },
+  "auth.error.wrong_password": {
+    "hr": "Pogrešna lozinka",
+    "sl": "Napačno geslo",
+    "el": "Λάθος κωδικός"
+  }
+}

@@ -1,0 +1,3069 @@
+{
+    "prodotti": [
+        {
+            "attributi": {
+                "Serie": "238",
+                "Colore": "Nero ",
+                "Materiale": "Ferro",
+                "Specifiche tecniche": "D.15 mm ",
+                "Tipologia": "Borchie",
+                "Confezione da Pezzi": "200",
+                "Ean": "0738019259149",
+                "Applicazione su Legno": true,
+                "Applicazione su Allumino": false,
+                "Applicazione su Pvc": false,
+                "Scuri alla Veneta": false,
+                "Persiane a Muro": false,
+                "Persiane con Telaio": false
+            },
+            "codice": "FAA002380YIZ",
+            "nome": {
+                "it": "Borchia 1 punta",
+                "en": "",
+                "de": "",
+                "fr": "",
+                "es": "",
+                "pt": "",
+                "hr": "",
+                "sl": "",
+                "el": ""
+            },
+            "descrizione": {
+                "it": "Borchia 1 punta - Serie: 238 - Colore: Nero  - Materiale: Ferro - Specifiche tecniche: D.15 mm  - Tipologia: Borchie - Confezione da Pezzi: 200 - Applicazione su Legno: Si - Applicazione su Allumino: No - Applicazione su Pvc: No",
+                "en": "",
+                "de": "",
+                "fr": "",
+                "es": "",
+                "pt": "",
+                "hr": "",
+                "sl": "",
+                "el": ""
+            },
+            "prezzo": 0.939999999999999946709294817992486059665679931640625,
+            "immagine": "https:\/\/didieffeb2b.com\/img_catalogo_norm\/FAA002380YIZ____.JPG",
+            "_source_codes": [
+                "FAA002380YIZ"
+            ]
+        },
+        {
+            "attributi": {
+                "Serie": "",
+                "Colore": "Silver ",
+                "Materiale": "Ferro",
+                "Specifiche tecniche": "Liscio ",
+                "Tipologia": "Coprinterruttori",
+                "Confezione da Pezzi": "12",
+                "Ean": "0738019258920",
+                "Applicazione su Legno": true,
+                "Applicazione su Allumino": false,
+                "Applicazione su Pvc": false,
+                "Scuri alla Veneta": false,
+                "Persiane a Muro": false,
+                "Persiane con Telaio": false
+            },
+            "codice": "FAA00245N0IS",
+            "nome": {
+                "it": "Coprinterruttore 1 foro",
+                "en": "",
+                "de": "",
+                "fr": "",
+                "es": "",
+                "pt": "",
+                "hr": "",
+                "sl": "",
+                "el": ""
+            },
+            "descrizione": {
+                "it": "Coprinterruttore 1 foro - Colore: Silver  - Materiale: Ferro - Specifiche tecniche: Liscio  - Tipologia: Coprinterruttori - Confezione da Pezzi: 12 - Applicazione su Legno: Si - Applicazione su Allumino: No - Applicazione su Pvc: No",
+                "en": "",
+                "de": "",
+                "fr": "",
+                "es": "",
+                "pt": "",
+                "hr": "",
+                "sl": "",
+                "el": ""
+            },
+            "prezzo": 8.2200000000000006394884621840901672840118408203125,
+            "immagine": "https:\/\/didieffeb2b.com\/img_catalogo_norm\/FAA00245N0IS____.JPG",
+            "variantGroupId": "2950",
+            "isVariantGroup": true,
+            "variants": [
+                {
+                    "codice": "FAA00245N0IS",
+                    "variantOrder": 1,
+                    "qualifiers": {
+                        "Colore": "Silver ",
+                        "Materiale": "Ferro",
+                        "Specifiche tecniche": "Liscio "
+                    },
+                    "prezzo": 8.2200000000000006394884621840901672840118408203125,
+                    "immagine": "https:\/\/didieffeb2b.com\/img_catalogo_norm\/FAA00245N0IS____.JPG",
+                    "immagini": null,
+                    "attributi": {
+                        "Serie": "",
+                        "Colore": "Silver ",
+                        "Materiale": "Ferro",
+                        "Specifiche tecniche": "Liscio ",
+                        "Tipologia": "Coprinterruttori",
+                        "Confezione da Pezzi": "12",
+                        "Ean": "0738019258920",
+                        "Applicazione su Legno": true,
+                        "Applicazione su Allumino": false,
+                        "Applicazione su Pvc": false,
+                        "Scuri alla Veneta": false,
+                        "Persiane a Muro": false,
+                        "Persiane con Telaio": false
+                    }
+                },
+                {
+                    "codice": "FAA00245N0IR",
+                    "variantOrder": 2,
+                    "qualifiers": {
+                        "Colore": "Ruggine ",
+                        "Materiale": "Ferro",
+                        "Specifiche tecniche": "Liscio "
+                    },
+                    "prezzo": 10.7200000000000006394884621840901672840118408203125,
+                    "immagine": "https:\/\/didieffeb2b.com\/img_catalogo_norm\/FAA00245N0IR____.JPG",
+                    "immagini": null,
+                    "attributi": {
+                        "Serie": "",
+                        "Colore": "Ruggine ",
+                        "Materiale": "Ferro",
+                        "Specifiche tecniche": "Liscio ",
+                        "Tipologia": "Coprinterruttori",
+                        "Confezione da Pezzi": "12",
+                        "Ean": "0738019258937",
+                        "Applicazione su Legno": true,
+                        "Applicazione su Allumino": false,
+                        "Applicazione su Pvc": false,
+                        "Scuri alla Veneta": false,
+                        "Persiane a Muro": false,
+                        "Persiane con Telaio": false
+                    }
+                }
+            ],
+            "_source_codes": [
+                "FAA00245N0IS",
+                "FAA00245N0IR"
+            ]
+        },
+        {
+            "attributi": {
+                "Serie": "",
+                "Colore": "Silver ",
+                "Materiale": "Ferro",
+                "Specifiche tecniche": "Martellato ",
+                "Tipologia": "Coprinterruttori",
+                "Confezione da Pezzi": "12",
+                "Ean": "0738019258869",
+                "Applicazione su Legno": true,
+                "Applicazione su Allumino": false,
+                "Applicazione su Pvc": false,
+                "Scuri alla Veneta": false,
+                "Persiane a Muro": false,
+                "Persiane con Telaio": false
+            },
+            "codice": "FAA00245U0IS",
+            "nome": {
+                "it": "Coprinterruttore 1 foro",
+                "en": "",
+                "de": "",
+                "fr": "",
+                "es": "",
+                "pt": "",
+                "hr": "",
+                "sl": "",
+                "el": ""
+            },
+            "descrizione": {
+                "it": "Coprinterruttore 1 foro - Colore: Silver  - Materiale: Ferro - Specifiche tecniche: Martellato  - Tipologia: Coprinterruttori - Confezione da Pezzi: 12 - Applicazione su Legno: Si - Applicazione su Allumino: No - Applicazione su Pvc: No",
+                "en": "",
+                "de": "",
+                "fr": "",
+                "es": "",
+                "pt": "",
+                "hr": "",
+                "sl": "",
+                "el": ""
+            },
+            "prezzo": 8.2200000000000006394884621840901672840118408203125,
+            "immagine": "https:\/\/didieffeb2b.com\/img_catalogo_norm\/FAA00245U0IS____.JPG",
+            "variantGroupId": "2920",
+            "isVariantGroup": true,
+            "variants": [
+                {
+                    "codice": "FAA00245U0IS",
+                    "variantOrder": 1,
+                    "qualifiers": {
+                        "Colore": "Silver ",
+                        "Materiale": "Ferro",
+                        "Specifiche tecniche": "Martellato "
+                    },
+                    "prezzo": 8.2200000000000006394884621840901672840118408203125,
+                    "immagine": "https:\/\/didieffeb2b.com\/img_catalogo_norm\/FAA00245U0IS____.JPG",
+                    "immagini": null,
+                    "attributi": {
+                        "Serie": "",
+                        "Colore": "Silver ",
+                        "Materiale": "Ferro",
+                        "Specifiche tecniche": "Martellato ",
+                        "Tipologia": "Coprinterruttori",
+                        "Confezione da Pezzi": "12",
+                        "Ean": "0738019258869",
+                        "Applicazione su Legno": true,
+                        "Applicazione su Allumino": false,
+                        "Applicazione su Pvc": false,
+                        "Scuri alla Veneta": false,
+                        "Persiane a Muro": false,
+                        "Persiane con Telaio": false
+                    }
+                },
+                {
+                    "codice": "FAA00245U0IR",
+                    "variantOrder": 2,
+                    "qualifiers": {
+                        "Colore": "Ruggine ",
+                        "Materiale": "Ferro",
+                        "Specifiche tecniche": "Martellato "
+                    },
+                    "prezzo": 10.7200000000000006394884621840901672840118408203125,
+                    "immagine": "https:\/\/didieffeb2b.com\/img_catalogo_norm\/FAA00245U0IR____.JPG",
+                    "immagini": null,
+                    "attributi": {
+                        "Serie": "",
+                        "Colore": "Ruggine ",
+                        "Materiale": "Ferro",
+                        "Specifiche tecniche": "Martellato ",
+                        "Tipologia": "Coprinterruttori",
+                        "Confezione da Pezzi": "12",
+                        "Ean": "0738019258876",
+                        "Applicazione su Legno": true,
+                        "Applicazione su Allumino": false,
+                        "Applicazione su Pvc": false,
+                        "Scuri alla Veneta": false,
+                        "Persiane a Muro": false,
+                        "Persiane con Telaio": false
+                    }
+                }
+            ],
+            "_source_codes": [
+                "FAA00245U0IS",
+                "FAA00245U0IR"
+            ]
+        },
+        {
+            "attributi": {
+                "Serie": "",
+                "Colore": "Ruggine ",
+                "Materiale": "Ferro",
+                "Specifiche tecniche": "Liscio ",
+                "Tipologia": "Coprinterruttori",
+                "Confezione da Pezzi": "12",
+                "Ean": "0738019258975",
+                "Applicazione su Legno": true,
+                "Applicazione su Allumino": false,
+                "Applicazione su Pvc": false,
+                "Scuri alla Veneta": false,
+                "Persiane a Muro": false,
+                "Persiane con Telaio": false
+            },
+            "codice": "FAA00247N0IR",
+            "nome": {
+                "it": "Coprinterruttore 3 fori",
+                "en": "",
+                "de": "",
+                "fr": "",
+                "es": "",
+                "pt": "",
+                "hr": "",
+                "sl": "",
+                "el": ""
+            },
+            "descrizione": {
+                "it": "Coprinterruttore 3 fori - Colore: Ruggine  - Materiale: Ferro - Specifiche tecniche: Liscio  - Tipologia: Coprinterruttori - Confezione da Pezzi: 12 - Applicazione su Legno: Si - Applicazione su Allumino: No - Applicazione su Pvc: No",
+                "en": "",
+                "de": "",
+                "fr": "",
+                "es": "",
+                "pt": "",
+                "hr": "",
+                "sl": "",
+                "el": ""
+            },
+            "prezzo": 10.7200000000000006394884621840901672840118408203125,
+            "immagine": "https:\/\/didieffeb2b.com\/img_catalogo_norm\/FAA00247N0IR____.JPG",
+            "_source_codes": [
+                "FAA00247N0IR"
+            ]
+        },
+        {
+            "attributi": {
+                "Serie": "",
+                "Colore": "Silver ",
+                "Materiale": "Ferro",
+                "Specifiche tecniche": "Martellato ",
+                "Tipologia": "Coprinterruttori",
+                "Confezione da Pezzi": "12",
+                "Ean": "0738019258906",
+                "Applicazione su Legno": true,
+                "Applicazione su Allumino": false,
+                "Applicazione su Pvc": false,
+                "Scuri alla Veneta": false,
+                "Persiane a Muro": false,
+                "Persiane con Telaio": false
+            },
+            "codice": "FAA00247U0IS",
+            "nome": {
+                "it": "Coprinterruttore 3 fori",
+                "en": "",
+                "de": "",
+                "fr": "",
+                "es": "",
+                "pt": "",
+                "hr": "",
+                "sl": "",
+                "el": ""
+            },
+            "descrizione": {
+                "it": "Coprinterruttore 3 fori - Colore: Silver  - Materiale: Ferro - Specifiche tecniche: Martellato  - Tipologia: Coprinterruttori - Confezione da Pezzi: 12 - Applicazione su Legno: Si - Applicazione su Allumino: No - Applicazione su Pvc: No",
+                "en": "",
+                "de": "",
+                "fr": "",
+                "es": "",
+                "pt": "",
+                "hr": "",
+                "sl": "",
+                "el": ""
+            },
+            "prezzo": 8.2200000000000006394884621840901672840118408203125,
+            "immagine": "https:\/\/didieffeb2b.com\/img_catalogo_norm\/FAA00247U0IS____.JPG",
+            "_source_codes": [
+                "FAA00247U0IS"
+            ]
+        },
+        {
+            "attributi": {
+                "Serie": "",
+                "Colore": "Silver ",
+                "Materiale": "Ferro",
+                "Specifiche tecniche": "Martellato ",
+                "Tipologia": "Coprinterruttori",
+                "Confezione da Pezzi": "12",
+                "Ean": "0738019258883",
+                "Applicazione su Legno": true,
+                "Applicazione su Allumino": false,
+                "Applicazione su Pvc": false,
+                "Scuri alla Veneta": false,
+                "Persiane a Muro": false,
+                "Persiane con Telaio": false
+            },
+            "codice": "FAA00246U0IS",
+            "nome": {
+                "it": "Coprinterruttore 2 fori",
+                "en": "2-hole switch cover plate",
+                "de": "2-Loch-Schalterabdeckung",
+                "fr": "Cache-interrupteur 2 trous",
+                "es": "Tapa de interruptor 2 agujeros",
+                "pt": "Interruptor de 2 furos",
+                "hr": "\"Prekidač sa 2 otvora\"",
+                "sl": "\"Soprinteruptor 2 lukenj\"",
+                "el": "\"Διακόπτης 2 οπών\""
+            },
+            "descrizione": {
+                "it": "Coprinterruttore 2 fori - Colore: Silver  - Materiale: Ferro - Specifiche tecniche: Martellato  - Tipologia: Coprinterruttori - Confezione da Pezzi: 12 - Applicazione su Legno: Si - Applicazione su Allumino: No - Applicazione su Pvc: No",
+                "en": "Light switch cover 2 holes - Color: Silver - Material: Iron - Technical specifications: Hammered - Type: Switch covers - Package quantity: 12 pieces - Application on Wood: Yes - Application on Aluminum: No - Application on PVC: No",
+                "de": "2-Loch-Schalterabdeckung - Farbe: Silber - Material: Eisen - Technische Spezifikationen: Gehämmert - Typ: Schalterabdeckungen - Verpackungseinheit: 12 Stück - Anwendung auf Holz: Ja - Anwendung auf Aluminium: Nein - Anwendung auf PVC: Nein",
+                "fr": "Cache-interrupteur 2 trous - Couleur : Argent - Matériau : Fer - Spécifications techniques : Martelé - Type : Cache-interrupteurs - Conditionnement : 12 pièces - Application sur bois : Oui - Application sur aluminium : Non - Application sur PVC : Non",
+                "es": "Cubreinterruptor 2 agujeros - Color: Plateado - Material: Hierro - Especificaciones técnicas: Martillado - Tipología: Cubreinterruptores - Paquete de Piezas: 12 - Aplicación en Madera: Sí - Aplicación en Aluminio: No - Aplicación en PVC: No",
+                "pt": "Espelho para interruptor 2 furos - Cor: Prata - Material: Ferro - Especificações técnicas: Martelado - Tipo: Espelhos para interruptor - Embalagem com unidades: 12 - Aplicação em Madeira: Sim - Aplicação em Alumínio: Não - Aplicação em PVC: Não",
+                "hr": "Poklopac prekidača 2 otvora - Boja: Silver - Materijal: Željezo - Tehničke specifikacije: Kovan - Vrsta: Poklopci prekidača - Pakovanje po komadu: 12 - Primjena na drvu: Da - Primjena na aluminiju: Ne - Primjena na PVC-u: Ne",
+                "sl": "\"Pokrov stikala 2 luknji - Barva: Silver - Material: Železo - Tehnične specifikacije: Kladivo - Vrsta: Pokrovi stikalnega bloka - Paket po delih: 12 - Uporaba na lesu: Da - Uporaba na aluminiju: Ne - Uporaba na PVC: Ne\"",
+                "el": "Κάλυμμα διακόπτη 2 οπών - Χρώμα: Silver - Υλικό: Σίδηρος - Τεχνικές προδιαγραφές: Σφυρήλατο - Τύπος: Κάλυμμα διακόπτη - Συσκευασία ανά τεμάχια: 12 - Εφαρμογή σε Ξύλο: Ναι - Εφαρμογή σε Αλουμίνιο: Όχι - Εφαρμογή σε PVC: Όχι"
+            },
+            "prezzo": 8.2200000000000006394884621840901672840118408203125,
+            "immagine": "https:\/\/didieffeb2b.com\/img_catalogo_norm\/FAA00246U0IS____.JPG",
+            "variantGroupId": "2930",
+            "isVariantGroup": true,
+            "variants": [
+                {
+                    "codice": "FAA00246U0IS",
+                    "variantOrder": 1,
+                    "qualifiers": {
+                        "Colore": "Silver ",
+                        "Materiale": "Ferro",
+                        "Specifiche tecniche": "Martellato "
+                    },
+                    "prezzo": 8.2200000000000006394884621840901672840118408203125,
+                    "immagine": "https:\/\/didieffeb2b.com\/img_catalogo_norm\/FAA00246U0IS____.JPG",
+                    "immagini": null,
+                    "attributi": {
+                        "Serie": "",
+                        "Colore": "Silver ",
+                        "Materiale": "Ferro",
+                        "Specifiche tecniche": "Martellato ",
+                        "Tipologia": "Coprinterruttori",
+                        "Confezione da Pezzi": "12",
+                        "Ean": "0738019258883",
+                        "Applicazione su Legno": true,
+                        "Applicazione su Allumino": false,
+                        "Applicazione su Pvc": false,
+                        "Scuri alla Veneta": false,
+                        "Persiane a Muro": false,
+                        "Persiane con Telaio": false
+                    }
+                },
+                {
+                    "codice": "FAA00246U0IR",
+                    "variantOrder": 2,
+                    "qualifiers": {
+                        "Colore": "Ruggine ",
+                        "Materiale": "Ferro",
+                        "Specifiche tecniche": "Martellato "
+                    },
+                    "prezzo": 10.7200000000000006394884621840901672840118408203125,
+                    "immagine": "https:\/\/didieffeb2b.com\/img_catalogo_norm\/FAA00246U0IR____.JPG",
+                    "immagini": null,
+                    "attributi": {
+                        "Serie": "",
+                        "Colore": "Ruggine ",
+                        "Materiale": "Ferro",
+                        "Specifiche tecniche": "Martellato ",
+                        "Tipologia": "Coprinterruttori",
+                        "Confezione da Pezzi": "12",
+                        "Ean": "0738019258890",
+                        "Applicazione su Legno": true,
+                        "Applicazione su Allumino": false,
+                        "Applicazione su Pvc": false,
+                        "Scuri alla Veneta": false,
+                        "Persiane a Muro": false,
+                        "Persiane con Telaio": false
+                    }
+                }
+            ],
+            "_source_codes": [
+                "FAA00246U0IS",
+                "FAA00246U0IR"
+            ]
+        },
+        {
+            "attributi": {
+                "Serie": "",
+                "Colore": "Silver ",
+                "Materiale": "Argento silver",
+                "Specifiche tecniche": "120 x 1000 mm ",
+                "Tipologia": "Fasce",
+                "Confezione da Pezzi": "2",
+                "Ean": "0738019259507",
+                "Applicazione su Legno": true,
+                "Applicazione su Allumino": false,
+                "Applicazione su Pvc": false,
+                "Scuri alla Veneta": false,
+                "Persiane a Muro": false,
+                "Persiane con Telaio": false
+            },
+            "codice": "FAA002520QAS",
+            "nome": {
+                "it": "Fascia per porta martellata",
+                "en": "Hammered door strip",
+                "de": "Gehämmerte Türeinfassung",
+                "fr": "Bande de porte martelée",
+                "es": "Banda para puerta martillada",
+                "pt": "Faixa para porta martelada",
+                "hr": "Traka za jednoudarnu vrata",
+                "sl": "\"Trak za kovan vrata\"",
+                "el": "Ζώνη για χτυπητή πόρτα"
+            },
+            "descrizione": {
+                "it": "Fascia per porta martellata - Colore: Silver  - Materiale: Argento silver - Specifiche tecniche: 120 x 1000 mm  - Tipologia: Fasce - Confezione da Pezzi: 2 - Applicazione su Legno: Si - Applicazione su Allumino: No - Applicazione su Pvc: No",
+                "en": "Hammered door strip - Color: Silver - Material: Silver - Technical specifications: 120 x 1000 mm - Type: Strips - Package contains: 2 pieces - Application on Wood: Yes - Application on Aluminum: No - Application on PVC: No",
+                "de": "Gehämmerte Türverkleidung - Farbe: Silber - Material: Silbermetallic - Technische Daten: 120 x 1000 mm - Typ: Leisten - Verpackungseinheit: 2 Stück - Anwendung auf Holz: Ja - Anwendung auf Aluminium: Nein - Anwendung auf PVC: Nein",
+                "fr": "Bande de porte martelée - Couleur : Argent - Matériau : Argent silver - Spécifications techniques : 120 x 1000 mm - Type : Bandes - Conditionnement par pièces : 2 - Application sur bois : Oui - Application sur aluminium : Non - Application sur PVC : Non",
+                "es": "Banda para puerta martillada - Color: Plata - Material: Plata silver - Especificaciones técnicas: 120 x 1000 mm - Tipología: Bandas - Paquete de Piezas: 2 - Aplicación en Madera: Sí - Aplicación en Aluminio: No - Aplicación en PVC: No",
+                "pt": "Faixa para porta martelada - Cor: Prata - Material: Prata silver - Especificações técnicas: 120 x 1000 mm - Tipologia: Faixas - Embalagem com Peças: 2 - Aplicação em Madeira: Sim - Aplicação em Alumínio: Não - Aplicação em PVC: Não",
+                "hr": "Traka za kucana vrata - Boja: Silver - Materijal: Srebro silver - Tehnične specifikacije: 120 x 1000 mm - Tip: Trake - Pakovanje po komadima: 2 - Primjena na drvo: Da - Primjena na aluminium: Ne - Primjena na PVC: Ne",
+                "sl": "Trak za kovičasto vrata - Barva: Srebrna - Material: Srebrno srebro - Tehnične specifikacije: 120 x 1000 mm - Tip: Trakovi - Pakiranje na kose: 2 - Uporaba na lesu: Da - Uporaba na aluminiju: Ne - Uporaba na PVC: Ne",
+                "el": "Λωρίδα για πόρτα σφυρήλατη - Χρώμα: Silver - Υλικό: Ασημένιο silver - Τεχνικές προδιαγραφές: 120 x 1000 mm - Τύπος: Λωρίδες - Συσκευασία ανά Κομμάτια: 2 - Εφαρμογή σε Ξύλο: Ναι - Εφαρμογή σε Αλουμίνιο: Όχι - Εφαρμογή σε PVC: Όχι"
+            },
+            "prezzo": 27.519999999999999573674358543939888477325439453125,
+            "immagine": "https:\/\/didieffeb2b.com\/img_catalogo_norm\/FAA002520QAS____.JPG",
+            "_source_codes": [
+                "FAA002520QAS"
+            ]
+        },
+        {
+            "attributi": {
+                "Serie": "Tirolo",
+                "Colore": "Silver ",
+                "Materiale": "Ferro",
+                "Specifiche tecniche": "120 mm ",
+                "Tipologia": "Numeri civici",
+                "Confezione da Pezzi": "12",
+                "Ean": "0738019259392",
+                "Applicazione su Legno": true,
+                "Applicazione su Allumino": false,
+                "Applicazione su Pvc": false,
+                "Scuri alla Veneta": false,
+                "Persiane a Muro": false,
+                "Persiane con Telaio": false
+            },
+            "codice": "FAA0039930IS",
+            "nome": {
+                "it": "Numero civico 3",
+                "en": "House number 3",
+                "de": "Hausnummer 3",
+                "fr": "Numéro 3",
+                "es": "Número tres",
+                "pt": "Número 3",
+                "hr": "Kućni broj 3",
+                "sl": "Hišna številka 3",
+                "el": "Αριθμός 3"
+            },
+            "descrizione": {
+                "it": "Numero civico 3 - Serie: Tirolo - Colore: Silver  - Materiale: Ferro - Specifiche tecniche: 120 mm  - Tipologia: Numeri civici - Confezione da Pezzi: 12 - Applicazione su Legno: Si - Applicazione su Allumino: No - Applicazione su Pvc: No",
+                "en": "House number 3 - Series: Tyrol - Color: Silver - Material: Iron - Technical specifications: 120 mm - Type: House numbers - Package quantity: 12 pieces - Application on Wood: Yes - Application on Aluminum: No - Application on PVC: No",
+                "de": "Hausnummer 3 - Serie: Tirol - Farbe: Silber - Material: Eisen - Technische Daten: 120 mm - Typ: Hausnummern - Verpackungseinheit: 12 Stück - Anwendung auf Holz: Ja - Anwendung auf Aluminium: Nein - Anwendung auf PVC: Nein",
+                "fr": "Numéro de rue 3 - Série : Tyrol - Couleur : Argent - Matériau : Fer - Spécifications techniques : 120 mm - Type : Numéros de rue - Lot de : 12 pièces - Application sur bois : Oui - Application sur aluminium : Non - Application sur PVC : Non",
+                "es": "Número de casa 3 - Serie: Tirol - Color: Plateado - Material: Hierro - Especificaciones técnicas: 120 mm - Tipología: Números de casa - Paquete de Piezas: 12 - Aplicación en Madera: Sí - Aplicación en Aluminio: No - Aplicación en PVC: No",
+                "pt": "Número residencial 3 - Série: Tirol - Cor: Prata - Material: Ferro - Especificações técnicas: 120 mm - Tipologia: Números residenciais - Embalagem com Peças: 12 - Aplicação em Madeira: Sim - Aplicação em Alumínio: Não - Aplicação em PVC: Não",
+                "hr": "\"Kućni broj 3 - Serija: Tirolo - Boja: Silver - Materijal: Železo - Tehnične specifikacije: 120 mm - Tip: Kućni brojevi - Pakovanje: 12 komada - Primjena na drvo: Da - Primjena na aluminij: Ne - Primjena na PVC: Ne\"",
+                "sl": "Hišna številka 3 - Serija: Tirolo - Barva: Silver - Material: Železo - Tehnične specifikacije: 120 mm - Vrsta: Hišne številke - Pakovanje na kose: 12 - Uporaba na lesu: Da - Uporaba na aluminiju: Ne - Uporaba na PVC: Ne",
+                "el": "Αριθμός οικίας 3 - Σειρά: Tirolo - Χρώμα: Silver - Υλικό: Σίδηρος - Τεχνικές προδιαγραφές: 120 mm - Τύπος: Αριθμοί οικιών - Συσκευασία ανά τεμάχια: 12 - Εφαρμογή σε ξύλο: Ναι - Εφαρμογή σε αλουμίνιο: Όχι - Εφαρμογή σε PVC: Όχι"
+            },
+            "prezzo": 7.839999999999999857891452847979962825775146484375,
+            "immagine": "https:\/\/didieffeb2b.com\/img_catalogo_norm\/FAA0039930IS____.JPG",
+            "_source_codes": [
+                "FAA0039930IS"
+            ]
+        },
+        {
+            "attributi": {
+                "Serie": "Tirolo",
+                "Colore": "Silver ",
+                "Materiale": "Ferro",
+                "Specifiche tecniche": "120 mm ",
+                "Tipologia": "Numeri civici",
+                "Confezione da Pezzi": "12",
+                "Ean": "0738019259408",
+                "Applicazione su Legno": true,
+                "Applicazione su Allumino": false,
+                "Applicazione su Pvc": false,
+                "Scuri alla Veneta": false,
+                "Persiane a Muro": false,
+                "Persiane con Telaio": false
+            },
+            "codice": "FAA0039940IS",
+            "nome": {
+                "it": "Numero civico 4",
+                "en": "House number 4",
+                "de": "Hausnummer 4",
+                "fr": "Numéro 4",
+                "es": "Número cuatro",
+                "pt": "Número 4",
+                "hr": "Kućni broj 4",
+                "sl": "Hišna številka 4",
+                "el": "Αριθμός 4"
+            },
+            "descrizione": {
+                "it": "Numero civico 4 - Serie: Tirolo - Colore: Silver  - Materiale: Ferro - Specifiche tecniche: 120 mm  - Tipologia: Numeri civici - Confezione da Pezzi: 12 - Applicazione su Legno: Si - Applicazione su Allumino: No - Applicazione su Pvc: No",
+                "en": "House number 4 - Series: Tyrol - Color: Silver - Material: Iron - Technical specifications: 120 mm - Type: House numbers - Package quantity: 12 pieces - Application on Wood: Yes - Application on Aluminum: No - Application on PVC: No",
+                "de": "Hausnummer 4 - Serie: Tirol - Farbe: Silber - Material: Eisen - Technische Daten: 120 mm - Typ: Hausnummern - Verpackungseinheit: 12 Stück - Anwendung auf Holz: Ja - Anwendung auf Aluminium: Nein - Anwendung auf PVC: Nein",
+                "fr": "Numéro de rue 4 - Série : Tyrol - Couleur : Argenté - Matériau : Fer - Spécifications techniques : 120 mm - Type : Numéros de rue - Lot de : 12 pièces - Application sur bois : Oui - Application sur aluminium : Non - Application sur PVC : Non",
+                "es": "Número de casa 4 - Serie: Tirol - Color: Plateado - Material: Hierro - Especificaciones técnicas: 120 mm - Tipo: Números de casa - Paquete de Piezas: 12 - Aplicación en Madera: Sí - Aplicación en Aluminio: No - Aplicación en PVC: No",
+                "pt": "Número residencial 4 - Série: Tirol - Cor: Prata - Material: Ferro - Especificações técnicas: 120 mm - Tipo: Números residenciais - Embalagem com: 12 peças - Aplicação em Madeira: Sim - Aplicação em Alumínio: Não - Aplicação em PVC: Não",
+                "hr": "Kućni broj 4 - Serija: Tirolo - Boja: Silver - Materijal: Željezo - Tehnične specifikacije: 120 mm - Tipologija: Kućni brojevi - Pakovanje od komada: 12 - Primjena na drvo: Da - Primjena na aluminij: Ne - Primjena na PVC: Ne",
+                "sl": "Številka 4 - Serija: Tirol - Barva: Srebrna - Material: Železo - Tehnične specifikacije: 120 mm - Vrsta: Hišne številke - Pakiranje: 12 kosov - Uporaba na les: Da - Uporaba na aluminij: Ne - Uporaba na PVC: Ne",
+                "el": "\"Αριθμός οικίας 4 - Σειρά: Tirolo - Χρώμα: Silver - Υλικό: Σίδηρος - Τεχνικές προδιαγραφές: 120 mm - Τύπος: Αριθμοί οικιών - Συσκευασία σε κομμάτια: 12 - Εφαρμογή σε ξύλο: Ναι - Εφαρμογή σε αλουμίνιο: Όχι - Εφαρμογή σε PVC: Όχι\""
+            },
+            "prezzo": 7.839999999999999857891452847979962825775146484375,
+            "immagine": "https:\/\/didieffeb2b.com\/img_catalogo_norm\/FAA0039940IS____.JPG",
+            "_source_codes": [
+                "FAA0039940IS"
+            ]
+        },
+        {
+            "attributi": {
+                "Serie": "Valgardena",
+                "Colore": "Silver ",
+                "Materiale": "Ferro",
+                "Specifiche tecniche": "280 x 220 mm ",
+                "Tipologia": "Reggimensole",
+                "Confezione da Pezzi": "8",
+                "Ean": "0738019259002",
+                "Applicazione su Legno": true,
+                "Applicazione su Allumino": false,
+                "Applicazione su Pvc": false,
+                "Scuri alla Veneta": false,
+                "Persiane a Muro": false,
+                "Persiane con Telaio": false
+            },
+            "codice": "FAA002810KIS",
+            "nome": {
+                "it": "Reggimensola",
+                "en": "shelf bracket",
+                "de": "Regalträger",
+                "fr": "Support d'étagère",
+                "es": "Soporte para estante",
+                "pt": "Suporte de prateleira",
+                "hr": "Držač za policu",
+                "sl": "Polica za握держ\n\nActually, let me correct that:\n\nNosilec police",
+                "el": "Ράφι τοίχου"
+            },
+            "descrizione": {
+                "it": "Reggimensola - Serie: Valgardena - Colore: Silver  - Materiale: Ferro - Specifiche tecniche: 280 x 220 mm  - Tipologia: Reggimensole - Confezione da Pezzi: 8 - Applicazione su Legno: Si - Applicazione su Allumino: No - Applicazione su Pvc: No",
+                "en": "Shelf Bracket - Series: Valgardena - Color: Silver - Material: Iron - Technical specifications: 280 x 220 mm - Type: Shelf Brackets - Package contains: 8 pieces - Wood Application: Yes - Aluminum Application: No - PVC Application: No",
+                "de": "Regalträger - Serie: Valgardena - Farbe: Silber - Material: Eisen - Technische Daten: 280 x 220 mm - Typ: Regalträger - Verpackungseinheit: 8 Stück - Geeignet für Holz: Ja - Geeignet für Aluminium: Nein - Geeignet für PVC: Nein",
+                "fr": "Support d'étagère - Série : Valgardena - Couleur : Argenté - Matériau : Fer - Spécifications techniques : 280 x 220 mm - Type : Supports d'étagère - Conditionnement : 8 pièces - Application sur bois : Oui - Application sur aluminium : Non - Application sur PVC : Non",
+                "es": "Soporte para estante - Serie: Valgardena - Color: Plata - Material: Hierro - Especificaciones técnicas: 280 x 220 mm - Tipo: Soportes para estantes - Paquete de unidades: 8 - Aplicación en madera: Sí - Aplicación en aluminio: No - Aplicación en PVC: No",
+                "pt": "Suporte de prateleira - Série: Valgardena - Cor: Prata - Material: Ferro - Especificações técnicas: 280 x 220 mm - Tipo: Suportes de prateleira - Embalagem com Peças: 8 - Aplicação em Madeira: Sim - Aplicação em Alumínio: Não - Aplicação em PVC: Não",
+                "hr": "\"Nosač police - Serija: Valgardena - Boja: Srebrna - Materijal: Željezo - Tehničke specifikacije: 280 x 220 mm - Vrsta: Nosač police - Pakiranja po komadima: 8 - Primjena na drvo: Da - Primjena na aluminij: Ne - Primjena na PVC: Ne\"",
+                "sl": "Podpornik police - Serija: Valgardena - Barva: Silver - Material: Železo - Tehnične specifikacije: 280 x 220 mm - Tip: Nosilci policc - Količina v pakiranju: 8 kosov - Uporaba na leseni podlagi: Da - Uporaba na aluminiju: Ne - Uporaba na PVC: Ne",
+                "el": "Στηρίγματα Ραφιών - Σειρά: Valgardena - Χρώμα: Silver - Υλικό: Σίδηρο - Τεχνικές Προδιαγραφές: 280 x 220 mm - Τύπος: Στηρίγματα Ραφιών - Συσκευασία ανά Τεμάχια: 8 - Εφαρμογή σε Ξύλο: Ναι - Εφαρμογή σε Αλουμίνιο: Όχι - Εφαρμογή σε PVC: Όχι"
+            },
+            "prezzo": 12.9399999999999995026200849679298698902130126953125,
+            "immagine": "https:\/\/didieffeb2b.com\/img_catalogo_norm\/FAA002810KIS____.JPG",
+            "risorse": [
+                {
+                    "category": "Scheda Tecnica PDF",
+                    "url": "https:\/\/didieffeb2b.com\/template\/risorse\/pdf\/FAA002810KIS.pdf",
+                    "icon": "📄",
+                    "extension": "pdf"
+                },
+                {
+                    "category": "Disegno Tecnico DWG",
+                    "url": "https:\/\/didieffeb2b.com\/template\/risorse\/dwg\/FAA002810KIS.dwg",
+                    "icon": "📐",
+                    "extension": "dwg"
+                }
+            ],
+            "variantGroupId": "2980",
+            "isVariantGroup": true,
+            "variants": [
+                {
+                    "codice": "FAA002810KIS",
+                    "variantOrder": 1,
+                    "qualifiers": {
+                        "Colore": "Silver ",
+                        "Materiale": "Ferro",
+                        "Specifiche tecniche": "280 x 220 mm "
+                    },
+                    "prezzo": 12.9399999999999995026200849679298698902130126953125,
+                    "immagine": "https:\/\/didieffeb2b.com\/img_catalogo_norm\/FAA002810KIS____.JPG",
+                    "immagini": null,
+                    "attributi": {
+                        "Serie": "Valgardena",
+                        "Colore": "Silver ",
+                        "Materiale": "Ferro",
+                        "Specifiche tecniche": "280 x 220 mm ",
+                        "Tipologia": "Reggimensole",
+                        "Confezione da Pezzi": "8",
+                        "Ean": "0738019259002",
+                        "Applicazione su Legno": true,
+                        "Applicazione su Allumino": false,
+                        "Applicazione su Pvc": false,
+                        "Scuri alla Veneta": false,
+                        "Persiane a Muro": false,
+                        "Persiane con Telaio": false
+                    }
+                },
+                {
+                    "codice": "FAA002810XIH",
+                    "variantOrder": 2,
+                    "qualifiers": {
+                        "Colore": "Grafite ",
+                        "Materiale": "Ferro",
+                        "Specifiche tecniche": "155x125 mm "
+                    },
+                    "prezzo": 7.19000000000000039079850466805510222911834716796875,
+                    "immagine": "https:\/\/didieffeb2b.com\/img_catalogo_norm\/FAA002810XIH____.JPG",
+                    "immagini": [
+                        "https:\/\/didieffeb2b.com\/img_catalogo_norm\/FAA002810XIH____.JPG",
+                        "https:\/\/didieffeb2b.com\/img_catalogo_norm\/FAA002810XIH____03.JPG",
+                        "https:\/\/didieffeb2b.com\/img_catalogo_norm\/FAA002810XIH____04.JPG",
+                        "https:\/\/didieffeb2b.com\/img_catalogo_norm\/FAA002810XIH____05.JPG",
+                        "https:\/\/didieffeb2b.com\/img_catalogo_norm\/FAA002810XIH____06.JPG"
+                    ],
+                    "attributi": {
+                        "Serie": "Valgardena",
+                        "Colore": "Grafite ",
+                        "Materiale": "Ferro",
+                        "Specifiche tecniche": "155x125 mm ",
+                        "Tipologia": "Reggimensole",
+                        "Confezione da Pezzi": "8",
+                        "Ean": "0738019259040",
+                        "Applicazione su Legno": true,
+                        "Applicazione su Allumino": false,
+                        "Applicazione su Pvc": false,
+                        "Scuri alla Veneta": false,
+                        "Persiane a Muro": false,
+                        "Persiane con Telaio": false
+                    }
+                }
+            ],
+            "_source_codes": [
+                "FAA002810KIS",
+                "FAA002810XIH"
+            ]
+        },
+        {
+            "attributi": {
+                "Serie": "Tirolo",
+                "Colore": "Silver ",
+                "Materiale": "Ferro",
+                "Specifiche tecniche": "120 mm ",
+                "Tipologia": "Numeri civici",
+                "Confezione da Pezzi": "12",
+                "Ean": "0738019259415",
+                "Applicazione su Legno": true,
+                "Applicazione su Allumino": false,
+                "Applicazione su Pvc": false,
+                "Scuri alla Veneta": false,
+                "Persiane a Muro": false,
+                "Persiane con Telaio": false
+            },
+            "codice": "FAA0039950IS",
+            "nome": {
+                "it": "Numero civico 5",
+                "en": "",
+                "de": "",
+                "fr": "",
+                "es": "",
+                "pt": "",
+                "hr": "",
+                "sl": "",
+                "el": ""
+            },
+            "descrizione": {
+                "it": "Numero civico 5 - Serie: Tirolo - Colore: Silver  - Materiale: Ferro - Specifiche tecniche: 120 mm  - Tipologia: Numeri civici - Confezione da Pezzi: 12 - Applicazione su Legno: Si - Applicazione su Allumino: No - Applicazione su Pvc: No",
+                "en": "",
+                "de": "",
+                "fr": "",
+                "es": "",
+                "pt": "",
+                "hr": "",
+                "sl": "",
+                "el": ""
+            },
+            "prezzo": 7.839999999999999857891452847979962825775146484375,
+            "immagine": "https:\/\/didieffeb2b.com\/img_catalogo_norm\/FAA0039950IS____.JPG",
+            "_source_codes": [
+                "FAA0039950IS"
+            ]
+        },
+        {
+            "attributi": {
+                "Serie": "Tirolo",
+                "Colore": "Ottone brunito ",
+                "Materiale": "Ottone",
+                "Specifiche tecniche": "60 mm ",
+                "Tipologia": "Numeri civici",
+                "Confezione da Pezzi": "12",
+                "Ean": "0738019288804",
+                "Applicazione su Legno": true,
+                "Applicazione su Allumino": false,
+                "Applicazione su Pvc": false,
+                "Scuri alla Veneta": false,
+                "Persiane a Muro": false,
+                "Persiane con Telaio": false
+            },
+            "codice": "FAA00400C0BB",
+            "nome": {
+                "it": "Lettera civica c",
+                "en": "",
+                "de": "",
+                "fr": "",
+                "es": "",
+                "pt": "",
+                "hr": "",
+                "sl": "",
+                "el": ""
+            },
+            "descrizione": {
+                "it": "Lettera civica c - Serie: Tirolo - Colore: Ottone brunito  - Materiale: Ottone - Specifiche tecniche: 60 mm  - Tipologia: Numeri civici - Confezione da Pezzi: 12 - Applicazione su Legno: Si - Applicazione su Allumino: No - Applicazione su Pvc: No",
+                "en": "",
+                "de": "",
+                "fr": "",
+                "es": "",
+                "pt": "",
+                "hr": "",
+                "sl": "",
+                "el": ""
+            },
+            "prezzo": 19.21000000000000085265128291212022304534912109375,
+            "immagine": "https:\/\/didieffeb2b.com\/img_catalogo_norm\/FAA00400C0BB____.JPG",
+            "_source_codes": [
+                "FAA00400C0BB"
+            ]
+        },
+        {
+            "attributi": {
+                "Serie": "Tirolo",
+                "Colore": "Silver ",
+                "Materiale": "Ferro",
+                "Specifiche tecniche": "60 mm ",
+                "Tipologia": "Numeri civici",
+                "Confezione da Pezzi": "12",
+                "Ean": "0738019259484",
+                "Applicazione su Legno": true,
+                "Applicazione su Allumino": false,
+                "Applicazione su Pvc": false,
+                "Scuri alla Veneta": false,
+                "Persiane a Muro": false,
+                "Persiane con Telaio": false
+            },
+            "codice": "FAA00400C0IS",
+            "nome": {
+                "it": "Lettera civica c",
+                "en": "",
+                "de": "",
+                "fr": "",
+                "es": "",
+                "pt": "",
+                "hr": "",
+                "sl": "",
+                "el": ""
+            },
+            "descrizione": {
+                "it": "Lettera civica c - Serie: Tirolo - Colore: Silver  - Materiale: Ferro - Specifiche tecniche: 60 mm  - Tipologia: Numeri civici - Confezione da Pezzi: 12 - Applicazione su Legno: Si - Applicazione su Allumino: No - Applicazione su Pvc: No",
+                "en": "",
+                "de": "",
+                "fr": "",
+                "es": "",
+                "pt": "",
+                "hr": "",
+                "sl": "",
+                "el": ""
+            },
+            "prezzo": 7.839999999999999857891452847979962825775146484375,
+            "immagine": "https:\/\/didieffeb2b.com\/img_catalogo_norm\/FAA00400C0IS____.JPG",
+            "_source_codes": [
+                "FAA00400C0IS"
+            ]
+        },
+        {
+            "attributi": {
+                "Serie": "Tirolo",
+                "Colore": "Ottone brunito ",
+                "Materiale": "Ottone",
+                "Specifiche tecniche": "120 mm ",
+                "Tipologia": "Numeri civici",
+                "Confezione da Pezzi": "12",
+                "Ean": "0738019288811",
+                "Applicazione su Legno": true,
+                "Applicazione su Allumino": false,
+                "Applicazione su Pvc": false,
+                "Scuri alla Veneta": false,
+                "Persiane a Muro": false,
+                "Persiane con Telaio": false
+            },
+            "codice": "FAA00400D0BB",
+            "nome": {
+                "it": "Lettera civica d",
+                "en": "",
+                "de": "",
+                "fr": "",
+                "es": "",
+                "pt": "",
+                "hr": "",
+                "sl": "",
+                "el": ""
+            },
+            "descrizione": {
+                "it": "Lettera civica d - Serie: Tirolo - Colore: Ottone brunito  - Materiale: Ottone - Specifiche tecniche: 120 mm  - Tipologia: Numeri civici - Confezione da Pezzi: 12 - Applicazione su Legno: Si - Applicazione su Allumino: No - Applicazione su Pvc: No",
+                "en": "",
+                "de": "",
+                "fr": "",
+                "es": "",
+                "pt": "",
+                "hr": "",
+                "sl": "",
+                "el": ""
+            },
+            "prezzo": 19.21000000000000085265128291212022304534912109375,
+            "immagine": "https:\/\/didieffeb2b.com\/img_catalogo_norm\/FAA00400D0BB____.JPG",
+            "_source_codes": [
+                "FAA00400D0BB"
+            ]
+        },
+        {
+            "attributi": {
+                "Serie": "Tirolo",
+                "Colore": "Silver ",
+                "Materiale": "Ferro",
+                "Specifiche tecniche": "H= 80mm ",
+                "Tipologia": "Appendiabiti",
+                "Confezione da Pezzi": "24",
+                "Ean": "0738019258807",
+                "Applicazione su Legno": true,
+                "Applicazione su Allumino": false,
+                "Applicazione su Pvc": false,
+                "Scuri alla Veneta": false,
+                "Persiane a Muro": false,
+                "Persiane con Telaio": false
+            },
+            "codice": "FAA0053700IS",
+            "nome": {
+                "it": "Appendiabiti con gancio doppio",
+                "en": "",
+                "de": "",
+                "fr": "",
+                "es": "",
+                "pt": "",
+                "hr": "",
+                "sl": "",
+                "el": ""
+            },
+            "descrizione": {
+                "it": "Appendiabiti con gancio doppio - Serie: Tirolo - Colore: Silver  - Materiale: Ferro - Specifiche tecniche: H= 80mm  - Tipologia: Appendiabiti - Confezione da Pezzi: 24 - Applicazione su Legno: Si - Applicazione su Allumino: No - Applicazione su Pvc: No",
+                "en": "",
+                "de": "",
+                "fr": "",
+                "es": "",
+                "pt": "",
+                "hr": "",
+                "sl": "",
+                "el": ""
+            },
+            "prezzo": 4.28000000000000024868995751603506505489349365234375,
+            "immagine": "https:\/\/didieffeb2b.com\/img_catalogo_norm\/FAA0053700IS____.JPG",
+            "immagini": [
+                "https:\/\/didieffeb2b.com\/img_catalogo_norm\/FAA0053700IS____.JPG",
+                "https:\/\/didieffeb2b.com\/img_catalogo_norm\/FAA0053700IS____01.JPG",
+                "https:\/\/didieffeb2b.com\/img_catalogo_norm\/FAA0053700IS____02.JPG",
+                "https:\/\/didieffeb2b.com\/img_catalogo_norm\/FAA0053700IS____03.JPG",
+                "https:\/\/didieffeb2b.com\/img_catalogo_norm\/FAA0053700IS____04.JPG",
+                "https:\/\/didieffeb2b.com\/img_catalogo_norm\/FAA0053700IS____05.JPG",
+                "https:\/\/didieffeb2b.com\/img_catalogo_norm\/FAA0053700IS____06.JPG",
+                "https:\/\/didieffeb2b.com\/img_catalogo_norm\/FAA0053700IS____08.JPG"
+            ],
+            "variantGroupId": "2880",
+            "isVariantGroup": true,
+            "variants": [
+                {
+                    "codice": "FAA0053700IS",
+                    "variantOrder": 1,
+                    "qualifiers": {
+                        "Colore": "Silver ",
+                        "Materiale": "Ferro",
+                        "Specifiche tecniche": "H= 80mm "
+                    },
+                    "prezzo": 4.28000000000000024868995751603506505489349365234375,
+                    "immagine": "https:\/\/didieffeb2b.com\/img_catalogo_norm\/FAA0053700IS____.JPG",
+                    "immagini": [
+                        "https:\/\/didieffeb2b.com\/img_catalogo_norm\/FAA0053700IS____.JPG",
+                        "https:\/\/didieffeb2b.com\/img_catalogo_norm\/FAA0053700IS____01.JPG",
+                        "https:\/\/didieffeb2b.com\/img_catalogo_norm\/FAA0053700IS____02.JPG",
+                        "https:\/\/didieffeb2b.com\/img_catalogo_norm\/FAA0053700IS____03.JPG",
+                        "https:\/\/didieffeb2b.com\/img_catalogo_norm\/FAA0053700IS____04.JPG",
+                        "https:\/\/didieffeb2b.com\/img_catalogo_norm\/FAA0053700IS____05.JPG",
+                        "https:\/\/didieffeb2b.com\/img_catalogo_norm\/FAA0053700IS____06.JPG",
+                        "https:\/\/didieffeb2b.com\/img_catalogo_norm\/FAA0053700IS____08.JPG"
+                    ],
+                    "attributi": {
+                        "Serie": "Tirolo",
+                        "Colore": "Silver ",
+                        "Materiale": "Ferro",
+                        "Specifiche tecniche": "H= 80mm ",
+                        "Tipologia": "Appendiabiti",
+                        "Confezione da Pezzi": "24",
+                        "Ean": "0738019258807",
+                        "Applicazione su Legno": true,
+                        "Applicazione su Allumino": false,
+                        "Applicazione su Pvc": false,
+                        "Scuri alla Veneta": false,
+                        "Persiane a Muro": false,
+                        "Persiane con Telaio": false
+                    }
+                },
+                {
+                    "codice": "FAA0053700IR",
+                    "variantOrder": 2,
+                    "qualifiers": {
+                        "Colore": "Ruggine ",
+                        "Materiale": "Ferro",
+                        "Specifiche tecniche": "H= 80mm "
+                    },
+                    "prezzo": 5.4199999999999999289457264239899814128875732421875,
+                    "immagine": "https:\/\/didieffeb2b.com\/img_catalogo_norm\/FAA0053700IR____.JPG",
+                    "immagini": null,
+                    "attributi": {
+                        "Serie": "Tirolo",
+                        "Colore": "Ruggine ",
+                        "Materiale": "Ferro",
+                        "Specifiche tecniche": "H= 80mm ",
+                        "Tipologia": "Appendiabiti",
+                        "Confezione da Pezzi": "24",
+                        "Ean": "0738019258814",
+                        "Applicazione su Legno": true,
+                        "Applicazione su Allumino": false,
+                        "Applicazione su Pvc": false,
+                        "Scuri alla Veneta": false,
+                        "Persiane a Muro": false,
+                        "Persiane con Telaio": false
+                    }
+                }
+            ],
+            "_source_codes": [
+                "FAA0053700IS",
+                "FAA0053700IR"
+            ]
+        },
+        {
+            "attributi": {
+                "Serie": "Tirolo",
+                "Colore": "Ruggine ",
+                "Materiale": "Ferro",
+                "Specifiche tecniche": "H= 130mm ",
+                "Tipologia": "Appendiabiti",
+                "Confezione da Pezzi": "6",
+                "Ean": "0738019258852",
+                "Applicazione su Legno": true,
+                "Applicazione su Allumino": false,
+                "Applicazione su Pvc": false,
+                "Scuri alla Veneta": false,
+                "Persiane a Muro": false,
+                "Persiane con Telaio": false
+            },
+            "codice": "FAA00537H0IR",
+            "nome": {
+                "it": "Appendiabiti con gancio doppio e cappelliera",
+                "en": "Double hook coat rack with hat shelf",
+                "de": "Doppelhaken-Garderobe mit Hutablage",
+                "fr": "Porte-manteau avec crochet double et porte-chapeau",
+                "es": "Perchero con gancho doble y sombrerera",
+                "pt": "Cabide com gancho duplo e prateleira para chapéus",
+                "hr": "Vješalica s dvostrukim kukom i polica za šešire",
+                "sl": "\"Obešalnik z dvojnim kukom in policom za klobuke\"",
+                "el": "Κρεμάστρα με διπλό γάντζο και θήκη καπέλων"
+            },
+            "descrizione": {
+                "it": "Appendiabiti con gancio doppio e cappelliera - Serie: Tirolo - Colore: Ruggine  - Materiale: Ferro - Specifiche tecniche: H= 130mm  - Tipologia: Appendiabiti - Confezione da Pezzi: 6 - Applicazione su Legno: Si - Applicazione su Allumino: No - Applicazione su Pvc: No",
+                "en": "Double hook coat hanger with hat shelf - Series: Tyrol - Color: Rust - Material: Iron - Technical specifications: H= 130mm - Type: Coat hanger - Package of Pieces: 6 - Application on Wood: Yes - Application on Aluminum: No - Application on PVC: No",
+                "de": "\"Doppelhaken-Garderobe mit Hutablage - Serie: Tirol - Farbe: Rost - Material: Eisen - Technische Spezifikationen: H= 130mm - Typ: Garderobe - Packung: 6 Stück - Befestigung auf Holz: Ja - Befestigung auf Aluminium: Nein - Befestigung auf PVC: Nein\"",
+                "fr": "Porte-manteau avec crochet double et porte-chapeau - Série : Tyrol - Couleur : Rouille - Matériau : Fer - Spécifications techniques : H= 130mm - Type : Porte-manteau - Emballage en pièces : 6 - Application sur Bois : Oui - Application sur Aluminium : Non - Application sur PVC : Non",
+                "es": "\"Perchero con gancho doble y sombrerera - Serie: Tirol - Color: Óxido - Material: Hierro - Especificaciones técnicas: H= 130mm - Tipología: Perchero - Presentación por Piezas: 6 - Aplicación en Madera: Sí - Aplicación en Aluminio: No - Aplicación en PVC: No\"",
+                "pt": "Cabideiro com gancho duplo e prateleira para chapéus - Série: Tirol - Cor: Ferrugem - Material: Ferro - Especificações técnicas: A= 130mm - Tipologia: Cabideiro - Embalagem em Peças: 6 - Aplicação em Madeira: Sim - Aplicação em Alumínio: Não - Aplicação em PVC: Não",
+                "hr": "\"Vješalica s dvostrukim kukom i polica za šešire - Serija: Tirol - Boja: Hrđa - Materijal: Željezo - Tehničke specifikacije: V= 130mm - Tip: Vješalica - Pakiranje po komadima: 6 - Primjena na drvo: Da - Primjena na aluminij: Ne - Primjena na PVC: Ne\"",
+                "sl": "\"Obešalnik z dvojnim kaveljem in polico za klobuke - Serija: Tirol - Barva: Rja - Material: Železo - Tehnične specifikacije: V= 130 mm - Tip: Obešalnik - Embalaža: 6 kosov - Pritrditev na les: Da - Pritrditev na aluminij: Ne - Pritrditev na PVC: Ne\"",
+                "el": "\"Κρεμάστρα με διπλό άγκιστρο και θήκη καπέλου - Σειρά: Τιρόλο - Χρώμα: Σκουριά - Υλικό: Σίδηρος - Τεχνικές προδιαγραφές: H= 130mm - Τύπος: Κρεμάστρα - Συσκευασία ανά τεμάχια: 6 - Εφαρμογή σε Ξύλο: Ναι - Εφαρμογή σε Αλουμίνιο: Όχι - Εφαρμογή σε Pvc: Όχι\""
+            },
+            "prezzo": 25.489999999999998436805981327779591083526611328125,
+            "immagine": "https:\/\/didieffeb2b.com\/img_catalogo_norm\/FAA00537H0IR____.JPG",
+            "_source_codes": [
+                "FAA00537H0IR"
+            ]
+        },
+        {
+            "attributi": {
+                "Serie": "",
+                "Colore": "Grafite ",
+                "Materiale": "Ferro",
+                "Specifiche tecniche": "1500 mm ",
+                "Tipologia": "Corrimano e supporti",
+                "Confezione da Pezzi": "4",
+                "Ean": "0738019259217",
+                "Applicazione su Legno": true,
+                "Applicazione su Allumino": false,
+                "Applicazione su Pvc": false,
+                "Scuri alla Veneta": false,
+                "Persiane a Muro": false,
+                "Persiane con Telaio": false
+            },
+            "codice": "FAA007050AIH",
+            "nome": {
+                "it": "Corrimano",
+                "en": "Handrail",
+                "de": "Handlauf",
+                "fr": "Main courante",
+                "es": "Pasamanos",
+                "pt": "Corrimão",
+                "hr": "Rukoхват",
+                "sl": "Ročaj",
+                "el": "Κάγκελα"
+            },
+            "descrizione": {
+                "it": "Corrimano - Colore: Grafite  - Materiale: Ferro - Specifiche tecniche: 1500 mm  - Tipologia: Corrimano e supporti - Confezione da Pezzi: 4 - Applicazione su Legno: Si - Applicazione su Allumino: No - Applicazione su Pvc: No",
+                "en": "Handrail - Color: Graphite - Material: Iron - Technical specifications: 1500 mm - Type: Handrail and supports - Package contains: 4 pieces - Application on Wood: Yes - Application on Aluminum: No - Application on PVC: No",
+                "de": "Handlauf - Farbe: Graphit - Material: Eisen - Technische Daten: 1500 mm - Typ: Handlauf und Halterungen - Verpackungseinheit: 4 Stück - Montage auf Holz: Ja - Montage auf Aluminium: Nein - Montage auf PVC: Nein",
+                "fr": "Main courante - Couleur : Graphite - Matériau : Fer - Spécifications techniques : 1500 mm - Type : Main courante et supports - Lot de : 4 pièces - Application sur bois : Oui - Application sur aluminium : Non - Application sur PVC : Non",
+                "es": "Pasamanos - Color: Grafito - Material: Hierro - Especificaciones técnicas: 1500 mm - Tipología: Pasamanos y soportes - Paquete de Piezas: 4 - Aplicación en Madera: Sí - Aplicación en Aluminio: No - Aplicación en PVC: No",
+                "pt": "Corrimão - Cor: Grafite - Material: Ferro - Especificações técnicas: 1500 mm - Tipo: Corrimão e suportes - Embalagem com Peças: 4 - Aplicação em Madeira: Sim - Aplicação em Alumínio: Não - Aplicação em PVC: Não",
+                "hr": "Rukohvat - Boja: Grafit - Materijal: Željezo - Tehničke specifikacije: 1500 mm - Tip: Rukohvati i nosači - Pakiranja od komada: 4 - Primjena na drvetu: Da - Primjena na aluminiju: Ne - Primjena na PVC-u: Ne",
+                "sl": "\"Železna ročica - Barva: Grafit - Material: Železo - Tehnične specifikacije: 1500 mm - Vrsta: Ročice in podpore - Paket vsebuje: 4 kose - Uporaba na lesu: Da - Uporaba na aluminiju: Ne - Uporaba na PVC: Ne\"",
+                "el": "Κουπαστή - Χρώμα: Γραφίτης - Υλικό: Σίδηρος - Τεχνικές προδιαγραφές: 1500 mm - Τύπος: Κουπαστές και στηρίγματα - Συσκευασία σε Κομμάτια: 4 - Εφαρμογή σε Ξύλο: Ναι - Εφαρμογή σε Αλουμίνιο: Όχι - Εφαρμογή σε PVC: Όχι"
+            },
+            "prezzo": 29.64999999999999857891452847979962825775146484375,
+            "immagine": "https:\/\/didieffeb2b.com\/img_catalogo_norm\/FAA007050AIH____.JPG",
+            "_source_codes": [
+                "FAA007050AIH"
+            ]
+        },
+        {
+            "attributi": {
+                "Serie": "Tirolo",
+                "Colore": "Silver ",
+                "Materiale": "Ferro",
+                "Specifiche tecniche": "L=80 mm x h=170 mm ",
+                "Tipologia": "Appendiabiti",
+                "Confezione da Pezzi": "6",
+                "Ean": "0738019258784",
+                "Applicazione su Legno": true,
+                "Applicazione su Allumino": false,
+                "Applicazione su Pvc": false,
+                "Scuri alla Veneta": false,
+                "Persiane a Muro": false,
+                "Persiane con Telaio": false
+            },
+            "codice": "FAA00367H0IS",
+            "nome": {
+                "it": "Appendiabiti con cappelliera",
+                "en": "Coat rack with hat shelf",
+                "de": "Kleiderständer mit Hutablage",
+                "fr": "Portemanteau avec porte-chapeaux",
+                "es": "Perchero con sombrerera",
+                "pt": "Cabideiro com chapeleira",
+                "hr": "\"Vješalica s kutijom za šešire\"",
+                "sl": "Obešalnik s polico za klobuke",
+                "el": "Κρεμάστρα με θήκη καπέλων"
+            },
+            "descrizione": {
+                "it": "Appendiabiti con cappelliera - Serie: Tirolo - Colore: Silver  - Materiale: Ferro - Specifiche tecniche: L=80 mm x h=170 mm  - Tipologia: Appendiabiti - Confezione da Pezzi: 6 - Applicazione su Legno: Si - Applicazione su Allumino: No - Applicazione su Pvc: No",
+                "en": "Coat rack with hat shelf - Series: Tirolo - Color: Silver - Material: Iron - Technical specifications: L=80 mm x h=170 mm - Type: Coat rack - Package quantity: 6 pieces - Wood application: Yes - Aluminum application: No - PVC application: No",
+                "de": "Garderobenständer mit Hutablage - Serie: Tirol - Farbe: Silber - Material: Eisen - Technische Daten: L=80 mm x H=170 mm - Typ: Garderobenständer - Verpackungseinheit: 6 Stück - Montage auf Holz: Ja - Montage auf Aluminium: Nein - Montage auf PVC: Nein",
+                "fr": "Portemanteau avec porte-chapeau - Série : Tyrol - Couleur : Argent - Matériau : Fer - Spécifications techniques : L=80 mm x h=170 mm - Type : Portemanteau - Lot de 6 pièces - Application sur bois : Oui - Application sur aluminium : Non - Application sur PVC : Non",
+                "es": "Perchero con sombrerera - Serie: Tirol - Color: Plateado - Material: Hierro - Especificaciones técnicas: L=80 mm x h=170 mm - Tipo: Perchero - Paquete de Piezas: 6 - Aplicación en Madera: Sí - Aplicación en Aluminio: No - Aplicación en PVC: No",
+                "pt": "Cabideiro com chapeleira - Série: Tirolo - Cor: Prata - Material: Ferro - Especificações técnicas: L=80 mm x A=170 mm - Tipo: Cabideiro - Embalagem com Peças: 6 - Aplicação em Madeira: Sim - Aplicação em Alumínio: Não - Aplicação em PVC: Não",
+                "hr": "\"Vješalica s policom za šešire - Serija: Tirol - Boja: Silver - Materijal: Željezo - Tehnične specifikacije: D=80 mm x v=170 mm - Tip: Vješalica - Pakiranje po komadima: 6 - Primjena na drvo: Da - Primjena na aluminij: Ne - Primjena na PVC: Ne\"",
+                "sl": "\"Obešalnik s skladiščem za klobuke - Serija: Tirol - Barva: Srebrna - Material: Železo - Tehnične specifikacije: D=80 mm x v=170 mm - Tip: Obešalnik - Paket vsebuje: 6 kosov - Montaža na les: Da - Montaža na aluminij: Ne - Montaža na PVC: Ne\"",
+                "el": "Κρεμάστρα με θήκη καπέλων - Σειρά: Τιρόλο - Χρώμα: Ασημί - Υλικό: Σίδηρος - Τεχνικές προδιαγραφές: L=80 mm x h=170 mm - Τύπος: Κρεμάστρα - Συσκευασία ανά Κομμάτια: 6 - Εφαρμογή σε Ξύλο: Ναι - Εφαρμογή σε Αλουμίνιο: Όχι - Εφαρμογή σε PVC: Όχι"
+            },
+            "prezzo": 19.559999999999998721023075631819665431976318359375,
+            "immagine": "https:\/\/didieffeb2b.com\/img_catalogo_norm\/FAA00367H0IS____.JPG",
+            "_source_codes": [
+                "FAA00367H0IS"
+            ]
+        },
+        {
+            "attributi": {
+                "Serie": "Tirolo",
+                "Colore": "Ottone brunito ",
+                "Materiale": "Ottone",
+                "Specifiche tecniche": "120 mm ",
+                "Tipologia": "Numeri civici",
+                "Confezione da Pezzi": "12",
+                "Ean": "0738019288712",
+                "Applicazione su Legno": true,
+                "Applicazione su Allumino": false,
+                "Applicazione su Pvc": false,
+                "Scuri alla Veneta": false,
+                "Persiane a Muro": false,
+                "Persiane con Telaio": false
+            },
+            "codice": "FAA0039930BB",
+            "nome": {
+                "it": "Numero civico 3",
+                "en": "House number 3",
+                "de": "Hausnummer 3",
+                "fr": "Numéro 3",
+                "es": "Número tres",
+                "pt": "Número 3",
+                "hr": "Kućni broj 3",
+                "sl": "Hišna številka 3",
+                "el": "Αριθμός 3"
+            },
+            "descrizione": {
+                "it": "Numero civico 3 - Serie: Tirolo - Colore: Ottone brunito  - Materiale: Ottone - Specifiche tecniche: 120 mm  - Tipologia: Numeri civici - Confezione da Pezzi: 12 - Applicazione su Legno: Si - Applicazione su Allumino: No - Applicazione su Pvc: No",
+                "en": "Street number 3 - Series: Tyrol - Color: Burnished brass - Material: Brass - Technical specifications: 120 mm - Type: House numbers - Package quantity: 12 pieces - Application on Wood: Yes - Application on Aluminum: No - Application on PVC: No",
+                "de": "Hausnummer 3 - Serie: Tirol - Farbe: Brüniertes Messing - Material: Messing - Technische Daten: 120 mm - Typologie: Hausnummern - Verpackungseinheit: 12 Stück - Anwendung auf Holz: Ja - Anwendung auf Aluminium: Nein - Anwendung auf PVC: Nein",
+                "fr": "Numéro de rue 3 - Série : Tyrol - Couleur : Laiton bruni - Matériau : Laiton - Spécifications techniques : 120 mm - Typologie : Numéros de rue - Conditionnement par pièces : 12 - Application sur bois : Oui - Application sur aluminium : Non - Application sur PVC : Non",
+                "es": "Número de casa 3 - Serie: Tirol - Color: Latón bruñido - Material: Latón - Especificaciones técnicas: 120 mm - Tipología: Números de casa - Paquete de Piezas: 12 - Aplicación en Madera: Sí - Aplicación en Aluminio: No - Aplicación en PVC: No",
+                "pt": "Número residencial 3 - Série: Tirol - Cor: Latão bronzeado - Material: Latão - Especificações técnicas: 120 mm - Tipologia: Números residenciais - Embalagem com: 12 peças - Aplicação em Madeira: Sim - Aplicação em Alumínio: Não - Aplicação em PVC: Não",
+                "hr": "\"Broj na kući 3 - Serija: Tirolo - Boja: Patinirani mesing - Materijal: Mesing - Tehnične specifikacije: 120 mm - Tip: Kućni brojevi - Paket od komada: 12 - Primjena na drvo: Da - Primjena na aluminij: Ne - Primjena na PVC: Ne\"",
+                "sl": "\"Hišna številka 3 - Serija: Tirol - Barva: Patinirani medenina - Material: Medenina - Tehnične specifikacije: 120 mm - Vrsta: Hišne številke - Embalaža po kosih: 12 - Uporaba na les: Da - Uporaba na aluminij: Ne - Uporaba na PVC: Ne\"",
+                "el": "Αριθμός οικίας 3 - Σειρά: Tirolo - Χρώμα: Ορείχαλκος patinato - Υλικό: Ορείχαλκος - Τεχνικές προδιαγραφές: 120 mm - Τύπος: Αριθμοί οικίας - Συσκευασία σε Τεμάχια: 12 - Εφαρμογή σε Ξύλο: Ναι - Εφαρμογή σε Αλουμίνιο: Όχι - Εφαρμογή σε PVC: Όχι"
+            },
+            "prezzo": 19.21000000000000085265128291212022304534912109375,
+            "immagine": "https:\/\/didieffeb2b.com\/img_catalogo_norm\/FAA0039930BB____.JPG",
+            "_source_codes": [
+                "FAA0039930BB"
+            ]
+        },
+        {
+            "attributi": {
+                "Serie": "Tirolo",
+                "Colore": "Ottone brunito ",
+                "Materiale": "Ottone",
+                "Specifiche tecniche": "120 mm ",
+                "Tipologia": "Numeri civici",
+                "Confezione da Pezzi": "12",
+                "Ean": "0738019288743",
+                "Applicazione su Legno": true,
+                "Applicazione su Allumino": false,
+                "Applicazione su Pvc": false,
+                "Scuri alla Veneta": false,
+                "Persiane a Muro": false,
+                "Persiane con Telaio": false
+            },
+            "codice": "FAA0039960BB",
+            "nome": {
+                "it": "Numero civico 6",
+                "en": "House number 6",
+                "de": "Hausnummer 6",
+                "fr": "Numéro 6",
+                "es": "Número 6",
+                "pt": "Número 6",
+                "hr": "Kućni broj 6",
+                "sl": "\"Številka hiše 6\"",
+                "el": "Αριθμός οικίας 6"
+            },
+            "descrizione": {
+                "it": "Numero civico 6 - Serie: Tirolo - Colore: Ottone brunito  - Materiale: Ottone - Specifiche tecniche: 120 mm  - Tipologia: Numeri civici - Confezione da Pezzi: 12 - Applicazione su Legno: Si - Applicazione su Allumino: No - Applicazione su Pvc: No",
+                "en": "Street number 6 - Series: Tyrol - Color: Burnished brass - Material: Brass - Technical specifications: 120 mm - Type: House numbers - Package quantity: 12 pieces - Application on Wood: Yes - Application on Aluminum: No - Application on PVC: No",
+                "de": "Hausnummer 6 - Serie: Tirol - Farbe: Gebräuntes Messing - Material: Messing - Technische Daten: 120 mm - Typ: Hausnummern - Verpackungseinheit: 12 Stück - Anwendung auf Holz: Ja - Anwendung auf Aluminium: Nein - Anwendung auf PVC: Nein",
+                "fr": "Numéro de rue 6 - Série : Tyrol - Couleur : Laiton bruni - Matériau : Laiton - Spécifications techniques : 120 mm - Type : Numéros de rue - Conditionnement par pièces : 12 - Application sur bois : Oui - Application sur aluminium : Non - Application sur PVC : Non",
+                "es": "Número de casa 6 - Serie: Tirol - Color: Latón bruñido - Material: Latón - Especificaciones técnicas: 120 mm - Tipología: Números de casa - Paquete de Piezas: 12 - Aplicación en Madera: Sí - Aplicación en Aluminio: No - Aplicación en PVC: No",
+                "pt": "Número residencial 6 - Série: Tirol - Cor: Latão brunido - Material: Latão - Especificações técnicas: 120 mm - Tipologia: Números residenciais - Embalagem com Peças: 12 - Aplicação em Madeira: Sim - Aplicação em Alumínio: Não - Aplicação em PVC: Não",
+                "hr": "\"Kućni broj 6 - Serija: Tirol - Boja: Oksidirani mesing - Materijal: Mesing - Tehnične specifikacije: 120 mm - Tip: Kućni brojevi - Pakovanje od komada: 12 - Primjena na drvo: Da - Primjena na aluminij: Ne - Primjena na PVC: Ne\"",
+                "sl": "\"Hišna številka 6 - Serija: Tirol - Barva: Patiniran medenina - Material: Medenina - Tehnične specifikacije: 120 mm - Vrsta: Hišne številke - Pakiranje po kosih: 12 - Aplikacija na les: Da - Aplikacija na aluminij: Ne - Aplikacija na PVC: Ne\"",
+                "el": "Αριθμός οικίας 6 - Σειρά: Tirol - Χρώμα: Ορείχαλκος σκουρασμένος - Υλικό: Ορείχαλκος - Τεχνικές προδιαγραφές: 120 mm - Τύπος: Αριθμοί οικιών - Συσκευασία ανά κομμάτια: 12 - Εφαρμογή σε Ξύλο: Ναι - Εφαρμογή σε Αλουμίνιο: Όχι - Εφαρμογή σε PVC: Όχι"
+            },
+            "prezzo": 19.21000000000000085265128291212022304534912109375,
+            "immagine": "https:\/\/didieffeb2b.com\/img_catalogo_norm\/FAA0039960BB____.JPG",
+            "_source_codes": [
+                "FAA0039960BB"
+            ]
+        },
+        {
+            "attributi": {
+                "Serie": "Tirolo",
+                "Colore": "Ottone brunito ",
+                "Materiale": "Ottone",
+                "Specifiche tecniche": "120 mm ",
+                "Tipologia": "Numeri civici",
+                "Confezione da Pezzi": "12",
+                "Ean": "0738019288774",
+                "Applicazione su Legno": true,
+                "Applicazione su Allumino": false,
+                "Applicazione su Pvc": false,
+                "Scuri alla Veneta": false,
+                "Persiane a Muro": false,
+                "Persiane con Telaio": false
+            },
+            "codice": "FAA0039990BB",
+            "nome": {
+                "it": "Numero civico 9",
+                "en": "",
+                "de": "",
+                "fr": "",
+                "es": "",
+                "pt": "",
+                "hr": "",
+                "sl": "",
+                "el": ""
+            },
+            "descrizione": {
+                "it": "Numero civico 9 - Serie: Tirolo - Colore: Ottone brunito  - Materiale: Ottone - Specifiche tecniche: 120 mm  - Tipologia: Numeri civici - Confezione da Pezzi: 12 - Applicazione su Legno: Si - Applicazione su Allumino: No - Applicazione su Pvc: No",
+                "en": "",
+                "de": "",
+                "fr": "",
+                "es": "",
+                "pt": "",
+                "hr": "",
+                "sl": "",
+                "el": ""
+            },
+            "prezzo": 19.21000000000000085265128291212022304534912109375,
+            "immagine": "https:\/\/didieffeb2b.com\/img_catalogo_norm\/FAA0039990BB____.JPG",
+            "_source_codes": [
+                "FAA0039990BB"
+            ]
+        },
+        {
+            "attributi": {
+                "Serie": "Tirolo",
+                "Colore": "Silver ",
+                "Materiale": "Ferro",
+                "Specifiche tecniche": "120 mm ",
+                "Tipologia": "Numeri civici",
+                "Confezione da Pezzi": "12",
+                "Ean": "0738019259453",
+                "Applicazione su Legno": true,
+                "Applicazione su Allumino": false,
+                "Applicazione su Pvc": false,
+                "Scuri alla Veneta": false,
+                "Persiane a Muro": false,
+                "Persiane con Telaio": false
+            },
+            "codice": "FAA0039990IS",
+            "nome": {
+                "it": "Numero civico 9",
+                "en": "",
+                "de": "",
+                "fr": "",
+                "es": "",
+                "pt": "",
+                "hr": "",
+                "sl": "",
+                "el": ""
+            },
+            "descrizione": {
+                "it": "Numero civico 9 - Serie: Tirolo - Colore: Silver  - Materiale: Ferro - Specifiche tecniche: 120 mm  - Tipologia: Numeri civici - Confezione da Pezzi: 12 - Applicazione su Legno: Si - Applicazione su Allumino: No - Applicazione su Pvc: No",
+                "en": "",
+                "de": "",
+                "fr": "",
+                "es": "",
+                "pt": "",
+                "hr": "",
+                "sl": "",
+                "el": ""
+            },
+            "prezzo": 7.839999999999999857891452847979962825775146484375,
+            "immagine": "https:\/\/didieffeb2b.com\/img_catalogo_norm\/FAA0039990IS____.JPG",
+            "_source_codes": [
+                "FAA0039990IS"
+            ]
+        },
+        {
+            "attributi": {
+                "Serie": "Tirolo",
+                "Colore": "Silver ",
+                "Materiale": "Ferro",
+                "Specifiche tecniche": "60 mm ",
+                "Tipologia": "Numeri civici",
+                "Confezione da Pezzi": "12",
+                "Ean": "0738019259460",
+                "Applicazione su Legno": true,
+                "Applicazione su Allumino": false,
+                "Applicazione su Pvc": false,
+                "Scuri alla Veneta": false,
+                "Persiane a Muro": false,
+                "Persiane con Telaio": false
+            },
+            "codice": "FAA00400A0IS",
+            "nome": {
+                "it": "Lettera civica a",
+                "en": "",
+                "de": "",
+                "fr": "",
+                "es": "",
+                "pt": "",
+                "hr": "",
+                "sl": "",
+                "el": ""
+            },
+            "descrizione": {
+                "it": "Lettera civica a - Serie: Tirolo - Colore: Silver  - Materiale: Ferro - Specifiche tecniche: 60 mm  - Tipologia: Numeri civici - Confezione da Pezzi: 12 - Applicazione su Legno: Si - Applicazione su Allumino: No - Applicazione su Pvc: No",
+                "en": "",
+                "de": "",
+                "fr": "",
+                "es": "",
+                "pt": "",
+                "hr": "",
+                "sl": "",
+                "el": ""
+            },
+            "prezzo": 7.839999999999999857891452847979962825775146484375,
+            "immagine": "https:\/\/didieffeb2b.com\/img_catalogo_norm\/FAA00400A0IS____.JPG",
+            "_source_codes": [
+                "FAA00400A0IS"
+            ]
+        },
+        {
+            "attributi": {
+                "Serie": "Tirolo",
+                "Colore": "Silver ",
+                "Materiale": "Ferro",
+                "Specifiche tecniche": "120 mm ",
+                "Tipologia": "Numeri civici",
+                "Confezione da Pezzi": "12",
+                "Ean": "0738019259477",
+                "Applicazione su Legno": true,
+                "Applicazione su Allumino": false,
+                "Applicazione su Pvc": false,
+                "Scuri alla Veneta": false,
+                "Persiane a Muro": false,
+                "Persiane con Telaio": false
+            },
+            "codice": "FAA00400B0IS",
+            "nome": {
+                "it": "Lettera civica b",
+                "en": "",
+                "de": "",
+                "fr": "",
+                "es": "",
+                "pt": "",
+                "hr": "",
+                "sl": "",
+                "el": ""
+            },
+            "descrizione": {
+                "it": "Lettera civica b - Serie: Tirolo - Colore: Silver  - Materiale: Ferro - Specifiche tecniche: 120 mm  - Tipologia: Numeri civici - Confezione da Pezzi: 12 - Applicazione su Legno: Si - Applicazione su Allumino: No - Applicazione su Pvc: No",
+                "en": "",
+                "de": "",
+                "fr": "",
+                "es": "",
+                "pt": "",
+                "hr": "",
+                "sl": "",
+                "el": ""
+            },
+            "prezzo": 7.839999999999999857891452847979962825775146484375,
+            "immagine": "https:\/\/didieffeb2b.com\/img_catalogo_norm\/FAA00400B0IS____.JPG",
+            "_source_codes": [
+                "FAA00400B0IS"
+            ]
+        },
+        {
+            "attributi": {
+                "Serie": "Tirolo",
+                "Colore": "Silver ",
+                "Materiale": "Ferro",
+                "Specifiche tecniche": "120 mm ",
+                "Tipologia": "Numeri civici",
+                "Confezione da Pezzi": "12",
+                "Ean": "0738019259491",
+                "Applicazione su Legno": true,
+                "Applicazione su Allumino": false,
+                "Applicazione su Pvc": false,
+                "Scuri alla Veneta": false,
+                "Persiane a Muro": false,
+                "Persiane con Telaio": false
+            },
+            "codice": "FAA00400D0IS",
+            "nome": {
+                "it": "Lettera civica d",
+                "en": "",
+                "de": "",
+                "fr": "",
+                "es": "",
+                "pt": "",
+                "hr": "",
+                "sl": "",
+                "el": ""
+            },
+            "descrizione": {
+                "it": "Lettera civica d - Serie: Tirolo - Colore: Silver  - Materiale: Ferro - Specifiche tecniche: 120 mm  - Tipologia: Numeri civici - Confezione da Pezzi: 12 - Applicazione su Legno: Si - Applicazione su Allumino: No - Applicazione su Pvc: No",
+                "en": "",
+                "de": "",
+                "fr": "",
+                "es": "",
+                "pt": "",
+                "hr": "",
+                "sl": "",
+                "el": ""
+            },
+            "prezzo": 7.839999999999999857891452847979962825775146484375,
+            "immagine": "https:\/\/didieffeb2b.com\/img_catalogo_norm\/FAA00400D0IS____.JPG",
+            "_source_codes": [
+                "FAA00400D0IS"
+            ]
+        },
+        {
+            "attributi": {
+                "Serie": "",
+                "Colore": "Silver ",
+                "Materiale": "Ferro",
+                "Specifiche tecniche": "380 x 250 mm ",
+                "Tipologia": "Posta",
+                "Confezione da Pezzi": "1",
+                "Ean": "0738019259569",
+                "Applicazione su Legno": true,
+                "Applicazione su Allumino": false,
+                "Applicazione su Pvc": false,
+                "Scuri alla Veneta": false,
+                "Persiane a Muro": false,
+                "Persiane con Telaio": false
+            },
+            "codice": "FAA0099200IS",
+            "nome": {
+                "it": "Cassetta per posta",
+                "en": "Mailbox",
+                "de": "Briefkasten",
+                "fr": "Boîte aux lettres",
+                "es": "Buzón de correo",
+                "pt": "Caixa de correio",
+                "hr": "Poštanski sandučić",
+                "sl": "\"Poštni nabiralnik\"",
+                "el": "Γραμματοκιβώτιο"
+            },
+            "descrizione": {
+                "it": "Cassetta per posta - Colore: Silver  - Materiale: Ferro - Specifiche tecniche: 380 x 250 mm  - Tipologia: Posta - Confezione da Pezzi: 1 - Applicazione su Legno: Si - Applicazione su Allumino: No - Applicazione su Pvc: No",
+                "en": "Mailbox - Color: Silver - Material: Iron - Technical specifications: 380 x 250 mm - Type: Mail - Package contains: 1 piece - Wood application: Yes - Aluminum application: No - PVC application: No",
+                "de": "Briefkasten - Farbe: Silber - Material: Eisen - Technische Daten: 380 x 250 mm - Typ: Post - Verpackungseinheit: 1 Stück - Montage auf Holz: Ja - Montage auf Aluminium: Nein - Montage auf PVC: Nein",
+                "fr": "Boîte aux lettres - Couleur: Argent - Matériau: Fer - Spécifications techniques: 380 x 250 mm - Type: Courrier - Conditionnement en pièces: 1 - Application sur bois: Oui - Application sur aluminium: Non - Application sur PVC: Non",
+                "es": "Buzón de correo - Color: Plateado - Material: Hierro - Especificaciones técnicas: 380 x 250 mm - Tipo: Correo - Unidades por paquete: 1 - Aplicación en madera: Sí - Aplicación en aluminio: No - Aplicación en PVC: No",
+                "pt": "Caixa de correio - Cor: Prata - Material: Ferro - Especificações técnicas: 380 x 250 mm - Tipo: Correio - Embalagem com Peças: 1 - Aplicação em Madeira: Sim - Aplicação em Alumínio: Não - Aplicação em PVC: Não",
+                "hr": "Poštanski sandučić - Boja: Srebrna - Materijal: Željezo - Tehnične specifikacije: 380 x 250 mm - Vrsta: Pošta - Pakovanje u komadima: 1 - Primjena na drvu: Da - Primjena na aluminiju: Ne - Primjena na PVC: Ne",
+                "sl": "Poštni nabiralnik - Barva: Silver - Material: Železo - Tehnične specifikacije: 380 x 250 mm - Vrsta: Pošta - Pakiranje po kosih: 1 - Uporaba na lesu: Da - Uporaba na aluminiju: Ne - Uporaba na PVC: Ne",
+                "el": "Κουτί ταχυδρομείου - Χρώμα: Silver - Υλικό: Σίδηρο - Τεχνικές προδιαγραφές: 380 x 250 mm - Τύπος: Ταχυδρομείο - Συσκευασία σε κομμάτια: 1 - Εφαρμογή σε ξύλο: Ναι - Εφαρμογή σε αλουμίνιο: Όχι - Εφαρμογή σε PVC: Όχι"
+            },
+            "prezzo": 47.5,
+            "immagine": "https:\/\/didieffeb2b.com\/img_catalogo_norm\/FAA0099200IS____.JPG",
+            "_source_codes": [
+                "FAA0099200IS"
+            ]
+        },
+        {
+            "attributi": {
+                "Serie": "",
+                "Colore": "Grafite ",
+                "Materiale": "Ferro",
+                "Specifiche tecniche": "D.80 mm ",
+                "Tipologia": "Corrimano e supporti",
+                "Confezione da Pezzi": "10",
+                "Ean": "0738019259286",
+                "Applicazione su Legno": true,
+                "Applicazione su Allumino": false,
+                "Applicazione su Pvc": false,
+                "Scuri alla Veneta": false,
+                "Persiane a Muro": false,
+                "Persiane con Telaio": false
+            },
+            "codice": "FAA0705SP0IH",
+            "nome": {
+                "it": "Supporto per corrimano tondo",
+                "en": "Round handrail bracket",
+                "de": "Rundhandlaufhalterung",
+                "fr": "Support pour main courante ronde",
+                "es": "Soporte para pasamanos redondo",
+                "pt": "Suporte para corrimão redondo",
+                "hr": "Nosač za okruglu ogradu",
+                "sl": "Nosilec za okroglo ročico",
+                "el": "Στήριγμα για στρογγυλό κιγκλίδωμα"
+            },
+            "descrizione": {
+                "it": "Supporto per corrimano tondo - Colore: Grafite  - Materiale: Ferro - Specifiche tecniche: D.80 mm  - Tipologia: Corrimano e supporti - Confezione da Pezzi: 10 - Applicazione su Legno: Si - Applicazione su Allumino: No - Applicazione su Pvc: No",
+                "en": "Round handrail support - Color: Graphite - Material: Iron - Technical specifications: D.80 mm - Type: Handrail and supports - Package quantity: 10 pieces - Application on Wood: Yes - Application on Aluminum: No - Application on PVC: No",
+                "de": "Halterung für runde Handläufe - Farbe: Graphit - Material: Eisen - Technische Daten: D.80 mm - Typ: Handlauf und Halterungen - Verpackungseinheit: 10 Stück - Montage auf Holz: Ja - Montage auf Aluminium: Nein - Montage auf PVC: Nein",
+                "fr": "Support pour main courante ronde - Couleur : Graphite - Matériau : Fer - Spécifications techniques : D.80 mm - Type : Main courante et supports - Conditionnement : 10 pièces - Application sur bois : Oui - Application sur aluminium : Non - Application sur PVC : Non",
+                "es": "Soporte para pasamanos redondo - Color: Grafito - Material: Hierro - Especificaciones técnicas: D.80 mm - Tipología: Pasamanos y soportes - Paquete de Piezas: 10 - Aplicación en Madera: Sí - Aplicación en Aluminio: No - Aplicación en PVC: No",
+                "pt": "Suporte para corrimão redondo - Cor: Grafite - Material: Ferro - Especificações técnicas: D.80 mm - Tipologia: Corrimão e suportes - Embalagem com Peças: 10 - Aplicação em Madeira: Sim - Aplicação em Alumínio: Não - Aplicação em PVC: Não",
+                "hr": "\"Nosač za okrugli rukohvat - Boja: Grafit - Materijal: Željezo - Tehničke specifikacije: D.80 mm - Vrsta: Rukohvati i nosači - Pakovanje po komadima: 10 - Primjena na drvu: Da - Primjena na aluminiju: Ne - Primjena na PVC-u: Ne\"",
+                "sl": "Podporo za okroglo ograjo - Barva: Grafit - Material: Železo - Tehnične značilnosti: D.80 mm - Tip: Ograje in podpore - Pakirano po kosih: 10 - Uporaba na lesu: Da - Uporaba na aluminiju: Ne - Uporaba na PVC: Ne",
+                "el": "Στήριγμα για στρογγυλό χερούλι - Χρώμα: Γραφίτης - Υλικό: Σίδηρος - Τεχνικές προδιαγραφές: D.80 mm - Τύπος: Χερούλια και στηρίγματα - Συσκευασία ανά τεμάχια: 10 - Εφαρμογή σε Ξύλο: Ναι - Εφαρμογή σε Αλουμίνιο: Όχι - Εφαρμογή σε Pvc: Όχι"
+            },
+            "prezzo": 9.8599999999999994315658113919198513031005859375,
+            "immagine": "https:\/\/didieffeb2b.com\/img_catalogo_norm\/FAA0705SP0IH____.JPG",
+            "variantGroupId": "3030",
+            "isVariantGroup": true,
+            "variants": [
+                {
+                    "codice": "FAA0705SP0IH",
+                    "variantOrder": 1,
+                    "qualifiers": {
+                        "Colore": "Grafite ",
+                        "Materiale": "Ferro",
+                        "Specifiche tecniche": "D.80 mm "
+                    },
+                    "prezzo": 9.8599999999999994315658113919198513031005859375,
+                    "immagine": "https:\/\/didieffeb2b.com\/img_catalogo_norm\/FAA0705SP0IH____.JPG",
+                    "immagini": null,
+                    "attributi": {
+                        "Serie": "",
+                        "Colore": "Grafite ",
+                        "Materiale": "Ferro",
+                        "Specifiche tecniche": "D.80 mm ",
+                        "Tipologia": "Corrimano e supporti",
+                        "Confezione da Pezzi": "10",
+                        "Ean": "0738019259286",
+                        "Applicazione su Legno": true,
+                        "Applicazione su Allumino": false,
+                        "Applicazione su Pvc": false,
+                        "Scuri alla Veneta": false,
+                        "Persiane a Muro": false,
+                        "Persiane con Telaio": false
+                    }
+                },
+                {
+                    "codice": "FAA0705SP0IN",
+                    "variantOrder": 2,
+                    "qualifiers": {
+                        "Colore": "Nero ",
+                        "Materiale": "Ferro",
+                        "Specifiche tecniche": "D.80 mm "
+                    },
+                    "prezzo": 9.8599999999999994315658113919198513031005859375,
+                    "immagine": "https:\/\/didieffeb2b.com\/img_catalogo_norm\/FAA0705SP0IN____.JPG",
+                    "immagini": [
+                        "https:\/\/didieffeb2b.com\/img_catalogo_norm\/FAA0705SP0IN____.JPG",
+                        "https:\/\/didieffeb2b.com\/img_catalogo_norm\/FAA0705SP0IN____01.JPG",
+                        "https:\/\/didieffeb2b.com\/img_catalogo_norm\/FAA0705SP0IN____02.JPG",
+                        "https:\/\/didieffeb2b.com\/img_catalogo_norm\/FAA0705SP0IN____08.JPG",
+                        "https:\/\/didieffeb2b.com\/img_catalogo_norm\/FAA0705SP0IN____09.JPG",
+                        "https:\/\/didieffeb2b.com\/img_catalogo_norm\/FAA0705SP0IN____10.JPG",
+                        "https:\/\/didieffeb2b.com\/img_catalogo_norm\/FAA0705SP0IN____11.JPG",
+                        "https:\/\/didieffeb2b.com\/img_catalogo_norm\/FAA0705SP0IN____12.JPG",
+                        "https:\/\/didieffeb2b.com\/img_catalogo_norm\/FAA0705SP0IN____13.JPG",
+                        "https:\/\/didieffeb2b.com\/img_catalogo_norm\/FAA0705SP0IN____14.JPG",
+                        "https:\/\/didieffeb2b.com\/img_catalogo_norm\/FAA0705SP0IN____15.JPG",
+                        "https:\/\/didieffeb2b.com\/img_catalogo_norm\/FAA0705SP0IN____16.JPG",
+                        "https:\/\/didieffeb2b.com\/img_catalogo_norm\/FAA0705SP0IN____17.JPG",
+                        "https:\/\/didieffeb2b.com\/img_catalogo_norm\/FAA0705SP0IN____18.JPG",
+                        "https:\/\/didieffeb2b.com\/img_catalogo_norm\/FAA0705SP0IN____19.JPG",
+                        "https:\/\/didieffeb2b.com\/img_catalogo_norm\/FAA0705SP0IN____20.JPG"
+                    ],
+                    "attributi": {
+                        "Serie": "",
+                        "Colore": "Nero ",
+                        "Materiale": "Ferro",
+                        "Specifiche tecniche": "D.80 mm ",
+                        "Tipologia": "Corrimano e supporti",
+                        "Confezione da Pezzi": "10",
+                        "Ean": "0738019259293",
+                        "Applicazione su Legno": true,
+                        "Applicazione su Allumino": false,
+                        "Applicazione su Pvc": false,
+                        "Scuri alla Veneta": false,
+                        "Persiane a Muro": false,
+                        "Persiane con Telaio": false
+                    }
+                }
+            ],
+            "_source_codes": [
+                "FAA0705SP0IH",
+                "FAA0705SP0IN"
+            ]
+        },
+        {
+            "attributi": {
+                "Serie": "Venezia",
+                "Colore": "Ottone brunito ",
+                "Materiale": "Ottone",
+                "Specifiche tecniche": "- ",
+                "Tipologia": "Manigliette pendenti",
+                "Confezione da Pezzi": "24",
+                "Ean": "0738019289023",
+                "Applicazione su Legno": true,
+                "Applicazione su Allumino": false,
+                "Applicazione su Pvc": false,
+                "Scuri alla Veneta": false,
+                "Persiane a Muro": false,
+                "Persiane con Telaio": false
+            },
+            "codice": "FAM0001300BB",
+            "nome": {
+                "it": "Pendente su placca quadrata",
+                "en": "Hanging on square plate",
+                "de": "Anhänger auf quadratischer Platte",
+                "fr": "Pendentif sur plaque carrée",
+                "es": "Colgante sobre placa cuadrada",
+                "pt": "Pendente em placa quadrada",
+                "hr": "\"Viseća na kvadratnoj pločici\"",
+                "sl": "Viseč na kvadratni plošči",
+                "el": "Κρεμαστό σε τετράγωνη πλάκα"
+            },
+            "descrizione": {
+                "it": "Pendente su placca quadrata - Serie: Venezia - Colore: Ottone brunito  - Materiale: Ottone - Specifiche tecniche: -  - Tipologia: Manigliette pendenti - Confezione da Pezzi: 24 - Applicazione su Legno: Si - Applicazione su Allumino: No - Applicazione su Pvc: No",
+                "en": "Pendant on square plate - Series: Venice - Color: Burnished brass - Material: Brass - Technical specifications: - - Type: Hanging handles - Package quantity: 24 pieces - Wood application: Yes - Aluminum application: No - PVC application: No",
+                "de": "Griff auf quadratischer Platte - Serie: Venezia - Farbe: Brüniertes Messing - Material: Messing - Technische Daten: - - Typ: Hängegriffe - Verpackungseinheit: 24 Stück - Anwendung auf Holz: Ja - Anwendung auf Aluminium: Nein - Anwendung auf PVC: Nein",
+                "fr": "Poignée pendante sur plaque carrée - Série : Venise - Couleur : Laiton bruni - Matériau : Laiton - Spécifications techniques : - - Type : Poignées pendantes - Conditionnement par pièces : 24 - Application sur bois : Oui - Application sur aluminium : Non - Application sur PVC : Non",
+                "es": "Colgante sobre placa cuadrada - Serie: Venecia - Color: Latón bruñido - Material: Latón - Especificaciones técnicas: - - Tipo: Tiradores colgantes - Paquete de Piezas: 24 - Aplicación en Madera: Sí - Aplicación en Aluminio: No - Aplicación en PVC: No",
+                "pt": "Puxador pendente em placa quadrada - Série: Veneza - Cor: Latão brunido - Material: Latão - Especificações técnicas: - - Tipo: Puxadores pendentes - Embalagem com Peças: 24 - Aplicação em Madeira: Sim - Aplicação em Alumínio: Não - Aplicação em PVC: Não",
+                "hr": "\"Privjesak na kvadratnoj ploči - Serija: Venecija - Boja: Brunirana bronca - Materijal: Bronca - Tehničke specifikacije: - - Tip: Висеће ручице - Pakovanje po kom: 24 - Primjena na drvo: Da - Primjena na aluminij: Ne - Primjena na PVC: Ne\"",
+                "sl": "\"Obesek na kvadratni plošči - Serija: Benetka - Barva: Patiniran medenino - Material: Medenina - Tehnične specifikacije: - - Tipologija: Viseči ročaji - Pakiranje: 24 kosov - Uporaba na lesu: Da - Uporaba na aluminiju: Ne - Uporaba na PVC: Ne\"",
+                "el": "\"Κρεμαστό σε τετράγωνη πλάκα - Σειρά: Βενετία - Χρώμα: Γυαλισμένο ορείχαλκο - Υλικό: Ορείχαλκος - Τεχνικές προδιαγραφές: - - Τύπος: Κρεμαστές λαβές - Συσκευασία ανά τεμάχια: 24 - Εφαρμογή σε Ξύλο: Ναι - Εφαρμογή σε Αλουμίνιο: Όχι - Εφαρμογή σε PVC: Όχι\""
+            },
+            "prezzo": 6.20000000000000017763568394002504646778106689453125,
+            "immagine": "https:\/\/didieffeb2b.com\/img_catalogo_norm\/FAM0001300BB____.JPG",
+            "_source_codes": [
+                "FAM0001300BB"
+            ]
+        },
+        {
+            "attributi": {
+                "Serie": "Country",
+                "Colore": "Ottone brunito ",
+                "Materiale": "Ottone",
+                "Specifiche tecniche": "- ",
+                "Tipologia": "Manigliette pendenti",
+                "Confezione da Pezzi": "24",
+                "Ean": "0738019289153",
+                "Applicazione su Legno": true,
+                "Applicazione su Allumino": false,
+                "Applicazione su Pvc": false,
+                "Scuri alla Veneta": false,
+                "Persiane a Muro": false,
+                "Persiane con Telaio": false
+            },
+            "codice": "FAM00021L0BB",
+            "nome": {
+                "it": "Maniglietta pendente",
+                "en": "Hanging handle",
+                "de": "Hängender Griff",
+                "fr": "Poignée pendante",
+                "es": "Manija colgante",
+                "pt": "Alça pendente",
+                "hr": "\"Viseća ručica\"",
+                "sl": "\"Ročica na obeski\"",
+                "el": "Κρεμαστή λαβή"
+            },
+            "descrizione": {
+                "it": "Maniglietta pendente - Serie: Country - Colore: Ottone brunito  - Materiale: Ottone - Specifiche tecniche: -  - Tipologia: Manigliette pendenti - Confezione da Pezzi: 24 - Applicazione su Legno: Si - Applicazione su Allumino: No - Applicazione su Pvc: No",
+                "en": "Drop pull handle - Series: Country - Color: Burnished brass - Material: Brass - Technical specifications: - Type: Drop handles - Package quantity: 24 pieces - Application on Wood: Yes - Application on Aluminum: No - Application on PVC: No",
+                "de": "Hängender Möbelgriff - Serie: Country - Farbe: Gebräuntes Messing - Material: Messing - Technische Daten: - - Typ: Hängende Griffe - Verpackungseinheit: 24 Stück - Anwendung auf Holz: Ja - Anwendung auf Aluminium: Nein - Anwendung auf PVC: Nein",
+                "fr": "Poignée pendante - Série : Country - Couleur : Laiton bruni - Matériau : Laiton - Spécifications techniques : - - Type : Poignées pendantes - Conditionnement par pièces : 24 - Application sur bois : Oui - Application sur aluminium : Non - Application sur PVC : Non",
+                "es": "Tirador colgante - Serie: Country - Color: Latón bruñido - Material: Latón - Especificaciones técnicas: - - Tipo: Tiradores colgantes - Paquete de Piezas: 24 - Aplicación en Madera: Sí - Aplicación en Aluminio: No - Aplicación en PVC: No",
+                "pt": "Puxador pendente - Série: Country - Cor: Latão bronzeado - Material: Latão - Especificações técnicas: - - Tipo: Puxadores pendentes - Embalagem com Peças: 24 - Aplicação em Madeira: Sim - Aplicação em Alumínio: Não - Aplicação em PVC: Não",
+                "hr": "Viseća ručica - Serija: Country - Boja: Bronzani mesing - Materijal: Mesing - Tehničke specifikacije: - - Tip: Viseće ručice - Pakovanje po komadima: 24 - Primjena na drvo: Da - Primjena na aluminij: Ne - Primjena na PVC: Ne",
+                "sl": "Viseča ročica - Serija: Country - Barva: Patiniran medenina - Material: Medenina - Tehnične specifikacije: - - Tip: Viseče ročice - Pakiranje po kosih: 24 - Uporaba na lesu: Da - Uporaba na aluminiju: Ne - Uporaba na PVC: Ne",
+                "el": "Κρεμαστή λαβή - Σειρά: Country - Χρώμα: Γυαλιστερό ορείχαλκο - Υλικό: Ορείχαλκος - Τεχνικές προδιαγραφές: - - Τύπος: Κρεμαστές λαβές - Συσκευασία ανά Κομμάτια: 24 - Εφαρμογή σε Ξύλο: Ναι - Εφαρμογή σε Αλουμίνιο: Όχι - Εφαρμογή σε PVC: Όχι"
+            },
+            "prezzo": 7.21999999999999975131004248396493494510650634765625,
+            "immagine": "https:\/\/didieffeb2b.com\/img_catalogo_norm\/FAM00021L0BB____.JPG",
+            "_source_codes": [
+                "FAM00021L0BB"
+            ]
+        },
+        {
+            "attributi": {
+                "Serie": "Country",
+                "Colore": "Ottone brunito ",
+                "Materiale": "Ottone",
+                "Specifiche tecniche": "- ",
+                "Tipologia": "Manigliette pendenti",
+                "Confezione da Pezzi": "24",
+                "Ean": "0738019289108",
+                "Applicazione su Legno": true,
+                "Applicazione su Allumino": false,
+                "Applicazione su Pvc": false,
+                "Scuri alla Veneta": false,
+                "Persiane a Muro": false,
+                "Persiane con Telaio": false
+            },
+            "codice": "FAM00022V0BB",
+            "nome": {
+                "it": "Pendente orizzontale",
+                "en": "Horizontal pendant",
+                "de": "Horizontales Anhängsel",
+                "fr": "Pendentif horizontal",
+                "es": "Pendiente horizontal",
+                "pt": "Pendente horizontal",
+                "hr": "\"Viseća vodoravna\"",
+                "sl": "Vodoravno viseče",
+                "el": "Οριζόντια κρέμαση"
+            },
+            "descrizione": {
+                "it": "Pendente orizzontale - Serie: Country - Colore: Ottone brunito  - Materiale: Ottone - Specifiche tecniche: -  - Tipologia: Manigliette pendenti - Confezione da Pezzi: 24 - Applicazione su Legno: Si - Applicazione su Allumino: No - Applicazione su Pvc: No",
+                "en": "Horizontal pendant - Series: Country - Color: Burnished brass - Material: Brass - Technical specifications: - Type: Hanging handles - Package quantity: 24 pieces - Wood application: Yes - Aluminum application: No - PVC application: No",
+                "de": "Horizontaler Griff - Serie: Country - Farbe: Brüniertes Messing - Material: Messing - Technische Spezifikationen: - Typ: Hängegriffe - Verpackungseinheit: 24 Stück - Anwendung auf Holz: Ja - Anwendung auf Aluminium: Nein - Anwendung auf PVC: Nein",
+                "fr": "Poignée horizontale - Série : Country - Couleur : Laiton bruni - Matériau : Laiton - Spécifications techniques : - - Type : Poignées pendantes - Conditionnement par pièces : 24 - Application sur bois : Oui - Application sur aluminium : Non - Application sur PVC : Non",
+                "es": "Tirador horizontal - Serie: Country - Color: Latón bruñido - Material: Latón - Especificaciones técnicas: - - Tipo: Tiradores colgantes - Paquete de Piezas: 24 - Aplicación en Madera: Sí - Aplicación en Aluminio: No - Aplicación en PVC: No",
+                "pt": "Puxador horizontal - Série: Country - Cor: Latão bronzeado - Material: Latão - Especificações técnicas: - - Tipo: Puxadores pendentes - Embalagem com Peças: 24 - Aplicação em Madeira: Sim - Aplicação em Alumínio: Não - Aplicação em PVC: Não",
+                "hr": "Horizontalno ovjeso - Serija: Country - Boja: Patinirani mesing - Materijal: Mesing - Tehnične specifikacije: - - Vrsta: Viseće ručice - Pakovanje od komada: 24 - Primjena na drvo: Da - Primjena na aluminij: Ne - Primjena na PVC: Ne",
+                "sl": "Viseča ročica vodoravna - Serija: Country - Barva: Patinirano brušeno srebro - Material: Mesing - Tehnične specifikacije: - - Tip: Viseče ročice - Embalaža v kosih: 24 - Uporaba na les: Da - Uporaba na aluminij: Ne - Uporaba na PVC: Ne",
+                "el": "Κρεμαστό οριζόντιο - Σειρά: Country - Χρώμα: Γυαλισμένο ορείχαλκο - Υλικό: Ορείχαλκος - Τεχνικές προδιαγραφές: - - Τύπος: Κρεμαστές λαβές - Συσκευασία ανά Τεμάχια: 24 - Εφαρμογή σε Ξύλο: Ναι - Εφαρμογή σε Αλουμίνιο: Όχι - Εφαρμογή σε PVC: Όχι"
+            },
+            "prezzo": 7.21999999999999975131004248396493494510650634765625,
+            "immagine": "https:\/\/didieffeb2b.com\/img_catalogo_norm\/FAM00022V0BB____.JPG",
+            "_source_codes": [
+                "FAM00022V0BB"
+            ]
+        },
+        {
+            "attributi": {
+                "Serie": "591",
+                "Colore": "Nero ",
+                "Materiale": "Ferro",
+                "Specifiche tecniche": "15 x 15 mm ",
+                "Tipologia": "Borchie",
+                "Confezione da Pezzi": "200",
+                "Ean": "0738019259170",
+                "Applicazione su Legno": true,
+                "Applicazione su Allumino": false,
+                "Applicazione su Pvc": false,
+                "Scuri alla Veneta": false,
+                "Persiane a Muro": false,
+                "Persiane con Telaio": false
+            },
+            "codice": "FAA005910XIZ",
+            "nome": {
+                "it": "Borchia a 2 punte",
+                "en": "",
+                "de": "",
+                "fr": "",
+                "es": "",
+                "pt": "",
+                "hr": "",
+                "sl": "",
+                "el": ""
+            },
+            "descrizione": {
+                "it": "Borchia a 2 punte - Serie: 591 - Colore: Nero  - Materiale: Ferro - Specifiche tecniche: 15 x 15 mm  - Tipologia: Borchie - Confezione da Pezzi: 200 - Applicazione su Legno: Si - Applicazione su Allumino: No - Applicazione su Pvc: No",
+                "en": "",
+                "de": "",
+                "fr": "",
+                "es": "",
+                "pt": "",
+                "hr": "",
+                "sl": "",
+                "el": ""
+            },
+            "prezzo": 0.479999999999999982236431605997495353221893310546875,
+            "immagine": "https:\/\/didieffeb2b.com\/img_catalogo_norm\/FAA005910XIZ____.JPG",
+            "_source_codes": [
+                "FAA005910XIZ"
+            ]
+        },
+        {
+            "attributi": {
+                "Serie": "900",
+                "Colore": "Ottone lucido ",
+                "Materiale": "Ottone",
+                "Specifiche tecniche": "- ",
+                "Tipologia": "Appendiabiti",
+                "Confezione da Pezzi": "12",
+                "Ean": "0738019288613",
+                "Applicazione su Legno": true,
+                "Applicazione su Allumino": false,
+                "Applicazione su Pvc": false,
+                "Scuri alla Veneta": false,
+                "Persiane a Muro": false,
+                "Persiane con Telaio": false
+            },
+            "codice": "FAA0120500BL",
+            "nome": {
+                "it": "Appendiabiti",
+                "en": "",
+                "de": "",
+                "fr": "",
+                "es": "",
+                "pt": "",
+                "hr": "",
+                "sl": "",
+                "el": ""
+            },
+            "descrizione": {
+                "it": "Appendiabiti - Serie: 900 - Colore: Ottone lucido  - Materiale: Ottone - Specifiche tecniche: -  - Tipologia: Appendiabiti - Confezione da Pezzi: 12 - Applicazione su Legno: Si - Applicazione su Allumino: No - Applicazione su Pvc: No",
+                "en": "",
+                "de": "",
+                "fr": "",
+                "es": "",
+                "pt": "",
+                "hr": "",
+                "sl": "",
+                "el": ""
+            },
+            "prezzo": 11.6699999999999999289457264239899814128875732421875,
+            "immagine": "https:\/\/didieffeb2b.com\/img_catalogo_norm\/FAA0120500BL____.JPG",
+            "_source_codes": [
+                "FAA0120500BL"
+            ]
+        },
+        {
+            "attributi": {
+                "Serie": "900",
+                "Colore": "Ottone brunito ",
+                "Materiale": "Ottone",
+                "Specifiche tecniche": "- ",
+                "Tipologia": "Appendiabiti",
+                "Confezione da Pezzi": "6",
+                "Ean": "0738019288620",
+                "Applicazione su Legno": true,
+                "Applicazione su Allumino": false,
+                "Applicazione su Pvc": false,
+                "Scuri alla Veneta": false,
+                "Persiane a Muro": false,
+                "Persiane con Telaio": false
+            },
+            "codice": "FAA01205M0BB",
+            "nome": {
+                "it": "Appendiabiti maggiorato",
+                "en": "",
+                "de": "",
+                "fr": "",
+                "es": "",
+                "pt": "",
+                "hr": "",
+                "sl": "",
+                "el": ""
+            },
+            "descrizione": {
+                "it": "Appendiabiti maggiorato - Serie: 900 - Colore: Ottone brunito  - Materiale: Ottone - Specifiche tecniche: -  - Tipologia: Appendiabiti - Confezione da Pezzi: 6 - Applicazione su Legno: Si - Applicazione su Allumino: No - Applicazione su Pvc: No",
+                "en": "",
+                "de": "",
+                "fr": "",
+                "es": "",
+                "pt": "",
+                "hr": "",
+                "sl": "",
+                "el": ""
+            },
+            "prezzo": 14.1899999999999995026200849679298698902130126953125,
+            "immagine": "https:\/\/didieffeb2b.com\/img_catalogo_norm\/FAA01205M0BB____.JPG",
+            "variantGroupId": "8360",
+            "isVariantGroup": true,
+            "variants": [
+                {
+                    "codice": "FAA01205M0BB",
+                    "variantOrder": 1,
+                    "qualifiers": {
+                        "Colore": "Ottone brunito ",
+                        "Materiale": "Ottone",
+                        "Specifiche tecniche": "- "
+                    },
+                    "prezzo": 14.1899999999999995026200849679298698902130126953125,
+                    "immagine": "https:\/\/didieffeb2b.com\/img_catalogo_norm\/FAA01205M0BB____.JPG",
+                    "immagini": null,
+                    "attributi": {
+                        "Serie": "900",
+                        "Colore": "Ottone brunito ",
+                        "Materiale": "Ottone",
+                        "Specifiche tecniche": "- ",
+                        "Tipologia": "Appendiabiti",
+                        "Confezione da Pezzi": "6",
+                        "Ean": "0738019288620",
+                        "Applicazione su Legno": true,
+                        "Applicazione su Allumino": false,
+                        "Applicazione su Pvc": false,
+                        "Scuri alla Veneta": false,
+                        "Persiane a Muro": false,
+                        "Persiane con Telaio": false
+                    }
+                },
+                {
+                    "codice": "FAA01205M0BL",
+                    "variantOrder": 2,
+                    "qualifiers": {
+                        "Colore": "Ottone lucido ",
+                        "Materiale": "Ottone",
+                        "Specifiche tecniche": "- "
+                    },
+                    "prezzo": 14.8900000000000005684341886080801486968994140625,
+                    "immagine": "https:\/\/didieffeb2b.com\/img_catalogo_norm\/FAA01205M0BL____.JPG",
+                    "immagini": null,
+                    "attributi": {
+                        "Serie": "900",
+                        "Colore": "Ottone lucido ",
+                        "Materiale": "Ottone",
+                        "Specifiche tecniche": "- ",
+                        "Tipologia": "Appendiabiti",
+                        "Confezione da Pezzi": "6",
+                        "Ean": "0738019288637",
+                        "Applicazione su Legno": true,
+                        "Applicazione su Allumino": false,
+                        "Applicazione su Pvc": false,
+                        "Scuri alla Veneta": false,
+                        "Persiane a Muro": false,
+                        "Persiane con Telaio": false
+                    }
+                }
+            ],
+            "_source_codes": [
+                "FAA01205M0BB",
+                "FAA01205M0BL"
+            ]
+        },
+        {
+            "attributi": {
+                "Serie": "",
+                "Colore": "Nero ",
+                "Materiale": "Ferro",
+                "Specifiche tecniche": "100 x 115mm ",
+                "Tipologia": "Corrimano e supporti",
+                "Confezione da Pezzi": "6",
+                "Ean": "0738019259316",
+                "Applicazione su Legno": true,
+                "Applicazione su Allumino": false,
+                "Applicazione su Pvc": false,
+                "Scuri alla Veneta": false,
+                "Persiane a Muro": false,
+                "Persiane con Telaio": false
+            },
+            "codice": "FAA0705TR0IN",
+            "nome": {
+                "it": "Terminale a riccio per corrimano",
+                "en": "",
+                "de": "",
+                "fr": "",
+                "es": "",
+                "pt": "",
+                "hr": "",
+                "sl": "",
+                "el": ""
+            },
+            "descrizione": {
+                "it": "Terminale a riccio per corrimano - Colore: Nero  - Materiale: Ferro - Specifiche tecniche: 100 x 115mm  - Tipologia: Corrimano e supporti - Confezione da Pezzi: 6 - Applicazione su Legno: Si - Applicazione su Allumino: No - Applicazione su Pvc: No",
+                "en": "",
+                "de": "",
+                "fr": "",
+                "es": "",
+                "pt": "",
+                "hr": "",
+                "sl": "",
+                "el": ""
+            },
+            "prezzo": 37.38000000000000255795384873636066913604736328125,
+            "immagine": "https:\/\/didieffeb2b.com\/img_catalogo_norm\/FAA0705TR0IN____.JPG",
+            "_source_codes": [
+                "FAA0705TR0IN"
+            ]
+        },
+        {
+            "attributi": {
+                "Serie": "Venezia",
+                "Colore": "Ottone brunito ",
+                "Materiale": "Ottone",
+                "Specifiche tecniche": "- ",
+                "Tipologia": "Manigliette pendenti",
+                "Confezione da Pezzi": "24",
+                "Ean": "0738019289009",
+                "Applicazione su Legno": true,
+                "Applicazione su Allumino": false,
+                "Applicazione su Pvc": false,
+                "Scuri alla Veneta": false,
+                "Persiane a Muro": false,
+                "Persiane con Telaio": false
+            },
+            "codice": "FAM00016L0BB",
+            "nome": {
+                "it": "Pendente orizzontale",
+                "en": "",
+                "de": "",
+                "fr": "",
+                "es": "",
+                "pt": "",
+                "hr": "",
+                "sl": "",
+                "el": ""
+            },
+            "descrizione": {
+                "it": "Pendente orizzontale - Serie: Venezia - Colore: Ottone brunito  - Materiale: Ottone - Specifiche tecniche: -  - Tipologia: Manigliette pendenti - Confezione da Pezzi: 24 - Applicazione su Legno: Si - Applicazione su Allumino: No - Applicazione su Pvc: No",
+                "en": "",
+                "de": "",
+                "fr": "",
+                "es": "",
+                "pt": "",
+                "hr": "",
+                "sl": "",
+                "el": ""
+            },
+            "prezzo": 6.480000000000000426325641456060111522674560546875,
+            "immagine": "https:\/\/didieffeb2b.com\/img_catalogo_norm\/FAM00016L0BB____.JPG",
+            "_source_codes": [
+                "FAM00016L0BB"
+            ]
+        },
+        {
+            "attributi": {
+                "Serie": "Venezia",
+                "Colore": "Ottone brunito ",
+                "Materiale": "Ottone",
+                "Specifiche tecniche": "- ",
+                "Tipologia": "Pomoli",
+                "Confezione da Pezzi": "24",
+                "Ean": "0738019289078",
+                "Applicazione su Legno": true,
+                "Applicazione su Allumino": false,
+                "Applicazione su Pvc": false,
+                "Scuri alla Veneta": false,
+                "Persiane a Muro": false,
+                "Persiane con Telaio": false
+            },
+            "codice": "FAM0001700BB",
+            "nome": {
+                "it": "Pomolo con placca quadrata",
+                "en": "Square plate door knob",
+                "de": "Türknopf mit quadratischer Platte",
+                "fr": "Bouton de porte avec plaque carrée",
+                "es": "Pomo con placa cuadrada",
+                "pt": "Maçaneta com espelho quadrado",
+                "hr": "Okretač s kvadratnom rozettom",
+                "sl": "\"Ročaj s kvadratno ploskvico\"",
+                "el": "\"Πόμολο με τετράγωνη πλάκα\""
+            },
+            "descrizione": {
+                "it": "Pomolo con placca quadrata - Serie: Venezia - Colore: Ottone brunito  - Materiale: Ottone - Specifiche tecniche: -  - Tipologia: Pomoli - Confezione da Pezzi: 24 - Applicazione su Legno: Si - Applicazione su Allumino: No - Applicazione su Pvc: No",
+                "en": "Knob with square plate - Series: Venezia - Color: Burnished brass - Material: Brass - Technical specifications: - - Type: Knobs - Package quantity: 24 pieces - Application on Wood: Yes - Application on Aluminum: No - Application on PVC: No",
+                "de": "Türknopf mit quadratischer Platte - Serie: Venezia - Farbe: Brüniertes Messing - Material: Messing - Technische Daten: - - Typ: Türknöpfe - Verpackungseinheit: 24 Stück - Anwendung auf Holz: Ja - Anwendung auf Aluminium: Nein - Anwendung auf PVC: Nein",
+                "fr": "Bouton de porte avec plaque carrée - Série : Venezia - Couleur : Laiton bruni - Matériau : Laiton - Spécifications techniques : - - Type : Boutons de porte - Conditionnement par pièces : 24 - Application sur bois : Oui - Application sur aluminium : Non - Application sur PVC : Non",
+                "es": "Pomo con placa cuadrada - Serie: Venezia - Color: Latón bruñido - Material: Latón - Especificaciones técnicas: - - Tipo: Pomos - Paquete de Piezas: 24 - Aplicación en Madera: Sí - Aplicación en Aluminio: No - Aplicación en PVC: No",
+                "pt": "Maçaneta com placa quadrada - Série: Venezia - Cor: Latão brunido - Material: Latão - Especificações técnicas: - - Tipo: Maçanetas - Embalagem com Peças: 24 - Aplicação em Madeira: Sim - Aplicação em Alumínio: Não - Aplicação em PVC: Não",
+                "hr": "Gumb s kvadratnom pločicom - Serija: Venecija - Boja: Patinirano mesing - Materijal: Mesing - Tehničke specifikacije: - - Tip: Gumbovi - Pakiranje od komada: 24 - Primjena na drvu: Da - Primjena na aluminiju: Ne - Primjena na PVC-u: Ne",
+                "sl": "\"Ročaj s kvadratno ploščo - Serija: Venezia - Barva: Patinirano medenino - Material: Medenina - Tehnične specifikacije: - - Tip: Ročaji - Pakovanje: 24 kosov - Uporaba na les: Da - Uporaba na aluminij: Ne - Uporaba na PVC: Ne\"",
+                "el": "Λαβή με τετράγωνη πλάκα - Σειρά: Βενετία - Χρώμα: Γυαλισμένος ορείχαλκος - Υλικό: Ορείχαλκος - Τεχνικές προδιαγραφές: - - Τύπος: Λαβές - Συσκευασία ανά Τεμάχια: 24 - Εφαρμογή σε Ξύλο: Ναι - Εφαρμογή σε Αλουμίνιο: Όχι - Εφαρμογή σε PVC: Όχι"
+            },
+            "prezzo": 6.20000000000000017763568394002504646778106689453125,
+            "immagine": "https:\/\/didieffeb2b.com\/img_catalogo_norm\/FAM0001700BB____.JPG",
+            "_source_codes": [
+                "FAM0001700BB"
+            ]
+        },
+        {
+            "attributi": {
+                "Serie": "Antica forgia",
+                "Colore": "Silver ",
+                "Materiale": "Ferro",
+                "Specifiche tecniche": "55x100mm - d.8 ",
+                "Tipologia": "Cerniere",
+                "Confezione da Pezzi": "12",
+                "Ean": "0738019260534",
+                "Applicazione su Legno": true,
+                "Applicazione su Allumino": false,
+                "Applicazione su Pvc": false,
+                "Scuri alla Veneta": false,
+                "Persiane a Muro": false,
+                "Persiane con Telaio": false
+            },
+            "codice": "FAM00084VLIS",
+            "nome": {
+                "it": "Cerniera con cardine",
+                "en": "Hinged zipper",
+                "de": "Scharnier mit Gelenkbolzen",
+                "fr": "Charnière à pivot",
+                "es": "Bisagra con gozne",
+                "pt": "Dobradiça com pino",
+                "hr": "Šarka sa željezom",
+                "sl": "Tečaj z zatičem",
+                "el": "Άρθρωση με μεντεσέ"
+            },
+            "descrizione": {
+                "it": "Cerniera con cardine - Serie: Antica forgia - Colore: Silver  - Materiale: Ferro - Specifiche tecniche: 55x100mm - d.8  - Tipologia: Cerniere - Confezione da Pezzi: 12 - Applicazione su Legno: Si - Applicazione su Allumino: No - Applicazione su Pvc: No",
+                "en": "Hinge with pivot - Series: Ancient forge - Color: Silver - Material: Iron - Technical specifications: 55x100mm - d.8 - Type: Hinges - Package quantity: 12 pieces - Application on Wood: Yes - Application on Aluminum: No - Application on PVC: No",
+                "de": "Scharnier mit Angel - Serie: Antica Forgia - Farbe: Silber - Material: Eisen - Technische Daten: 55x100mm - d.8 - Typ: Scharniere - Verpackungseinheit: 12 Stück - Holzanwendung: Ja - Aluminiumanwendung: Nein - PVC-Anwendung: Nein",
+                "fr": "Charnière à pivot - Série : Ancienne forge - Couleur : Argent - Matériau : Fer - Spécifications techniques : 55x100mm - d.8 - Type : Charnières - Pack de : 12 pièces - Application sur bois : Oui - Application sur aluminium : Non - Application sur PVC : Non",
+                "es": "Bisagra con gozne - Serie: Antigua forja - Color: Plateado - Material: Hierro - Especificaciones técnicas: 55x100mm - d.8 - Tipo: Bisagras - Paquete de Unidades: 12 - Aplicación en Madera: Sí - Aplicación en Aluminio: No - Aplicación en PVC: No",
+                "pt": "Dobradiça com eixo - Série: Forja antiga - Cor: Prata - Material: Ferro - Especificações técnicas: 55x100mm - d.8 - Tipo: Dobradiças - Embalagem com peças: 12 - Aplicação em Madeira: Sim - Aplicação em Alumínio: Não - Aplicação em PVC: Não",
+                "hr": "\"Šarka s čavlom - Serija: Antica forgia - Boja: Silver - Materijal: Željezo - Tehničke specifikacije: 55x100mm - d.8 - Tip: Šarke - Pakiranja po komadu: 12 - Primjena na drvo: Da - Primjena na aluminij: Ne - Primjena na PVC: Ne\"",
+                "sl": "\"Tečaj s čepom - Serija: Antica forgia - Barva: Silver - Material: Železo - Tehnične specifikacije: 55x100mm - d.8 - Tip: Tečaji - Pakovanje po kosom: 12 - Uporaba na les: Da - Uporaba na aluminij: Ne - Uporaba na PVC: Ne\"",
+                "el": "Μεντεσές με άξονα - Σειρά: Αρχαία σφυρηλάτηση - Χρώμα: Ασημί - Υλικό: Σίδηρο - Τεχνικές προδιαγραφές: 55x100mm - d.8 - Τύπος: Μεντεσέδες - Συσκευασία ανά Τεμάχια: 12 - Εφαρμογή σε Ξύλο: Ναι - Εφαρμογή σε Αλουμίνιο: Όχι - Εφαρμογή σε PVC: Όχι"
+            },
+            "prezzo": 33.090000000000003410605131648480892181396484375,
+            "immagine": "https:\/\/didieffeb2b.com\/img_catalogo_norm\/FAM00084VLIS1___.JPG",
+            "immagini": [
+                "https:\/\/didieffeb2b.com\/img_catalogo_norm\/FAM00084VLIS1___.JPG",
+                "https:\/\/didieffeb2b.com\/img_catalogo_norm\/FAM00084VLIS2___.JPG",
+                "https:\/\/didieffeb2b.com\/img_catalogo_norm\/FAM00084VLIS____.JPG"
+            ],
+            "_source_codes": [
+                "FAM00084VLIS"
+            ]
+        },
+        {
+            "attributi": {
+                "Serie": "Antica forgia",
+                "Colore": "Silver ",
+                "Materiale": "Ferro",
+                "Specifiche tecniche": "125x30mm ",
+                "Tipologia": "Manigliette pendenti",
+                "Confezione da Pezzi": "12",
+                "Ean": "0738019260404",
+                "Applicazione su Legno": true,
+                "Applicazione su Allumino": false,
+                "Applicazione su Pvc": false,
+                "Scuri alla Veneta": false,
+                "Persiane a Muro": false,
+                "Persiane con Telaio": false
+            },
+            "codice": "FAM00085L0IS",
+            "nome": {
+                "it": "Maniglietta pendente su rosette",
+                "en": "Hanging handle on rosettes",
+                "de": "Hängender Türgriff mit Rosetten",
+                "fr": "Poignée pendante sur rosettes",
+                "es": "Tirador colgante sobre rosetas",
+                "pt": "Maçaneta suspensa sobre rosetas",
+                "hr": "\"Ručica koja visi na rozete\"",
+                "sl": "\"Ročica, ki visi na rozacah\"",
+                "el": "\"Χερούλι κρεμαστό σε ροζέτες\""
+            },
+            "descrizione": {
+                "it": "Maniglietta pendente su rosette - Serie: Antica forgia - Colore: Silver  - Materiale: Ferro - Specifiche tecniche: 125x30mm  - Tipologia: Manigliette pendenti - Confezione da Pezzi: 12 - Applicazione su Legno: Si - Applicazione su Allumino: No - Applicazione su Pvc: No",
+                "en": "Hanging pull handle on rosettes - Series: Ancient forge - Color: Silver - Material: Iron - Technical specifications: 125x30mm - Type: Hanging pull handles - Package quantity: 12 pieces - Application on Wood: Yes - Application on Aluminum: No - Application on PVC: No",
+                "de": "Hängegriff auf Rosetten - Serie: Antike Schmiede - Farbe: Silber - Material: Eisen - Technische Daten: 125x30mm - Typ: Hängegriffe - Verpackungseinheit: 12 Stück - Anwendung auf Holz: Ja - Anwendung auf Aluminium: Nein - Anwendung auf PVC: Nein",
+                "fr": "Poignée pendante sur rosettes - Série : Forge antique - Couleur : Argent - Matériau : Fer - Spécifications techniques : 125x30mm - Type : Poignées pendantes - Conditionnement par Pièces : 12 - Application sur Bois : Oui - Application sur Aluminium : Non - Application sur PVC : Non",
+                "es": "Tirador colgante sobre rosetas - Serie: Antigua forja - Color: Plata - Material: Hierro - Especificaciones técnicas: 125x30mm - Tipología: Tiradores colgantes - Paquete de Piezas: 12 - Aplicación en Madera: Sí - Aplicación en Aluminio: No - Aplicación en PVC: No",
+                "pt": "Puxador pendente com rosetas - Série: Antiga forja - Cor: Prata - Material: Ferro - Especificações técnicas: 125x30mm - Tipo: Puxadores pendentes - Embalagem com Peças: 12 - Aplicação em Madeira: Sim - Aplicação em Alumínio: Não - Aplicação em PVC: Não",
+                "hr": "\"Viseća ručica na rozete - Serija: Antica forgia - Boja: Silver - Materijal: Željezo - Tehničke specifikacije: 125x30mm - Vrsta: Viseće ručice - Pakovanje po komadima: 12 - Primjena na drvu: Da - Primjena na aluminiju: Ne - Primjena na PVC-u: Ne\"",
+                "sl": "Viseča ročica na rozetah - Serija: Antica forgia - Barva: Silver - Material: Železo - Tehnične specifikacije: 125x30mm - Tip: Viseče ročice - Pakiranje: 12 kosov - Uporaba na lesu: Da - Uporaba na aluminiju: Ne - Uporaba na PVC-ju: Ne",
+                "el": "\"Μικρή λαβή κρεμαστή σε ροζέτες - Σειρά: Αρχαία σιδηρουργία - Χρώμα: Ασημί - Υλικό: Σίδηρο - Τεχνικές προδιαγραφές: 125x30mm - Τύπος: Κρεμαστές μικρές λαβές - Συσκευασία ανά τεμάχια: 12 - Εφαρμογή σε Ξύλο: Ναι - Εφαρμογή σε Αλουμίνιο: Όχι - Εφαρμογή σε PVC: Όχι\""
+            },
+            "prezzo": 22.440000000000001278976924368180334568023681640625,
+            "immagine": "https:\/\/didieffeb2b.com\/img_catalogo_norm\/FAM00085L0IS____.JPG",
+            "variantGroupId": "3770",
+            "isVariantGroup": true,
+            "variants": [
+                {
+                    "codice": "FAM00085L0IS",
+                    "variantOrder": 1,
+                    "qualifiers": {
+                        "Colore": "Silver ",
+                        "Materiale": "Ferro",
+                        "Specifiche tecniche": "125x30mm "
+                    },
+                    "prezzo": 22.440000000000001278976924368180334568023681640625,
+                    "immagine": "https:\/\/didieffeb2b.com\/img_catalogo_norm\/FAM00085L0IS____.JPG",
+                    "immagini": null,
+                    "attributi": {
+                        "Serie": "Antica forgia",
+                        "Colore": "Silver ",
+                        "Materiale": "Ferro",
+                        "Specifiche tecniche": "125x30mm ",
+                        "Tipologia": "Manigliette pendenti",
+                        "Confezione da Pezzi": "12",
+                        "Ean": "0738019260404",
+                        "Applicazione su Legno": true,
+                        "Applicazione su Allumino": false,
+                        "Applicazione su Pvc": false,
+                        "Scuri alla Veneta": false,
+                        "Persiane a Muro": false,
+                        "Persiane con Telaio": false
+                    }
+                },
+                {
+                    "codice": "FAM00085L0IR",
+                    "variantOrder": 2,
+                    "qualifiers": {
+                        "Colore": "Ruggine ",
+                        "Materiale": "Ferro",
+                        "Specifiche tecniche": "125x30mm "
+                    },
+                    "prezzo": 22.440000000000001278976924368180334568023681640625,
+                    "immagine": "https:\/\/didieffeb2b.com\/img_catalogo_norm\/FAM00085L0IR____.JPG",
+                    "immagini": null,
+                    "attributi": {
+                        "Serie": "Antica forgia",
+                        "Colore": "Ruggine ",
+                        "Materiale": "Ferro",
+                        "Specifiche tecniche": "125x30mm ",
+                        "Tipologia": "Manigliette pendenti",
+                        "Confezione da Pezzi": "12",
+                        "Ean": "0738019260411",
+                        "Applicazione su Legno": true,
+                        "Applicazione su Allumino": false,
+                        "Applicazione su Pvc": false,
+                        "Scuri alla Veneta": false,
+                        "Persiane a Muro": false,
+                        "Persiane con Telaio": false
+                    }
+                }
+            ],
+            "_source_codes": [
+                "FAM00085L0IS",
+                "FAM00085L0IR"
+            ]
+        },
+        {
+            "attributi": {
+                "Serie": "Antica forgia",
+                "Colore": "Silver ",
+                "Materiale": "Ferro",
+                "Specifiche tecniche": "60x30mm ",
+                "Tipologia": "Manigliette pendenti",
+                "Confezione da Pezzi": "24",
+                "Ean": "0738019260480",
+                "Applicazione su Legno": true,
+                "Applicazione su Allumino": false,
+                "Applicazione su Pvc": false,
+                "Scuri alla Veneta": false,
+                "Persiane a Muro": false,
+                "Persiane con Telaio": false
+            },
+            "codice": "FAM00089L0IS",
+            "nome": {
+                "it": "Pendente orizzontale",
+                "en": "Horizontal pendant",
+                "de": "Horizontales Anhängsel",
+                "fr": "Pendentif horizontal",
+                "es": "Pendiente horizontal",
+                "pt": "Pendente horizontal",
+                "hr": "\"Viseća vodoravna\"",
+                "sl": "Vodoravno viseče",
+                "el": "Οριζόντια κρέμαση"
+            },
+            "descrizione": {
+                "it": "Pendente orizzontale - Serie: Antica forgia - Colore: Silver  - Materiale: Ferro - Specifiche tecniche: 60x30mm  - Tipologia: Manigliette pendenti - Confezione da Pezzi: 24 - Applicazione su Legno: Si - Applicazione su Allumino: No - Applicazione su Pvc: No",
+                "en": "Horizontal pendant - Series: Ancient forge - Color: Silver - Material: Iron - Technical specifications: 60x30mm - Type: Hanging handles - Package quantity: 24 pieces - Application on Wood: Yes - Application on Aluminum: No - Application on PVC: No",
+                "de": "Horizontaler Griff - Serie: Antike Schmiede - Farbe: Silber - Material: Eisen - Technische Daten: 60x30mm - Typ: Hängegriffe - Verpackungseinheit: 24 Stück - Anwendung auf Holz: Ja - Anwendung auf Aluminium: Nein - Anwendung auf PVC: Nein",
+                "fr": "Poignée horizontale - Série : Forge antique - Couleur : Argent - Matériau : Fer - Spécifications techniques : 60x30mm - Type : Poignées pendantes - Conditionnement : 24 pièces - Application sur bois : Oui - Application sur aluminium : Non - Application sur PVC : Non",
+                "es": "Tirador horizontal - Serie: Antigua forja - Color: Plata - Material: Hierro - Especificaciones técnicas: 60x30mm - Tipo: Tiradores colgantes - Paquete de Piezas: 24 - Aplicación en Madera: Sí - Aplicación en Aluminio: No - Aplicación en PVC: No",
+                "pt": "Puxador horizontal - Série: Forja Antiga - Cor: Prata - Material: Ferro - Especificações técnicas: 60x30mm - Tipo: Puxadores pendentes - Embalagem com Peças: 24 - Aplicação em Madeira: Sim - Aplicação em Alumínio: Não - Aplicação em PVC: Não",
+                "hr": "Viseća ručica horizontalna - Serija: Antička kovačnica - Boja: Silver - Materijal: Željezo - Tehničke specifikacije: 60x30mm - Tipologija: Viseće ručice - Pakovanje po komadima: 24 - Primjena na Drvo: Da - Primjena na Aluminij: Ne - Primjena na PVC: Ne",
+                "sl": "\"Viseče ročice - Serija: Antica forgia - Barva: Silver - Material: Železo - Tehnične specifikacije: 60x30mm - Tip: Viseče ročice - Pakiranje: 24 kosov - Uporaba na lesu: Da - Uporaba na aluminiju: Ne - Uporaba na PVC: Ne\"",
+                "el": "Κρεμαστό οριζόντιο - Σειρά: Αρχαία Σφυρηλάτηση - Χρώμα: Silver - Υλικό: Σίδερο - Τεχνικές Προδιαγραφές: 60x30mm - Τύπος: Κρεμαστές λαβές - Συσκευασία σε Τεμάχια: 24 - Εφαρμογή σε Ξύλο: Ναι - Εφαρμογή σε Αλουμίνιο: Όχι - Εφαρμογή σε PVC: Όχι"
+            },
+            "prezzo": 11.1400000000000005684341886080801486968994140625,
+            "immagine": "https:\/\/didieffeb2b.com\/img_catalogo_norm\/FAM00089L0IS____.JPG",
+            "variantGroupId": "3810",
+            "isVariantGroup": true,
+            "variants": [
+                {
+                    "codice": "FAM00089L0IS",
+                    "variantOrder": 1,
+                    "qualifiers": {
+                        "Colore": "Silver ",
+                        "Materiale": "Ferro",
+                        "Specifiche tecniche": "60x30mm "
+                    },
+                    "prezzo": 11.1400000000000005684341886080801486968994140625,
+                    "immagine": "https:\/\/didieffeb2b.com\/img_catalogo_norm\/FAM00089L0IS____.JPG",
+                    "immagini": null,
+                    "attributi": {
+                        "Serie": "Antica forgia",
+                        "Colore": "Silver ",
+                        "Materiale": "Ferro",
+                        "Specifiche tecniche": "60x30mm ",
+                        "Tipologia": "Manigliette pendenti",
+                        "Confezione da Pezzi": "24",
+                        "Ean": "0738019260480",
+                        "Applicazione su Legno": true,
+                        "Applicazione su Allumino": false,
+                        "Applicazione su Pvc": false,
+                        "Scuri alla Veneta": false,
+                        "Persiane a Muro": false,
+                        "Persiane con Telaio": false
+                    }
+                },
+                {
+                    "codice": "FAM00089L0IR",
+                    "variantOrder": 2,
+                    "qualifiers": {
+                        "Colore": "Ruggine ",
+                        "Materiale": "Ferro",
+                        "Specifiche tecniche": "60x30mm "
+                    },
+                    "prezzo": 15.6500000000000003552713678800500929355621337890625,
+                    "immagine": "https:\/\/didieffeb2b.com\/img_catalogo_norm\/FAM00089L0IR____.JPG",
+                    "immagini": null,
+                    "attributi": {
+                        "Serie": "Antica forgia",
+                        "Colore": "Ruggine ",
+                        "Materiale": "Ferro",
+                        "Specifiche tecniche": "60x30mm ",
+                        "Tipologia": "Manigliette pendenti",
+                        "Confezione da Pezzi": "24",
+                        "Ean": "0738019260497",
+                        "Applicazione su Legno": true,
+                        "Applicazione su Allumino": false,
+                        "Applicazione su Pvc": false,
+                        "Scuri alla Veneta": false,
+                        "Persiane a Muro": false,
+                        "Persiane con Telaio": false
+                    }
+                }
+            ],
+            "_source_codes": [
+                "FAM00089L0IS",
+                "FAM00089L0IR"
+            ]
+        },
+        {
+            "attributi": {
+                "Serie": "Antica forgia",
+                "Colore": "Ruggine ",
+                "Materiale": "Ferro",
+                "Specifiche tecniche": "30x60mm ",
+                "Tipologia": "Manigliette pendenti",
+                "Confezione da Pezzi": "24",
+                "Ean": "0738019260510",
+                "Applicazione su Legno": true,
+                "Applicazione su Allumino": false,
+                "Applicazione su Pvc": false,
+                "Scuri alla Veneta": false,
+                "Persiane a Muro": false,
+                "Persiane con Telaio": false
+            },
+            "codice": "FAM00089V0IR",
+            "nome": {
+                "it": "Pendente verticale",
+                "en": "Vertical pendant",
+                "de": "Vertikales Anhängsel",
+                "fr": "Pendentif vertical",
+                "es": "Pendiente vertical",
+                "pt": "Pendente vertical",
+                "hr": "Okomiti visjak",
+                "sl": "Navpična viseča",
+                "el": "Κάθετη κρέμαση"
+            },
+            "descrizione": {
+                "it": "Pendente verticale - Serie: Antica forgia - Colore: Ruggine  - Materiale: Ferro - Specifiche tecniche: 30x60mm  - Tipologia: Manigliette pendenti - Confezione da Pezzi: 24 - Applicazione su Legno: Si - Applicazione su Allumino: No - Applicazione su Pvc: No",
+                "en": "Vertical Pendant - Series: Ancient Forge - Color: Rust - Material: Iron - Technical Specifications: 30x60mm - Type: Hanging Handles - Package Quantity: 24 pieces - Application on Wood: Yes - Application on Aluminum: No - Application on PVC: No",
+                "de": "Vertikaler Griff - Serie: Antike Schmiede - Farbe: Rost - Material: Eisen - Technische Daten: 30x60mm - Typ: Hängegriffe - Verpackungseinheit: 24 Stück - Anwendung auf Holz: Ja - Anwendung auf Aluminium: Nein - Anwendung auf PVC: Nein",
+                "fr": "Pendentif vertical - Série : Forge antique - Couleur : Rouille - Matériau : Fer - Spécifications techniques : 30x60mm - Type : Poignées pendantes - Conditionnement : 24 pièces - Application sur bois : Oui - Application sur aluminium : Non - Application sur PVC : Non",
+                "es": "Colgante vertical - Serie: Antigua forja - Color: Óxido - Material: Hierro - Especificaciones técnicas: 30x60mm - Tipología: Tiradores colgantes - Paquete de Piezas: 24 - Aplicación en Madera: Sí - Aplicación en Aluminio: No - Aplicación en PVC: No",
+                "pt": "Pendente vertical - Série: Forja antiga - Cor: Ferrugem - Material: Ferro - Especificações técnicas: 30x60mm - Tipologia: Puxadores pendentes - Embalagem com Peças: 24 - Aplicação em Madeira: Sim - Aplicação em Alumínio: Não - Aplicação em PVC: Não",
+                "hr": "Okomiti privjesak - Serija: Antica forgia - Boja: Hrđa - Materijal: Željezo - Tehničke specifikacije: 30x60mm - Vrsta: Viseće ručice - Pakovanje: 24 komada - Primjena na drvo: Da - Primjena na aluminij: Ne - Primjena na PVC: Ne",
+                "sl": "\"Navpična obeska - Serija: Antica forgia - Barva: Rja - Material: Železo - Tehnične specifikacije: 30x60mm - Vrsta: Viseče ročajčke - Paket: 24 kosov - Uporaba na Leseni podlagi: Da - Uporaba na Aluminiju: Ne - Uporaba na PVC: Ne\"",
+                "el": "Κρεμαστό κατακόρυφο - Σειρά: Αρχαία σφυρηλάτηση - Χρώμα: Σκουριά - Υλικό: Σίδηρος - Τεχνικές προδιαγραφές: 30x60mm - Τύπος: Κρεμαστές λαβές - Συσκευασία σε τεμάχια: 24 - Εφαρμογή σε Ξύλο: Ναι - Εφαρμογή σε Αλουμίνιο: Όχι - Εφαρμογή σε PVC: Όχι"
+            },
+            "prezzo": 15.6500000000000003552713678800500929355621337890625,
+            "immagine": "https:\/\/didieffeb2b.com\/img_catalogo_norm\/FAM00089V0IR____.JPG",
+            "_source_codes": [
+                "FAM00089V0IR"
+            ]
+        },
+        {
+            "attributi": {
+                "Serie": "Asolo",
+                "Colore": "Ottone brunito ",
+                "Materiale": "Ottone",
+                "Specifiche tecniche": "- ",
+                "Tipologia": "Manigliette pendenti",
+                "Confezione da Pezzi": "24",
+                "Ean": "0738019289177",
+                "Applicazione su Legno": true,
+                "Applicazione su Allumino": false,
+                "Applicazione su Pvc": false,
+                "Scuri alla Veneta": false,
+                "Persiane a Muro": false,
+                "Persiane con Telaio": false
+            },
+            "codice": "FAM0003000BB",
+            "nome": {
+                "it": "Anello",
+                "en": "Ring",
+                "de": "Ring",
+                "fr": "Bague",
+                "es": "Anillo",
+                "pt": "Anel",
+                "hr": "Prsten",
+                "sl": "Prstan",
+                "el": "Δαχτυλίδι"
+            },
+            "descrizione": {
+                "it": "Anello - Serie: Asolo - Colore: Ottone brunito  - Materiale: Ottone - Specifiche tecniche: -  - Tipologia: Manigliette pendenti - Confezione da Pezzi: 24 - Applicazione su Legno: Si - Applicazione su Allumino: No - Applicazione su Pvc: No",
+                "en": "Ring - Series: Asolo - Color: Burnished brass - Material: Brass - Technical specifications: - Type: Hanging handles - Package quantity: 24 pieces - Application on Wood: Yes - Application on Aluminum: No - Application on PVC: No",
+                "de": "Ring - Serie: Asolo - Farbe: Brüniertes Messing - Material: Messing - Technische Spezifikationen: - - Typ: Hängende Griffe - Verpackungseinheit: 24 Stück - Anwendung auf Holz: Ja - Anwendung auf Aluminium: Nein - Anwendung auf PVC: Nein",
+                "fr": "Anneau - Série : Asolo - Couleur : Laiton bruni - Matériau : Laiton - Spécifications techniques : - - Type : Poignées pendantes - Conditionnement par pièces : 24 - Application sur bois : Oui - Application sur aluminium : Non - Application sur PVC : Non",
+                "es": "Anilla - Serie: Asolo - Color: Latón bruñido - Material: Latón - Especificaciones técnicas: - - Tipología: Tiradores colgantes - Paquete de Piezas: 24 - Aplicación en Madera: Sí - Aplicación en Aluminio: No - Aplicación en PVC: No",
+                "pt": "Anel - Série: Asolo - Cor: Latão brunido - Material: Latão - Especificações técnicas: - - Tipo: Puxadores pendentes - Embalagem com Peças: 24 - Aplicação em Madeira: Sim - Aplicação em Alumínio: Não - Aplicação em PVC: Não",
+                "hr": "Prsten - Serija: Asolo - Boja: Bronzirana bronca - Materijal: Bronca - Tehnične specifikacije: - - Vrsta: Viseće ručice - Pakiranje po komadima: 24 - Primjena na drvu: Da - Primjena na aluminiju: Ne - Primjena na PVC-u: Ne",
+                "sl": "Prstan - Serija: Asolo - Barva: Patinirani mes - Material: Mes - Tehnične specifikacije: - - Tip: Viseče ročice - Pakirano po kosov: 24 - Uporaba na lesu: Da - Uporaba na aluminiju: Ne - Uporaba na PVC: Ne",
+                "el": "Δακτύλιος - Σειρά: Asolo - Χρώμα: Γυαλισμένο ορείχαλκο - Υλικό: Ορείχαλκος - Τεχνικές προδιαγραφές: - - Τύπος: Κρεμαστές λαβές - Συσκευασία ανά τεμάχια: 24 - Εφαρμογή σε ξύλο: Ναι - Εφαρμογή σε αλουμίνιο: Όχι - Εφαρμογή σε PVC: Όχι"
+            },
+            "prezzo": 2.95000000000000017763568394002504646778106689453125,
+            "immagine": "https:\/\/didieffeb2b.com\/img_catalogo_norm\/FAM0003000BB____.JPG",
+            "_source_codes": [
+                "FAM0003000BB"
+            ]
+        }
+    ],
+    "generated_at": "2025-11-10T15:56:53+00:00",
+    "total": 41,
+    "source": {
+        "database": "dbepwcaa7nyeyf",
+        "table": "V_B2B_EXPORT_CATALOGO_NEW"
+    },
+    "_meta": {
+        "languages": [
+            "it"
+        ],
+        "variants_enabled": true,
+        "filters": [
+            {
+                "field": "prezzo",
+                "type": "range",
+                "label": "prezzo",
+                "order": 5,
+                "min": 0.479999999999999982236431605997495353221893310546875,
+                "max": 47.5
+            },
+            {
+                "field": "Colore",
+                "type": "tags",
+                "label": "Colore",
+                "order": 20,
+                "options": [
+                    {
+                        "label": {
+                            "it": "Colore"
+                        },
+                        "value": {
+                            "it": "Grafite"
+                        }
+                    },
+                    {
+                        "label": {
+                            "it": "Colore"
+                        },
+                        "value": {
+                            "it": "Nero"
+                        }
+                    },
+                    {
+                        "label": {
+                            "it": "Colore"
+                        },
+                        "value": {
+                            "it": "Ottone brunito"
+                        }
+                    },
+                    {
+                        "label": {
+                            "it": "Colore"
+                        },
+                        "value": {
+                            "it": "Ottone lucido"
+                        }
+                    },
+                    {
+                        "label": {
+                            "it": "Colore"
+                        },
+                        "value": {
+                            "it": "Ruggine"
+                        }
+                    },
+                    {
+                        "label": {
+                            "it": "Colore"
+                        },
+                        "value": {
+                            "it": "Silver"
+                        }
+                    }
+                ]
+            },
+            {
+                "field": "Materiale",
+                "type": "tags",
+                "label": "Materiale",
+                "order": 30,
+                "options": [
+                    {
+                        "label": {
+                            "it": "Materiale"
+                        },
+                        "value": {
+                            "it": "Argento silver"
+                        }
+                    },
+                    {
+                        "label": {
+                            "it": "Materiale"
+                        },
+                        "value": {
+                            "it": "Ferro"
+                        }
+                    },
+                    {
+                        "label": {
+                            "it": "Materiale"
+                        },
+                        "value": {
+                            "it": "Ottone"
+                        }
+                    }
+                ]
+            },
+            {
+                "field": "Specifiche tecniche",
+                "type": "select",
+                "label": "Specifiche tecniche",
+                "order": 40,
+                "options": [
+                    {
+                        "label": {
+                            "it": "Specifiche tecniche"
+                        },
+                        "value": {
+                            "it": "-"
+                        }
+                    },
+                    {
+                        "label": {
+                            "it": "Specifiche tecniche"
+                        },
+                        "value": {
+                            "it": "100 x 115mm"
+                        }
+                    },
+                    {
+                        "label": {
+                            "it": "Specifiche tecniche"
+                        },
+                        "value": {
+                            "it": "120 mm"
+                        }
+                    },
+                    {
+                        "label": {
+                            "it": "Specifiche tecniche"
+                        },
+                        "value": {
+                            "it": "120 x 1000 mm"
+                        }
+                    },
+                    {
+                        "label": {
+                            "it": "Specifiche tecniche"
+                        },
+                        "value": {
+                            "it": "125x30mm"
+                        }
+                    },
+                    {
+                        "label": {
+                            "it": "Specifiche tecniche"
+                        },
+                        "value": {
+                            "it": "15 x 15 mm"
+                        }
+                    },
+                    {
+                        "label": {
+                            "it": "Specifiche tecniche"
+                        },
+                        "value": {
+                            "it": "1500 mm"
+                        }
+                    },
+                    {
+                        "label": {
+                            "it": "Specifiche tecniche"
+                        },
+                        "value": {
+                            "it": "155x125 mm"
+                        }
+                    },
+                    {
+                        "label": {
+                            "it": "Specifiche tecniche"
+                        },
+                        "value": {
+                            "it": "280 x 220 mm"
+                        }
+                    },
+                    {
+                        "label": {
+                            "it": "Specifiche tecniche"
+                        },
+                        "value": {
+                            "it": "30x60mm"
+                        }
+                    },
+                    {
+                        "label": {
+                            "it": "Specifiche tecniche"
+                        },
+                        "value": {
+                            "it": "380 x 250 mm"
+                        }
+                    },
+                    {
+                        "label": {
+                            "it": "Specifiche tecniche"
+                        },
+                        "value": {
+                            "it": "55x100mm - d.8"
+                        }
+                    },
+                    {
+                        "label": {
+                            "it": "Specifiche tecniche"
+                        },
+                        "value": {
+                            "it": "60 mm"
+                        }
+                    },
+                    {
+                        "label": {
+                            "it": "Specifiche tecniche"
+                        },
+                        "value": {
+                            "it": "60x30mm"
+                        }
+                    },
+                    {
+                        "label": {
+                            "it": "Specifiche tecniche"
+                        },
+                        "value": {
+                            "it": "D.15 mm"
+                        }
+                    },
+                    {
+                        "label": {
+                            "it": "Specifiche tecniche"
+                        },
+                        "value": {
+                            "it": "D.80 mm"
+                        }
+                    },
+                    {
+                        "label": {
+                            "it": "Specifiche tecniche"
+                        },
+                        "value": {
+                            "it": "H= 130mm"
+                        }
+                    },
+                    {
+                        "label": {
+                            "it": "Specifiche tecniche"
+                        },
+                        "value": {
+                            "it": "H= 80mm"
+                        }
+                    },
+                    {
+                        "label": {
+                            "it": "Specifiche tecniche"
+                        },
+                        "value": {
+                            "it": "L=80 mm x h=170 mm"
+                        }
+                    },
+                    {
+                        "label": {
+                            "it": "Specifiche tecniche"
+                        },
+                        "value": {
+                            "it": "Liscio"
+                        }
+                    },
+                    {
+                        "label": {
+                            "it": "Specifiche tecniche"
+                        },
+                        "value": {
+                            "it": "Martellato"
+                        }
+                    }
+                ]
+            },
+            {
+                "field": "Serie",
+                "type": "checkbox",
+                "label": "Serie",
+                "order": 45,
+                "options": [
+                    {
+                        "label": {
+                            "it": "Serie"
+                        },
+                        "value": {
+                            "it": "238"
+                        }
+                    },
+                    {
+                        "label": {
+                            "it": "Serie"
+                        },
+                        "value": {
+                            "it": "591"
+                        }
+                    },
+                    {
+                        "label": {
+                            "it": "Serie"
+                        },
+                        "value": {
+                            "it": "900"
+                        }
+                    },
+                    {
+                        "label": {
+                            "it": "Serie"
+                        },
+                        "value": {
+                            "it": "Antica forgia"
+                        }
+                    },
+                    {
+                        "label": {
+                            "it": "Serie"
+                        },
+                        "value": {
+                            "it": "Asolo"
+                        }
+                    },
+                    {
+                        "label": {
+                            "it": "Serie"
+                        },
+                        "value": {
+                            "it": "Country"
+                        }
+                    },
+                    {
+                        "label": {
+                            "it": "Serie"
+                        },
+                        "value": {
+                            "it": "Tirolo"
+                        }
+                    },
+                    {
+                        "label": {
+                            "it": "Serie"
+                        },
+                        "value": {
+                            "it": "Valgardena"
+                        }
+                    },
+                    {
+                        "label": {
+                            "it": "Serie"
+                        },
+                        "value": {
+                            "it": "Venezia"
+                        }
+                    }
+                ]
+            },
+            {
+                "field": "Tipologia",
+                "type": "tags",
+                "label": "Tipologia",
+                "order": 50,
+                "options": [
+                    {
+                        "label": {
+                            "it": "Tipologia"
+                        },
+                        "value": {
+                            "it": "Appendiabiti"
+                        }
+                    },
+                    {
+                        "label": {
+                            "it": "Tipologia"
+                        },
+                        "value": {
+                            "it": "Borchie"
+                        }
+                    },
+                    {
+                        "label": {
+                            "it": "Tipologia"
+                        },
+                        "value": {
+                            "it": "Cerniere"
+                        }
+                    },
+                    {
+                        "label": {
+                            "it": "Tipologia"
+                        },
+                        "value": {
+                            "it": "Coprinterruttori"
+                        }
+                    },
+                    {
+                        "label": {
+                            "it": "Tipologia"
+                        },
+                        "value": {
+                            "it": "Corrimano e supporti"
+                        }
+                    },
+                    {
+                        "label": {
+                            "it": "Tipologia"
+                        },
+                        "value": {
+                            "it": "Fasce"
+                        }
+                    },
+                    {
+                        "label": {
+                            "it": "Tipologia"
+                        },
+                        "value": {
+                            "it": "Manigliette pendenti"
+                        }
+                    },
+                    {
+                        "label": {
+                            "it": "Tipologia"
+                        },
+                        "value": {
+                            "it": "Numeri civici"
+                        }
+                    },
+                    {
+                        "label": {
+                            "it": "Tipologia"
+                        },
+                        "value": {
+                            "it": "Pomoli"
+                        }
+                    },
+                    {
+                        "label": {
+                            "it": "Tipologia"
+                        },
+                        "value": {
+                            "it": "Posta"
+                        }
+                    },
+                    {
+                        "label": {
+                            "it": "Tipologia"
+                        },
+                        "value": {
+                            "it": "Reggimensole"
+                        }
+                    }
+                ]
+            },
+            {
+                "field": "Confezione da Pezzi",
+                "type": "select",
+                "label": "Confezione da Pezzi",
+                "order": 60,
+                "options": [
+                    {
+                        "label": {
+                            "it": "Confezione da Pezzi"
+                        },
+                        "value": {
+                            "it": "1"
+                        }
+                    },
+                    {
+                        "label": {
+                            "it": "Confezione da Pezzi"
+                        },
+                        "value": {
+                            "it": "10"
+                        }
+                    },
+                    {
+                        "label": {
+                            "it": "Confezione da Pezzi"
+                        },
+                        "value": {
+                            "it": "12"
+                        }
+                    },
+                    {
+                        "label": {
+                            "it": "Confezione da Pezzi"
+                        },
+                        "value": {
+                            "it": "2"
+                        }
+                    },
+                    {
+                        "label": {
+                            "it": "Confezione da Pezzi"
+                        },
+                        "value": {
+                            "it": "200"
+                        }
+                    },
+                    {
+                        "label": {
+                            "it": "Confezione da Pezzi"
+                        },
+                        "value": {
+                            "it": "24"
+                        }
+                    },
+                    {
+                        "label": {
+                            "it": "Confezione da Pezzi"
+                        },
+                        "value": {
+                            "it": "4"
+                        }
+                    },
+                    {
+                        "label": {
+                            "it": "Confezione da Pezzi"
+                        },
+                        "value": {
+                            "it": "6"
+                        }
+                    },
+                    {
+                        "label": {
+                            "it": "Confezione da Pezzi"
+                        },
+                        "value": {
+                            "it": "8"
+                        }
+                    }
+                ]
+            },
+            {
+                "field": "Applicazione su Legno",
+                "type": "checkbox",
+                "label": "Applicazione su Legno",
+                "order": 99,
+                "options": [
+                    {
+                        "label": {
+                            "it": "Applicazione su Legno"
+                        },
+                        "value": {
+                            "it": true
+                        }
+                    }
+                ]
+            },
+            {
+                "field": "Applicazione su Allumino",
+                "type": "checkbox",
+                "label": "Applicazione su Allumino",
+                "order": 99,
+                "options": [
+                    {
+                        "label": {
+                            "it": "Applicazione su Allumino"
+                        },
+                        "value": {
+                            "it": false
+                        }
+                    }
+                ]
+            },
+            {
+                "field": "Applicazione su Pvc",
+                "type": "checkbox",
+                "label": "Applicazione su Pvc",
+                "order": 99,
+                "options": [
+                    {
+                        "label": {
+                            "it": "Applicazione su Pvc"
+                        },
+                        "value": {
+                            "it": false
+                        }
+                    }
+                ]
+            }
+        ],
+        "categories": [
+            {
+                "field": "Scuri alla Veneta",
+                "label": "Scuri alla Veneta",
+                "translations": {
+                    "it": "Scuri alla Veneta"
+                },
+                "icon": "📦",
+                "image": "https:\/\/shop.didieffeb2b.com\/admin\/data\/category_icon\/category_1760792486_68f38fa680454.png",
+                "color": "#667eea",
+                "description": "",
+                "count": 0
+            },
+            {
+                "field": "Persiane a Muro",
+                "label": "Persiane a Muro",
+                "translations": {
+                    "it": "Persiane a Muro"
+                },
+                "icon": "📦",
+                "image": "https:\/\/shop.didieffeb2b.com\/admin\/data\/category_icon\/category_1760792630_68f39036b0bec.png",
+                "color": "#667eea",
+                "description": "",
+                "count": 0
+            },
+            {
+                "field": "Persiane con Telaio",
+                "label": "Persiane con Telaio",
+                "translations": {
+                    "it": "Persiane con Telaio"
+                },
+                "icon": "📦",
+                "image": "https:\/\/shop.didieffeb2b.com\/admin\/data\/category_icon\/category_1760792546_68f38fe2c1d40.png",
+                "color": "#667eea",
+                "description": "",
+                "count": 0
+            }
+        ]
+    }
+}

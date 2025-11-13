@@ -1,0 +1,230 @@
+{
+    "status": "stopped",
+    "started_at": 1762875256,
+    "total_products": 140,
+    "completed_products": 0,
+    "api_calls": 0,
+    "current_language_index": 5,
+    "current_language": "hr",
+    "languages": [
+        "en",
+        "de",
+        "fr",
+        "es",
+        "pt",
+        "hr",
+        "sl",
+        "el"
+    ],
+    "total_languages": 8,
+    "current_product_index": 130,
+    "current_product": {
+        "codice": "FBC0013V90IN",
+        "nome": "Bandella alla vicentina",
+        "language": "HR"
+    },
+    "error": null,
+    "force_retranslate": false,
+    "log": [
+        {
+            "message": "\ud83c\udf0d Traduzione in EN - Batch prodotti 40-50",
+            "type": "info"
+        },
+        {
+            "message": "\ud83c\udf0d Traduzione in EN - Batch prodotti 60-70",
+            "type": "info"
+        },
+        {
+            "message": "\ud83c\udf0d Traduzione in EN - Batch prodotti 80-90",
+            "type": "info"
+        },
+        {
+            "message": "\ud83c\udf0d Traduzione in EN - Batch prodotti 100-110",
+            "type": "info"
+        },
+        {
+            "message": "\ud83c\udf0d Traduzione in EN - Batch prodotti 120-130",
+            "type": "info"
+        },
+        {
+            "message": "\u2705 Lingua EN completata! Passo alla prossima...",
+            "type": "success"
+        },
+        {
+            "message": "\ud83d\udd04 Inizio traduzione in DE...",
+            "type": "info"
+        },
+        {
+            "message": "\ud83c\udf0d Traduzione in DE - Batch prodotti 0-10",
+            "type": "info"
+        },
+        {
+            "message": "\ud83c\udf0d Traduzione in DE - Batch prodotti 20-30",
+            "type": "info"
+        },
+        {
+            "message": "\ud83c\udf0d Traduzione in DE - Batch prodotti 40-50",
+            "type": "info"
+        },
+        {
+            "message": "\ud83c\udf0d Traduzione in DE - Batch prodotti 60-70",
+            "type": "info"
+        },
+        {
+            "message": "\ud83c\udf0d Traduzione in DE - Batch prodotti 80-90",
+            "type": "info"
+        },
+        {
+            "message": "\ud83c\udf0d Traduzione in DE - Batch prodotti 100-110",
+            "type": "info"
+        },
+        {
+            "message": "\ud83c\udf0d Traduzione in DE - Batch prodotti 120-130",
+            "type": "info"
+        },
+        {
+            "message": "\u2705 Lingua DE completata! Passo alla prossima...",
+            "type": "success"
+        },
+        {
+            "message": "\ud83d\udd04 Inizio traduzione in FR...",
+            "type": "info"
+        },
+        {
+            "message": "\ud83c\udf0d Traduzione in FR - Batch prodotti 0-10",
+            "type": "info"
+        },
+        {
+            "message": "\ud83c\udf0d Traduzione in FR - Batch prodotti 20-30",
+            "type": "info"
+        },
+        {
+            "message": "\ud83c\udf0d Traduzione in FR - Batch prodotti 40-50",
+            "type": "info"
+        },
+        {
+            "message": "\ud83c\udf0d Traduzione in FR - Batch prodotti 60-70",
+            "type": "info"
+        },
+        {
+            "message": "\ud83c\udf0d Traduzione in FR - Batch prodotti 80-90",
+            "type": "info"
+        },
+        {
+            "message": "\ud83c\udf0d Traduzione in FR - Batch prodotti 100-110",
+            "type": "info"
+        },
+        {
+            "message": "\ud83c\udf0d Traduzione in FR - Batch prodotti 120-130",
+            "type": "info"
+        },
+        {
+            "message": "\u2705 Lingua FR completata! Passo alla prossima...",
+            "type": "success"
+        },
+        {
+            "message": "\ud83d\udd04 Inizio traduzione in ES...",
+            "type": "info"
+        },
+        {
+            "message": "\ud83c\udf0d Traduzione in ES - Batch prodotti 0-10",
+            "type": "info"
+        },
+        {
+            "message": "\ud83c\udf0d Traduzione in ES - Batch prodotti 20-30",
+            "type": "info"
+        },
+        {
+            "message": "\ud83c\udf0d Traduzione in ES - Batch prodotti 40-50",
+            "type": "info"
+        },
+        {
+            "message": "\ud83c\udf0d Traduzione in ES - Batch prodotti 60-70",
+            "type": "info"
+        },
+        {
+            "message": "\ud83c\udf0d Traduzione in ES - Batch prodotti 80-90",
+            "type": "info"
+        },
+        {
+            "message": "\ud83c\udf0d Traduzione in ES - Batch prodotti 100-110",
+            "type": "info"
+        },
+        {
+            "message": "\ud83c\udf0d Traduzione in ES - Batch prodotti 120-130",
+            "type": "info"
+        },
+        {
+            "message": "\u2705 Lingua ES completata! Passo alla prossima...",
+            "type": "success"
+        },
+        {
+            "message": "\ud83d\udd04 Inizio traduzione in PT...",
+            "type": "info"
+        },
+        {
+            "message": "\ud83c\udf0d Traduzione in PT - Batch prodotti 0-10",
+            "type": "info"
+        },
+        {
+            "message": "\ud83c\udf0d Traduzione in PT - Batch prodotti 20-30",
+            "type": "info"
+        },
+        {
+            "message": "\ud83c\udf0d Traduzione in PT - Batch prodotti 40-50",
+            "type": "info"
+        },
+        {
+            "message": "\ud83c\udf0d Traduzione in PT - Batch prodotti 60-70",
+            "type": "info"
+        },
+        {
+            "message": "\ud83c\udf0d Traduzione in PT - Batch prodotti 80-90",
+            "type": "info"
+        },
+        {
+            "message": "\ud83c\udf0d Traduzione in PT - Batch prodotti 100-110",
+            "type": "info"
+        },
+        {
+            "message": "\ud83c\udf0d Traduzione in PT - Batch prodotti 120-130",
+            "type": "info"
+        },
+        {
+            "message": "\u2705 Lingua PT completata! Passo alla prossima...",
+            "type": "success"
+        },
+        {
+            "message": "\ud83d\udd04 Inizio traduzione in HR...",
+            "type": "info"
+        },
+        {
+            "message": "\ud83c\udf0d Traduzione in HR - Batch prodotti 0-10",
+            "type": "info"
+        },
+        {
+            "message": "\ud83c\udf0d Traduzione in HR - Batch prodotti 20-30",
+            "type": "info"
+        },
+        {
+            "message": "\ud83c\udf0d Traduzione in HR - Batch prodotti 40-50",
+            "type": "info"
+        },
+        {
+            "message": "\ud83c\udf0d Traduzione in HR - Batch prodotti 60-70",
+            "type": "info"
+        },
+        {
+            "message": "\ud83c\udf0d Traduzione in HR - Batch prodotti 80-90",
+            "type": "info"
+        },
+        {
+            "message": "\ud83c\udf0d Traduzione in HR - Batch prodotti 100-110",
+            "type": "info"
+        },
+        {
+            "message": "\ud83c\udf0d Traduzione in HR - Batch prodotti 120-130",
+            "type": "info"
+        }
+    ]
+}

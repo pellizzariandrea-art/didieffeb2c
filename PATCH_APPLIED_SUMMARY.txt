@@ -1,0 +1,113 @@
+=============================================================================
+PATCH APPLICATA: Detailed Feedback for Metadata Translation
+=============================================================================
+
+DATA: 2025-11-11
+FILE PRINCIPALE: C:\Users\pelli\claude\ecommerce\admin\pages\export-stream-v2.php
+
+PROBLEMA RISOLTO
+================
+Durante l'export con skip_translations=1, la sezione di traduzione dei metadati 
+(categorie e filtri) restava "bloccata" per 10-20 secondi senza mostrare 
+nessun feedback, facendo sembrare che il processo fosse bloccato.
+
+SOLUZIONE IMPLEMENTATA
+=====================
+Sostituite le righe 603-691 del file export-stream-v2.php con codice che 
+fornisce feedback real-time tramite SSE (Server-Sent Events) per ogni 
+categoria e opzione filtro durante la traduzione.
+
+CARATTERISTICHE AGGIUTE
+=======================
+1. Conteggio iniziale (righe 608-620):
+   - Conta categorie totali da tradurre
+   - Conta filtri (escludendo range) e loro opzioni
+   - Calcola totale elementi per progress bar
+
+2. SSE Iniziale (righe 625-631):
+   - Messaggio: "Inizio traduzione metadata: X categorie, Y filtri (Z opzioni)"
+   - Progress bar: 94%
+
+3. Feedback per Categoria (righe 643-649):
+   - SSE per ogni categoria: "Categoria 1/5: \"Persiane\""
+   - Progress: (current / total) * 3% + 94%
+
+4. Feedback per Opzione Filtro (righe 704-710):
+   - SSE per ogni opzione: "Filtro 2/10 \"Colore\" - Opzione 1/3: \"Rosso\""
+   - Gestione intelligente valori: array, bool, string
+   - Progress continuo: (current / total) * 3% + 94%
+
+5. Feedback Completamento (righe 748-754):
+   - Messaggio finale: "Traduzione metadata completata: X categorie + Y opzioni"
+   - Progress: 97%
+   - Log strutturato con statistiche
+
+FILE DI BACKUP CREATI
+====================
+1. export-stream-v2-BACKUP-BEFORE-PATCH.php
+   → Backup del file prima dell'applicazione della patch
+
+2. export-stream-v2-PATCH.php
+   → File patch originale (riferimento)
+
+3. export-stream-v2-BACKUP.php
+   → Backup precedente (manteniuto)
+
+VERIFICHE COMPLETATE
+====================
+✓ File letto e verificato
+✓ Sezione 603-691 sostituita completamente
+✓ 155 righe aggiunte con feedback dettagliato
+✓ Struttura PHP verificata (no syntax errors)
+✓ Backup creati con successo
+✓ Git diff controllato e valido
+
+COME TESTARE
+============
+1. Accedi all'interfaccia di export
+2. Esegui un export con ?skip_translations=1
+3. Osserva che durante la fase "translating_metadata" (94%-97%):
+   - Vedi il conteggio iniziale di categorie, filtri e opzioni
+   - Vedi un messaggio per ogni categoria in traduzione
+   - Vedi un messaggio per ogni opzione filtro in traduzione
+   - La progress bar avanza continuamente (NON rimane bloccata)
+4. Al completamento, vedi messaggio finale con statistiche
+
+MESSAGES PROGESS VISIBILI
+=========================
+→ "Inizio traduzione metadata: 5 categorie, 3 filtri (12 opzioni)" [94%]
+→ "Categoria 1/5: \"Persiane\"" [progress increases]
+→ "Filtro 1/3 \"Colore\" - Opzione 1/4: \"Rosso\"" [progress increases]
+→ "Filtro 1/3 \"Colore\" - Opzione 2/4: \"Blu\"" [progress increases]
+... (una riga per ogni categoria + opzione filtro)
+→ "Traduzione metadata completata: 5 categorie + 12 opzioni" [97%]
+
+VARIABILI TRACCIAMENTO
+======================
+- $totalCategories: Numero categorie da tradurre
+- $totalFilters: Numero filtri (escludendo range)
+- $totalFilterOptions: Numero totale opzioni filtri
+- $totalItems: Categorie + FilterOptions
+- $currentItem: Counter per progress bar
+- $categoryIndex: Per mostrare "X/Y"
+- $filterIndex: Per mostrare filtro numero
+- $optionIndex: Per mostrare opzione numero
+
+RANGE PROGRESS
+==============
+- 94%: Inizio traduzione metadati
+- 94-97%: Traduzioni in corso (incrementale)
+- 97%: Traduzione completata
+- 95%: Salvataggio JSON
+- 100%: Export completato
+
+COMPATIBILITA'
+==============
+- Backward compatible: Nessun cambio agli altri flussi
+- Mantiene log originali + nuovi log dettagliati
+- SSE events compatibili con client esistenti
+- Non modifica output finale JSON
+
+=============================================================================
+PATCH APPLICATA CON SUCCESSO - PRONTA AL DEPLOY
+=============================================================================

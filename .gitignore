@@ -58,6 +58,9 @@ db-config.json
 admin/config.php
 admin/didieffeb2b-*-firebase-adminsdk-*.json
 *firebase-adminsdk*.json
+firebase-service-account-key.txt
+admin/data/email-config.json
+frontend/test-brevo-connection.js
 config.php
 
 # Claude & Session files

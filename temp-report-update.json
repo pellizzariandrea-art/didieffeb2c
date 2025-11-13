@@ -1,0 +1,241 @@
+{
+  "slug": "cc",
+  "config": {
+    "title": "cc",
+    "description": "",
+    "query": "ee",
+    "clientTypes": [
+      "b2b",
+      "b2c"
+    ],
+    "enabled": true,
+    "clientCodeField": "CKY_CNT_CLFR",
+    "columns": [
+      {
+        "field": "NGL_DOC_ORD",
+        "label": "Numero Ordine",
+        "type": "string",
+        "visible": true,
+        "width": 120,
+        "align": "left"
+      },
+      {
+        "field": "DTT_ORD",
+        "label": "Data Ordine",
+        "type": "string",
+        "visible": true,
+        "width": 120,
+        "align": "left"
+      },
+      {
+        "field": "CDS_CAUM",
+        "label": "Causale",
+        "type": "string",
+        "visible": true,
+        "width": 120,
+        "align": "left"
+      },
+      {
+        "field": "CKY_CNT_CLFR",
+        "label": "Codice cliente",
+        "type": "string",
+        "visible": true,
+        "width": 120,
+        "align": "left"
+      },
+      {
+        "field": "CDS_CNT_RAGSOC",
+        "label": "Ragione Sociale",
+        "type": "string",
+        "visible": true,
+        "width": 120,
+        "align": "left"
+      },
+      {
+        "field": "CKY_CNT_AGENTE",
+        "label": "CKY CNT AGENTE",
+        "type": "string",
+        "visible": false,
+        "width": 120,
+        "align": "left"
+      },
+      {
+        "field": "Nome_Agente",
+        "label": "Agente",
+        "type": "string",
+        "visible": true,
+        "width": 120,
+        "align": "left"
+      },
+      {
+        "field": "CKY_ART",
+        "label": "Codice Articolo",
+        "type": "string",
+        "visible": true,
+        "width": 120,
+        "align": "left"
+      },
+      {
+        "field": "descrizione_Art",
+        "label": "Articolo",
+        "type": "string",
+        "visible": true,
+        "width": 120,
+        "align": "left"
+      },
+      {
+        "field": "Quantita",
+        "label": "Quantita",
+        "type": "string",
+        "visible": true,
+        "width": 120,
+        "align": "left"
+      },
+      {
+        "field": "Valore",
+        "label": "Valore",
+        "type": "string",
+        "visible": true,
+        "width": 120,
+        "align": "left"
+      },
+      {
+        "field": "sigla_trasf",
+        "label": "Sigla Doc Magazzino",
+        "type": "string",
+        "visible": true,
+        "width": 120,
+        "align": "left"
+      },
+      {
+        "field": "serie_trasf",
+        "label": "Serie trasf",
+        "type": "string",
+        "visible": false,
+        "width": 120,
+        "align": "left"
+      },
+      {
+        "field": "Numero_trasf",
+        "label": "Numero Doc Magazzino",
+        "type": "string",
+        "visible": true,
+        "width": 120,
+        "align": "left"
+      },
+      {
+        "field": "Data_trasf",
+        "label": "Data trasf",
+        "type": "string",
+        "visible": false,
+        "width": 120,
+        "align": "left"
+      },
+      {
+        "field": "ORIGINE",
+        "label": "Evaso o In Ordine",
+        "type": "string",
+        "visible": true,
+        "width": 120,
+        "align": "left"
+      },
+      {
+        "field": "`STATO RIGA`",
+        "label": "STATO RIGA",
+        "type": "string",
+        "visible": true,
+        "width": 120,
+        "align": "left"
+      },
+      {
+        "field": "ID_DOC_ORIG",
+        "label": "ID DOC ORIG",
+        "type": "string",
+        "visible": false,
+        "width": 120,
+        "align": "left"
+      },
+      {
+        "field": "ID_DOC_TRASF",
+        "label": "ID DOC TRASF",
+        "type": "string",
+        "visible": false,
+        "width": 120,
+        "align": "left"
+      },
+      {
+        "field": "sco_1",
+        "label": "Sco 1",
+        "type": "string",
+        "visible": true,
+        "width": 120,
+        "align": "left"
+      },
+      {
+        "field": "sco_2",
+        "label": "Sco 2",
+        "type": "string",
+        "visible": true,
+        "width": 120,
+        "align": "left"
+      },
+      {
+        "field": "sco_3",
+        "label": "Sco 3",
+        "type": "string",
+        "visible": true,
+        "width": 120,
+        "align": "left"
+      },
+      {
+        "field": "npz_unit",
+        "label": "Prezzo Unitario",
+        "type": "string",
+        "visible": true,
+        "width": 120,
+        "align": "left"
+      }
+    ],
+    "grouping": [
+      {
+        "field": "NGL_DOC_ORD",
+        "label": "Ordine",
+        "level": 1,
+        "showTotals": true,
+        "collapsed": false
+      }
+    ],
+    "filters": [
+      {
+        "field": "DTT_ORD",
+        "label": "Data Ordine",
+        "type": "daterange",
+        "options": [],
+        "default": null
+      },
+      {
+        "field": "Numero_trasf",
+        "label": "Numero documento di magazzino",
+        "type": "text",
+        "options": [],
+        "default": null
+      },
+      {
+        "field": "CKY_ART",
+        "label": "Codice Articolo",
+        "type": "multiselect",
+        "options": "auto",
+        "default": null
+      }
+    ],
+    "sorting": {
+      "field": "NGL_DOC_ORD",
+      "direction": "desc"
+    },
+    "export": {
+      "pdf": true,
+      "excel": true,
+      "csv": true
+    }
+  }
+}

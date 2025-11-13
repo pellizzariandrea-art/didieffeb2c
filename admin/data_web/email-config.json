@@ -1,0 +1,18 @@
+{
+    "brevo": {
+        "senderEmail": "noreply@didieffe.com",
+        "senderName": "Di Dieffe B2B",
+        "replyToEmail": "apellizzgjari@didieffe.com",
+        "replyToName": "Di Dieffe Support"
+    },
+    "templates": {
+        "b2c_welcome": {
+            "subject": "Benvenuto su Di Dieffe B2B!",
+            "enabled": true
+        },
+        "b2b_confirmation": {
+            "subject": "Richiesta Registrazione B2B Ricevuta - Di Dieffe",
+            "enabled": true
+        }
+    }
+}
