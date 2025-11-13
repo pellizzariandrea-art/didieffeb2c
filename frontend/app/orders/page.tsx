@@ -5,11 +5,13 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 import { useAuth } from '@/contexts/AuthContext';
 import { useLanguage } from '@/contexts/LanguageContext';
-import { User, Shield, Package, Save, LogOut, Eye, EyeOff, MapPin, Plus, Edit, Trash2, Star, Home } from 'lucide-react';
+import { User, Shield, Package, Save, LogOut, Eye, EyeOff, MapPin, Plus, Edit, Trash2, Star, Home, BarChart3, FileText } from 'lucide-react';
 import uiLabels from '@/config/ui-labels.json';
 import type { ShippingAddress } from '@/types/shipping-address';
+import type { ReportConfig } from '@/types/report';
 import { getAuthInstance } from '@/lib/firebase/config';
 import { useFormValidation } from '@/hooks/useFormValidation';
 import ValidatedInput from '@/components/ValidatedInput';
@@ -39,7 +41,9 @@ const COMMON_COUNTRIES = [
   'Other'
 ];
 
-type Tab = 'profile' | 'addresses' | 'security' | 'orders';
+type Tab = 'profile' | 'addresses' | 'security' | 'orders' | 'reports';
+
+type ReportWithSlug = ReportConfig & { slug: string };
 
 interface ProfileData {
   nome: string;
@@ -108,6 +112,10 @@ export default function AccountPage() {
     notes: '',
     isDefault: false,
   });
+
+  // Reports state
+  const [reports, setReports] = useState<ReportWithSlug[]>([]);
+  const [loadingReports, setLoadingReports] = useState(false);
 
   const labels = uiLabels.account;
 
@@ -285,6 +293,48 @@ export default function AccountPage() {
       loadAddresses();
     }
   }, [activeTab]);
+
+  // Load reports when reports tab is selected
+  useEffect(() => {
+    if (activeTab === 'reports' && reports.length === 0 && user) {
+      loadReports();
+    }
+  }, [activeTab, user]);
+
+  const loadReports = async () => {
+    try {
+      setLoadingReports(true);
+      const response = await fetch('/api/reports/config');
+      const data = await response.json();
+
+      // Convert object to array and filter based on user role
+      const allReports: ReportWithSlug[] = Object.entries(data).map(
+        ([slug, config]) => ({
+          ...(config as ReportConfig),
+          slug,
+        })
+      );
+
+      // Filter reports based on:
+      // 1. enabled !== false
+      // 2. clientTypes includes user role OR clientTypes is empty/undefined (tutti)
+      const availableReports = allReports.filter((report) => {
+        if (report.enabled === false) return false;
+
+        if (!report.clientTypes || report.clientTypes.length === 0) {
+          return true; // Disponibile per tutti
+        }
+
+        return report.clientTypes.includes(user!.role as 'b2b' | 'b2c');
+      });
+
+      setReports(availableReports);
+    } catch (error) {
+      console.error('Error loading reports:', error);
+    } finally {
+      setLoadingReports(false);
+    }
+  };
 
   const loadAddresses = async () => {
     try {
@@ -538,6 +588,19 @@ export default function AccountPage() {
               <Package className="w-5 h-5" />
               {labels.tabs.orders[language]}
             </button>
+            {user?.clientCode && (
+              <button
+                onClick={() => setActiveTab('reports')}
+                className={`flex-1 flex items-center justify-center gap-2 px-6 py-4 font-medium transition-colors ${
+                  activeTab === 'reports'
+                    ? 'text-blue-600 border-b-2 border-blue-600 bg-blue-50'
+                    : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
+                }`}
+              >
+                <BarChart3 className="w-5 h-5" />
+                {labels.tabs.reports[language]}
+              </button>
+            )}
           </div>
 
           {/* Tab Content */}
@@ -1226,6 +1289,67 @@ export default function AccountPage() {
                     {labels.orders.coming_soon[language]}
                   </p>
                 </div>
+              </div>
+            )}
+
+            {/* Reports Tab */}
+            {activeTab === 'reports' && (
+              <div>
+                <h2 className="text-xl font-semibold text-gray-900 mb-2">
+                  {labels.reports.title[language]}
+                </h2>
+                <p className="text-gray-600 mb-6">
+                  {labels.reports.subtitle[language]}
+                </p>
+
+                {!user?.clientCode ? (
+                  <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-6">
+                    <p className="text-yellow-800">
+                      {labels.reports.no_client_code[language]}
+                    </p>
+                  </div>
+                ) : loadingReports ? (
+                  <div className="text-center py-12">
+                    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+                    <p className="text-gray-600">Caricamento...</p>
+                  </div>
+                ) : reports.length === 0 ? (
+                  <div className="text-center py-12 bg-gray-50 rounded-lg">
+                    <FileText className="w-16 h-16 text-gray-300 mx-auto mb-4" />
+                    <p className="text-gray-500">
+                      {labels.reports.no_reports[language]}
+                    </p>
+                  </div>
+                ) : (
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {reports.map((report) => (
+                      <Link
+                        key={report.slug}
+                        href={`/my-account/reports/${report.slug}`}
+                        className="bg-white border border-gray-200 rounded-lg p-5 hover:border-blue-500 hover:shadow-md transition-all"
+                      >
+                        <div className="flex items-start gap-4">
+                          <div className="flex-shrink-0 p-3 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg">
+                            <BarChart3 className="w-6 h-6 text-white" />
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <h3 className="text-lg font-semibold text-gray-900 mb-1">
+                              {report.title}
+                            </h3>
+                            {report.description && (
+                              <p className="text-sm text-gray-600 mb-3">
+                                {report.description}
+                              </p>
+                            )}
+                            <div className="text-sm text-blue-600 font-medium">
+                              {labels.reports.view_report[language]}
+                            </div>
+                          </div>
+                        </div>
+                      </Link>
+                    ))}
+                  </div>
+                )}
               </div>
             )}
           </div>

@@ -3092,6 +3092,74 @@
         "hr": "Narudžbe",
         "sl": "Naročila",
         "el": "Παραγγελίες"
+      },
+      "reports": {
+        "it": "Report",
+        "en": "Reports",
+        "de": "Berichte",
+        "fr": "Rapports",
+        "es": "Informes",
+        "pt": "Relatórios",
+        "hr": "Izvještaji",
+        "sl": "Poročila",
+        "el": "Αναφορές"
+      }
+    },
+    "reports": {
+      "title": {
+        "it": "Report e Statistiche",
+        "en": "Reports and Statistics",
+        "de": "Berichte und Statistiken",
+        "fr": "Rapports et Statistiques",
+        "es": "Informes y Estadísticas",
+        "pt": "Relatórios e Estatísticas",
+        "hr": "Izvještaji i Statistike",
+        "sl": "Poročila in Statistike",
+        "el": "Αναφορές και Στατιστικά"
+      },
+      "subtitle": {
+        "it": "Visualizza report e statistiche del tuo account",
+        "en": "View reports and statistics for your account",
+        "de": "Sehen Sie Berichte und Statistiken für Ihr Konto",
+        "fr": "Afficher les rapports et statistiques de votre compte",
+        "es": "Ver informes y estadísticas de tu cuenta",
+        "pt": "Ver relatórios e estatísticas da sua conta",
+        "hr": "Pogledajte izvještaje i statistike za svoj račun",
+        "sl": "Oglejte si poročila in statistike za svoj račun",
+        "el": "Προβολή αναφορών και στατιστικών για τον λογαριασμό σας"
+      },
+      "no_client_code": {
+        "it": "Il tuo account non ha ancora un codice cliente associato. Contatta l'amministratore per abilitare l'accesso ai report.",
+        "en": "Your account does not have a client code assigned yet. Contact the administrator to enable access to reports.",
+        "de": "Ihrem Konto ist noch kein Kundencode zugewiesen. Wenden Sie sich an den Administrator, um den Zugriff auf Berichte zu aktivieren.",
+        "fr": "Votre compte n'a pas encore de code client associé. Contactez l'administrateur pour activer l'accès aux rapports.",
+        "es": "Tu cuenta aún no tiene un código de cliente asignado. Contacta al administrador para habilitar el acceso a los informes.",
+        "pt": "A sua conta ainda não tem um código de cliente associado. Contacte o administrador para ativar o acesso aos relatórios.",
+        "hr": "Vaš račun još nema dodijeljen kôd klijenta. Kontaktirajte administratora za omogućavanje pristupa izvještajima.",
+        "sl": "Vaš račun še nima dodeljene kode stranke. Obrnite se na skrbnika za omogočitev dostopa do poročil.",
+        "el": "Ο λογαριασμός σας δεν έχει ακόμη κωδικό πελάτη. Επικοινωνήστε με τον διαχειριστή για να ενεργοποιήσετε την πρόσβαση στις αναφορές."
+      },
+      "no_reports": {
+        "it": "Non ci sono report configurati per il tuo tipo di account",
+        "en": "No reports configured for your account type",
+        "de": "Keine Berichte für Ihren Kontotyp konfiguriert",
+        "fr": "Aucun rapport configuré pour votre type de compte",
+        "es": "No hay informes configurados para tu tipo de cuenta",
+        "pt": "Não há relatórios configurados para o seu tipo de conta",
+        "hr": "Nema konfiguriranih izvještaja za vašu vrstu računa",
+        "sl": "Ni konfiguriranih poročil za vašo vrsto računa",
+        "el": "Δεν υπάρχουν διαμορφωμένες αναφορές για τον τύπο λογαριασμού σας"
+      },
+      "view_report": {
+        "it": "Visualizza report →",
+        "en": "View report →",
+        "de": "Bericht anzeigen →",
+        "fr": "Afficher le rapport →",
+        "es": "Ver informe →",
+        "pt": "Ver relatório →",
+        "hr": "Pogledaj izvještaj →",
+        "sl": "Ogled poročila →",
+        "el": "Προβολή αναφοράς →"
       }
     },
     "profile": {
