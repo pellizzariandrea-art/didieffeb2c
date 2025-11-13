@@ -5,6 +5,7 @@ import { getAppSettingsServer } from '@/lib/firebase/settings-server';
 import { getEmailTemplatesServer } from '@/lib/firebase/email-templates-server';
 import { replaceVariables } from '@/types/email-template';
 import { wrapEmailContent } from '@/lib/email-template-wrapper';
+import { randomBytes } from 'crypto';
 
 export async function POST(req: NextRequest) {
   try {
@@ -27,10 +28,31 @@ export async function POST(req: NextRequest) {
     const preferredLanguage = userData?.preferredLanguage || 'it';
     const userName = userData?.nome || userData?.ragioneSociale || email.split('@')[0];
 
-    // Generate password reset link
-    const resetLink = await auth.generatePasswordResetLink(email);
+    // Generate custom password reset token (valid for 24 hours)
+    const resetToken = randomBytes(32).toString('hex');
+    const expiresAt = new Date();
+    expiresAt.setHours(expiresAt.getHours() + 24);
 
-    console.log('🔐 Password reset link generated for:', email);
+    // Save token in Firestore
+    await db.collection('password_setup_tokens').doc(resetToken).set({
+      userId: userRecord.uid,
+      email,
+      expiresAt,
+      used: false,
+      createdAt: new Date(),
+      type: 'password-reset',
+    });
+
+    // Create reset link pointing to our custom page
+    const baseUrl = process.env.VERCEL_URL
+      ? `https://${process.env.VERCEL_URL}`
+      : process.env.NEXT_PUBLIC_BASE_URL
+      || req.headers.get('origin')
+      || req.headers.get('referer')?.split('/').slice(0, 3).join('/')
+      || 'http://localhost:3000';
+
+    const resetLink = `${baseUrl}/auth/setup-password?token=${resetToken}`;
+    console.log('🔐 Password reset link generated (valid 24h):', resetLink);
 
     // Get app settings for Brevo configuration
     const settings = await getAppSettingsServer();
