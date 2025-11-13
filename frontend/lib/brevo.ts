@@ -387,9 +387,9 @@ async function sendVerificationEmailFallback(
   // Create verification token
   const token = await createVerificationToken(userId, email);
 
-  // Build verification URL
+  // Build verification URL (path-based token for Brevo tracking compatibility)
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3002';
-  const verificationUrl = `${baseUrl}/verify-email?token=${token}`;
+  const verificationUrl = `${baseUrl}/verify-email/${token}`;
 
   const footer = generateEmailFooter(settings);
 
