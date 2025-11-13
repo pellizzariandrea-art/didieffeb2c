@@ -4,7 +4,6 @@ import { useAuth } from '@/contexts/AuthContext';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import Image from 'next/image';
 import { LogOut, ArrowLeft } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import uiLabels from '@/config/ui-labels.json';
@@ -67,12 +66,10 @@ export default function UserAreaHeader() {
           {/* Logo */}
           <div className="flex items-center gap-3">
             {logoSrc ? (
-              <Image
+              <img
                 src={logoSrc}
                 alt={settings?.settings?.company?.name || 'Logo'}
-                width={120}
-                height={40}
-                className="h-10 w-auto object-contain"
+                className="h-12 w-auto object-contain max-w-[200px]"
               />
             ) : (
               <span className="text-xl font-bold text-gray-900">
@@ -82,20 +79,20 @@ export default function UserAreaHeader() {
           </div>
 
           {/* Actions */}
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-3">
             <Link
               href="/products"
-              className="flex items-center gap-2 px-4 py-2 text-gray-700 hover:text-blue-600 transition-colors"
+              className="flex items-center gap-2 px-4 py-2 rounded-lg border border-gray-300 bg-white text-gray-700 hover:bg-gray-50 hover:border-gray-400 transition-all shadow-sm"
             >
               <ArrowLeft className="w-4 h-4" />
-              <span className="hidden sm:inline">{labels.back_to_catalog?.[language] || 'Back to catalog'}</span>
+              <span className="hidden sm:inline font-medium">{labels.back_to_catalog?.[language] || 'Back to catalog'}</span>
             </Link>
             <button
               onClick={handleLogout}
-              className="flex items-center gap-2 px-4 py-2 text-red-600 hover:text-red-700 transition-colors"
+              className="flex items-center gap-2 px-4 py-2 rounded-lg border border-red-200 bg-red-50 text-red-600 hover:bg-red-100 hover:border-red-300 transition-all shadow-sm"
             >
               <LogOut className="w-4 h-4" />
-              <span className="hidden sm:inline">{labels.logout[language]}</span>
+              <span className="hidden sm:inline font-medium">{labels.logout[language]}</span>
             </button>
           </div>
         </div>
