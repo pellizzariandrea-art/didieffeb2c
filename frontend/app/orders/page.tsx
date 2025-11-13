@@ -121,20 +121,44 @@ export default function AccountPage() {
   // Load user data
   useEffect(() => {
     if (user) {
+      // Extract address based on user type
+      let addressData = {
+        indirizzo: '',
+        citta: '',
+        cap: '',
+        provincia: '',
+        paese: '',
+      };
+
+      if (user.role === 'b2c' && 'indirizzoSpedizione' in user && user.indirizzoSpedizione) {
+        addressData = {
+          indirizzo: user.indirizzoSpedizione.via || '',
+          citta: user.indirizzoSpedizione.citta || '',
+          cap: user.indirizzoSpedizione.cap || '',
+          provincia: user.indirizzoSpedizione.provincia || '',
+          paese: user.indirizzoSpedizione.paese || '',
+        };
+      } else if (user.role === 'b2b' && 'indirizzoFatturazione' in user && user.indirizzoFatturazione) {
+        addressData = {
+          indirizzo: user.indirizzoFatturazione.via || '',
+          citta: user.indirizzoFatturazione.citta || '',
+          cap: user.indirizzoFatturazione.cap || '',
+          provincia: user.indirizzoFatturazione.provincia || '',
+          paese: user.indirizzoFatturazione.paese || '',
+        };
+      }
+
       setProfileData({
         nome: user.nome || '',
         cognome: user.cognome || '',
         email: user.email || '',
-        telefono: user.telefono || '',
-        codiceFiscale: user.codiceFiscale || '',
-        ragioneSociale: user.ragioneSociale || '',
-        partitaIVA: user.partitaIVA || '',
-        codiceSDI: user.codiceSDI || '',
-        indirizzo: user.indirizzo || '',
-        citta: user.citta || '',
-        cap: user.cap || '',
-        provincia: user.provincia || '',
-        paese: user.paese || '',
+        telefono: (user.role === 'b2c' && 'telefono' in user) ? user.telefono || '' :
+                 (user.role === 'b2b' && 'referente' in user) ? user.referente?.telefono || '' : '',
+        codiceFiscale: (user.role === 'b2c' && 'codiceFiscale' in user) ? user.codiceFiscale || '' : '',
+        ragioneSociale: (user.role === 'b2b' && 'ragioneSociale' in user) ? user.ragioneSociale || '' : '',
+        partitaIVA: ('partitaIva' in user) ? user.partitaIva || '' : '',
+        codiceSDI: (user.role === 'b2b' && 'codiceSDI' in user) ? user.codiceSDI || '' : '',
+        ...addressData,
       });
     }
   }, [user]);

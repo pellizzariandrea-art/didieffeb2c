@@ -50,25 +50,46 @@ export async function POST(request: NextRequest) {
     const updateData: any = {
       nome: profileData.nome,
       cognome: profileData.cognome,
-      telefono: profileData.telefono || '',
       updatedAt: new Date().toISOString(),
     };
 
-    // Add tax fields (available for all users)
-    updateData.partitaIVA = profileData.partitaIVA || '';
-    updateData.codiceFiscale = profileData.codiceFiscale || '';
+    // Handle data based on user role
+    if (currentData?.role === 'b2c') {
+      // B2C users
+      updateData.telefono = profileData.telefono || '';
+      updateData.codiceFiscale = profileData.codiceFiscale || '';
+      updateData.partitaIva = profileData.partitaIVA || '';
 
-    // Add main address fields (billing address - available for all users)
-    updateData.indirizzo = profileData.indirizzo || '';
-    updateData.citta = profileData.citta || '';
-    updateData.cap = profileData.cap || '';
-    updateData.provincia = profileData.provincia || '';
-    updateData.paese = profileData.paese || '';
-
-    // Add B2B-specific company fields
-    if (currentData?.accountType === 'company' || currentData?.role === 'b2b') {
+      // Update address as nested object
+      updateData.indirizzoSpedizione = {
+        via: profileData.indirizzo || '',
+        citta: profileData.citta || '',
+        cap: profileData.cap || '',
+        provincia: profileData.provincia || '',
+        paese: profileData.paese || 'Italia',
+      };
+    } else if (currentData?.role === 'b2b') {
+      // B2B users
       updateData.ragioneSociale = profileData.ragioneSociale || '';
+      updateData.partitaIva = profileData.partitaIVA || '';
       updateData.codiceSDI = profileData.codiceSDI || '';
+
+      // Update address as nested object
+      updateData.indirizzoFatturazione = {
+        via: profileData.indirizzo || '',
+        citta: profileData.citta || '',
+        cap: profileData.cap || '',
+        provincia: profileData.provincia || '',
+        paese: profileData.paese || 'Italia',
+      };
+
+      // Update referente phone if provided
+      if (profileData.telefono) {
+        updateData['referente.telefono'] = profileData.telefono;
+      }
+    } else if (currentData?.role === 'admin') {
+      // Admin users (minimal fields)
+      // No address or tax fields for admin
     }
 
     // Update user document in Firestore
