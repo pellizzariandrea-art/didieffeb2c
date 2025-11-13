@@ -41,6 +41,7 @@ export default function SiteHeader() {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [settings, setSettings] = useState<SettingsResponse | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   const isHome = pathname === '/';
 
@@ -48,8 +49,14 @@ export default function SiteHeader() {
   useEffect(() => {
     fetch('/api/settings/public')
       .then(res => res.json())
-      .then(data => setSettings(data))
-      .catch(err => console.error('Error loading settings:', err));
+      .then(data => {
+        setSettings(data);
+        setIsLoading(false);
+      })
+      .catch(err => {
+        console.error('Error loading settings:', err);
+        setIsLoading(false);
+      });
   }, []);
 
   // Traccia lo scroll per cambiare l'header
@@ -88,7 +95,10 @@ export default function SiteHeader() {
               isTransparent ? 'text-white' : 'text-gray-900'
             }`}
           >
-            {logoSrc ? (
+            {isLoading ? (
+              // Skeleton placeholder durante caricamento
+              <div className="h-12 w-32 bg-gray-200 animate-pulse rounded"></div>
+            ) : logoSrc ? (
               <img
                 src={logoSrc}
                 alt={settings?.settings?.company?.name || 'Logo'}

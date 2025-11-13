@@ -49,6 +49,19 @@ interface Category {
   count?: number;
 }
 
+interface SettingsResponse {
+  success: boolean;
+  settings: {
+    company: {
+      name: string;
+    };
+    logo?: {
+      base64: string;
+      type: string;
+    };
+  };
+}
+
 interface ProductCatalogProps {
   products: Product[];
   categories: Category[];
@@ -65,6 +78,24 @@ export default function ProductCatalog({
   const { currentLang } = useLanguage();
   const { setNavigationProducts, saveCatalogState, getCatalogState, clearCatalogState } = useProductNavigation();
   const { trackSearch, trackFilter } = useAnalyticsStore();
+
+  // Settings per logo
+  const [settings, setSettings] = useState<SettingsResponse | null>(null);
+  const [isLoadingSettings, setIsLoadingSettings] = useState(true);
+
+  // Load company settings per logo
+  useEffect(() => {
+    fetch('/api/settings/public')
+      .then(res => res.json())
+      .then(data => {
+        setSettings(data);
+        setIsLoadingSettings(false);
+      })
+      .catch(err => {
+        console.error('Error loading settings:', err);
+        setIsLoadingSettings(false);
+      });
+  }, []);
 
   // Load More function with analytics
   const loadMore = () => {
@@ -728,15 +759,27 @@ export default function ProductCatalog({
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-50">
       {/* Header - Compact on Mobile, Full on Desktop */}
       <header className="bg-white/80 backdrop-blur-md shadow-sm border-b border-gray-100 sticky top-0 z-50">
-        <div className="container mx-auto px-3 sm:px-4 lg:px-8 py-2 sm:py-3 lg:py-6">
+        <div className="container mx-auto px-3 sm:px-4 lg:px-8 py-2 sm:py-3">
           {/* Mobile: Single Row Layout */}
           <div className="md:hidden">
             <div className="flex items-center justify-between gap-2 mb-2">
-              <div className="flex-1 min-w-0">
-                <h1 className="text-base font-bold text-gray-900 truncate">
-                  {getLabel('home.title', currentLang)}
-                </h1>
-              </div>
+              <Link href="/" className="flex-1 min-w-0">
+                {isLoadingSettings ? (
+                  <div className="h-8 w-24 bg-gray-200 animate-pulse rounded"></div>
+                ) : settings?.settings?.logo ? (
+                  <img
+                    src={settings.settings.logo.base64.startsWith('data:')
+                      ? settings.settings.logo.base64
+                      : `data:${settings.settings.logo.type};base64,${settings.settings.logo.base64}`}
+                    alt={settings?.settings?.company?.name || 'Logo'}
+                    className="h-8 w-auto object-contain max-w-[150px]"
+                  />
+                ) : (
+                  <h1 className="text-base font-bold text-gray-900 truncate">
+                    {settings?.settings?.company?.name || getLabel('home.title', currentLang)}
+                  </h1>
+                )}
+              </Link>
               <div className="flex items-center gap-1.5 flex-shrink-0">
                 <WishlistIcon />
                 <CartIcon />
@@ -845,30 +888,30 @@ export default function ProductCatalog({
             </button>
           </div>
 
-          {/* Desktop: Two Row Layout */}
+          {/* Desktop: Single Row Layout - Logo + Search + Icons */}
           <div className="hidden md:block">
-            {/* Prima riga: Titolo e Language Selector */}
-            <div className="flex items-center justify-between gap-3 sm:gap-6 mb-3 lg:mb-0">
-              <div className="flex-shrink-0">
-                <h1 className="text-2xl lg:text-4xl font-bold bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 bg-clip-text text-transparent">
-                  {getLabel('home.title', currentLang)}
-                </h1>
-                <p className="text-gray-500 mt-1 text-sm font-medium">
-                  {getLabel('home.products_count', currentLang, { count: products.length })}
-                </p>
-              </div>
+            <div className="flex items-center gap-4">
+              {/* Logo */}
+              <Link href="/" className="flex-shrink-0">
+                {isLoadingSettings ? (
+                  <div className="h-10 w-32 bg-gray-200 animate-pulse rounded"></div>
+                ) : settings?.settings?.logo ? (
+                  <img
+                    src={settings.settings.logo.base64.startsWith('data:')
+                      ? settings.settings.logo.base64
+                      : `data:${settings.settings.logo.type};base64,${settings.settings.logo.base64}`}
+                    alt={settings?.settings?.company?.name || 'Logo'}
+                    className="h-10 w-auto object-contain max-w-[180px]"
+                  />
+                ) : (
+                  <h1 className="text-xl font-bold text-gray-900">
+                    {settings?.settings?.company?.name || getLabel('home.title', currentLang)}
+                  </h1>
+                )}
+              </Link>
 
-              {/* Wishlist, Cart, User, and Language Selector */}
-              <div className="flex items-center gap-2 flex-shrink-0">
-                <WishlistIcon />
-                <CartIcon />
-                <UserIcon />
-                <LanguageSelector />
-              </div>
-            </div>
-
-            {/* Seconda riga: Search Bar (full width su tablet/desktop) */}
-            <div className="w-full lg:max-w-2xl lg:mx-auto">
+              {/* Search Bar - Centro */}
+              <div className="flex-1 max-w-2xl">
               <div className="relative">
                 <input
                   type="text"
@@ -879,10 +922,10 @@ export default function ProductCatalog({
                   }}
                   onFocus={() => setShowAutocomplete(true)}
                   placeholder={getLabel('home.search', currentLang)}
-                  className="w-full px-5 py-3 pl-12 pr-10 text-sm text-gray-900 placeholder-gray-400 border border-gray-300 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all shadow-sm"
+                  className="w-full px-4 py-2 pl-10 pr-10 text-sm text-gray-900 placeholder-gray-400 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all shadow-sm"
                 />
                 <svg
-                  className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400"
+                  className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -936,6 +979,15 @@ export default function ProductCatalog({
                   isVisible={showAutocomplete}
                   onClose={() => setShowAutocomplete(false)}
                 />
+              </div>
+              </div>
+
+              {/* Icons - Destra */}
+              <div className="flex items-center gap-2 flex-shrink-0">
+                <WishlistIcon />
+                <CartIcon />
+                <UserIcon />
+                <LanguageSelector />
               </div>
             </div>
           </div>
