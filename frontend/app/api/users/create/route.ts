@@ -4,6 +4,7 @@ import { getAdminAuth, getAdminFirestore } from '@/lib/firebase/admin';
 import { getAppSettingsServer } from '@/lib/firebase/settings-server';
 import { randomBytes } from 'crypto';
 import { logEmail } from '@/lib/email-logger';
+import { wrapEmailContent } from '@/lib/email-template-wrapper';
 
 export async function POST(req: NextRequest) {
   try {
@@ -113,7 +114,15 @@ export async function POST(req: NextRequest) {
 
     // Replace variables in subject and body
     const subject = replaceVariables(emailContent.subject, variables);
-    const htmlContent = replaceVariables(emailContent.body, variables);
+    const bodyContent = replaceVariables(emailContent.body, variables);
+
+    // Wrap content with branded template
+    const htmlContent = wrapEmailContent({
+      logo: settings.logo,
+      company: settings.company,
+      content: bodyContent,
+      preheader: 'Benvenuto su ' + settings.company.name,
+    });
 
     // Send email via Brevo proxy
     const backendUrl = process.env.NEXT_PUBLIC_API_URL || 'https://shop.didieffeb2b.com';

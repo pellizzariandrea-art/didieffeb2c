@@ -4,6 +4,8 @@ import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { getAuth, confirmPasswordReset, signInWithEmailAndPassword } from 'firebase/auth';
 import { app } from '@/lib/firebase/config';
+import { validatePassword, getPasswordStrengthInfo } from '@/lib/password-validation';
+import Image from 'next/image';
 
 function SetupPasswordForm() {
   const searchParams = useSearchParams();
@@ -19,6 +21,21 @@ function SetupPasswordForm() {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+  const [logo, setLogo] = useState<string | null>(null);
+  const [companyName, setCompanyName] = useState('Didieffe B2B');
+
+  // Load logo and company info
+  useEffect(() => {
+    fetch('/api/settings/public')
+      .then(res => res.json())
+      .then(data => {
+        if (data.success) {
+          setLogo(data.settings.logo?.base64 || null);
+          setCompanyName(data.settings.company?.name || 'Didieffe B2B');
+        }
+      })
+      .catch(err => console.error('Error loading settings:', err));
+  }, []);
 
   // Validate token on mount
   useEffect(() => {
@@ -59,9 +76,10 @@ function SetupPasswordForm() {
     e.preventDefault();
     setError('');
 
-    // Validate password
-    if (password.length < 8) {
-      setError('La password deve essere di almeno 8 caratteri');
+    // Validate password strength
+    const validation = validatePassword(password);
+    if (!validation.valid) {
+      setError(validation.errors[0]);
       return;
     }
 
@@ -85,15 +103,9 @@ function SetupPasswordForm() {
       if (result.success) {
         setSuccess(true);
 
-        // Auto-login after 2 seconds
-        setTimeout(async () => {
-          try {
-            const auth = getAuth(app);
-            await signInWithEmailAndPassword(auth, tokenData.email, password);
-            router.push('/account');
-          } catch (err) {
-            router.push('/auth/login');
-          }
+        // Redirect to login after 2 seconds
+        setTimeout(() => {
+          router.push('/login');
         }, 2000);
       } else {
         setError(result.error || 'Errore durante l\'impostazione della password');
@@ -122,6 +134,11 @@ function SetupPasswordForm() {
       <div className="min-h-screen flex items-center justify-center bg-gray-50">
         <div className="max-w-md w-full bg-white shadow-lg rounded-lg p-8">
           <div className="text-center">
+            {logo && (
+              <div className="mb-6 flex justify-center">
+                <Image src={logo} alt={companyName} width={120} height={60} className="object-contain" />
+              </div>
+            )}
             <div className="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-red-100">
               <svg className="h-6 w-6 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -133,7 +150,7 @@ function SetupPasswordForm() {
               Il link potrebbe essere scaduto (validità 24 ore) o già utilizzato.
             </p>
             <button
-              onClick={() => router.push('/auth/login')}
+              onClick={() => router.push('/login')}
               className="mt-6 w-full bg-green-600 text-white py-2 px-4 rounded-md hover:bg-green-700"
             >
               Vai al Login
@@ -149,6 +166,11 @@ function SetupPasswordForm() {
       <div className="min-h-screen flex items-center justify-center bg-gray-50">
         <div className="max-w-md w-full bg-white shadow-lg rounded-lg p-8">
           <div className="text-center">
+            {logo && (
+              <div className="mb-6 flex justify-center">
+                <Image src={logo} alt={companyName} width={120} height={60} className="object-contain" />
+              </div>
+            )}
             <div className="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-green-100">
               <svg className="h-6 w-6 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
@@ -159,7 +181,7 @@ function SetupPasswordForm() {
               La tua password è stata impostata con successo.
             </p>
             <p className="mt-4 text-sm text-gray-500">
-              Verrai reindirizzato alla tua area personale...
+              Verrai reindirizzato alla pagina di login...
             </p>
           </div>
         </div>
@@ -167,10 +189,18 @@ function SetupPasswordForm() {
     );
   }
 
+  const passwordValidation = validatePassword(password);
+  const strengthInfo = getPasswordStrengthInfo(password);
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full bg-white shadow-lg rounded-lg p-8">
         <div className="text-center mb-8">
+          {logo && (
+            <div className="mb-6 flex justify-center">
+              <Image src={logo} alt={companyName} width={150} height={75} className="object-contain" />
+            </div>
+          )}
           <h2 className="text-3xl font-bold text-gray-900">Imposta la tua password</h2>
           <p className="mt-2 text-gray-600">
             Benvenuto <strong>{tokenData?.email}</strong>
@@ -237,14 +267,90 @@ function SetupPasswordForm() {
             />
           </div>
 
-          <div className="bg-blue-50 border border-blue-200 rounded-md p-4">
-            <h4 className="text-sm font-medium text-blue-900 mb-2">Requisiti password:</h4>
-            <ul className="text-xs text-blue-700 space-y-1">
-              <li className={password.length >= 8 ? 'text-green-600' : ''}>
-                • Almeno 8 caratteri
+          {/* Password strength indicator */}
+          {password && (
+            <div className={`border rounded-md p-3 ${strengthInfo.bgColor}`}>
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-sm font-medium text-gray-700">Forza password:</span>
+                <span className={`text-sm font-bold ${strengthInfo.color}`}>{strengthInfo.label}</span>
+              </div>
+            </div>
+          )}
+
+          <div className="bg-gray-50 border border-gray-200 rounded-md p-4">
+            <h4 className="text-sm font-medium text-gray-900 mb-3">Requisiti password:</h4>
+            <ul className="text-xs space-y-2">
+              <li className="flex items-center gap-2">
+                <span className={`w-4 h-4 rounded-full flex items-center justify-center ${passwordValidation.checks.minLength ? 'bg-green-500' : 'bg-gray-300'}`}>
+                  {passwordValidation.checks.minLength && (
+                    <svg className="w-3 h-3 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                    </svg>
+                  )}
+                </span>
+                <span className={passwordValidation.checks.minLength ? 'text-green-700 font-medium' : 'text-gray-600'}>
+                  Almeno 8 caratteri
+                </span>
               </li>
-              <li className={password === confirmPassword && password.length > 0 ? 'text-green-600' : ''}>
-                • Le password devono coincidere
+              <li className="flex items-center gap-2">
+                <span className={`w-4 h-4 rounded-full flex items-center justify-center ${passwordValidation.checks.hasUpperCase ? 'bg-green-500' : 'bg-gray-300'}`}>
+                  {passwordValidation.checks.hasUpperCase && (
+                    <svg className="w-3 h-3 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                    </svg>
+                  )}
+                </span>
+                <span className={passwordValidation.checks.hasUpperCase ? 'text-green-700 font-medium' : 'text-gray-600'}>
+                  Una lettera maiuscola
+                </span>
+              </li>
+              <li className="flex items-center gap-2">
+                <span className={`w-4 h-4 rounded-full flex items-center justify-center ${passwordValidation.checks.hasLowerCase ? 'bg-green-500' : 'bg-gray-300'}`}>
+                  {passwordValidation.checks.hasLowerCase && (
+                    <svg className="w-3 h-3 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                    </svg>
+                  )}
+                </span>
+                <span className={passwordValidation.checks.hasLowerCase ? 'text-green-700 font-medium' : 'text-gray-600'}>
+                  Una lettera minuscola
+                </span>
+              </li>
+              <li className="flex items-center gap-2">
+                <span className={`w-4 h-4 rounded-full flex items-center justify-center ${passwordValidation.checks.hasNumber ? 'bg-green-500' : 'bg-gray-300'}`}>
+                  {passwordValidation.checks.hasNumber && (
+                    <svg className="w-3 h-3 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                    </svg>
+                  )}
+                </span>
+                <span className={passwordValidation.checks.hasNumber ? 'text-green-700 font-medium' : 'text-gray-600'}>
+                  Un numero
+                </span>
+              </li>
+              <li className="flex items-center gap-2">
+                <span className={`w-4 h-4 rounded-full flex items-center justify-center ${passwordValidation.checks.hasSpecialChar ? 'bg-green-500' : 'bg-gray-300'}`}>
+                  {passwordValidation.checks.hasSpecialChar && (
+                    <svg className="w-3 h-3 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                    </svg>
+                  )}
+                </span>
+                <span className={passwordValidation.checks.hasSpecialChar ? 'text-green-700 font-medium' : 'text-gray-400'}>
+                  Un carattere speciale (opzionale)
+                </span>
+              </li>
+              <li className="flex items-center gap-2">
+                <span className={`w-4 h-4 rounded-full flex items-center justify-center ${password === confirmPassword && password.length > 0 ? 'bg-green-500' : 'bg-gray-300'}`}>
+                  {password === confirmPassword && password.length > 0 && (
+                    <svg className="w-3 h-3 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                    </svg>
+                  )}
+                </span>
+                <span className={password === confirmPassword && password.length > 0 ? 'text-green-700 font-medium' : 'text-gray-600'}>
+                  Le password coincidono
+                </span>
               </li>
             </ul>
           </div>
