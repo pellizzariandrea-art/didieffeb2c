@@ -9,15 +9,38 @@ import Link from 'next/link';
 import LanguageSelector from '../LanguageSelector';
 import CartIcon from '../CartIcon';
 import WishlistIcon from '../WishlistIcon';
+import UserIcon from '../UserIcon';
 import { Package } from 'lucide-react';
+
+interface SettingsResponse {
+  success: boolean;
+  settings: {
+    company: {
+      name: string;
+    };
+    logo?: {
+      base64: string;
+      type: string;
+    };
+  };
+}
 
 export default function SiteHeader() {
   const { currentLang } = useLanguage();
   const { currentBrand, setBrand, brandConfig } = useBrand();
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
+  const [settings, setSettings] = useState<SettingsResponse | null>(null);
 
   const isHome = pathname === '/';
+
+  // Load company settings
+  useEffect(() => {
+    fetch('/api/settings/public')
+      .then(res => res.json())
+      .then(data => setSettings(data))
+      .catch(err => console.error('Error loading settings:', err));
+  }, []);
 
   // Traccia lo scroll per cambiare l'header
   useEffect(() => {
@@ -31,6 +54,15 @@ export default function SiteHeader() {
 
   // Header è trasparente solo in homepage SENZA scroll E solo per brand NON group (group ha sfondo bianco)
   const isTransparent = isHome && !scrolled && currentBrand !== 'group';
+
+  // Check if base64 already includes the data URI prefix
+  const logoSrc = settings?.settings?.logo
+    ? (settings.settings.logo.base64.startsWith('data:')
+        ? settings.settings.logo.base64
+        : `data:${settings.settings.logo.type};base64,${settings.settings.logo.base64}`)
+    : null;
+
+  const companyName = settings?.settings?.company?.name || brandConfig.name;
 
   return (
     <>
@@ -48,14 +80,24 @@ export default function SiteHeader() {
               isTransparent ? 'text-white' : 'text-gray-900'
             }`}
           >
-            <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${
-              isTransparent
-                ? 'bg-white/10 backdrop-blur-sm'
-                : 'bg-gradient-to-br from-green-500 to-emerald-600'
-            }`}>
-              <Package className="w-6 h-6 text-white" />
-            </div>
-            <span className="hidden md:block">{brandConfig.name}</span>
+            {logoSrc ? (
+              <img
+                src={logoSrc}
+                alt={companyName}
+                className="h-12 w-auto object-contain max-w-[200px]"
+              />
+            ) : (
+              <>
+                <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${
+                  isTransparent
+                    ? 'bg-white/10 backdrop-blur-sm'
+                    : 'bg-gradient-to-br from-green-500 to-emerald-600'
+                }`}>
+                  <Package className="w-6 h-6 text-white" />
+                </div>
+                <span className="hidden md:block">{companyName}</span>
+              </>
+            )}
           </Link>
 
           {/* Center: Navigation */}
@@ -157,6 +199,7 @@ export default function SiteHeader() {
             <LanguageSelector />
             <WishlistIcon />
             <CartIcon />
+            <UserIcon />
           </div>
         </div>
         </div>

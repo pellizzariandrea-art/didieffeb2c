@@ -17,7 +17,6 @@ import { useFormValidation } from '@/hooks/useFormValidation';
 import ValidatedInput from '@/components/ValidatedInput';
 import { getReportTitle, getReportDescription } from '@/components/reports/ReportBuilder';
 import UserAreaHeader from '@/components/layout/UserAreaHeader';
-import UserAreaFooter from '@/components/layout/UserAreaFooter';
 
 // Common countries list
 const COMMON_COUNTRIES = [
@@ -1343,7 +1342,6 @@ export default function AccountPage() {
         </div>
       </div>
     </div>
-    <UserAreaFooter />
     </>
   );
 }

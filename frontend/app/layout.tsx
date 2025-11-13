@@ -12,6 +12,7 @@ import CompareBar from "@/components/CompareBar";
 import LoadingBar from "@/components/LoadingBar";
 import SlideCartPanel from "@/components/SlideCartPanel";
 import { Toaster } from "sonner";
+import UserAreaFooter from "@/components/layout/UserAreaFooter";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -86,6 +87,7 @@ export default async function RootLayout({
                   {children}
                   <CompareBar />
                   <SlideCartPanel />
+                  <UserAreaFooter />
                 </CompareProvider>
               </ProductNavigationProvider>
             </LanguageProvider>
