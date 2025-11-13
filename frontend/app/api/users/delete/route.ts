@@ -31,11 +31,24 @@ export async function POST(req: NextRequest) {
       }
     }
 
-    // Step 2: Delete from Firestore
+    // Step 2: Delete user's shipping addresses (subcollection)
+    const shippingAddressesSnapshot = await db.collection('users')
+      .doc(userId)
+      .collection('shipping_addresses')
+      .get();
+
+    const deleteAddressPromises = shippingAddressesSnapshot.docs.map(doc => doc.ref.delete());
+    await Promise.all(deleteAddressPromises);
+
+    if (shippingAddressesSnapshot.size > 0) {
+      console.log(`✅ Deleted ${shippingAddressesSnapshot.size} shipping address(es)`);
+    }
+
+    // Step 3: Delete from Firestore
     await db.collection('users').doc(userId).delete();
     console.log('✅ User deleted from Firestore');
 
-    // Step 3: Delete any associated password setup tokens
+    // Step 4: Delete any associated password setup tokens
     const tokensSnapshot = await db.collection('password_setup_tokens')
       .where('userId', '==', userId)
       .get();
@@ -47,9 +60,24 @@ export async function POST(req: NextRequest) {
       console.log(`✅ Deleted ${tokensSnapshot.size} password setup token(s)`);
     }
 
+    // Step 5: Delete any associated email verification tokens
+    // This prevents "email already verified" errors when user re-registers
+    const emailVerificationsSnapshot = await db.collection('email_verifications')
+      .where('userId', '==', userId)
+      .get();
+
+    const deleteEmailVerificationPromises = emailVerificationsSnapshot.docs.map(doc => doc.ref.delete());
+    await Promise.all(deleteEmailVerificationPromises);
+
+    if (emailVerificationsSnapshot.size > 0) {
+      console.log(`✅ Deleted ${emailVerificationsSnapshot.size} email verification token(s)`);
+    }
+
+    console.log('🎉 User and all associated data deleted successfully');
+
     return NextResponse.json({
       success: true,
-      message: 'User deleted successfully from Auth, Firestore, and associated tokens'
+      message: 'User deleted successfully from Auth, Firestore, shipping addresses, and all associated tokens'
     });
 
   } catch (error: any) {
