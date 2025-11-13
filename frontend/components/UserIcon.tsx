@@ -38,6 +38,35 @@ export default function UserIcon() {
     }
   }, [isOpen]);
 
+  // Map Firebase errors to user-friendly messages
+  const getErrorMessage = (error: any): string => {
+    const errorCode = error?.code || '';
+    const errorMessage = error?.message || '';
+
+    // Map Firebase error codes to label keys
+    if (errorCode.includes('invalid-credential') ||
+        errorCode.includes('wrong-password') ||
+        errorCode.includes('user-not-found') ||
+        errorMessage.includes('invalid-credential')) {
+      return labels.error.invalid_credentials[language];
+    }
+
+    if (errorCode.includes('invalid-email')) {
+      return labels.error.invalid_email[language];
+    }
+
+    if (errorCode.includes('too-many-requests')) {
+      return language === 'it'
+        ? 'Troppi tentativi. Riprova più tardi.'
+        : 'Too many attempts. Please try again later.';
+    }
+
+    // Generic error message
+    return language === 'it'
+      ? 'Errore durante il login. Riprova.'
+      : 'Login error. Please try again.';
+  };
+
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoginError('');
@@ -51,7 +80,7 @@ export default function UserIcon() {
       router.push('/');
     } catch (error: any) {
       console.error('Login error:', error);
-      setLoginError(error.message || 'Errore durante il login');
+      setLoginError(getErrorMessage(error));
     } finally {
       setLoginLoading(false);
     }
