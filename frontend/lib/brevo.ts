@@ -25,6 +25,7 @@ interface SendEmailOptions {
 
 /**
  * Send transactional email via Brevo (using PHP proxy)
+ * Note: Logging is handled by the caller, not by this function
  */
 export async function sendEmail(options: SendEmailOptions, settings?: AppSettings) {
   try {

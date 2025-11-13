@@ -73,7 +73,7 @@ export async function POST(req: NextRequest) {
     const backendUrl = process.env.NEXT_PUBLIC_API_URL || 'https://shop.didieffeb2b.com';
     const payload = {
       to: { email, name: userName },
-      subject: t.subject,
+      subject,
       htmlContent,
       sender: {
         name: settings.brevo.senderName,
@@ -97,11 +97,33 @@ export async function POST(req: NextRequest) {
 
     if (!response.ok) {
       console.error('❌ [Brevo] Proxy error:', responseText);
+
+      // Log failed email
+      const { logEmail } = await import('@/lib/email-logger');
+      await logEmail({
+        to: email,
+        subject,
+        templateSlug: 'reset-password',
+        status: 'error',
+        error: `HTTP ${response.status}: ${responseText}`,
+      });
+
       throw new Error('Failed to send email via Brevo proxy');
     }
 
     const result = JSON.parse(responseText);
     console.log('✅ [Brevo] Password reset email sent successfully:', result.messageId);
+
+    // Log successful email
+    const { logEmail } = await import('@/lib/email-logger');
+    await logEmail({
+      to: email,
+      subject,
+      templateSlug: 'reset-password',
+      status: 'success',
+      messageId: result.messageId,
+      brevoResponse: result,
+    });
 
     return NextResponse.json({
       success: true,
