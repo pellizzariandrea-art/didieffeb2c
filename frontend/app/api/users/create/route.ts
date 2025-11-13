@@ -62,7 +62,7 @@ export async function POST(req: NextRequest) {
     });
 
     // Create setup link pointing to our custom page
-    // Use VERCEL_URL on Vercel, or configured BASE_URL, or request origin
+    // Use path-based token (not query param) to be compatible with Brevo click tracking
     const baseUrl = process.env.VERCEL_URL
       ? `https://${process.env.VERCEL_URL}`
       : process.env.NEXT_PUBLIC_BASE_URL
@@ -70,7 +70,7 @@ export async function POST(req: NextRequest) {
       || req.headers.get('referer')?.split('/').slice(0, 3).join('/')
       || 'http://localhost:3000';
 
-    const resetLink = `${baseUrl}/auth/setup-password?token=${setupToken}`;
+    const resetLink = `${baseUrl}/auth/reset/${setupToken}`;
     console.log('🔐 Password setup link generated (valid 24h):', resetLink);
 
     // Get settings and send welcome email with password setup instructions

@@ -44,6 +44,7 @@ export async function POST(req: NextRequest) {
     });
 
     // Create reset link pointing to our custom page
+    // Use path-based token (not query param) to be compatible with Brevo click tracking
     const baseUrl = process.env.VERCEL_URL
       ? `https://${process.env.VERCEL_URL}`
       : process.env.NEXT_PUBLIC_BASE_URL
@@ -51,7 +52,7 @@ export async function POST(req: NextRequest) {
       || req.headers.get('referer')?.split('/').slice(0, 3).join('/')
       || 'http://localhost:3000';
 
-    const resetLink = `${baseUrl}/auth/setup-password?token=${resetToken}`;
+    const resetLink = `${baseUrl}/auth/reset/${resetToken}`;
     console.log('🔐 Password reset link generated (valid 24h):', resetLink);
 
     // Get app settings for Brevo configuration
