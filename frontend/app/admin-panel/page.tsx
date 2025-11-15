@@ -3,7 +3,7 @@
 // app/admin-panel/page.tsx
 // Admin Dashboard - Premium Design
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useLanguage } from '@/contexts/LanguageContext';
@@ -50,7 +50,9 @@ export default function AdminDashboard() {
     }
     loadLogo();
   }, []);
-  const cards = [
+
+  // Cards array with translations (memoized to update when language changes)
+  const cards = useMemo(() => [
     {
       title: getLabel('admin.nav.users'),
       description: 'Approva, modifica ed elimina utenti',
@@ -99,7 +101,7 @@ export default function AdminDashboard() {
       gradient: 'from-slate-500 to-gray-600',
       color: 'slate'
     },
-  ];
+  ], [currentLang]);
 
   return (
     <div className="space-y-8">

@@ -3,7 +3,7 @@
 import { useAuth } from '@/contexts/AuthContext';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useRouter, usePathname } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import uiLabels from '@/config/ui-labels.json';
@@ -96,14 +96,15 @@ export default function MyAccountLayout({
     return null;
   }
 
-  const navigation = [
+  // Navigation array with translations (memoized to update when language changes)
+  const navigation = useMemo(() => [
     { name: getLabel('user_area.nav.dashboard'), href: '/orders', icon: Home, exact: true },
     { name: getLabel('user_area.nav.profile'), href: '/orders?tab=profile', icon: User },
     { name: getLabel('user_area.nav.addresses'), href: '/orders?tab=addresses', icon: MapPin },
     { name: getLabel('user_area.nav.security'), href: '/orders?tab=security', icon: Shield },
     { name: getLabel('user_area.nav.orders'), href: '/orders?tab=orders', icon: Package },
     { name: getLabel('user_area.nav.reports'), href: '/orders?tab=reports', icon: BarChart3 },
-  ];
+  ], [currentLang]);
 
   const isActive = (href: string, exact?: boolean) => {
     // For reports pages, highlight the Reports menu item

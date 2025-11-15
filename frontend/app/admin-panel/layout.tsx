@@ -3,7 +3,7 @@
 // app/admin-panel/layout.tsx
 // Protected Admin Panel Layout - Modern Premium Design
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 import { useAuth } from '@/contexts/AuthContext';
 import { useLanguage } from '@/contexts/LanguageContext';
@@ -101,7 +101,8 @@ export default function AdminPanelLayout({
     return null;
   }
 
-  const navigation = [
+  // Navigation array with translations (memoized to update when language changes)
+  const navigation = useMemo(() => [
     { name: getLabel('admin.nav.dashboard'), href: '/admin-panel', icon: LayoutDashboard, badge: null },
     { name: getLabel('admin.nav.users'), href: '/admin-panel/users', icon: Users, badge: null },
     { name: getLabel('admin.nav.translations'), href: '/admin-panel/translations', icon: Languages, badge: null, subtitle: getLabel('admin.nav.translations_subtitle') },
@@ -110,7 +111,7 @@ export default function AdminPanelLayout({
     { name: getLabel('admin.nav.email_templates'), href: '/admin-panel/email-templates', icon: Mail, badge: null },
     { name: getLabel('admin.nav.email_logs'), href: '/admin-panel/email-logs', icon: FileText, badge: null },
     { name: getLabel('admin.nav.settings'), href: '/admin-panel/settings', icon: Settings, badge: null },
-  ];
+  ], [currentLang]);
 
   const isActive = (href: string) => {
     if (href === '/admin-panel') {
