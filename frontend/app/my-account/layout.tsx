@@ -3,7 +3,7 @@
 import { useAuth } from '@/contexts/AuthContext';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useRouter, usePathname } from 'next/navigation';
-import { useEffect, useState, useMemo } from 'react';
+import { useEffect, useState, useMemo, useCallback } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import uiLabels from '@/config/ui-labels.json';
@@ -27,22 +27,29 @@ export default function MyAccountLayout({
   children: React.ReactNode;
 }) {
   const { user, loading, logout } = useAuth();
-  const { currentLang } = useLanguage();
+  const { currentLang, syncWithUserProfile } = useLanguage();
   const router = useRouter();
   const pathname = usePathname();
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [logoUrl, setLogoUrl] = useState<string>('');
 
-  // Helper function to get translated labels
-  const getLabel = (path: string): string => {
+  // Helper function to get translated labels (memoized to update when language changes)
+  const getLabel = useCallback((path: string): string => {
     const keys = path.split('.');
     let value: any = uiLabels;
     for (const key of keys) {
       value = value?.[key];
     }
     return value?.[currentLang] || value?.['it'] || path;
-  };
+  }, [currentLang]);
+
+  // Sync language with user profile when user logs in
+  useEffect(() => {
+    if (user?.preferredLanguage) {
+      syncWithUserProfile(user.preferredLanguage);
+    }
+  }, [user?.preferredLanguage, syncWithUserProfile]);
 
   // Load logo from settings
   useEffect(() => {
@@ -104,7 +111,7 @@ export default function MyAccountLayout({
     { name: getLabel('user_area.nav.security'), href: '/orders?tab=security', icon: Shield },
     { name: getLabel('user_area.nav.orders'), href: '/orders?tab=orders', icon: Package },
     { name: getLabel('user_area.nav.reports'), href: '/orders?tab=reports', icon: BarChart3 },
-  ], [currentLang]);
+  ], [currentLang, getLabel]);
 
   const isActive = (href: string, exact?: boolean) => {
     // For reports pages, highlight the Reports menu item

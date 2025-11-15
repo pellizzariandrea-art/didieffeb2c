@@ -3,7 +3,7 @@
 // app/admin-panel/layout.tsx
 // Protected Admin Panel Layout - Modern Premium Design
 
-import { useEffect, useState, useMemo } from 'react';
+import { useEffect, useState, useMemo, useCallback } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 import { useAuth } from '@/contexts/AuthContext';
 import { useLanguage } from '@/contexts/LanguageContext';
@@ -33,10 +33,17 @@ export default function AdminPanelLayout({
   const router = useRouter();
   const pathname = usePathname();
   const { user, loading, logout } = useAuth();
-  const { currentLang } = useLanguage();
+  const { currentLang, syncWithUserProfile } = useLanguage();
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [logoUrl, setLogoUrl] = useState<string>('');
+
+  // Sync language with user profile when user logs in
+  useEffect(() => {
+    if (user?.preferredLanguage) {
+      syncWithUserProfile(user.preferredLanguage);
+    }
+  }, [user?.preferredLanguage, syncWithUserProfile]);
 
   // Load logo from settings
   useEffect(() => {
@@ -74,15 +81,15 @@ export default function AdminPanelLayout({
     }
   };
 
-  // Helper function to get translated labels
-  const getLabel = (path: string): string => {
+  // Helper function to get translated labels (memoized to update when language changes)
+  const getLabel = useCallback((path: string): string => {
     const keys = path.split('.');
     let value: any = uiLabels;
     for (const key of keys) {
       value = value?.[key];
     }
     return value?.[currentLang] || value?.['it'] || path;
-  };
+  }, [currentLang]);
 
   // Show loading while checking auth
   if (loading) {

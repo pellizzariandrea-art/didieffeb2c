@@ -61,11 +61,12 @@ interface ProfileData {
   cap?: string;
   provincia?: string;
   paese?: string;
+  preferredLanguage?: 'it' | 'en' | 'de' | 'fr' | 'es' | 'pt' | 'hr' | 'sl' | 'el';
 }
 
 export default function AccountPage() {
   const { user, loading: authLoading, logout, refreshProfile } = useAuth();
-  const { currentLang: language } = useLanguage();
+  const { currentLang: language, syncWithUserProfile } = useLanguage();
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -91,6 +92,7 @@ export default function AccountPage() {
     cap: '',
     provincia: '',
     paese: '',
+    preferredLanguage: 'it',
   });
   const [passwordData, setPasswordData] = useState({
     currentPassword: '',
@@ -198,6 +200,7 @@ export default function AccountPage() {
         ragioneSociale: (user.role === 'b2b' && 'ragioneSociale' in user) ? user.ragioneSociale || '' : '',
         partitaIVA: ('partitaIva' in user) ? user.partitaIva || '' : '',
         codiceSDI: (user.role === 'b2b' && 'codiceSDI' in user) ? user.codiceSDI || '' : '',
+        preferredLanguage: user.preferredLanguage || 'it',
         ...addressData,
       });
     }
@@ -245,9 +248,12 @@ export default function AccountPage() {
       const data = await response.json();
 
       if (data.success) {
-        showMessage('success', labels.profile.success[language]);
-        // Refresh profile from Firestore
+        // Sync language preference with UI first
+        syncWithUserProfile(profileData.preferredLanguage);
+        // Then refresh profile from Firestore
         await refreshProfile();
+        // Show success message in the NEW language
+        showMessage('success', labels.profile.success[profileData.preferredLanguage || language]);
       } else {
         showMessage('error', data.error || labels.profile.error[language]);
       }
@@ -813,6 +819,28 @@ export default function AccountPage() {
                       onChange={(e) => setProfileData({ ...profileData, telefono: e.target.value })}
                       className="w-full px-4 py-2 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
                     />
+                  </div>
+
+                  {/* Preferred Language */}
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      {labels.profile.preferred_language[language]}
+                    </label>
+                    <select
+                      value={profileData.preferredLanguage || 'it'}
+                      onChange={(e) => setProfileData({ ...profileData, preferredLanguage: e.target.value as any })}
+                      className="w-full px-4 py-2 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                    >
+                      <option value="it">🇮🇹 Italiano</option>
+                      <option value="en">🇬🇧 English</option>
+                      <option value="de">🇩🇪 Deutsch</option>
+                      <option value="fr">🇫🇷 Français</option>
+                      <option value="es">🇪🇸 Español</option>
+                      <option value="pt">🇵🇹 Português</option>
+                      <option value="hr">🇭🇷 Hrvatski</option>
+                      <option value="sl">🇸🇮 Slovenščina</option>
+                      <option value="el">🇬🇷 Ελληνικά</option>
+                    </select>
                   </div>
 
                   {/* Company Info for B2B */}

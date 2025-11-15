@@ -406,7 +406,7 @@ function UnifiedRegistrationForm({ language, setLanguage }: any) {
 
             <div>
               <label htmlFor="preferredLanguage" className="block text-sm font-medium text-gray-700 mb-1">
-                {language === 'it' ? 'Lingua preferita per le email' : language === 'en' ? 'Preferred language for emails' : language === 'de' ? 'Bevorzugte Sprache für E-Mails' : language === 'fr' ? 'Langue préférée pour les e-mails' : language === 'es' ? 'Idioma preferido para correos' : 'Idioma preferido para e-mails'}
+                {uiLabels.register.preferred_language[language]}
               </label>
               <select
                 name="preferredLanguage"
@@ -863,7 +863,7 @@ function B2CRegistrationForm({ language, labels, loading, error, setLoading, set
 
             <div>
               <label htmlFor="preferredLanguage" className="block text-sm font-medium text-gray-700 mb-1">
-                {language === 'it' ? 'Lingua preferita per le email' : language === 'en' ? 'Preferred language for emails' : language === 'de' ? 'Bevorzugte Sprache für E-Mails' : language === 'fr' ? 'Langue préférée pour les e-mails' : language === 'es' ? 'Idioma preferido para correos' : 'Idioma preferido para e-mails'}
+                {uiLabels.register.preferred_language[language]}
               </label>
               <select
                 name="preferredLanguage"
@@ -1231,7 +1231,7 @@ function B2BRegistrationForm({ language, labels, loading, error, setLoading, set
 
             <div>
               <label htmlFor="preferredLanguage" className="block text-sm font-medium text-gray-700 mb-1">
-                {language === 'it' ? 'Lingua preferita per le email' : language === 'en' ? 'Preferred language for emails' : language === 'de' ? 'Bevorzugte Sprache für E-Mails' : language === 'fr' ? 'Langue préférée pour les e-mails' : language === 'es' ? 'Idioma preferido para correos' : 'Idioma preferido para e-mails'}
+                {uiLabels.register.preferred_language[language]}
               </label>
               <select
                 name="preferredLanguage"

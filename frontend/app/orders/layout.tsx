@@ -1,10 +1,12 @@
 'use client';
 
 import { useAuth } from '@/contexts/AuthContext';
+import { useLanguage } from '@/contexts/LanguageContext';
 import { useRouter, usePathname } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo, useCallback } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import uiLabels from '@/config/ui-labels.json';
 import {
   Home,
   User,
@@ -26,11 +28,29 @@ export default function OrdersLayout({
   children: React.ReactNode;
 }) {
   const { user, loading, logout } = useAuth();
+  const { currentLang, syncWithUserProfile } = useLanguage();
   const router = useRouter();
   const pathname = usePathname();
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [logoUrl, setLogoUrl] = useState<string>('');
+
+  // Helper function to get translated labels (memoized to update when language changes)
+  const getLabel = useCallback((path: string): string => {
+    const keys = path.split('.');
+    let value: any = uiLabels;
+    for (const key of keys) {
+      value = value?.[key];
+    }
+    return value?.[currentLang] || value?.['it'] || path;
+  }, [currentLang]);
+
+  // Sync language with user profile when user logs in
+  useEffect(() => {
+    if (user?.preferredLanguage) {
+      syncWithUserProfile(user.preferredLanguage);
+    }
+  }, [user?.preferredLanguage, syncWithUserProfile]);
 
   // Load logo from settings
   useEffect(() => {
@@ -59,6 +79,17 @@ export default function OrdersLayout({
     }
   }, [user, loading, router]);
 
+  // Navigation array with translations (memoized to update when language changes)
+  // MUST be before early returns to follow Rules of Hooks
+  const navigation = useMemo(() => [
+    { name: getLabel('user_area.nav.dashboard'), href: '/orders', icon: Home, exact: true },
+    { name: getLabel('user_area.nav.profile'), href: '/orders?tab=profile', icon: User },
+    { name: getLabel('user_area.nav.addresses'), href: '/orders?tab=addresses', icon: MapPin },
+    { name: getLabel('user_area.nav.security'), href: '/orders?tab=security', icon: Shield },
+    { name: getLabel('user_area.nav.orders'), href: '/orders?tab=orders', icon: Package },
+    { name: getLabel('user_area.nav.reports'), href: '/orders?tab=reports', icon: BarChart3 },
+  ], [currentLang, getLabel]);
+
   const handleLogout = async () => {
     try {
       await logout();
@@ -83,15 +114,6 @@ export default function OrdersLayout({
   if (!user) {
     return null;
   }
-
-  const navigation = [
-    { name: 'Dashboard', href: '/orders', icon: Home, exact: true },
-    { name: 'Profilo', href: '/orders?tab=profile', icon: User },
-    { name: 'Indirizzi', href: '/orders?tab=addresses', icon: MapPin },
-    { name: 'Sicurezza', href: '/orders?tab=security', icon: Shield },
-    { name: 'Ordini', href: '/orders?tab=orders', icon: Package },
-    { name: 'Reports', href: '/orders?tab=reports', icon: BarChart3 },
-  ];
 
   const isActive = (href: string, exact?: boolean) => {
     if (exact) {
@@ -131,8 +153,8 @@ export default function OrdersLayout({
                     </div>
                   )}
                   <div>
-                    <h1 className="text-lg font-bold text-white">Area Cliente</h1>
-                    <p className="text-xs text-emerald-400">Il tuo account</p>
+                    <h1 className="text-lg font-bold text-white">{getLabel('user_area.title')}</h1>
+                    <p className="text-xs text-emerald-400">{getLabel('user_area.subtitle')}</p>
                   </div>
                 </div>
                 <button
@@ -184,7 +206,7 @@ export default function OrdersLayout({
             {sidebarOpen ? (
               <div className="space-y-3">
                 <div className="px-3 py-2">
-                  <p className="text-xs text-emerald-400 mb-1">Account</p>
+                  <p className="text-xs text-emerald-400 mb-1">{getLabel('user_area.account')}</p>
                   <p className="text-sm font-medium text-white truncate">{userName}</p>
                   <p className="text-xs text-emerald-400 truncate">{user.email}</p>
                 </div>
@@ -194,14 +216,14 @@ export default function OrdersLayout({
                     className="flex items-center gap-2 px-3 py-2 text-sm text-emerald-300 hover:text-white hover:bg-emerald-700 rounded-lg transition-colors"
                   >
                     <ArrowLeft className="w-4 h-4" />
-                    <span>Torna al catalogo</span>
+                    <span>{getLabel('auth.back_to_catalog')}</span>
                   </Link>
                   <button
                     onClick={handleLogout}
                     className="flex items-center gap-2 px-3 py-2 text-sm text-white bg-red-600 hover:bg-red-700 rounded-lg transition-colors"
                   >
                     <LogOut className="w-4 h-4" />
-                    <span>Logout</span>
+                    <span>{getLabel('auth.logout')}</span>
                   </button>
                 </div>
               </div>
@@ -210,14 +232,14 @@ export default function OrdersLayout({
                 <Link
                   href="/products"
                   className="p-2 text-emerald-400 hover:text-white hover:bg-emerald-700 rounded-lg transition-colors"
-                  title="Torna al catalogo"
+                  title={getLabel('auth.back_to_catalog')}
                 >
                   <ArrowLeft className="w-5 h-5 mx-auto" />
                 </Link>
                 <button
                   onClick={handleLogout}
                   className="p-2 text-white bg-red-600 hover:bg-red-700 rounded-lg transition-colors"
-                  title="Logout"
+                  title={getLabel('auth.logout')}
                 >
                   <LogOut className="w-5 h-5 mx-auto" />
                 </button>
@@ -254,7 +276,7 @@ export default function OrdersLayout({
                     </div>
                   )}
                   <div>
-                    <h1 className="text-lg font-bold text-white">Area Cliente</h1>
+                    <h1 className="text-lg font-bold text-white">{getLabel('user_area.title')}</h1>
                   </div>
                 </div>
                 <button
@@ -293,7 +315,7 @@ export default function OrdersLayout({
               <div className="p-4 border-t border-emerald-700 bg-emerald-900/50">
                 <div className="space-y-3">
                   <div className="px-3 py-2">
-                    <p className="text-xs text-emerald-400 mb-1">Account</p>
+                    <p className="text-xs text-emerald-400 mb-1">{getLabel('user_area.account')}</p>
                     <p className="text-sm font-medium text-white">{userName}</p>
                     <p className="text-xs text-emerald-400">{user.email}</p>
                   </div>
@@ -303,14 +325,14 @@ export default function OrdersLayout({
                       className="flex items-center gap-2 px-3 py-2 text-sm text-emerald-300 hover:text-white hover:bg-emerald-700 rounded-lg transition-colors"
                     >
                       <ArrowLeft className="w-4 h-4" />
-                      <span>Torna al catalogo</span>
+                      <span>{getLabel('auth.back_to_catalog')}</span>
                     </Link>
                     <button
                       onClick={handleLogout}
                       className="flex items-center gap-2 px-3 py-2 text-sm text-white bg-red-600 hover:bg-red-700 rounded-lg transition-colors"
                     >
                       <LogOut className="w-4 h-4" />
-                      <span>Logout</span>
+                      <span>{getLabel('auth.logout')}</span>
                     </button>
                   </div>
                 </div>
@@ -340,7 +362,7 @@ export default function OrdersLayout({
               />
             </div>
           ) : (
-            <span className="text-lg font-bold text-white">Area Cliente</span>
+            <span className="text-lg font-bold text-white">{getLabel('user_area.title')}</span>
           )}
           <div className="w-10"></div>
         </div>

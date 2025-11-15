@@ -53,6 +53,11 @@ export async function POST(request: NextRequest) {
       updatedAt: new Date().toISOString(),
     };
 
+    // Add language preference if provided (common for all user types)
+    if (profileData.preferredLanguage) {
+      updateData.preferredLanguage = profileData.preferredLanguage;
+    }
+
     // Handle data based on user role
     if (currentData?.role === 'b2c') {
       // B2C users

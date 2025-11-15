@@ -2947,15 +2947,15 @@
         "el": "Τηλέφωνο επαφής"
       },
       "preferred_language": {
-        "it": "Lingua preferita per le email",
-        "en": "Preferred language for emails",
-        "de": "Bevorzugte Sprache für E-Mails",
-        "fr": "Langue préférée pour les emails",
-        "es": "Idioma preferido para los correos",
-        "pt": "Idioma preferido para emails",
-        "hr": "Preferirani jezik za e-poštu",
-        "sl": "Prednostni jezik za e-pošto",
-        "el": "Προτιμώμενη γλώσσα για email"
+        "it": "Lingua Preferita",
+        "en": "Preferred Language",
+        "de": "Bevorzugte Sprache",
+        "fr": "Langue Préférée",
+        "es": "Idioma Preferido",
+        "pt": "Idioma Preferido",
+        "hr": "Preferirani Jezik",
+        "sl": "Prednostni Jezik",
+        "el": "Προτιμώμενη Γλώσσα"
       },
       "create_account": {
         "it": "Crea account",
@@ -3261,6 +3261,17 @@
         "hr": "Telefon",
         "sl": "Telefon",
         "el": "Τηλέφωνο"
+      },
+      "preferred_language": {
+        "it": "Lingua Preferita",
+        "en": "Preferred Language",
+        "de": "Bevorzugte Sprache",
+        "fr": "Langue Préférée",
+        "es": "Idioma Preferido",
+        "pt": "Idioma Preferido",
+        "hr": "Preferirani Jezik",
+        "sl": "Prednostni Jezik",
+        "el": "Προτιμώμενη Γλώσσα"
       },
       "company_name": {
         "it": "Ragione Sociale",
