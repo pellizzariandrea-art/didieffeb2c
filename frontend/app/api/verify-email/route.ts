@@ -41,14 +41,17 @@ export async function POST(req: NextRequest) {
 
     console.log(`✅ [API] Token verified for user ${userId}`);
 
-    // Update user status to active in Firestore
-    await updateUserProfile(userId, { status: 'active' });
+    // Update user status to active and mark email as verified in Firestore
+    await updateUserProfile(userId, {
+      status: 'active',
+      emailVerified: true
+    });
 
     // Mark email as verified in Firebase Auth
     const auth = getAdminAuth();
     await auth.updateUser(userId, { emailVerified: true });
 
-    console.log(`✅ [API] User ${userId} activated`);
+    console.log(`✅ [API] User ${userId} activated and email verified`);
 
     // Get user profile for B2B confirmation email (only if pending approval)
     const userProfile = await getUserProfileServer(userId);
