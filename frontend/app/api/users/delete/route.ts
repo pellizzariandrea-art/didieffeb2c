@@ -18,6 +18,11 @@ export async function POST(req: NextRequest) {
 
     console.log(`🗑️ Starting deletion process for user: ${userId}`);
 
+    // Step 0: Get user email before deleting (needed for cleanup)
+    const userDoc = await db.collection('users').doc(userId).get();
+    const userEmail = userDoc.exists ? userDoc.data()?.email : null;
+    console.log(`📧 User email: ${userEmail || 'not found'}`);
+
     // Step 1: Delete from Firebase Auth
     try {
       await auth.deleteUser(userId);
@@ -62,6 +67,7 @@ export async function POST(req: NextRequest) {
 
     // Step 5: Delete any associated email verification tokens
     // This prevents "email already verified" errors when user re-registers
+    // Delete by userId first
     const emailVerificationsSnapshot = await db.collection('email_verifications')
       .where('userId', '==', userId)
       .get();
@@ -70,7 +76,21 @@ export async function POST(req: NextRequest) {
     await Promise.all(deleteEmailVerificationPromises);
 
     if (emailVerificationsSnapshot.size > 0) {
-      console.log(`✅ Deleted ${emailVerificationsSnapshot.size} email verification token(s)`);
+      console.log(`✅ Deleted ${emailVerificationsSnapshot.size} email verification token(s) by userId`);
+    }
+
+    // Also delete verification tokens by email (in case user re-registers with same email)
+    if (userEmail) {
+      const emailVerificationsByEmailSnapshot = await db.collection('email_verifications')
+        .where('email', '==', userEmail)
+        .get();
+
+      const deleteEmailVerificationsByEmailPromises = emailVerificationsByEmailSnapshot.docs.map(doc => doc.ref.delete());
+      await Promise.all(deleteEmailVerificationsByEmailPromises);
+
+      if (emailVerificationsByEmailSnapshot.size > 0) {
+        console.log(`✅ Deleted ${emailVerificationsByEmailSnapshot.size} additional email verification token(s) by email`);
+      }
     }
 
     console.log('🎉 User and all associated data deleted successfully');

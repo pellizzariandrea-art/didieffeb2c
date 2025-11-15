@@ -91,6 +91,19 @@ export default function AdminPanelLayout({
     return value?.[currentLang] || value?.['it'] || path;
   }, [currentLang]);
 
+  // Navigation array with translations (memoized to update when language changes)
+  // MUST be before early returns to comply with Rules of Hooks
+  const navigation = useMemo(() => [
+    { name: getLabel('admin.nav.dashboard'), href: '/admin-panel', icon: LayoutDashboard, badge: null },
+    { name: getLabel('admin.nav.users'), href: '/admin-panel/users', icon: Users, badge: null },
+    { name: getLabel('admin.nav.translations'), href: '/admin-panel/translations', icon: Languages, badge: null, subtitle: getLabel('admin.nav.translations_subtitle') },
+    { name: getLabel('admin.nav.reports'), href: '/admin-panel/reports', icon: BarChart3, badge: null },
+    { name: getLabel('admin.nav.dashboard_kpi'), href: '/admin-panel/dashboard-config', icon: LayoutDashboard, badge: null, subtitle: getLabel('admin.nav.dashboard_kpi_subtitle') },
+    { name: getLabel('admin.nav.email_templates'), href: '/admin-panel/email-templates', icon: Mail, badge: null },
+    { name: getLabel('admin.nav.email_logs'), href: '/admin-panel/email-logs', icon: FileText, badge: null },
+    { name: getLabel('admin.nav.settings'), href: '/admin-panel/settings', icon: Settings, badge: null },
+  ], [currentLang, getLabel]);
+
   // Show loading while checking auth
   if (loading) {
     return (
@@ -107,18 +120,6 @@ export default function AdminPanelLayout({
   if (!user || user.role !== 'admin') {
     return null;
   }
-
-  // Navigation array with translations (memoized to update when language changes)
-  const navigation = useMemo(() => [
-    { name: getLabel('admin.nav.dashboard'), href: '/admin-panel', icon: LayoutDashboard, badge: null },
-    { name: getLabel('admin.nav.users'), href: '/admin-panel/users', icon: Users, badge: null },
-    { name: getLabel('admin.nav.translations'), href: '/admin-panel/translations', icon: Languages, badge: null, subtitle: getLabel('admin.nav.translations_subtitle') },
-    { name: getLabel('admin.nav.reports'), href: '/admin-panel/reports', icon: BarChart3, badge: null },
-    { name: getLabel('admin.nav.dashboard_kpi'), href: '/admin-panel/dashboard-config', icon: LayoutDashboard, badge: null, subtitle: getLabel('admin.nav.dashboard_kpi_subtitle') },
-    { name: getLabel('admin.nav.email_templates'), href: '/admin-panel/email-templates', icon: Mail, badge: null },
-    { name: getLabel('admin.nav.email_logs'), href: '/admin-panel/email-logs', icon: FileText, badge: null },
-    { name: getLabel('admin.nav.settings'), href: '/admin-panel/settings', icon: Settings, badge: null },
-  ], [currentLang]);
 
   const isActive = (href: string) => {
     if (href === '/admin-panel') {

@@ -78,6 +78,17 @@ export default function MyAccountLayout({
     }
   }, [user, loading, router]);
 
+  // Navigation array with translations (memoized to update when language changes)
+  // MUST be before early returns to comply with Rules of Hooks
+  const navigation = useMemo(() => [
+    { name: getLabel('user_area.nav.dashboard'), href: '/orders', icon: Home, exact: true },
+    { name: getLabel('user_area.nav.profile'), href: '/orders?tab=profile', icon: User },
+    { name: getLabel('user_area.nav.addresses'), href: '/orders?tab=addresses', icon: MapPin },
+    { name: getLabel('user_area.nav.security'), href: '/orders?tab=security', icon: Shield },
+    { name: getLabel('user_area.nav.orders'), href: '/orders?tab=orders', icon: Package },
+    { name: getLabel('user_area.nav.reports'), href: '/orders?tab=reports', icon: BarChart3 },
+  ], [currentLang, getLabel]);
+
   const handleLogout = async () => {
     try {
       await logout();
@@ -102,16 +113,6 @@ export default function MyAccountLayout({
   if (!user) {
     return null;
   }
-
-  // Navigation array with translations (memoized to update when language changes)
-  const navigation = useMemo(() => [
-    { name: getLabel('user_area.nav.dashboard'), href: '/orders', icon: Home, exact: true },
-    { name: getLabel('user_area.nav.profile'), href: '/orders?tab=profile', icon: User },
-    { name: getLabel('user_area.nav.addresses'), href: '/orders?tab=addresses', icon: MapPin },
-    { name: getLabel('user_area.nav.security'), href: '/orders?tab=security', icon: Shield },
-    { name: getLabel('user_area.nav.orders'), href: '/orders?tab=orders', icon: Package },
-    { name: getLabel('user_area.nav.reports'), href: '/orders?tab=reports', icon: BarChart3 },
-  ], [currentLang, getLabel]);
 
   const isActive = (href: string, exact?: boolean) => {
     // For reports pages, highlight the Reports menu item
