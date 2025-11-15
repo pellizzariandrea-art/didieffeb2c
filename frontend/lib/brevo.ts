@@ -100,10 +100,57 @@ function getLogoBase64(settings: AppSettings): string {
 
 
 /**
+ * Get multilingual text for email footer
+ */
+function getFooterTexts(language: SupportedLanguage) {
+  const texts: Record<SupportedLanguage, { visitSite: string; receivedEmail: string }> = {
+    it: {
+      visitSite: 'Visita il nostro sito',
+      receivedEmail: 'Hai ricevuto questa email perché sei registrato sul nostro sito'
+    },
+    en: {
+      visitSite: 'Visit our website',
+      receivedEmail: 'You received this email because you are registered on our site'
+    },
+    de: {
+      visitSite: 'Besuchen Sie unsere Website',
+      receivedEmail: 'Sie haben diese E-Mail erhalten, weil Sie auf unserer Website registriert sind'
+    },
+    fr: {
+      visitSite: 'Visitez notre site',
+      receivedEmail: 'Vous avez reçu cet email car vous êtes inscrit sur notre site'
+    },
+    es: {
+      visitSite: 'Visita nuestro sitio',
+      receivedEmail: 'Recibiste este correo porque estás registrado en nuestro sitio'
+    },
+    pt: {
+      visitSite: 'Visite nosso site',
+      receivedEmail: 'Você recebeu este email porque está registrado em nosso site'
+    },
+    hr: {
+      visitSite: 'Posjetite našu stranicu',
+      receivedEmail: 'Primili ste ovaj email jer ste registrirani na našoj stranici'
+    },
+    sl: {
+      visitSite: 'Obiščite našo spletno stran',
+      receivedEmail: 'To e-pošto ste prejeli, ker ste registrirani na naši strani'
+    },
+    el: {
+      visitSite: 'Επισκεφτείτε την ιστοσελίδα μας',
+      receivedEmail: 'Λάβατε αυτό το email επειδή είστε εγγεγραμμένοι στην ιστοσελίδα μας'
+    }
+  };
+  return texts[language];
+}
+
+/**
  * Generate email footer with company info
  */
-function generateEmailFooter(settings: AppSettings): { html: string; text: string } {
+function generateEmailFooter(settings: AppSettings, language: SupportedLanguage = 'it'): { html: string; text: string } {
   const { company } = settings;
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
+  const footerTexts = getFooterTexts(language);
 
   const html = `
     <div class="footer">
@@ -115,8 +162,13 @@ function generateEmailFooter(settings: AppSettings): { html: string; text: strin
         ${company.email ? `✉️ ${company.email}` : ''}
       </p>
       ${company.website ? `<p><a href="${company.website}" style="color: #2563eb;">${company.website}</a></p>` : ''}
+      <p style="margin-top: 15px;">
+        <a href="${baseUrl}" style="display: inline-block; padding: 10px 20px; background-color: #2563eb; color: #ffffff; text-decoration: none; border-radius: 6px; font-weight: 600; font-size: 14px;">
+          ${footerTexts.visitSite}
+        </a>
+      </p>
       <p style="margin-top: 20px; font-size: 12px; color: #9ca3af;">
-        Hai ricevuto questa email perché sei registrato sul nostro sito
+        ${footerTexts.receivedEmail}
       </p>
     </div>
   `;
@@ -129,7 +181,9 @@ ${company.phone ? `Tel: ${company.phone}` : ''}
 ${company.email ? `Email: ${company.email}` : ''}
 ${company.website || ''}
 
-Hai ricevuto questa email perché sei registrato sul nostro sito
+${footerTexts.visitSite}: ${baseUrl}
+
+${footerTexts.receivedEmail}
   `.trim();
 
   return { html, text };
@@ -161,7 +215,7 @@ export async function sendB2BRegistrationConfirmation(
     return { success: true, skipped: true };
   }
 
-  const footer = generateEmailFooter(settings);
+  const footer = generateEmailFooter(settings, language);
 
   // Get email content in specified language
   const emailContent = template.translations[language];
@@ -277,7 +331,7 @@ export async function sendVerificationEmail(
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3002';
     const verificationUrl = `${baseUrl}/verify-email/${token}`;
 
-    const footer = generateEmailFooter(settings);
+    const footer = generateEmailFooter(settings, language);
 
     // Get email content in specified language
     const emailContent = template.translations[language];
@@ -392,7 +446,7 @@ async function sendVerificationEmailFallback(
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3002';
   const verificationUrl = `${baseUrl}/verify-email/${token}`;
 
-  const footer = generateEmailFooter(settings);
+  const footer = generateEmailFooter(settings, language);
 
   // Multilingual content
   const content: Record<SupportedLanguage, { subject: string; body: string; button: string }> = {

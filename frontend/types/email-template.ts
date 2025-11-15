@@ -169,6 +169,22 @@ export const COMMON_VARIABLES: { [key: string]: EmailTemplateVariable[] } = {
       required: false,
       example: 'Cordiali saluti,<br>Il Team Didieffe'
     }
+  ],
+  site: [
+    {
+      name: 'siteUrl',
+      label: 'URL Sito',
+      description: 'Indirizzo completo del sito web',
+      required: false,
+      example: 'https://shop.example.com'
+    },
+    {
+      name: 'siteName',
+      label: 'Nome Sito',
+      description: 'Nome del sito/azienda',
+      required: false,
+      example: 'Didieffe B2B'
+    }
   ]
 };
 
