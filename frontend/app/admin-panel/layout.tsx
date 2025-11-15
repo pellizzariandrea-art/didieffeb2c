@@ -6,8 +6,10 @@
 import { useEffect, useState } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 import { useAuth } from '@/contexts/AuthContext';
+import { useLanguage } from '@/contexts/LanguageContext';
 import Link from 'next/link';
 import Image from 'next/image';
+import uiLabels from '@/config/ui-labels.json';
 import {
   LayoutDashboard,
   Settings,
@@ -31,6 +33,7 @@ export default function AdminPanelLayout({
   const router = useRouter();
   const pathname = usePathname();
   const { user, loading, logout } = useAuth();
+  const { currentLang } = useLanguage();
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [logoUrl, setLogoUrl] = useState<string>('');
@@ -71,13 +74,23 @@ export default function AdminPanelLayout({
     }
   };
 
+  // Helper function to get translated labels
+  const getLabel = (path: string): string => {
+    const keys = path.split('.');
+    let value: any = uiLabels;
+    for (const key of keys) {
+      value = value?.[key];
+    }
+    return value?.[currentLang] || value?.['it'] || path;
+  };
+
   // Show loading while checking auth
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50">
         <div className="text-center">
           <div className="animate-spin rounded-full h-16 w-16 border-4 border-blue-600 border-t-transparent mx-auto mb-4"></div>
-          <p className="text-gray-600 font-medium">Caricamento...</p>
+          <p className="text-gray-600 font-medium">{getLabel('common.loading')}</p>
         </div>
       </div>
     );
@@ -89,14 +102,14 @@ export default function AdminPanelLayout({
   }
 
   const navigation = [
-    { name: 'Dashboard', href: '/admin-panel', icon: LayoutDashboard, badge: null },
-    { name: 'Gestione Utenti', href: '/admin-panel/users', icon: Users, badge: null },
-    { name: 'Traduzione UI', href: '/admin-panel/translations', icon: Languages, badge: null, subtitle: 'Interfaccia Multilingua' },
-    { name: 'Reports', href: '/admin-panel/reports', icon: BarChart3, badge: null },
-    { name: 'Dashboard KPI', href: '/admin-panel/dashboard-config', icon: LayoutDashboard, badge: null, subtitle: 'Metriche Area Utente' },
-    { name: 'Email Templates', href: '/admin-panel/email-templates', icon: Mail, badge: null },
-    { name: 'Email Logs', href: '/admin-panel/email-logs', icon: FileText, badge: null },
-    { name: 'Impostazioni', href: '/admin-panel/settings', icon: Settings, badge: null },
+    { name: getLabel('admin.nav.dashboard'), href: '/admin-panel', icon: LayoutDashboard, badge: null },
+    { name: getLabel('admin.nav.users'), href: '/admin-panel/users', icon: Users, badge: null },
+    { name: getLabel('admin.nav.translations'), href: '/admin-panel/translations', icon: Languages, badge: null, subtitle: getLabel('admin.nav.translations_subtitle') },
+    { name: getLabel('admin.nav.reports'), href: '/admin-panel/reports', icon: BarChart3, badge: null },
+    { name: getLabel('admin.nav.dashboard_kpi'), href: '/admin-panel/dashboard-config', icon: LayoutDashboard, badge: null, subtitle: getLabel('admin.nav.dashboard_kpi_subtitle') },
+    { name: getLabel('admin.nav.email_templates'), href: '/admin-panel/email-templates', icon: Mail, badge: null },
+    { name: getLabel('admin.nav.email_logs'), href: '/admin-panel/email-logs', icon: FileText, badge: null },
+    { name: getLabel('admin.nav.settings'), href: '/admin-panel/settings', icon: Settings, badge: null },
   ];
 
   const isActive = (href: string) => {
@@ -134,8 +147,8 @@ export default function AdminPanelLayout({
                     </div>
                   )}
                   <div>
-                    <h1 className="text-lg font-bold text-white">Admin Panel</h1>
-                    <p className="text-xs text-slate-400">Dashboard di gestione</p>
+                    <h1 className="text-lg font-bold text-white">{getLabel('admin.title')}</h1>
+                    <p className="text-xs text-slate-400">{getLabel('admin.subtitle')}</p>
                   </div>
                 </div>
                 <button
@@ -201,7 +214,7 @@ export default function AdminPanelLayout({
             {sidebarOpen ? (
               <div className="space-y-3">
                 <div className="px-3 py-2 rounded-lg bg-slate-800/50 border border-slate-700">
-                  <p className="text-xs text-slate-400 mb-1">Logged in as</p>
+                  <p className="text-xs text-slate-400 mb-1">{getLabel('admin.logged_in_as')}</p>
                   <p className="text-sm font-medium text-white truncate">{user.email}</p>
                 </div>
                 <div className="flex gap-2">
@@ -210,14 +223,14 @@ export default function AdminPanelLayout({
                     className="flex-1 flex items-center justify-center gap-2 px-3 py-2 text-sm font-medium text-slate-300 bg-slate-800 hover:bg-slate-700 rounded-lg transition-colors"
                   >
                     <ExternalLink className="w-4 h-4" />
-                    Sito
+                    {getLabel('admin.site')}
                   </Link>
                   <button
                     onClick={handleLogout}
                     className="flex-1 flex items-center justify-center gap-2 px-3 py-2 text-sm font-medium text-white bg-red-600 hover:bg-red-700 rounded-lg transition-colors"
                   >
                     <LogOut className="w-4 h-4" />
-                    Esci
+                    {getLabel('auth.logout')}
                   </button>
                 </div>
               </div>
@@ -226,14 +239,14 @@ export default function AdminPanelLayout({
                 <Link
                   href="/"
                   className="p-2 text-slate-400 hover:text-white hover:bg-slate-700 rounded-lg transition-colors"
-                  title="Vai al sito"
+                  title={getLabel('admin.site')}
                 >
                   <ExternalLink className="w-5 h-5 mx-auto" />
                 </Link>
                 <button
                   onClick={handleLogout}
                   className="p-2 text-white bg-red-600 hover:bg-red-700 rounded-lg transition-colors"
-                  title="Logout"
+                  title={getLabel('auth.logout')}
                 >
                   <LogOut className="w-5 h-5 mx-auto" />
                 </button>
@@ -270,7 +283,7 @@ export default function AdminPanelLayout({
                     </div>
                   )}
                   <div>
-                    <h1 className="text-lg font-bold text-white">Admin Panel</h1>
+                    <h1 className="text-lg font-bold text-white">{getLabel('admin.title')}</h1>
                   </div>
                 </div>
                 <button
@@ -314,7 +327,7 @@ export default function AdminPanelLayout({
               <div className="p-4 border-t border-slate-700">
                 <div className="space-y-3">
                   <div className="px-3 py-2 rounded-lg bg-slate-800/50 border border-slate-700">
-                    <p className="text-xs text-slate-400 mb-1">Logged in as</p>
+                    <p className="text-xs text-slate-400 mb-1">{getLabel('admin.logged_in_as')}</p>
                     <p className="text-sm font-medium text-white truncate">{user.email}</p>
                   </div>
                   <div className="flex gap-2">
@@ -323,14 +336,14 @@ export default function AdminPanelLayout({
                       className="flex-1 flex items-center justify-center gap-2 px-3 py-2 text-sm font-medium text-slate-300 bg-slate-800 hover:bg-slate-700 rounded-lg transition-colors"
                     >
                       <ExternalLink className="w-4 h-4" />
-                      Sito
+                      {getLabel('admin.site')}
                     </Link>
                     <button
                       onClick={handleLogout}
                       className="flex-1 flex items-center justify-center gap-2 px-3 py-2 text-sm font-medium text-white bg-red-600 hover:bg-red-700 rounded-lg transition-colors"
                     >
                       <LogOut className="w-4 h-4" />
-                      Esci
+                      {getLabel('auth.logout')}
                     </button>
                   </div>
                 </div>
@@ -351,7 +364,7 @@ export default function AdminPanelLayout({
             >
               <Menu className="w-6 h-6" />
             </button>
-            <h1 className="text-lg font-bold text-gray-900">Admin Panel</h1>
+            <h1 className="text-lg font-bold text-gray-900">{getLabel('admin.title')}</h1>
             <button
               onClick={handleLogout}
               className="p-2 rounded-lg hover:bg-red-50 text-red-600"

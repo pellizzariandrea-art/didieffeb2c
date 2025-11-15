@@ -3918,5 +3918,301 @@
         "el": "Η διεύθυνση διαγράφηκε"
       }
     }
+  },
+  "admin": {
+    "title": {
+      "it": "Admin Panel",
+      "en": "Admin Panel",
+      "de": "Verwaltung",
+      "fr": "Panneau Admin",
+      "es": "Panel Admin",
+      "pt": "Painel Admin",
+      "hr": "Administratorska ploča",
+      "sl": "Skrbniška plošča",
+      "el": "Πίνακας Διαχείρισης"
+    },
+    "subtitle": {
+      "it": "Dashboard di gestione",
+      "en": "Management dashboard",
+      "de": "Verwaltungs-Dashboard",
+      "fr": "Tableau de bord de gestion",
+      "es": "Panel de gestión",
+      "pt": "Painel de gestão",
+      "hr": "Upravljačka ploča",
+      "sl": "Upravljalna plošča",
+      "el": "Πίνακας διαχείρισης"
+    },
+    "nav": {
+      "dashboard": {
+        "it": "Dashboard",
+        "en": "Dashboard",
+        "de": "Dashboard",
+        "fr": "Tableau de bord",
+        "es": "Panel",
+        "pt": "Painel",
+        "hr": "Nadzorna ploča",
+        "sl": "Nadzorna plošča",
+        "el": "Πίνακας ελέγχου"
+      },
+      "users": {
+        "it": "Gestione Utenti",
+        "en": "User Management",
+        "de": "Benutzerverwaltung",
+        "fr": "Gestion des utilisateurs",
+        "es": "Gestión de usuarios",
+        "pt": "Gestão de usuários",
+        "hr": "Upravljanje korisnicima",
+        "sl": "Upravljanje uporabnikov",
+        "el": "Διαχείριση χρηστών"
+      },
+      "translations": {
+        "it": "Traduzione UI",
+        "en": "UI Translation",
+        "de": "UI-Übersetzung",
+        "fr": "Traduction UI",
+        "es": "Traducción UI",
+        "pt": "Tradução UI",
+        "hr": "Prijevod sučelja",
+        "sl": "Prevod vmesnika",
+        "el": "Μετάφραση διεπαφής"
+      },
+      "translations_subtitle": {
+        "it": "Interfaccia Multilingua",
+        "en": "Multilingual Interface",
+        "de": "Mehrsprachige Oberfläche",
+        "fr": "Interface multilingue",
+        "es": "Interfaz multilingüe",
+        "pt": "Interface multilíngue",
+        "hr": "Višejezično sučelje",
+        "sl": "Večjezični vmesnik",
+        "el": "Πολυγλωσσική διεπαφή"
+      },
+      "reports": {
+        "it": "Reports",
+        "en": "Reports",
+        "de": "Berichte",
+        "fr": "Rapports",
+        "es": "Informes",
+        "pt": "Relatórios",
+        "hr": "Izvješća",
+        "sl": "Poročila",
+        "el": "Αναφορές"
+      },
+      "dashboard_kpi": {
+        "it": "Dashboard KPI",
+        "en": "KPI Dashboard",
+        "de": "KPI-Dashboard",
+        "fr": "Tableau de bord KPI",
+        "es": "Panel KPI",
+        "pt": "Painel KPI",
+        "hr": "KPI nadzorna ploča",
+        "sl": "KPI nadzorna plošča",
+        "el": "Πίνακας KPI"
+      },
+      "dashboard_kpi_subtitle": {
+        "it": "Metriche Area Utente",
+        "en": "User Area Metrics",
+        "de": "Benutzerbereich-Metriken",
+        "fr": "Métriques de l'espace utilisateur",
+        "es": "Métricas del área de usuario",
+        "pt": "Métricas da área do usuário",
+        "hr": "Metrike korisničkog područja",
+        "sl": "Metrike uporabniškega območja",
+        "el": "Μετρήσεις περιοχής χρήστη"
+      },
+      "email_templates": {
+        "it": "Email Templates",
+        "en": "Email Templates",
+        "de": "E-Mail-Vorlagen",
+        "fr": "Modèles d'email",
+        "es": "Plantillas de email",
+        "pt": "Modelos de email",
+        "hr": "Predlošci e-pošte",
+        "sl": "Predloge e-pošte",
+        "el": "Πρότυπα email"
+      },
+      "email_logs": {
+        "it": "Email Logs",
+        "en": "Email Logs",
+        "de": "E-Mail-Protokolle",
+        "fr": "Journaux d'emails",
+        "es": "Registros de email",
+        "pt": "Logs de email",
+        "hr": "Zapisi e-pošte",
+        "sl": "Dnevniki e-pošte",
+        "el": "Αρχεία email"
+      },
+      "settings": {
+        "it": "Impostazioni",
+        "en": "Settings",
+        "de": "Einstellungen",
+        "fr": "Paramètres",
+        "es": "Configuración",
+        "pt": "Configurações",
+        "hr": "Postavke",
+        "sl": "Nastavitve",
+        "el": "Ρυθμίσεις"
+      }
+    },
+    "logged_in_as": {
+      "it": "Connesso come",
+      "en": "Logged in as",
+      "de": "Angemeldet als",
+      "fr": "Connecté en tant que",
+      "es": "Conectado como",
+      "pt": "Conectado como",
+      "hr": "Prijavljeni kao",
+      "sl": "Prijavljeni kot",
+      "el": "Συνδεδεμένος ως"
+    },
+    "site": {
+      "it": "Sito",
+      "en": "Site",
+      "de": "Webseite",
+      "fr": "Site",
+      "es": "Sitio",
+      "pt": "Site",
+      "hr": "Web stranica",
+      "sl": "Spletna stran",
+      "el": "Ιστότοπος"
+    },
+    "welcome": {
+      "it": "Benvenuto nel pannello di gestione",
+      "en": "Welcome to the management panel",
+      "de": "Willkommen im Verwaltungsbereich",
+      "fr": "Bienvenue dans le panneau de gestion",
+      "es": "Bienvenido al panel de gestión",
+      "pt": "Bem-vindo ao painel de gestão",
+      "hr": "Dobrodošli u upravljačku ploču",
+      "sl": "Dobrodošli v upravljalno ploščo",
+      "el": "Καλώς ήρθατε στον πίνακα διαχείρισης"
+    },
+    "description": {
+      "it": "Da qui puoi gestire tutti gli aspetti del sistema: utenti, traduzioni, email, report e configurazioni generali.",
+      "en": "From here you can manage all aspects of the system: users, translations, emails, reports and general settings.",
+      "de": "Von hier aus können Sie alle Aspekte des Systems verwalten: Benutzer, Übersetzungen, E-Mails, Berichte und allgemeine Einstellungen.",
+      "fr": "D'ici, vous pouvez gérer tous les aspects du système : utilisateurs, traductions, emails, rapports et paramètres généraux.",
+      "es": "Desde aquí puedes gestionar todos los aspectos del sistema: usuarios, traducciones, emails, informes y configuraciones generales.",
+      "pt": "A partir daqui você pode gerenciar todos os aspectos do sistema: usuários, traduções, emails, relatórios e configurações gerais.",
+      "hr": "Odavde možete upravljati svim aspektima sustava: korisnicima, prijevodima, e-poštom, izvješćima i općim postavkama.",
+      "sl": "Od tukaj lahko upravljate vse vidike sistema: uporabnike, prevode, e-pošto, poročila in splošne nastavitve.",
+      "el": "Από εδώ μπορείτε να διαχειριστείτε όλες τις πτυχές του συστήματος: χρήστες, μεταφράσεις, emails, αναφορές και γενικές ρυθμίσεις."
+    }
+  },
+  "user_area": {
+    "title": {
+      "it": "Area Cliente",
+      "en": "Customer Area",
+      "de": "Kundenbereich",
+      "fr": "Espace client",
+      "es": "Área de cliente",
+      "pt": "Área do cliente",
+      "hr": "Korisničko područje",
+      "sl": "Uporabniško območje",
+      "el": "Περιοχή πελάτη"
+    },
+    "subtitle": {
+      "it": "Il tuo account",
+      "en": "Your account",
+      "de": "Ihr Konto",
+      "fr": "Votre compte",
+      "es": "Tu cuenta",
+      "pt": "Sua conta",
+      "hr": "Vaš račun",
+      "sl": "Vaš račun",
+      "el": "Ο λογαριασμός σας"
+    },
+    "nav": {
+      "dashboard": {
+        "it": "Dashboard",
+        "en": "Dashboard",
+        "de": "Dashboard",
+        "fr": "Tableau de bord",
+        "es": "Panel",
+        "pt": "Painel",
+        "hr": "Nadzorna ploča",
+        "sl": "Nadzorna plošča",
+        "el": "Πίνακας ελέγχου"
+      },
+      "profile": {
+        "it": "Profilo",
+        "en": "Profile",
+        "de": "Profil",
+        "fr": "Profil",
+        "es": "Perfil",
+        "pt": "Perfil",
+        "hr": "Profil",
+        "sl": "Profil",
+        "el": "Προφίλ"
+      },
+      "addresses": {
+        "it": "Indirizzi",
+        "en": "Addresses",
+        "de": "Adressen",
+        "fr": "Adresses",
+        "es": "Direcciones",
+        "pt": "Endereços",
+        "hr": "Adrese",
+        "sl": "Naslovi",
+        "el": "Διευθύνσεις"
+      },
+      "security": {
+        "it": "Sicurezza",
+        "en": "Security",
+        "de": "Sicherheit",
+        "fr": "Sécurité",
+        "es": "Seguridad",
+        "pt": "Segurança",
+        "hr": "Sigurnost",
+        "sl": "Varnost",
+        "el": "Ασφάλεια"
+      },
+      "orders": {
+        "it": "Ordini",
+        "en": "Orders",
+        "de": "Bestellungen",
+        "fr": "Commandes",
+        "es": "Pedidos",
+        "pt": "Pedidos",
+        "hr": "Narudžbe",
+        "sl": "Naročila",
+        "el": "Παραγγελίες"
+      },
+      "reports": {
+        "it": "Reports",
+        "en": "Reports",
+        "de": "Berichte",
+        "fr": "Rapports",
+        "es": "Informes",
+        "pt": "Relatórios",
+        "hr": "Izvješća",
+        "sl": "Poročila",
+        "el": "Αναφορές"
+      }
+    },
+    "account": {
+      "it": "Account",
+      "en": "Account",
+      "de": "Konto",
+      "fr": "Compte",
+      "es": "Cuenta",
+      "pt": "Conta",
+      "hr": "Račun",
+      "sl": "Račun",
+      "el": "Λογαριασμός"
+    }
+  },
+  "common": {
+    "loading": {
+      "it": "Caricamento...",
+      "en": "Loading...",
+      "de": "Wird geladen...",
+      "fr": "Chargement...",
+      "es": "Cargando...",
+      "pt": "Carregando...",
+      "hr": "Učitavanje...",
+      "sl": "Nalaganje...",
+      "el": "Φόρτωση..."
+    }
   }
 }

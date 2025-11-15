@@ -6,6 +6,8 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useLanguage } from '@/contexts/LanguageContext';
+import uiLabels from '@/config/ui-labels.json';
 import {
   Settings,
   Users,
@@ -18,7 +20,18 @@ import {
 } from 'lucide-react';
 
 export default function AdminDashboard() {
+  const { currentLang } = useLanguage();
   const [logoUrl, setLogoUrl] = useState<string>('');
+
+  // Helper function to get translated labels
+  const getLabel = (path: string): string => {
+    const keys = path.split('.');
+    let value: any = uiLabels;
+    for (const key of keys) {
+      value = value?.[key];
+    }
+    return value?.[currentLang] || value?.['it'] || path;
+  };
 
   // Load logo from settings
   useEffect(() => {
@@ -39,7 +52,7 @@ export default function AdminDashboard() {
   }, []);
   const cards = [
     {
-      title: 'Gestione Utenti',
+      title: getLabel('admin.nav.users'),
       description: 'Approva, modifica ed elimina utenti',
       icon: Users,
       href: '/admin-panel/users',
@@ -47,15 +60,15 @@ export default function AdminDashboard() {
       color: 'blue'
     },
     {
-      title: 'Traduzione UI',
-      description: 'Interfaccia multilingua e localizzazione',
+      title: getLabel('admin.nav.translations'),
+      description: getLabel('admin.nav.translations_subtitle'),
       icon: Languages,
       href: '/admin-panel/translations',
       gradient: 'from-purple-500 to-pink-600',
       color: 'purple'
     },
     {
-      title: 'Report Clienti',
+      title: getLabel('admin.nav.reports'),
       description: 'Gestione dinamica report B2B',
       icon: BarChart3,
       href: '/admin-panel/reports',
@@ -63,7 +76,7 @@ export default function AdminDashboard() {
       color: 'orange'
     },
     {
-      title: 'Email Templates',
+      title: getLabel('admin.nav.email_templates'),
       description: 'Template email transazionali',
       icon: Mail,
       href: '/admin-panel/email-templates',
@@ -71,15 +84,15 @@ export default function AdminDashboard() {
       color: 'green'
     },
     {
-      title: 'Dashboard KPI',
-      description: 'Metriche area utente B2B',
+      title: getLabel('admin.nav.dashboard_kpi'),
+      description: getLabel('admin.nav.dashboard_kpi_subtitle'),
       icon: LayoutDashboard,
       href: '/admin-panel/dashboard-config',
       gradient: 'from-cyan-500 to-blue-600',
       color: 'cyan'
     },
     {
-      title: 'Impostazioni',
+      title: getLabel('admin.nav.settings'),
       description: 'Configurazione azienda e sistema',
       icon: Settings,
       href: '/admin-panel/settings',
@@ -107,15 +120,14 @@ export default function AdminDashboard() {
             )}
           </div>
           <div>
-            <h1 className="text-4xl font-bold mb-2">Dashboard Admin</h1>
+            <h1 className="text-4xl font-bold mb-2">{getLabel('admin.title')}</h1>
             <p className="text-blue-100 text-lg">
-              Benvenuto nel pannello di gestione
+              {getLabel('admin.welcome')}
             </p>
           </div>
         </div>
         <p className="text-blue-50 max-w-2xl">
-          Da qui puoi gestire tutti gli aspetti del sistema: utenti, traduzioni,
-          email, report e configurazioni generali.
+          {getLabel('admin.description')}
         </p>
       </div>
 
