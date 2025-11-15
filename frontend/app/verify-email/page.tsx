@@ -11,6 +11,7 @@ function VerifyEmailContent() {
   const { language } = useLanguage();
   const [status, setStatus] = useState<'loading' | 'success' | 'error'>('loading');
   const [errorMessage, setErrorMessage] = useState('');
+  const [hasVerified, setHasVerified] = useState(false);
 
   const messages = {
     it: {
@@ -108,6 +109,9 @@ function VerifyEmailContent() {
   const labels = messages[language] || messages.it;
 
   useEffect(() => {
+    // Prevent multiple verification attempts
+    if (hasVerified) return;
+
     const verifyEmail = async () => {
       const token = searchParams.get('token');
 
@@ -116,6 +120,9 @@ function VerifyEmailContent() {
         setErrorMessage(labels.tokenInvalid);
         return;
       }
+
+      // Mark as verified attempt to prevent double calls
+      setHasVerified(true);
 
       try {
         const response = await fetch('/api/verify-email', {
@@ -151,7 +158,9 @@ function VerifyEmailContent() {
     };
 
     verifyEmail();
-  }, [searchParams, router, labels]);
+    // Only depend on searchParams - labels and router cause unnecessary re-runs
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchParams]);
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
