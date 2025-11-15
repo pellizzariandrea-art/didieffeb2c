@@ -328,8 +328,9 @@ export async function sendVerificationEmail(
     const token = await createVerificationToken(userId, email);
 
     // Build verification URL (path-based for Brevo tracking compatibility)
+    // Include language in URL so verification page shows in user's preferred language
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3002';
-    const verificationUrl = `${baseUrl}/verify-email/${token}`;
+    const verificationUrl = `${baseUrl}/verify-email/${token}?lang=${language}`;
 
     const footer = generateEmailFooter(settings, language);
 
@@ -443,8 +444,9 @@ async function sendVerificationEmailFallback(
   const token = await createVerificationToken(userId, email);
 
   // Build verification URL (path-based token for Brevo tracking compatibility)
+  // Include language in URL so verification page shows in user's preferred language
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3002';
-  const verificationUrl = `${baseUrl}/verify-email/${token}`;
+  const verificationUrl = `${baseUrl}/verify-email/${token}?lang=${language}`;
 
   const footer = generateEmailFooter(settings, language);
 

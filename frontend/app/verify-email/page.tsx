@@ -8,10 +8,14 @@ import { CheckCircle, XCircle, Loader2 } from 'lucide-react';
 function VerifyEmailContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const { language } = useLanguage();
+  const { language: contextLang } = useLanguage();
   const [status, setStatus] = useState<'loading' | 'success' | 'error'>('loading');
   const [errorMessage, setErrorMessage] = useState('');
   const [hasVerified, setHasVerified] = useState(false);
+
+  // Use language from URL (from registration) or fallback to context
+  const urlLang = searchParams.get('lang') as 'it' | 'en' | 'de' | 'fr' | 'es' | 'pt' | 'hr' | 'sl' | 'el' | null;
+  const language = urlLang || contextLang;
 
   const messages = {
     it: {
