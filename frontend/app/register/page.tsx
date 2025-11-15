@@ -6,6 +6,7 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useAuth } from '@/contexts/AuthContext';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { registerB2C, registerB2B } from '@/lib/firebase/auth';
@@ -75,9 +76,32 @@ function UnifiedRegistrationForm({ language, setLanguage }: any) {
   const [customerType, setCustomerType] = useState<CustomerType>('private');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [logoUrl, setLogoUrl] = useState<string>('');
+  const [companyName, setCompanyName] = useState<string>('');
 
   const labels = uiLabels.auth;
   const regLabels = labels.register_form;
+
+  // Load logo from settings
+  useEffect(() => {
+    async function loadSettings() {
+      try {
+        const response = await fetch('/api/settings/public');
+        if (response.ok) {
+          const data = await response.json();
+          if (data.settings?.logo?.base64) {
+            setLogoUrl(data.settings.logo.base64);
+          }
+          if (data.settings?.company?.name) {
+            setCompanyName(data.settings.company.name);
+          }
+        }
+      } catch (error) {
+        console.error('Error loading settings:', error);
+      }
+    }
+    loadSettings();
+  }, []);
 
   const [formData, setFormData] = useState({
     email: '',
@@ -263,11 +287,64 @@ function UnifiedRegistrationForm({ language, setLanguage }: any) {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4 sm:px-6 lg:px-8 py-12">
-      <div className="max-w-2xl w-full space-y-8">
-        {/* Header with Language Selector */}
-        <div className="flex justify-between items-start">
-          <div>
+    <div className="min-h-screen bg-gray-50">
+      {/* Header Sticky */}
+      <header className="sticky top-0 z-50 bg-white shadow-sm">
+        <div className="container mx-auto px-4 py-4">
+          <div className="flex items-center justify-between gap-4">
+            {/* Back Button + Logo */}
+            <div className="flex items-center gap-3 sm:gap-4">
+              <Link
+                href="/"
+                className="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 bg-gradient-to-r from-gray-900 to-gray-800 text-white rounded-lg hover:from-gray-800 hover:to-gray-700 transition-all shadow-md hover:shadow-lg text-xs sm:text-sm font-medium group"
+              >
+                <svg className="w-3.5 sm:w-4 h-3.5 sm:h-4 transition-transform group-hover:-translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                </svg>
+                <span className="hidden xs:inline">{uiLabels.register.back_to_site[language]}</span>
+                <span className="xs:hidden">{uiLabels.register.back[language]}</span>
+              </Link>
+
+              <Link href="/" className="flex items-center gap-3">
+                {logoUrl ? (
+                  <div className="bg-white rounded-lg px-3 py-2">
+                    <Image
+                      src={logoUrl}
+                      alt="Logo"
+                      width={140}
+                      height={40}
+                      className="h-8 w-auto object-contain"
+                    />
+                  </div>
+                ) : companyName ? (
+                  <span className="text-lg sm:text-xl font-bold text-gray-900">{companyName}</span>
+                ) : (
+                  <span className="text-lg sm:text-xl font-bold text-gray-900">{regLabels.title[language]}</span>
+                )}
+              </Link>
+            </div>
+
+            {/* Language Selector */}
+            <select
+              value={language}
+              onChange={(e) => setLanguage(e.target.value as any)}
+              className="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 text-sm shadow-sm hover:border-gray-400 transition-colors"
+            >
+              {SUPPORTED_LANGUAGES.map((lang) => (
+                <option key={lang.code} value={lang.code}>
+                  {lang.flag} {lang.name}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
+      </header>
+
+      {/* Main Content */}
+      <div className="flex items-center justify-center px-4 sm:px-6 lg:px-8 py-12">
+        <div className="max-w-2xl w-full space-y-8">
+          {/* Title and Login Link */}
+          <div className="text-center">
             <h2 className="text-3xl font-extrabold text-gray-900">
               {regLabels.title[language]}
             </h2>
@@ -278,18 +355,6 @@ function UnifiedRegistrationForm({ language, setLanguage }: any) {
               </Link>
             </p>
           </div>
-          <select
-            value={language}
-            onChange={(e) => setLanguage(e.target.value as any)}
-            className="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 text-sm"
-          >
-            {SUPPORTED_LANGUAGES.map((lang) => (
-              <option key={lang.code} value={lang.code}>
-                {lang.flag} {lang.name}
-              </option>
-            ))}
-          </select>
-        </div>
 
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
           {/* Customer Type Toggle */}
@@ -333,7 +398,7 @@ function UnifiedRegistrationForm({ language, setLanguage }: any) {
           {/* Account Credentials */}
           <div className="bg-white shadow px-6 py-6 rounded-lg space-y-4">
             <h3 className="text-lg font-medium text-gray-900">
-              {language === 'it' ? 'Credenziali di accesso' : language === 'en' ? 'Login credentials' : language === 'de' ? 'Anmeldedaten' : language === 'fr' ? 'Identifiants de connexion' : language === 'es' ? 'Credenciales de acceso' : 'Credenciais de login'}
+              {uiLabels.register.login_credentials[language]}
             </h3>
 
             <input
@@ -360,7 +425,7 @@ function UnifiedRegistrationForm({ language, setLanguage }: any) {
                 <div className="mt-2">
                   <div className="flex items-center gap-2 text-sm">
                     <span className="text-gray-600">
-                      {language === 'it' ? 'Forza password:' : language === 'en' ? 'Password strength:' : 'Stärke:'}
+                      {uiLabels.register.password_strength[language]}
                     </span>
                     <span className={`font-medium px-2 py-0.5 rounded ${getPasswordStrengthInfo(formData.password).bgColor} ${getPasswordStrengthInfo(formData.password).color}`}>
                       {getPasswordStrengthInfo(formData.password).label}
@@ -372,19 +437,19 @@ function UnifiedRegistrationForm({ language, setLanguage }: any) {
                       return (
                         <>
                           <div className={validation.checks.minLength ? 'text-green-600' : 'text-gray-500'}>
-                            {validation.checks.minLength ? '✓' : '○'} {language === 'it' ? 'Almeno 8 caratteri' : 'At least 8 characters'}
+                            {validation.checks.minLength ? '✓' : '○'} {uiLabels.register.password_min_length[language]}
                           </div>
                           <div className={validation.checks.hasUpperCase ? 'text-green-600' : 'text-gray-500'}>
-                            {validation.checks.hasUpperCase ? '✓' : '○'} {language === 'it' ? 'Una lettera maiuscola' : 'One uppercase letter'}
+                            {validation.checks.hasUpperCase ? '✓' : '○'} {uiLabels.register.password_uppercase[language]}
                           </div>
                           <div className={validation.checks.hasLowerCase ? 'text-green-600' : 'text-gray-500'}>
-                            {validation.checks.hasLowerCase ? '✓' : '○'} {language === 'it' ? 'Una lettera minuscola' : 'One lowercase letter'}
+                            {validation.checks.hasLowerCase ? '✓' : '○'} {uiLabels.register.password_lowercase[language]}
                           </div>
                           <div className={validation.checks.hasNumber ? 'text-green-600' : 'text-gray-500'}>
-                            {validation.checks.hasNumber ? '✓' : '○'} {language === 'it' ? 'Un numero' : 'One number'}
+                            {validation.checks.hasNumber ? '✓' : '○'} {uiLabels.register.password_number[language]}
                           </div>
                           <div className={validation.checks.hasSpecialChar ? 'text-green-600' : 'text-gray-500'}>
-                            {validation.checks.hasSpecialChar ? '✓' : '○'} {language === 'it' ? 'Un carattere speciale (opzionale)' : 'Special character (optional)'}
+                            {validation.checks.hasSpecialChar ? '✓' : '○'} {uiLabels.register.password_special[language]}
                           </div>
                         </>
                       );
@@ -463,7 +528,7 @@ function UnifiedRegistrationForm({ language, setLanguage }: any) {
                     onBlur={() => handleBlur('codiceFiscale')}
                     error={errors.codiceFiscale}
                     touched={touched.codiceFiscale}
-                    placeholder={labels.fiscal_code[language] + ' (' + (language === 'it' ? 'opzionale' : 'optional') + ')'}
+                    placeholder={labels.fiscal_code[language] + ' (' + uiLabels.register.optional[language] + ')'}
                   />
                   <ValidatedInput
                     name="partitaIva"
@@ -473,7 +538,7 @@ function UnifiedRegistrationForm({ language, setLanguage }: any) {
                     onBlur={() => handleBlur('partitaIva')}
                     error={errors.partitaIva}
                     touched={touched.partitaIva}
-                    placeholder={labels.vat_number[language] + ' (' + (language === 'it' ? 'opzionale' : 'optional') + ')'}
+                    placeholder={labels.vat_number[language] + ' (' + uiLabels.register.optional[language] + ')'}
                   />
                 </div>
               </>
@@ -521,20 +586,7 @@ function UnifiedRegistrationForm({ language, setLanguage }: any) {
                     value={formData.nome}
                     onChange={handleChange}
                     className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-                    placeholder={
-                      labels.first_name[language] +
-                      ' (' +
-                      (language === 'it' ? 'referente, opzionale' :
-                       language === 'en' ? 'contact, optional' :
-                       language === 'de' ? 'Ansprechpartner, optional' :
-                       language === 'fr' ? 'contact, optionnel' :
-                       language === 'es' ? 'contacto, opcional' :
-                       language === 'pt' ? 'contato, opcional' :
-                       language === 'hr' ? 'kontakt, neobavezno' :
-                       language === 'sl' ? 'kontakt, neobvezno' :
-                       'επικοινωνία, προαιρετικό') +
-                      ')'
-                    }
+                    placeholder={labels.first_name[language] + ' (' + uiLabels.register.contact_optional[language] + ')'}
                   />
                   <input
                     name="cognome"
@@ -542,20 +594,7 @@ function UnifiedRegistrationForm({ language, setLanguage }: any) {
                     value={formData.cognome}
                     onChange={handleChange}
                     className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-                    placeholder={
-                      labels.last_name[language] +
-                      ' (' +
-                      (language === 'it' ? 'referente, opzionale' :
-                       language === 'en' ? 'contact, optional' :
-                       language === 'de' ? 'Ansprechpartner, optional' :
-                       language === 'fr' ? 'contact, optionnel' :
-                       language === 'es' ? 'contacto, opcional' :
-                       language === 'pt' ? 'contato, opcional' :
-                       language === 'hr' ? 'kontakt, neobavezno' :
-                       language === 'sl' ? 'kontakt, neobvezno' :
-                       'επικοινωνία, προαιρετικό') +
-                      ')'
-                    }
+                    placeholder={labels.last_name[language] + ' (' + uiLabels.register.contact_optional[language] + ')'}
                   />
                 </div>
               </>
@@ -659,11 +698,28 @@ function UnifiedRegistrationForm({ language, setLanguage }: any) {
 
           <div className="text-center">
             <Link href="/" className="text-sm text-gray-600 hover:text-gray-500">
-              ← {language === 'it' ? 'Torna al sito' : language === 'en' ? 'Back to site' : language === 'de' ? 'Zurück zur Seite' : language === 'fr' ? 'Retour au site' : language === 'es' ? 'Volver al sitio' : language === 'pt' ? 'Voltar ao site' : language === 'hr' ? 'Natrag na stranicu' : language === 'sl' ? 'Nazaj na stran' : 'Επιστροφή στον ιστότοπο'}
+              ← {uiLabels.register.back_to_site[language]}
             </Link>
           </div>
         </form>
+        </div>
       </div>
+
+      {/* Footer */}
+      <footer className="mt-auto bg-white border-t border-gray-200">
+        <div className="container mx-auto px-4 py-6">
+          <div className="text-center text-sm text-gray-600">
+            <p>
+              © {new Date().getFullYear()} {companyName || regLabels.title[language]}. All rights reserved.
+            </p>
+            <div className="mt-2 flex justify-center gap-4">
+              <Link href="/" className="hover:text-gray-900">
+                {uiLabels.register.back_to_site[language]}
+              </Link>
+            </div>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }
@@ -816,7 +872,7 @@ function B2CRegistrationForm({ language, labels, loading, error, setLoading, set
             onClick={onBack}
             className="text-sm text-gray-600 hover:text-gray-500 flex items-center"
           >
-            ← {language === 'it' ? 'Indietro' : language === 'en' ? 'Back' : language === 'de' ? 'Zurück' : language === 'fr' ? 'Retour' : language === 'es' ? 'Atrás' : 'Voltar'}
+            ← {uiLabels.register.back[language]}
           </button>
           <h2 className="mt-6 text-3xl font-extrabold text-gray-900">
             {labels.b2c_customer[language]}
@@ -829,7 +885,7 @@ function B2CRegistrationForm({ language, labels, loading, error, setLoading, set
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
           {/* Account Info */}
           <div className="bg-white shadow px-6 py-6 rounded-lg space-y-4">
-            <h3 className="text-lg font-medium text-gray-900">{language === 'it' ? 'Credenziali di accesso' : language === 'en' ? 'Login credentials' : language === 'de' ? 'Anmeldedaten' : language === 'fr' ? 'Identifiants de connexion' : language === 'es' ? 'Credenciales de acceso' : 'Credenciais de login'}</h3>
+            <h3 className="text-lg font-medium text-gray-900">{uiLabels.register.login_credentials[language]}</h3>
 
             <input
               name="email"
@@ -916,7 +972,7 @@ function B2CRegistrationForm({ language, labels, loading, error, setLoading, set
                 onBlur={() => handleBlur('codiceFiscale')}
                 error={errors.codiceFiscale}
                 touched={touched.codiceFiscale}
-                placeholder={labels.fiscal_code[language] + ' (' + (language === 'it' ? 'opzionale' : 'optional') + ')'}
+                placeholder={labels.fiscal_code[language] + ' (' + uiLabels.register.optional[language] + ')'}
               />
 
               <ValidatedInput
@@ -927,7 +983,7 @@ function B2CRegistrationForm({ language, labels, loading, error, setLoading, set
                 onBlur={() => handleBlur('partitaIva')}
                 error={errors.partitaIva}
                 touched={touched.partitaIva}
-                placeholder={labels.vat_number[language] + ' (' + (language === 'it' ? 'opzionale' : 'optional') + ')'}
+                placeholder={labels.vat_number[language] + ' (' + uiLabels.register.optional[language] + ')'}
               />
             </div>
 
@@ -1184,7 +1240,7 @@ function B2BRegistrationForm({ language, labels, loading, error, setLoading, set
             onClick={onBack}
             className="text-sm text-gray-600 hover:text-gray-500 flex items-center"
           >
-            ← {language === 'it' ? 'Indietro' : language === 'en' ? 'Back' : language === 'de' ? 'Zurück' : language === 'fr' ? 'Retour' : language === 'es' ? 'Atrás' : 'Voltar'}
+            ← {uiLabels.register.back[language]}
           </button>
           <h2 className="mt-6 text-3xl font-extrabold text-gray-900">
             {labels.b2b_customer[language]}
@@ -1197,7 +1253,7 @@ function B2BRegistrationForm({ language, labels, loading, error, setLoading, set
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
           {/* Account Info */}
           <div className="bg-white shadow px-6 py-6 rounded-lg space-y-4">
-            <h3 className="text-lg font-medium text-gray-900">{language === 'it' ? 'Credenziali di accesso' : language === 'en' ? 'Login credentials' : language === 'de' ? 'Anmeldedaten' : language === 'fr' ? 'Identifiants de connexion' : language === 'es' ? 'Credenciales de acceso' : 'Credenciais de login'}</h3>
+            <h3 className="text-lg font-medium text-gray-900">{uiLabels.register.login_credentials[language]}</h3>
 
             <input
               name="email"

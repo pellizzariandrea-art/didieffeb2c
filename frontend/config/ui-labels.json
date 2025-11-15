@@ -323,39 +323,6 @@
     }
   },
   "common": {
-    "yes": {
-      "it": "Sì",
-      "en": "Yes",
-      "de": "Ja",
-      "fr": "Oui",
-      "es": "Sí",
-      "pt": "Sim",
-      "hr": "Da",
-      "sl": "Da",
-      "el": "Ναι"
-    },
-    "no": {
-      "it": "No",
-      "en": "No",
-      "de": "Nein",
-      "fr": "Non",
-      "es": "No",
-      "pt": "Não",
-      "hr": "Ne",
-      "sl": "Ne",
-      "el": "Όχι"
-    },
-    "cancel": {
-      "it": "Annulla",
-      "en": "Cancel",
-      "de": "Abbrechen",
-      "fr": "Annuler",
-      "es": "Cancelar",
-      "pt": "Cancelar",
-      "hr": "Otkaži",
-      "sl": "Prekliči",
-      "el": "Ακύρωση"
-    },
     "loading": {
       "it": "Caricamento...",
       "en": "Loading...",
@@ -2328,26 +2295,26 @@
       "el": "Τύπος πελάτη"
     },
     "b2c_customer": {
-      "it": "Cliente privato",
-      "en": "Private customer",
-      "de": "Privatkunde",
-      "fr": "Client privé",
-      "es": "Cliente privado",
-      "pt": "Cliente privado",
-      "hr": "Privatni klijent",
-      "sl": "Zasebna stranka",
-      "el": "Ιδιωτικός πελάτης"
+      "it": "Cliente B2C",
+      "en": "B2C Customer",
+      "de": "B2C-Kunde",
+      "fr": "Client B2C",
+      "es": "Cliente B2C",
+      "pt": "Cliente B2C",
+      "hr": "B2C Kupac",
+      "sl": "B2C Stranka",
+      "el": "Πελάτης B2C"
     },
     "b2b_customer": {
-      "it": "Azienda",
-      "en": "Business",
-      "de": "Unternehmen",
-      "fr": "Entreprise",
-      "es": "Empresa",
-      "pt": "Empresa",
-      "hr": "Tvrtka",
-      "sl": "Podjetje",
-      "el": "Επιχείρηση"
+      "it": "Cliente B2B",
+      "en": "B2B Customer",
+      "de": "B2B-Kunde",
+      "fr": "Client B2B",
+      "es": "Cliente B2B",
+      "pt": "Cliente B2B",
+      "hr": "B2B Kupac",
+      "sl": "B2B Stranka",
+      "el": "Πελάτης B2B"
     },
     "personal_info": {
       "it": "Informazioni personali",
@@ -2957,6 +2924,127 @@
         "sl": "Prednostni Jezik",
         "el": "Προτιμώμενη Γλώσσα"
       },
+      "login_credentials": {
+        "it": "Credenziali di accesso",
+        "en": "Login credentials",
+        "de": "Anmeldedaten",
+        "fr": "Identifiants de connexion",
+        "es": "Credenciales de acceso",
+        "pt": "Credenciais de login",
+        "hr": "Podaci za prijavu",
+        "sl": "Prijavni podatki",
+        "el": "Στοιχεία σύνδεσης"
+      },
+      "password_strength": {
+        "it": "Forza password:",
+        "en": "Password strength:",
+        "de": "Passwortstärke:",
+        "fr": "Force du mot de passe:",
+        "es": "Fuerza de la contraseña:",
+        "pt": "Força da senha:",
+        "hr": "Jačina lozinke:",
+        "sl": "Moč gesla:",
+        "el": "Ισχύς κωδικού:"
+      },
+      "password_min_length": {
+        "it": "Almeno 8 caratteri",
+        "en": "At least 8 characters",
+        "de": "Mindestens 8 Zeichen",
+        "fr": "Au moins 8 caractères",
+        "es": "Al menos 8 caracteres",
+        "pt": "Pelo menos 8 caracteres",
+        "hr": "Najmanje 8 znakova",
+        "sl": "Vsaj 8 znakov",
+        "el": "Τουλάχιστον 8 χαρακτήρες"
+      },
+      "password_uppercase": {
+        "it": "Una lettera maiuscola",
+        "en": "One uppercase letter",
+        "de": "Ein Großbuchstabe",
+        "fr": "Une lettre majuscule",
+        "es": "Una letra mayúscula",
+        "pt": "Uma letra maiúscula",
+        "hr": "Jedno veliko slovo",
+        "sl": "Ena velika črka",
+        "el": "Ένα κεφαλαίο γράμμα"
+      },
+      "password_lowercase": {
+        "it": "Una lettera minuscola",
+        "en": "One lowercase letter",
+        "de": "Ein Kleinbuchstabe",
+        "fr": "Une lettre minuscule",
+        "es": "Una letra minúscula",
+        "pt": "Uma letra minúscula",
+        "hr": "Jedno malo slovo",
+        "sl": "Ena mala črka",
+        "el": "Ένα πεζό γράμμα"
+      },
+      "password_number": {
+        "it": "Un numero",
+        "en": "One number",
+        "de": "Eine Zahl",
+        "fr": "Un chiffre",
+        "es": "Un número",
+        "pt": "Um número",
+        "hr": "Jedan broj",
+        "sl": "Ena številka",
+        "el": "Ένας αριθμός"
+      },
+      "password_special": {
+        "it": "Un carattere speciale (opzionale)",
+        "en": "Special character (optional)",
+        "de": "Sonderzeichen (optional)",
+        "fr": "Caractère spécial (facultatif)",
+        "es": "Carácter especial (opcional)",
+        "pt": "Caractere especial (opcional)",
+        "hr": "Poseban znak (opcionalno)",
+        "sl": "Poseben znak (izbirno)",
+        "el": "Ειδικός χαρακτήρας (προαιρετικό)"
+      },
+      "optional": {
+        "it": "opzionale",
+        "en": "optional",
+        "de": "optional",
+        "fr": "facultatif",
+        "es": "opcional",
+        "pt": "opcional",
+        "hr": "opcionalno",
+        "sl": "izbirno",
+        "el": "προαιρετικό"
+      },
+      "contact_optional": {
+        "it": "referente, opzionale",
+        "en": "contact, optional",
+        "de": "Ansprechpartner, optional",
+        "fr": "contact, facultatif",
+        "es": "contacto, opcional",
+        "pt": "contato, opcional",
+        "hr": "kontakt, opcionalno",
+        "sl": "stik, izbirno",
+        "el": "επαφή, προαιρετικό"
+      },
+      "back_to_site": {
+        "it": "Torna al sito",
+        "en": "Back to site",
+        "de": "Zurück zur Seite",
+        "fr": "Retour au site",
+        "es": "Volver al sitio",
+        "pt": "Voltar ao site",
+        "hr": "Natrag na stranicu",
+        "sl": "Nazaj na stran",
+        "el": "Επιστροφή στον ιστότοπο"
+      },
+      "back": {
+        "it": "Indietro",
+        "en": "Back",
+        "de": "Zurück",
+        "fr": "Retour",
+        "es": "Atrás",
+        "pt": "Voltar",
+        "hr": "Natrag",
+        "sl": "Nazaj",
+        "el": "Πίσω"
+      },
       "create_account": {
         "it": "Crea account",
         "en": "Create account",
@@ -3012,28 +3100,6 @@
       "hr": "Korisnički Prostor",
       "sl": "Uporabniški Prostor",
       "el": "Περιοχή Χρήστη"
-    },
-    "b2c_customer": {
-      "it": "Cliente B2C",
-      "en": "B2C Customer",
-      "de": "B2C-Kunde",
-      "fr": "Client B2C",
-      "es": "Cliente B2C",
-      "pt": "Cliente B2C",
-      "hr": "B2C Kupac",
-      "sl": "B2C Stranka",
-      "el": "Πελάτης B2C"
-    },
-    "b2b_customer": {
-      "it": "Cliente B2B",
-      "en": "B2B Customer",
-      "de": "B2B-Kunde",
-      "fr": "Client B2B",
-      "es": "Cliente B2B",
-      "pt": "Cliente B2B",
-      "hr": "B2B Kupac",
-      "sl": "B2B Stranka",
-      "el": "Πελάτης B2B"
     }
   },
   "account": {
@@ -4213,17 +4279,138 @@
       "el": "Λογαριασμός"
     }
   },
-  "common": {
-    "loading": {
-      "it": "Caricamento...",
-      "en": "Loading...",
-      "de": "Wird geladen...",
-      "fr": "Chargement...",
-      "es": "Cargando...",
-      "pt": "Carregando...",
-      "hr": "Učitavanje...",
-      "sl": "Nalaganje...",
-      "el": "Φόρτωση..."
+  "register": {
+    "login_credentials": {
+      "it": "Credenziali di accesso",
+      "en": "Login credentials",
+      "de": "Anmeldedaten",
+      "fr": "Identifiants de connexion",
+      "es": "Credenciales de acceso",
+      "pt": "Credenciais de login",
+      "hr": "Podaci za prijavu",
+      "sl": "Prijavni podatki",
+      "el": "Διαπιστευτήρια σύνδεσης"
+    },
+    "preferred_language": {
+      "it": "Lingua Preferita",
+      "en": "Preferred Language",
+      "de": "Bevorzugte Sprache",
+      "fr": "Langue Préférée",
+      "es": "Idioma Preferido",
+      "pt": "Idioma Preferido",
+      "hr": "Preferirani Jezik",
+      "sl": "Prednostni Jezik",
+      "el": "Προτιμώμενη Γλώσσα"
+    },
+    "password_strength": {
+      "it": "Forza password:",
+      "en": "Password strength:",
+      "de": "Passwortstärke:",
+      "fr": "Force du mot de passe:",
+      "es": "Fuerza de la contraseña:",
+      "pt": "Força da senha:",
+      "hr": "Jačina lozinke:",
+      "sl": "Moč gesla:",
+      "el": "Ισχύς κωδικού:"
+    },
+    "password_min_length": {
+      "it": "Almeno 8 caratteri",
+      "en": "At least 8 characters",
+      "de": "Mindestens 8 Zeichen",
+      "fr": "Au moins 8 caractères",
+      "es": "Al menos 8 caracteres",
+      "pt": "Pelo menos 8 caracteres",
+      "hr": "Najmanje 8 znakova",
+      "sl": "Vsaj 8 znakov",
+      "el": "Τουλάχιστον 8 χαρακτήρες"
+    },
+    "password_uppercase": {
+      "it": "Una lettera maiuscola",
+      "en": "One uppercase letter",
+      "de": "Ein Großbuchstabe",
+      "fr": "Une lettre majuscule",
+      "es": "Una letra mayúscula",
+      "pt": "Uma letra maiúscula",
+      "hr": "Jedno veliko slovo",
+      "sl": "Ena velika črka",
+      "el": "Ένα κεφαλαίο γράμμα"
+    },
+    "password_lowercase": {
+      "it": "Una lettera minuscola",
+      "en": "One lowercase letter",
+      "de": "Ein Kleinbuchstabe",
+      "fr": "Une lettre minuscule",
+      "es": "Una letra minúscula",
+      "pt": "Uma letra minúscula",
+      "hr": "Jedno malo slovo",
+      "sl": "Ena mala črka",
+      "el": "Ένα πεζό γράμμα"
+    },
+    "password_number": {
+      "it": "Un numero",
+      "en": "One number",
+      "de": "Eine Zahl",
+      "fr": "Un chiffre",
+      "es": "Un número",
+      "pt": "Um número",
+      "hr": "Jedan broj",
+      "sl": "Ena številka",
+      "el": "Ένας αριθμός"
+    },
+    "password_special": {
+      "it": "Un carattere speciale (opzionale)",
+      "en": "Special character (optional)",
+      "de": "Sonderzeichen (optional)",
+      "fr": "Caractère spécial (optionnel)",
+      "es": "Carácter especial (opcional)",
+      "pt": "Caractere especial (opcional)",
+      "hr": "Poseban znak (neobavezno)",
+      "sl": "Poseben znak (neobvezno)",
+      "el": "Ειδικός χαρακτήρας (προαιρετικό)"
+    },
+    "optional": {
+      "it": "opzionale",
+      "en": "optional",
+      "de": "optional",
+      "fr": "optionnel",
+      "es": "opcional",
+      "pt": "opcional",
+      "hr": "neobavezno",
+      "sl": "neobvezno",
+      "el": "προαιρετικό"
+    },
+    "contact_optional": {
+      "it": "referente, opzionale",
+      "en": "contact, optional",
+      "de": "Ansprechpartner, optional",
+      "fr": "contact, optionnel",
+      "es": "contacto, opcional",
+      "pt": "contato, opcional",
+      "hr": "kontakt, neobavezno",
+      "sl": "kontakt, neobvezno",
+      "el": "επικοινωνία, προαιρετικό"
+    },
+    "back_to_site": {
+      "it": "Torna al sito",
+      "en": "Back to site",
+      "de": "Zurück zur Seite",
+      "fr": "Retour au site",
+      "es": "Volver al sitio",
+      "pt": "Voltar ao site",
+      "hr": "Natrag na stranicu",
+      "sl": "Nazaj na stran",
+      "el": "Επιστροφή στον ιστότοπο"
+    },
+    "back": {
+      "it": "Indietro",
+      "en": "Back",
+      "de": "Zurück",
+      "fr": "Retour",
+      "es": "Atrás",
+      "pt": "Voltar",
+      "hr": "Natrag",
+      "sl": "Nazaj",
+      "el": "Πίσω"
     }
   }
 }
